@@ -4,8 +4,8 @@
 Writes boards/<name>/hardware/fab/rev<REV>/:
   gerbers/                Gerbers + Excellon drill (Protel extensions)
   <name>-rev<REV>-gerbers.zip   upload this to the fab
-  <name>-bom.csv          BOM (grouped by value + footprint, with LCSC column)
-  <name>-cpl.csv          pick-and-place in JLCPCB column format
+  <name>-bom.csv          BOM in PCBWay's assembly template layout
+  <name>-centroid.csv     pick-and-place (centroid) file for PCBWay assembly
   <name>-schematic.pdf
   <name>.step             3D model of the assembled board
 
@@ -35,6 +35,45 @@ def run(*args):
     r = subprocess.run(["kicad-cli", *args], capture_output=True, text=True)
     if r.returncode != 0:
         sys.exit(f"kicad-cli {' '.join(args)} failed:\n{r.stdout}{r.stderr}")
+
+
+def write_bom(pcb, path):
+    """BOM in PCBWay's assembly template column order, grouped by part.
+
+    Built from the PCB (symbol fields are copied to footprints by Update PCB
+    from Schematic) so the SMD/THT type comes from the footprint attributes.
+    """
+    import pcbnew
+    board = pcbnew.LoadBoard(str(pcb))
+    groups = {}
+    for fp in board.GetFootprints():
+        attrs = fp.GetAttributes()
+        if attrs & pcbnew.FP_BOARD_ONLY or fp.IsExcludedFromBOM() or fp.IsDNP():
+            continue
+
+        def field(n):
+            return fp.GetFieldText(n) if fp.HasField(n) else ""
+
+        kind = "SMD" if attrs & pcbnew.FP_SMD else "THT" if attrs & pcbnew.FP_THROUGH_HOLE else "Other"
+        key = (field("Manufacturer"), field("MPN"), fp.GetValue(),
+               fp.GetFPID().GetLibItemName().wx_str(), kind)
+        groups.setdefault(key, []).append(fp.GetReference())
+
+    def refkey(r):
+        m = re.match(r"([A-Za-z#]+)(\d*)", r)
+        return (m.group(1), int(m.group(2) or 0))
+
+    rows = sorted(groups.items(), key=lambda kv: refkey(min(kv[1], key=refkey)))
+    missing = [refs for (mfr, mpn, *_), refs in rows if not mpn]
+    with path.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["Item #", "Designator", "Qty", "Manufacturer", "Mfg Part #",
+                    "Description / Value", "Package/Footprint", "Type", "Your Instructions / Notes"])
+        for i, ((mfr, mpn, value, footprint, kind), refs) in enumerate(rows, 1):
+            refs.sort(key=refkey)
+            w.writerow([i, ",".join(refs), len(refs), mfr, mpn, value, footprint, kind, ""])
+    if missing:
+        print("warning: no MPN for " + "; ".join(",".join(r) for r in missing), file=sys.stderr)
 
 
 def main():
@@ -75,19 +114,16 @@ def main():
         for f in sorted(gerb.iterdir()):
             z.write(f, f.name)
 
-    run("sch", "export", "bom", "--fields", "Value,Reference,Footprint,LCSC,${QUANTITY}",
-        "--labels", "Comment,Designator,Footprint,LCSC Part #,Quantity",
-        "--group-by", "Value,Footprint,LCSC", "--ref-range-delimiter", "",
-        "--exclude-dnp", "-o", str(out / f"{name}-bom.csv"), str(sch))
+    write_bom(pcb, out / f"{name}-bom.csv")
 
     raw_pos = out / "pos-raw.csv"
     run("pcb", "export", "pos", "--format", "csv", "--units", "mm", "--side", "both",
         "--use-drill-file-origin", "--exclude-dnp", "-o", str(raw_pos), str(pcb))
-    with raw_pos.open() as fi, (out / f"{name}-cpl.csv").open("w", newline="") as fo:
+    with raw_pos.open() as fi, (out / f"{name}-centroid.csv").open("w", newline="") as fo:
         w = csv.writer(fo)
-        w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
+        w.writerow(["Designator", "Mid X(mm)", "Mid Y(mm)", "Layer", "Rotation"])
         for row in csv.DictReader(fi):
-            w.writerow([row["Ref"], f'{row["PosX"]}mm', f'{row["PosY"]}mm',
+            w.writerow([row["Ref"], row["PosX"], row["PosY"],
                         "Top" if row["Side"] == "top" else "Bottom", row["Rot"]])
     raw_pos.unlink()
 

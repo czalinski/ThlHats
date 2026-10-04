@@ -1,5 +1,5 @@
 (version 1)
-# House custom DRC rules for low-cost 2-layer fabs (JLCPCB/PCBWay standard).
+# House custom DRC rules for low-cost 2-layer fabs (PCBWay standard service).
 # Copied into each board by tools/new_board.py; edit tools/house_rules.kicad_dru
 # for repo-wide changes.
 

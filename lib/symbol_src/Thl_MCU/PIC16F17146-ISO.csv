@@ -1,0 +1,32 @@
+# name: PIC16F17146-ISO
+# mpn: PIC16F17146-I/SO
+# manufacturer: Microchip Technology
+# reference: U
+# footprint: Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm
+# datasheet: https://www.microchip.com/en-us/product/PIC16F17146
+# description: PIC16F171 8-bit MCU, 32 MHz, 28 KB flash, 2 KB RAM, 12-bit differential ADCC, op amp, 2x DAC, PPS, SOIC-20 7.5mm. Pinout per DS40002343E Fig 2-3 / Table 3-2 (same for PIC16F17144/45).
+# keywords: PIC16 PIC16F171 microcontroller 8-bit
+# fp_filters: SOIC*7.5x12.8mm*P1.27mm*
+# aliases: PIC16F17145-ISO=PIC16F17145-I/SO, PIC16F17144-ISO=PIC16F17144-I/SO
+pin,name,type,side
+1,VDD,power_in,top
+19,RA0/ICSPDAT,bidirectional,left
+18,RA1/ICSPCLK,bidirectional,left
+17,RA2,bidirectional,left
+4,RA3/~{MCLR}/VPP,input,left
+3,RA4,bidirectional,left
+2,RA5,bidirectional,left
+,,,left
+13,RB4,bidirectional,left
+12,RB5,bidirectional,left
+11,RB6,bidirectional,left
+10,RB7,bidirectional,left
+16,RC0,bidirectional,right
+15,RC1,bidirectional,right
+14,RC2,bidirectional,right
+7,RC3,bidirectional,right
+6,RC4,bidirectional,right
+5,RC5,bidirectional,right
+8,RC6,bidirectional,right
+9,RC7,bidirectional,right
+20,VSS,power_in,bottom

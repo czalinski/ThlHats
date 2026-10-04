@@ -54,6 +54,14 @@ GPIO_NETS = {
     40: "GPIO21_PCM_DOUT",
 }
 POWER_NETS = {"+3.3V", "+5V", "GND"}
+# Header pins used by the Digilent/MCC DAQ HAT stack (see CLAUDE.md). They get
+# no-connect flags so they cannot be wired by accident. I2C1 (pins 3/5) is
+# shared and stays labelled.
+MCC_RESERVED = {
+    27: "ID_SD", 28: "ID_SC", 24: "SPI0 CE0", 26: "SPI0 CE1", 19: "SPI0 MOSI",
+    21: "SPI0 MISO", 23: "SPI0 SCLK", 32: "ADDR0", 33: "ADDR1", 37: "ADDR2",
+    36: "RESET", 38: "IRQ", 40: "IRQ",
+}
 
 GPIO_SYMBOL = "Connector_Generic:Conn_02x20_Odd_Even"
 GPIO_FOOTPRINT = "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
@@ -168,6 +176,9 @@ class Sch:
             f"\t(wire\n\t\t(pts\n\t\t\t(xy {x1:g} {y1:g}) (xy {x2:g} {y2:g})\n\t\t)\n"
             f"\t\t(stroke\n\t\t\t(width 0)\n\t\t\t(type default)\n\t\t)\n\t\t(uuid {q(uid())})\n\t)\n")
 
+    def no_connect(self, x, y):
+        self.items.append(f"\t(no_connect\n\t\t(at {x:g} {y:g})\n\t\t(uuid {q(uid())})\n\t)\n")
+
     def label(self, name, x, y, rot, justify):
         self.items.append(
             f"\t(label {q(name)}\n\t\t(at {x:g} {y:g} {rot:g})\n"
@@ -207,6 +218,10 @@ def build_schematic(name, title, rev, gpio):
             sx, sy = X + px, Y - py  # schematic y grows downwards
             left = ang == 0  # pin points right, so it is on the left side
             ex = sx - 2.54 if left else sx + 2.54
+            if num in MCC_RESERVED:
+                sch.no_connect(sx, sy)
+                sch.text(f"MCC {MCC_RESERVED[num]}", ex - 13.97 if left else ex, sy - 0.635, 1.0)
+                continue
             sch.wire(sx, sy, ex, sy)
             if net in POWER_NETS:
                 # Rotate power symbols so they point away from the connector.
@@ -227,7 +242,8 @@ def build_schematic(name, title, rev, gpio):
                 sch.power(net, x, fy)
                 sch.flag(x, fy, 180)
         sch.text("Raspberry Pi 40-pin header (socket on the bottom side).\n"
-                 "ID_SD/ID_SC: leave unconnected unless a HAT ID EEPROM is fitted.",
+                 "Pins marked MCC are used by the Digilent/MCC DAQ HAT stack: do not connect.\n"
+                 "I2C1 (SDA/SCL) is shared; avoid addresses 0x20-0x27. No HAT ID EEPROM.",
                  30.48, 50.8)
         sch.text("Power is supplied by the Pi", 25.4, 128.27)
     sch.text(title, 25.4, 30.48, 2.54)

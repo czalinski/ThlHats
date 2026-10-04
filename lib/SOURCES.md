@@ -34,3 +34,7 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x06_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x08_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Connector_PinHeader_1.27mm | PinHeader_2x05_P1.27mm_Vertical | KiCad Connector_PinHeader_1.27mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_SO | SOIC-20W_7.5x12.8mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_QFP | TQFP-64_10x10mm_P0.5mm | KiCad Package_QFP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Thl_MCU | PIC16F17146-ISO | generated from lib/symbol_src/Thl_MCU/PIC16F17146-ISO.csv | repo (MIT) |
+| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024MCF064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024MCF064-IPT.csv | repo (MIT) |

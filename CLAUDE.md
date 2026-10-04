@@ -46,7 +46,7 @@ tools/kilib.py footprint <Name> --from file.kicad_mod --lib Thl_X --model file.s
 tools/kilib.py sync                        # rewrite lib tables in all boards (run after adding a new library)
 tools/kilib.py list
 tools/check_board.py boards/<name> | --all # house rules + ERC + DRC (with schematic parity)
-tools/fab.py boards/<name>                 # gerbers/drill zip, BOM, JLC CPL, PDF, STEP -> hardware/fab/rev<X>/
+tools/fab.py boards/<name>                 # gerbers/drill zip, PCBWay BOM + centroid, PDF, STEP -> hardware/fab/rev<X>/
 ```
 
 Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
@@ -61,12 +61,39 @@ Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
 - Expected ERC warnings in a fresh board: `isolated_pin_label` on unused GPIO
   labels (filtered by the checker).
 - House design rules live in `tools/house_rules.py` and `tools/house_rules.kicad_dru`
-  (aimed at JLCPCB/PCBWay standard 2-layer: 0.15 mm track/space, 0.3 mm min drill,
-  0.6/0.3 mm vias, 0.3 mm copper-to-edge). New boards copy them; existing boards
+  (fab is **PCBWay**, standard 2-layer service: we use 0.15 mm track/space,
+  0.3 mm min drill, 0.6/0.3 mm vias, 0.3 mm copper-to-edge — all inside PCBWay's
+  no-extra-cost limits). New boards copy them; existing boards
   keep their own copies.
 - The RPi header (`J1`) is a 2×20 socket on the **bottom** side; pin 1 is at
   (8.37, 4.77) mm from the board corner. Don't move J1 or the MH holes.
-- Fill `LCSC` symbol fields for parts to be assembled by JLCPCB; `fab.py` puts them in the BOM.
+- Give every part to be assembled `Manufacturer` and `MPN` symbol fields;
+  `fab.py` puts them in the PCBWay BOM.
+
+## Raspberry Pi header sharing (MCC DAQ HATs)
+
+These boards are HASS test fixtures. Any board on the 40-pin header shares it
+with a stack of Digilent/MCC DAQ HATs (MCC 118, 128, 134, 152, 172; up to 8,
+addressed by jumpers). Pins the MCC HATs use, from the `daqhats` library source
+(github.com/mccdaq/daqhats, `lib/util.c`, `mcc128.c`, `mcc172.c`, `mcc152*.c`):
+
+| BCM | Pin | MCC use |
+|-----|-----|---------|
+| 0, 1 | 27, 28 | ID EEPROMs (ID_SD/ID_SC). **Never fit a HAT ID EEPROM on our boards.** |
+| 7, 8 | 26, 24 | SPI0 CE1 (MCC 152 DAC), CE0 (all) |
+| 9, 10, 11 | 21, 19, 23 | SPI0 MISO/MOSI/SCLK |
+| 12, 13, 26 | 32, 33, 37 | Board address A0, A1, A2 |
+| 16 | 36 | Reset (MCC 128/172) |
+| 20 | 38 | IRQ (MCC 128/172) |
+| 21 | 40 | IRQ (MCC 118/134/152) |
+| 2, 3 | 3, 5 | I2C1, **shared**: MCC 152 DIO expanders at 0x20–0x27. We may add I2C devices at other addresses. |
+
+Free for our boards: BCM 4, 5, 6, 14, 15, 17, 18, 19, 22, 23, 24, 25, 27, plus I2C1
+(outside 0x20–0x27). UART0 is on BCM 14/15; Pi 4 uart3 / Pi 5 uart2 is on BCM 4/5.
+
+Hosts: **Raspberry Pi 5 and Orange Pi 6**. Pick header pins by physical position
+and check them on both; the Orange Pi 6 maps functions to pins differently and
+needs overlays. Prefer interfaces that use no header signal pins (e.g. USB).
 
 ## Firmware
 

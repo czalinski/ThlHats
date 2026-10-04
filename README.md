@@ -46,7 +46,8 @@ tables list only the libraries in `lib/`. After you add a new library, run
 | `lib/` | Symbols, footprints, 3D models, and `SOURCES.md` (where each part came from) |
 | `boards/<name>/hardware/` | KiCad project |
 | `boards/<name>/firmware/` | Firmware for that board |
-| `tools/` | Board generator, library importer, checker, fab-output script |
+| `docs/` | Requirements (`docs/requirements.md`) |
+| `tools/` | Board generator, library importer, symbol generator, checker, fab-output script |
 
 ## Library licensing
 

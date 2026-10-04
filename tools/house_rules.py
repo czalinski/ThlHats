@@ -1,9 +1,10 @@
 """House design rules for every board in this repo.
 
-Targets low-cost 2-layer prototype fabs (JLCPCB / PCBWay / OSH Park standard
-service). Values are deliberately a little conservative relative to the fab
-minimums so boards are cheap and robust. Used by new_board.py (to seed the
-project) and check_board.py (to verify it).
+Targets PCBWay's standard 2-layer service. PCBWay's no-extra-cost limits are
+0.1 mm track/space, 0.2 mm drill, 0.15 mm annular ring, 0.25 mm copper to a
+routed edge (0.5 mm to a V-score), and 0.15 mm / 0.8 mm silkscreen width/height.
+The values here are deliberately more conservative so boards are robust.
+Used by new_board.py (to seed the project) and check_board.py (to verify it).
 """
 
 MAX_W = 100.0  # mm
@@ -19,8 +20,8 @@ RULES = {
     "min_clearance": 0.15,
     "min_track_width": 0.15,
     "min_connection": 0.15,
-    "min_via_annular_width": 0.13,
-    "min_via_diameter": 0.55,
+    "min_via_annular_width": 0.15,
+    "min_via_diameter": 0.6,
     "min_through_hole_diameter": 0.3,
     "min_hole_to_hole": 0.5,
     "min_hole_clearance": 0.25,
