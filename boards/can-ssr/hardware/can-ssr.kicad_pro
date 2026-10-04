@@ -549,9 +549,47 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Power",
+        "name": "GD",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.3,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "HV",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.0,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Power",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.5,
         "tuning_profile": "",
@@ -581,6 +619,54 @@
       {
         "netclass": "Power",
         "pattern": "VIN*"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "VIN"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "VOUT"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "/Power path/VOUT_SW"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "Net-(R34-Pad2)"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "Net-(R35-Pad2)"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "Net-(R38-Pad2)"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "Net-(R39-Pad2)"
+      },
+      {
+        "netclass": "GD",
+        "pattern": "/Power path/G?"
+      },
+      {
+        "netclass": "GD",
+        "pattern": "/Power path/GATE"
+      },
+      {
+        "netclass": "GD",
+        "pattern": "/Power path/SLEW"
+      },
+      {
+        "netclass": "GD",
+        "pattern": "/Power path/SRC"
+      },
+      {
+        "netclass": "GD",
+        "pattern": "/Power path/VOM_*"
       }
     ]
   },

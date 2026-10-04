@@ -27,3 +27,17 @@
 (rule "REF-182665 peg hole spacing"
 	(constraint hole_to_hole (min 0.4mm))
 	(condition "A.memberOfFootprint('Thl_Connector:Samtec_REF-182665*') && B.memberOfFootprint('Thl_Connector:Samtec_REF-182665*')"))
+
+# ---- can-ssr high-voltage rules (up to 200 V working on the load side) ----
+# Net classes (can-ssr.kicad_pro): HV = VIN, VOUT, VOUT_SW, divider internals;
+# GD = gate-drive domain (G1-G4, GATE, SLEW, SRC, VOM_P, VOM_MID), which floats
+# with the MOSFET sources. IPC-2221B B2 (external, uncoated) for 151-300 V is
+# 1.25 mm; we use 1.5 mm. The CAN/logic to load barrier (y 42-48 mm) is a
+# keep-out rule area on the board, not a rule here.
+(rule "HV and gate drive to other nets"
+	(constraint clearance (min 1.5mm))
+	(condition "(A.NetClass == 'HV' || A.NetClass == 'GD') && B.NetClass != 'HV' && B.NetClass != 'GD'"))
+
+(rule "VIN to gate drive and output"
+	(constraint clearance (min 1.5mm))
+	(condition "A.NetName == 'VIN' && (B.NetClass == 'GD' || B.NetName == 'VOUT' || B.NetName == '/Power path/VOUT_SW')"))
