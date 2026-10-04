@@ -7,6 +7,8 @@
 	(lib (name "Connector_Generic") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Connector_Generic.kicad_sym") (options "") (descr ""))
 	(lib (name "Converter_DCDC") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Converter_DCDC.kicad_sym") (options "") (descr ""))
 	(lib (name "Device") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Device.kicad_sym") (options "") (descr ""))
+	(lib (name "Display_Character") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Display_Character.kicad_sym") (options "") (descr ""))
+	(lib (name "Driver_LED") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Driver_LED.kicad_sym") (options "") (descr ""))
 	(lib (name "Interface_CAN_LIN") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Interface_CAN_LIN.kicad_sym") (options "") (descr ""))
 	(lib (name "Jumper") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Jumper.kicad_sym") (options "") (descr ""))
 	(lib (name "Mechanical") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Mechanical.kicad_sym") (options "") (descr ""))

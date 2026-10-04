@@ -95,3 +95,7 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | symbol | Connector | Screw_Terminal_01x05 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Analog_ADC | MCP3426Axx-xMS | KiCad Analog_ADC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Analog_ADC | MCP3426Axx-xSN | KiCad Analog_ADC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Driver_LED | MAX7219 | KiCad Driver_LED.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Display_Character | CC56-12SRWA | KiCad Display_Character.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Display_7Segment | CA56-12SRWA | KiCad Display_7Segment.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_SO | SOIC-24W_7.5x15.4mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |

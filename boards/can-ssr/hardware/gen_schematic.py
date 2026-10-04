@@ -44,7 +44,7 @@ MPN = {
     "100R": ("Yageo", "RC1206FR-07100RL"), "100k": ("Yageo", "RC1206FR-07100KL"),
     "16.2k": ("Yageo", "RC1206FR-0716K2L"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
     "332k": ("Yageo", "RC1206FR-07332KL"), "8.06k": ("Yageo", "RC1206FR-078K06L"), "20k": ("Yageo", "RC1206FR-0720KL"),
-    "680R": ("Yageo", "RC1206FR-07680RL"), "470nF 50V X7R": ("Murata", "GRM31MR71H474KA01L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
+    "680R": ("Yageo", "RC1206FR-07680RL"), "27k": ("Yageo", "RC1206FR-0727KL"), "470nF 50V X7R": ("Murata", "GRM31MR71H474KA01L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
 }
 
 
@@ -329,9 +329,11 @@ def power_path():
     # --- bolts -----------------------------------------------------------
     for i, (ref, val, net, y) in enumerate((("H1", "SUPPLY +", "/VIN", 60.96), ("H2", "SUPPLY -", "/GND_LOAD", 81.28),
                                              ("H3", "LOAD +", "/VOUT", 101.6), ("H4", "LOAD -", "/GND_LOAD", 121.92))):
+        idx = len(s.items)
         s.part("Mechanical:MountingHole_Pad", ref, val, 35.56, y, {"1": net}, 0,
                "MountingHole:MountingHole_5.3mm_M5_Pad", ref_at=(40.64, y - 3.81), value_at=(40.64, y - 1.27),
                value_justify="left")
+        s.items[idx] = s.items[idx].replace("(in_bom yes)", "(in_bom no)", 1)  # plated bolt hole, not a part
     s.text("M5 bolt + ring lug per terminal, on the busbar.\nH2 and H4 share the return bar (unswitched).", 25.4, 134.62, 1.0)
 
     # --- MOSFETs: Q1/Q2 input side, Q3/Q4 output side, common source ----
@@ -583,7 +585,40 @@ def load_side():
     return s
 
 
-SHEETS = [can_logic, power_path, trip, load_side]
+def display():
+    s = Sheet("display.kicad_sch", "Display", 6, "CAN SSR: display")
+    s.text("CAN/LOGIC SIDE. 4-digit 0.56 in red 7-segment readout, alternating V and A (V/A indicator LEDs);\n"
+           "fault codes on a trip or build-resistor fault. MAX7219 multiplexes and current-limits, no segment resistors.",
+           25.4, 30.48)
+    segs = {"14": "SEG_A", "16": "SEG_B", "20": "SEG_C", "23": "SEG_D", "21": "SEG_E", "15": "SEG_F",
+            "17": "SEG_G", "22": "SEG_DP"}
+    nets = dict(segs)
+    nets.update({"1": "/DISP_DIN", "13": "/DISP_SCK", "12": "/DISP_LOAD", "24": "~",
+                 "2": "DIG0", "11": "DIG1", "6": "DIG2", "7": "DIG3", "3": "DIG4", "10": "~", "5": "~", "8": "~",
+                 "4": "GND", "9": "GND", "19": "+5V", "18": "ISET"})
+    s.part("Driver_LED:MAX7219", "U40", "MAX7219CWG+", 101.6, 101.6, nets, 0,
+           "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm", "Analog Devices", "MAX7219CWG+",
+           ref_at=(104.14, 73.66), value_at=(104.14, 130.81))
+    s.R("R40", "27k", 66.04, 76.2, "+5V", "ISET")
+    s.C("C43", "100nF 50V X7R", 63.5, 139.7, "+5V", "GND", decouple=True)
+    s.C("C44", "10uF 25V X7R", 83.82, 139.7, "+5V", "GND")
+    s.text("RSET 27k -> ~15 mA peak segment current (scan limit 5 digits:\n~3 mA average per segment). Lower RSET for a brighter display.",
+           48.26, 157.48, 1.0)
+    s.part("Display_Character:CC56-12SRWA", "U41", "CC56-12SRWA", 190.5, 96.52,
+           {"11": "SEG_A", "7": "SEG_B", "4": "SEG_C", "2": "SEG_D", "1": "SEG_E", "10": "SEG_F", "5": "SEG_G",
+            "3": "SEG_DP", "12": "DIG0", "9": "DIG1", "8": "DIG2", "6": "DIG3"}, 0,
+           "Display_7Segment:CA56-12SRWA", "Kingbright", "CC56-12SRWA", ref_at=(190.5, 81.28), value_at=(190.5, 115.57))
+    for ref, seg, label, x in (("D40", "SEG_A", "V", 254.0), ("D41", "SEG_B", "A", 271.78)):
+        s.part("Device:LED", ref, "LED green", x, 96.52, {"2": seg, "1": "DIG4"}, 90, FP["LED"],
+               "Lite-On", "LTST-C150GKT", ref_at=(x + 2.54, 95.25), value_at=(x + 2.54, 97.79), value_justify="left",
+               hide_value=True)
+        s.text(label, x + 2.54, 100.33, 1.5)
+    s.text("V/A indicators on digit 4: D40 = segment A (V), D41 = segment B (A).\nPlace next to the display; label V and A on the silkscreen.",
+           241.3, 111.76, 1.0)
+    return s
+
+
+SHEETS = [can_logic, power_path, trip, load_side, display]
 
 
 def main():

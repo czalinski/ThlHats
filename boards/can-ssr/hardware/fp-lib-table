@@ -9,6 +9,7 @@
 	(lib (name "Converter_DCDC") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Converter_DCDC.pretty") (options "") (descr ""))
 	(lib (name "Crystal") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Crystal.pretty") (options "") (descr ""))
 	(lib (name "Diode_SMD") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Diode_SMD.pretty") (options "") (descr ""))
+	(lib (name "Display_7Segment") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Display_7Segment.pretty") (options "") (descr ""))
 	(lib (name "LED_SMD") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/LED_SMD.pretty") (options "") (descr ""))
 	(lib (name "MountingHole") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/MountingHole.pretty") (options "") (descr ""))
 	(lib (name "Package_DIP") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Package_DIP.pretty") (options "") (descr ""))
