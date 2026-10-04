@@ -8,7 +8,7 @@ Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 
 - Board: 100 x 100 mm, 2 layers, rev A (smaller welcome, not required)
 - Mounting: 4 x M3 to a separate DIN-rail mounting plate (no Pi holes, no DIN
-  clips on the board; see board.json). Load-side holes MH3/MH4 take nylon screws.
+  clips on the board; see board.json). Load-side holes MH3/MH4 (by the S+ and L+ bolts) take nylon standoffs and screws; the plate is non-conductive.
 - Off the Pi header; powered from the 4-wire CAN cable (12 V)
 - MCU: PIC18F47Q84-I/PT (TQFP-44), on the CAN/logic side
 
