@@ -133,7 +133,7 @@ Layout rules that follow:
 |------|-------------|
 | MCU | **PIC32MK1024GPK064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× CDAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). Changed 2026-10-04 from the PIC32MK1024MCF064, whose CAN is classic 2.0B only. |
 | Host link | USB to the host. Uses no header signal pins. |
-| CAN | 2 channels, **CAN FD**, **isolated** (ISO1042BQDWVRQ1). The MCU has 4 CAN FD controllers; lay out so channels 3–4 could be added later. Each is a 4-wire bus: CANH, CANL, GND, +12 V. Switchable 120 Ω termination. |
+| CAN | 2 channels, **CAN FD**, **isolated** (ISO1042BQDWVRQ1). The MCU has 4 CAN FD controllers; lay out so channels 3–4 could be added later. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
 | GPIO | 8, each software-configurable as input or output, **3.3 V** logic. MCP23017 (on the PIC32's own I2C, not the Pi's). Each GPIO has its own ground terminal. |
 | Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven through isolators. Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
@@ -174,7 +174,8 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 | Mounting | Holes for **both**: 4 × M2.5 on the Raspberry Pi 58 × 49 mm pattern (standoffs) and **two** `Thl_Mechanical:DIN_Rail_Mount_3xNPTH4.06mm_P12.45mm` patterns for DIN rail clips; the user picks either. Up to 100 × 100 mm; smaller is welcome but not required. Decided 2026-10-04. |
 | Safety | 120 V DC is above the 60 V DC SELV limit: creepage/clearance between the load section and logic, a Vgs clamp, switch devices rated about 200 V. |
 | Current path | Top-side PCB traces with the solder mask removed, meant to have a copper busbar soldered on for 30 A (user, 2026-10-04). Load wires connect by bolt and nut through holes in the busbar/trace (ring lugs), not PCB terminal blocks. Four bolts: supply +, load + (switched path through fuse/MOSFETs/Hall sensor) and supply −, load − (return: a short straight copper bar with two holes, unswitched). The voltage sense references the return bar. |
-| Connectors | CAN in and CAN out (daisy chain); load connections are bolted (see Current path) |
+| Connectors | CAN in and CAN out (daisy chain), two Phoenix MC 3.5 mm 4-pole headers, pinout as in 4.1; load connections are bolted (see Current path) |
+| Addressing | **16-position hex rotary switch** (Nidec Copal SH-7000 series, through-hole) for the CAN node address; 2-pin jumper for 120 Ω termination (decided 2026-10-04). |
 
 #### 4.2.1 can-ssr builds and switching strategy
 

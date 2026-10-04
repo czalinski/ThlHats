@@ -50,3 +50,18 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Thl_Mechanical | DIN_Rail_Mount_3xNPTH4.06mm_P12.45mm | user's hand-made "DIN Rail Mount" (original in lib/footprint_src/Thl_Mechanical/vendor/); NPTH pads sized to drill, board-only attributes, courtyards added | repo (MIT) |
 | 2026-10-04 | footprint | Package_DIP | DIP-40_W15.24mm_Socket_LongPads | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Thl_MCU | PIC18F47Q84-IP | generated from lib/symbol_src/Thl_MCU/PIC18F47Q84-IP.csv | repo (MIT) |
+| 2026-10-04 | symbol | Interface_CAN_LIN | MCP2562-E-P | KiCad Interface_CAN_LIN.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_DIP | DIP-8_W7.62mm | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Converter_DCDC | R-78E5.0-0.5 | KiCad Converter_DCDC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Converter_DCDC | Converter_DCDC_RECOM_R-78E-0.5_THT | KiCad Converter_DCDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Switch | SW_Coded_SH-7010 | KiCad Switch.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector | Screw_Terminal_01x04 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Jumper | Jumper_2_Open | KiCad Jumper.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Power_Protection | NUP2105L | KiCad Power_Protection.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_TO_SOT_SMD | SOT-23 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_DIP | DIP-8_W7.62mm_LongPads | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_Phoenix_MC | PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal | KiCad Connector_Phoenix_MC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Crystal | Crystal_HC49-U_Vertical | KiCad Crystal.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Button_Switch_THT | Nidec_Copal_SH-7010C | KiCad Button_Switch_THT.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Diode_SMD | D_SMA_Handsoldering | KiCad Diode_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Diode_SMD | D_SMB_Handsoldering | KiCad Diode_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
