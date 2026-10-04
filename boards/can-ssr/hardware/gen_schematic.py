@@ -451,21 +451,29 @@ def trip():
            value_justify="left")
     s.R("R26", "100k", 137.16, 93.98, "/TRIP_RST", "GND")
     s.text("Reset: TRIP_RST high pulls CMP_IN low, the output releases and VTH recovers; if the\n"
-           "overcurrent persists it re-trips. Firmware resets only with GATE_EN low.", 116.84, 127.0, 1.0)
+           "overcurrent persists it re-trips. Q23/Q24 hold the gate drive off during the reset.", 116.84, 127.0, 1.0)
 
     # --- VOM1271 LED drive: GATE_EN AND TRIP_OK ------------------------------
     s.R("R27", "100R", 271.78, 55.88, "+5V", "/VOM_LED_A")
     s.part("Transistor_FET:Q_NMOS_GSD", "Q21", "2N7002", 271.78, 81.28, {"1": "/GATE_EN", "2": "EN_MID", "3": "/VOM_LED_K"}, 0,
            "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(276.86, 80.01), value_at=(276.86, 82.55),
            value_justify="left")
-    s.part("Transistor_FET:Q_NMOS_GSD", "Q22", "2N7002", 271.78, 101.6, {"1": "/TRIP_OK", "2": "GND", "3": "EN_MID"}, 0,
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q22", "2N7002", 271.78, 101.6, {"1": "/TRIP_OK", "2": "EN_MID2", "3": "EN_MID"}, 0,
            "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(276.86, 100.33), value_at=(276.86, 102.87),
            value_justify="left")
     s.R("R28", "100k", 254.0, 91.44, "/GATE_EN", "GND")
-    s.text("VOM1271 LEDs (two in series, on the power-path sheet): +5V -> R27 -> LEDs -> Q21 -> Q22 -> GND.\n"
-           "Current flows only when GATE_EN (firmware) AND TRIP_OK (hardware) are high: ~21 mA\n"
-           "((5 - 2 x 1.4) V / 100 R), giving ~30 uA gate drive. R28 holds GATE_EN low at reset.",
-           243.84, 119.38, 1.0)
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q23", "2N7002", 271.78, 121.92, {"1": "RST_INH", "2": "GND", "3": "EN_MID2"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(276.86, 120.65), value_at=(276.86, 123.19),
+           value_justify="left")
+    s.R("R29", "10k", 246.38, 114.3, "+5V", "RST_INH")
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q24", "2N7002", 233.68, 132.08, {"1": "/TRIP_RST", "2": "GND", "3": "RST_INH"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(238.76, 130.81), value_at=(238.76, 133.35),
+           value_justify="left")
+    s.text("VOM1271 LEDs (two in series, on the power-path sheet): +5V -> R27 -> LEDs -> Q21 -> Q22 -> Q23 -> GND.\n"
+           "Current flows only when GATE_EN (firmware) AND TRIP_OK (hardware) are high AND TRIP_RST is low:\n"
+           "~21 mA ((5 - 2 x 1.4) V / 100 R), giving ~30 uA gate drive. R28 holds GATE_EN low at reset.\n"
+           "Q23/Q24/R29: while TRIP_RST is high (trip blinded during reset), the gate drive is forced off in\n"
+           "hardware, so a reset can never coincide with an enabled switch.", 226.06, 154.94, 1.0)
     return s
 
 
