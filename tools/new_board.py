@@ -69,14 +69,14 @@ GPIO_SYMBOL = "Connector_Generic:Conn_02x20_Odd_Even"
 # SSQ-120-03-T-D) whose tails pass up through the board. "socket": plain 2x20
 # socket on the bottom side (the board must then be the top of the stack).
 HEADERS = {
-    "passthru": ("Thl_Connector:Samtec_REF-182665-03_2x20_P2.54mm_PassThrough", False, 90),
-    "socket": ("Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical", True, -90),
-}  # style -> (footprint, on bottom side, orientation)
+    "passthru": ("Thl_Connector:Samtec_REF-182665_2x20_P2.54mm_PassThrough", False, 180, (32.5, 3.5)),
+    "socket": ("Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical", True, -90, (8.37, 4.77)),
+}  # style -> (footprint, on bottom side, orientation, footprint origin relative to board corner)
+HEADER_MPN = {"passthru": ("Samtec", "REF-182665-03"), "socket": ("", "")}
 HOLE_FOOTPRINT = "MountingHole:MountingHole_2.7mm_M2.5"
 # Positions relative to the board's top-left corner (from the KiCad RPi HAT
 # template / RPi mechanical drawings).
 HOLES = [(3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)]
-GPIO_PIN1 = (8.37, 4.77)  # RPi pin 1, relative to the board's top-left corner
 
 
 def uid():
@@ -130,7 +130,7 @@ class Sch:
             self.lib_ids.append(lib_id)
 
     def symbol(self, lib_id, ref, value, x, y, rot=0, footprint="", hide_ref=False,
-               hide_value=False, ref_at=None, value_at=None, value_justify=None, value_angle=0, pins=()):
+               hide_value=False, ref_at=None, value_at=None, value_justify=None, value_angle=0, pins=(), fields=None):
         self._use(lib_id)
         u = uid()
         ref_at = ref_at or (x, y - 2.54)
@@ -150,6 +150,8 @@ class Sch:
         s += prop("Footprint", footprint, (x, y), True)
         s += prop("Datasheet", "", (x, y), True)
         s += prop("Description", "", (x, y), True)
+        for k, v in (fields or {}).items():
+            s += prop(k, v, (x, y), True)
         for p in pins:
             s += f"\t\t(pin {q(p)}\n\t\t\t(uuid {q(uid())})\n\t\t)\n"
         s += (f"\t\t(instances\n\t\t\t(project {q(self.project)}\n\t\t\t\t(path {q('/' + self.root)}\n"
@@ -219,7 +221,9 @@ def build_schematic(name, title, rev, gpio, header="passthru"):
         pins = pin_positions(GPIO_SYMBOL)
         gpio_uuid = sch.symbol(GPIO_SYMBOL, "J1", "RPi_GPIO", X, Y, footprint=HEADERS[header][0],
                                ref_at=(X + 1.27, Y - 25.4), value_at=(X + 1.27, Y + 27.94),
-                               pins=[str(n) for n in range(1, 41)])
+                               pins=[str(n) for n in range(1, 41)],
+                               fields=dict(zip(("Manufacturer", "MPN"), HEADER_MPN[header]))
+                               if HEADER_MPN[header][1] else None)
         for num, net in GPIO_NETS.items():
             px, py, ang = pins[str(num)]
             sx, sy = X + px, Y - py  # schematic y grows downwards
@@ -322,11 +326,19 @@ def build_pcb(path, name, title, rev, width, height, gpio, gpio_uuid, nets_by_pi
 
     gnd = None
     if gpio:
-        fp_id, bottom, orient = HEADERS[header]
+        fp_id, bottom, orient, anchor = HEADERS[header]
         fp = load_fp(fp_id)
         fp.SetReference("J1")
         fp.SetValue("RPi_GPIO")
-        fp.SetPosition(pt(*GPIO_PIN1))
+        mfr, mpn = HEADER_MPN[header]
+        if mpn:
+            for k, v in (("Manufacturer", mfr), ("MPN", mpn)):
+                f = pcbnew.PCB_FIELD(fp, fp.GetNextFieldOrdinal(), k)
+                f.SetText(v)
+                f.SetVisible(False)
+                f.SetLayer(pcbnew.F_Fab)
+                fp.Add(f)
+        fp.SetPosition(pt(*anchor))
         if bottom:
             fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
         fp.SetOrientationDegrees(orient)

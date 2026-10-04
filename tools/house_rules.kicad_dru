@@ -15,3 +15,15 @@
 	(constraint hole_clearance (min 0.3mm))
 	(condition "A.Pad_Type == 'NPTH, mechanical'"))
 
+
+# Samtec REF-182665 pass-through socket: Samtec's land pattern puts the pads
+# close to the 0.97 mm pin holes. Allow 0.2 mm (PCBWay NPTH minimum) there.
+(rule "REF-182665 NPTH to own pads"
+	(constraint hole_clearance (min 0.2mm))
+	(condition "A.Pad_Type == 'NPTH, mechanical' && A.memberOfFootprint('Thl_Connector:Samtec_REF-182665*')"))
+
+# Its -01 locating-peg holes sit 0.42 mm from the adjacent pin holes
+# (Samtec geometry). PCBWay's minimum is 0.4 mm.
+(rule "REF-182665 peg hole spacing"
+	(constraint hole_to_hole (min 0.4mm))
+	(condition "A.memberOfFootprint('Thl_Connector:Samtec_REF-182665*') && B.memberOfFootprint('Thl_Connector:Samtec_REF-182665*')"))

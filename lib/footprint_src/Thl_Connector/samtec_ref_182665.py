@@ -1,138 +1,103 @@
 #!/usr/bin/env python3
-"""Generate the Samtec REF-182665 Raspberry Pi HAT pass-through socket.
+"""Build Thl_Connector:Samtec_REF-182665_2x20_P2.54mm_PassThrough from the
+SnapMagic (SnapEDA) download in vendor/.
 
-The REF-182665 is a 2x20, 2.54 mm SMT socket, 3.51 mm tall, with open-bottom
+The REF-182665 is a 2x20, 2.54 mm SMT socket, 3.66 mm tall, with open-bottom
 contacts. It sits on top of a HAT. The long tails of a stacking socket
-(e.g. Samtec SSQ-120-03-T-D) pass up through holes in the HAT, through this
-socket, and out the top into the next board. -01 has locating pegs and -03
-has none; this footprint is for -03.
+(e.g. Samtec SSQ-120-03-T-D) pass up through the NPTH holes, through this
+socket, and out the top. -01 has two locating pegs and -03 has none; this
+footprint keeps the peg holes, so it fits both.
 
-Pad geometry is NOT from the Samtec drawing yet. It started from a footprint
-measured by hand from eBay samples and was then constrained:
-  - the holes are non-plated, so solder cannot wick in and block the pins;
-  - SMD pads stop 0.5 mm short of each hole;
-  - at the standard HAT header position (hole rows 2.23 / 4.77 mm from the
-    board edge) the outer pad edge must stay >= 0.3 mm inside the edge.
-Replace the constants below with Samtec drawing values when available.
+Changes from the vendor footprint, and why:
+  1. Pad numbers follow the Raspberry Pi pin that passes through each hole
+     when the socket is mounted on TOP of the HAT. The vendor numbering is the
+     mirror image (pins 1/2 swapped in every column), so pads are swapped
+     within each column. Place at 180 deg; see tools/new_board.py.
+  2. Pads are trimmed at both ends:
+       - the outer edge goes from 3.56 to 3.18 mm off the centreline, so that
+         at the standard HAT position (centreline 3.5 mm from the board edge)
+         copper stays >= 0.3 mm from the edge;
+       - the inner edge goes from 1.88 to 1.955 mm, giving 0.2 mm from the
+         0.97 mm NPTH (vendor: 0.125 mm). The house .kicad_dru has a
+         footprint-specific 0.2 mm NPTH rule for this.
+  3. Zero-padded pad numbers ("01") become "1"; "None" holes become unnamed.
+  4. Converted to the current KiCad format, with the STEP model attached.
 
 Usage: python3 lib/footprint_src/Thl_Connector/samtec_ref_182665.py
-Writes lib/footprints/Thl_Connector.pretty/<NAME>.kicad_mod and
-lib/3dmodels/Thl_Connector.3dshapes/<NAME>.wrl.
 """
 
-import math
-import uuid
+import re
+import sys
+import tempfile
 from pathlib import Path
 
-LIB = Path(__file__).resolve().parents[2]
-NAME = "Samtec_REF-182665-03_2x20_P2.54mm_PassThrough"
-MODEL_URI = f"${{KIPRJMOD}}/../../../lib/3dmodels/Thl_Connector.3dshapes/{NAME}.wrl"
+HERE = Path(__file__).resolve().parent
+LIB = HERE.parents[1]
+VENDOR = HERE / "vendor" / "SAMTEC_REF-182665-01.kicad_mod"
+NAME = "Samtec_REF-182665_2x20_P2.54mm_PassThrough"
+STEP = "Samtec_REF-182665.step"
+MODEL_URI = f"${{KIPRJMOD}}/../../../lib/3dmodels/Thl_Connector.3dshapes/{STEP}"
+# The SolidWorks STEP is Y-up and off-centre in X; these place it on the
+# footprint (checked against the STEP vertex extents and by render).
+MODEL_ROTATE = (-90, 0, 0)
+MODEL_OFFSET = (4.199, 0, 0)  # STEP body is centred at x = -4.199 mm
 
-P = 2.54
-HOLE = 1.0               # NPTH; stacking pins are 0.64 mm square (0.9 mm diagonal)
-PAD_W = 1.2              # tails are about 0.6 mm wide
-PAD_IN = 1.0             # inner pad edge, from its hole centre
-PAD_OUT = 3.15 - P / 2   # outer pad edge, from its hole centre (3.15 mm from connector centreline)
-BODY_W, BODY_L, BODY_H = 5.0, 51.0, 3.51
+PAD_IN, PAD_OUT = 1.955, 3.18  # pad edges, mm from the connector centreline
 
 
-def uid():
-    return str(uuid.uuid4())
+def convert(text):
+    # 1 + 3: renumber pads, swapping the two rows of every column; 2: trim.
+    def smd(m):
+        n, x, y = int(m.group(1)), float(m.group(2)), float(m.group(3))
+        n = n + 1 if n % 2 else n - 1
+        y = (PAD_IN + PAD_OUT) / 2 * (1 if y > 0 else -1)
+        return f'(pad "{n}" smd rect (at {x:g} {y:g}) (size {m.group(4)} {PAD_OUT - PAD_IN:g})'
+    text, k = re.subn(r'\(pad (\d+) smd rect \(at ([-\d.]+) ([-\d.]+)\) \(size ([\d.]+) [\d.]+\)', smd, text)
+    if k != 40:
+        sys.exit(f"expected 40 SMD pads, found {k}")
+    text = text.replace("(pad None ", '(pad "" ')
+    # The pin-1 dot sits beside the vendor's pin 1, which is now pin 2: move it across.
+    text = re.sub(r"\(center ([-\d.]+) ([-\d.]+)\) \(end ([-\d.]+) ([-\d.]+)\)",
+                  lambda m: f"(center {m.group(1)} {-float(m.group(2)):g}) (end {m.group(3)} {-float(m.group(4)):g})",
+                  text)
+    return re.sub(r"^\(footprint \S+", f'(footprint "{NAME}"', text)
 
 
 def main():
-    cx, cy = P / 2, 19 * P / 2  # body centre; pin 1 at the origin
-    items = []
+    import pcbnew
 
-    def line(x1, y1, x2, y2, layer, w):
-        items.append(f'\t(fp_line\n\t\t(start {x1:g} {y1:g})\n\t\t(end {x2:g} {y2:g})\n'
-                     f'\t\t(stroke\n\t\t\t(width {w:g})\n\t\t\t(type solid)\n\t\t)\n'
-                     f'\t\t(layer "{layer}")\n\t\t(uuid "{uid()}")\n\t)')
+    with tempfile.TemporaryDirectory() as td:
+        pretty = Path(td) / "tmp.pretty"
+        pretty.mkdir()
+        (pretty / f"{NAME}.kicad_mod").write_text(convert(VENDOR.read_text()))
+        fp = pcbnew.FootprintLoad(str(pretty), NAME)
+    if fp is None:
+        sys.exit("KiCad could not parse the converted footprint")
 
-    def prop(kind, val, x, y, layer, hide=False):
-        h = "\n\t\t(hide yes)" if hide else ""
-        return (f'\t(property "{kind}" "{val}"\n\t\t(at {x:g} {y:g} 0)\n\t\t(layer "{layer}"){h}\n'
-                f'\t\t(uuid "{uid()}")\n\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 1 1)\n'
-                f'\t\t\t\t(thickness 0.15)\n\t\t\t)\n\t\t)\n\t)')
+    fp.SetFPID(pcbnew.LIB_ID("Thl_Connector", NAME))
+    fp.SetLibDescription(
+        "Samtec REF-182665-01/-03 Raspberry Pi HAT 2x20 socket, 2.54 mm, SMT bottom-entry pass-through, "
+        "3.66 mm max height. From SnapMagic; renumbered for top mounting (place at 180 deg) and pads "
+        "trimmed for the HAT edge and NPTH clearance. See lib/footprint_src/Thl_Connector/samtec_ref_182665.py")
+    fp.SetKeywords("Samtec REF-182665 Raspberry Pi HAT GPIO 2x20 pass-through stacking SMT")
+    fp.SetAttributes(pcbnew.FP_SMD)
+    fp.Value().SetText(NAME)
+    for pad in fp.Pads():
+        if pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD:
+            pad.SetLocalSolderMaskMargin(None)  # use the board setting, not the vendor's 0.102
+    fp.Models().clear()
+    model = pcbnew.FP_3DMODEL()
+    model.m_Filename = MODEL_URI
+    model.m_Rotation = pcbnew.VECTOR3D(*MODEL_ROTATE)
+    model.m_Offset = pcbnew.VECTOR3D(*MODEL_OFFSET)
+    fp.Add3DModel(model)
 
-    bx1, bx2 = cx - BODY_W / 2, cx + BODY_W / 2
-    by1, by2 = cy - BODY_L / 2, cy + BODY_L / 2
-    pad_l = PAD_OUT - PAD_IN
-    x_odd = -(PAD_IN + pad_l / 2)
-    x_even = P + PAD_IN + pad_l / 2
-
-    props = [
-        prop("Reference", "REF**", cx, by1 - 1.5, "F.SilkS"),
-        prop("Value", NAME, cx, by2 + 1.5, "F.Fab"),
-        prop("Datasheet", "", 0, 0, "F.Fab", True),
-        prop("Description", "", 0, 0, "F.Fab", True),
-    ]
-    items.append(f'\t(fp_text user "${{REFERENCE}}"\n\t\t(at {cx:g} {cy:g} 90)\n\t\t(layer "F.Fab")\n'
-                 f'\t\t(uuid "{uid()}")\n\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 1 1)\n'
-                 f'\t\t\t\t(thickness 0.15)\n\t\t\t)\n\t\t)\n\t)')
-
-    # Fab outline with a pin-1 chamfer.
-    c = 1.0
-    line(bx1 + c, by1, bx2, by1, "F.Fab", 0.1)
-    line(bx2, by1, bx2, by2, "F.Fab", 0.1)
-    line(bx2, by2, bx1, by2, "F.Fab", 0.1)
-    line(bx1, by2, bx1, by1 + c, "F.Fab", 0.1)
-    line(bx1, by1 + c, bx1 + c, by1, "F.Fab", 0.1)
-    # Silk: body ends only (the long sides carry pads), plus a pin-1 tick.
-    o, s = 0.11, 0.12
-    for y in (by1 - o, by2 + o):
-        line(bx1 - o, y, bx2 + o, y, "F.SilkS", s)
-    line(-PAD_OUT - 0.3, -PAD_W / 2, -PAD_OUT - 0.3, PAD_W / 2, "F.SilkS", s)
-    # Courtyard: pads and body + 0.25, on a 0.05 grid.
-    def lo(v):
-        return math.floor(round(v * 20, 6)) / 20
-
-    def hi(v):
-        return math.ceil(round(v * 20, 6)) / 20
-
-    l, r = lo(min(-PAD_OUT, bx1) - 0.25), hi(max(P + PAD_OUT, bx2) + 0.25)
-    t, b = lo(by1 - 0.25), hi(by2 + 0.25)
-    for a in ((l, t, r, t), (r, t, r, b), (r, b, l, b), (l, b, l, t)):
-        line(*a, "F.CrtYd", 0.05)
-
-    for i in range(20):
-        y = i * P
-        for num, x, hx in ((2 * i + 1, x_odd, 0.0), (2 * i + 2, x_even, P)):
-            items.append(f'\t(pad "{num}" smd rect\n\t\t(at {x:g} {y:g})\n\t\t(size {pad_l:g} {PAD_W:g})\n'
-                         f'\t\t(layers "F.Cu" "F.Mask" "F.Paste")\n\t\t(uuid "{uid()}")\n\t)')
-            items.append(f'\t(pad "" np_thru_hole circle\n\t\t(at {hx:g} {y:g})\n\t\t(size {HOLE:g} {HOLE:g})\n'
-                         f'\t\t(drill {HOLE:g})\n\t\t(layers "*.Cu" "*.Mask")\n\t\t(uuid "{uid()}")\n\t)')
-
-    text = (f'(footprint "{NAME}"\n\t(version 20260206)\n\t(generator "pcbnew")\n\t(generator_version "10.0")\n'
-            '\t(layer "F.Cu")\n'
-            '\t(descr "Samtec REF-182665-03 Raspberry Pi HAT 2x20 socket, 2.54 mm, SMT bottom-entry pass-through, '
-            '3.51 mm profile, no pegs. Pads provisional (hand-measured, edge-constrained); verify against the Samtec drawing. '
-            'Mount on top at 90 deg so holes align with the RPi header.")\n'
-            '\t(tags "Samtec REF-182665 Raspberry Pi HAT GPIO 2x20 pass-through stacking SMT")\n'
-            + "\n".join(props) + "\n\t(attr smd)\n" + "\n".join(items) + "\n\t(embedded_fonts no)\n"
-            f'\t(model "{MODEL_URI}"\n\t\t(offset\n\t\t\t(xyz 0 0 0)\n\t\t)\n\t\t(scale\n\t\t\t(xyz 1 1 1)\n'
-            '\t\t)\n\t\t(rotate\n\t\t\t(xyz 0 0 0)\n\t\t)\n\t)\n)\n')
-    fp = LIB / "footprints" / "Thl_Connector.pretty" / f"{NAME}.kicad_mod"
-    fp.parent.mkdir(parents=True, exist_ok=True)
-    fp.write_text(text)
-
-    # Simplified VRML body. KiCad VRML units are 0.1 in; VRML +Y is board -Y.
-    k = 1 / 2.54
-
-    def box(x, y, z, sx, sy, sz, rgb):
-        return (f"Transform {{ translation {x*k:.4f} {-y*k:.4f} {z*k:.4f} children [ Shape {{ "
-                f"appearance Appearance {{ material Material {{ diffuseColor {rgb} }} }} "
-                f"geometry Box {{ size {sx*k:.4f} {sy*k:.4f} {sz*k:.4f} }} }} ] }}\n")
-
-    w = f"#VRML V2.0 utf8\n# Simplified Samtec REF-182665 body {BODY_W} x {BODY_L} x {BODY_H} mm (ThlHats)\n"
-    w += box(cx, cy, BODY_H / 2, BODY_W, BODY_L, BODY_H, "0.08 0.08 0.08")
-    for i in range(20):
-        for x in (x_odd, x_even):
-            w += box(x, i * P, 0.1, pad_l * 0.8, 0.6, 0.2, "0.85 0.75 0.3")
-    wrl = LIB / "3dmodels" / "Thl_Connector.3dshapes" / f"{NAME}.wrl"
-    wrl.parent.mkdir(parents=True, exist_ok=True)
-    wrl.write_text(w)
-    print(f"wrote {fp.relative_to(LIB.parent)}\nwrote {wrl.relative_to(LIB.parent)}")
+    out = LIB / "footprints" / "Thl_Connector.pretty"
+    out.mkdir(parents=True, exist_ok=True)
+    pcbnew.PCB_IO_KICAD_SEXPR().FootprintSave(str(out), fp)
+    print(f"wrote {(out / (NAME + '.kicad_mod')).relative_to(LIB.parent)}")
+    if not (LIB / "3dmodels" / "Thl_Connector.3dshapes" / STEP).exists():
+        print(f"warning: {STEP} missing from lib/3dmodels/Thl_Connector.3dshapes", file=sys.stderr)
 
 
 if __name__ == "__main__":

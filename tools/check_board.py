@@ -3,7 +3,7 @@
 
 House rules checked:
   - every symbol and footprint comes from a library in lib/ (no stock/global libs)
-  - 3D models resolve into lib/3dmodels
+  - 3D models resolve into lib/3dmodels and are STEP files
   - lib tables in the project match lib/ (run `tools/kilib.py sync` to fix)
   - 2 copper layers
   - Edge.Cuts outline no larger than 100 x 100 mm
@@ -97,6 +97,28 @@ def check_libraries(hw, r):
         r.fail("3D models outside lib/3dmodels or missing: " + ", ".join(sorted(bad)))
     else:
         r.ok("all 3D models resolve into lib/3dmodels")
+    check_models_are_step(pcb_text, r)
+
+
+def check_models_are_step(pcb_text, r):
+    """House policy: every placed part has a STEP model, so STEP exports and
+    stack-height checks see the whole board. Board-only items (mounting holes,
+    logos) are exempt."""
+    not_step, missing = set(), set()
+    for m in re.finditer(r'^\t\(footprint "([^"]+)"', pcb_text, re.M):
+        body = pcb_text[m.start():kilib._block_end(pcb_text, m.start())]
+        if "(attr board_only" in body or re.search(r"\(attr[^)]*board_only", body):
+            continue
+        models = re.findall(r'\(model "([^"]+)"', body)
+        if not models:
+            missing.add(m.group(1))
+        not_step.update(x for x in models if not x.lower().endswith((".step", ".stp")))
+    if not_step:
+        r.fail("3D models that are not STEP: " + ", ".join(sorted(not_step)))
+    if missing:
+        r.warn("footprints without a 3D model: " + ", ".join(sorted(missing)))
+    if not not_step and not missing:
+        r.ok("every part has a STEP model")
 
 
 def check_geometry(pcb_path, r):

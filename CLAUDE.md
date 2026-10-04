@@ -66,15 +66,22 @@ Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
   no-extra-cost limits). New boards copy them; existing boards
   keep their own copies.
 - The RPi header (`J1`) defaults to the **Samtec REF-182665 SMT pass-through
-  socket on top** (`Thl_Connector:Samtec_REF-182665-03_…`, rotated 90°), so the
-  board stacks with MCC HATs using a stacking socket such as Samtec
-  SSQ-120-03-T-D. Its 1.0 mm holes are NPTH; keep copper ≥ 0.3 mm from them.
-  `new_board.py --header socket` puts a plain 2×20 socket on the bottom instead
-  (top of stack only). Pin 1 is at (8.37, 4.77) mm from the board corner.
-  Don't move J1 or the MH holes.
-- Its pad geometry is provisional (hand-measured, edge-constrained) until we
-  have the Samtec drawing; regenerate with
-  `lib/footprint_src/Thl_Connector/samtec_ref_182665.py`.
+  socket on top** (`Thl_Connector:Samtec_REF-182665_2x20_P2.54mm_PassThrough`,
+  origin at the connector centre (32.5, 3.5) mm, rotated 180°), so the board
+  stacks with MCC HATs using a stacking socket such as Samtec SSQ-120-03-T-D.
+  Its pin holes are 0.97 mm NPTH; the house .kicad_dru relaxes NPTH and
+  hole-to-hole clearance for this footprint only. `new_board.py --header socket`
+  puts a plain 2×20 socket on the bottom instead (top of stack only). RPi pin 1
+  is at (8.37, 4.77) mm from the board corner. Don't move J1 or the MH holes.
+- That footprint is built from the SnapMagic download in
+  `lib/footprint_src/Thl_Connector/vendor/` by `samtec_ref_182665.py`, which
+  renumbers it for top mounting and trims the pads; read its docstring before
+  changing it.
+- **3D models are STEP** (`check_board.py` fails non-STEP models and warns on
+  missing ones). Keep vendor STEP files in `lib/3dmodels/<Lib>.3dshapes/`.
+- `transfer/` is a temporary drop box for files from the user's Windows
+  machine. Import what's there into `lib/` (recording the source in
+  `lib/SOURCES.md`) and remove it from `transfer/` in the same commit.
 - Give every part to be assembled `Manufacturer` and `MPN` symbol fields;
   `fab.py` puts them in the PCBWay BOM.
 
