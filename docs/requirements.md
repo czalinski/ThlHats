@@ -1,7 +1,8 @@
 # ThlHats requirements
 
 Status: draft, 2026-10-04. Items marked **TBD** need a decision before
-schematic work starts on that board.
+schematic work starts on that board. Part numbers come from the user's earlier
+design and are guidelines: better parts may replace them.
 
 ## 1. Purpose
 
@@ -12,8 +13,8 @@ DAQ hardware that is either cumbersome (LabJack T7) or expensive and
 over-provisioned (NI cards: a whole card for two analog channels).
 
 The goal is to replace that clutter with a Raspberry-Pi-hosted stack that
-needs **one host connection and one supply**, and is quick and safe to wire
-under a hectic test schedule.
+needs **one host connection and as few supplies as possible**, and is quick
+and safe to wire under a hectic test schedule.
 
 ### Goals
 
@@ -29,67 +30,160 @@ under a hectic test schedule.
 - Precision or high-speed measurement. The Digilent/MCC DAQ HATs
   (MCC 118, 128, 134, 152, 172) cover those cases and share the same stack.
 - Duplicating functions already available as off-the-shelf HATs.
+- Powering the host. The Pi 5 and Orange Pi 6 keep their native USB-C supplies.
 
 ## 2. System context
 
-- **Hosts:** Raspberry Pi 5 and Orange Pi 6. The user manages device-tree
-  overlays in the Python project.
+- **Hosts:** Raspberry Pi 5 and Orange Pi 6 (Plus). The user manages
+  device-tree overlays in the Python project.
 - **Shared header:** boards on the 40-pin header coexist with up to 8 MCC DAQ
   HATs. The reserved and free pins are listed in `CLAUDE.md`, under
   "Raspberry Pi header sharing". In summary:
   - Never use SPI0, BCM 12/13/16/20/21/26, or ID_SD/ID_SC.
   - Never fit a HAT ID EEPROM.
-  - I2C1 is shared; keep devices off addresses 0x20–0x27.
+  - I2C1 is shared; keep devices off addresses 0x20–0x27. This rules out
+    MCP23017-class expanders on I2C1, since their address pins only select
+    within 0x20–0x27.
 - **Mounting:** M2.5 Raspberry Pi standoffs (58 × 49 mm hole pattern).
+  Component height is not a hard limit: tall parts such as DB9s are handled
+  with longer stacking headers/standoffs or by placing the board at the top
+  of the stack.
 - **Software:** the Python test framework talks to every board through
   standard Linux interfaces where possible: SocketCAN (`can0`, `can1`, …),
   tty devices, and a common I/O protocol (section 6).
 
-## 3. Boards
+## 3. Power architecture
 
-### 3.1 Primary controller: `can-controller` (on the header)
+Decided 2026-10-04.
+
+```
+Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► logic domain of our boards
+                                                           (MCU, expanders, ADC, AO, isolator logic sides)
+
+12 V DIN supply (floating output) ──► CAN board 12 V terminal ──► 12 V domain
+        │                                                       ├─► CAN cable supply (fused per bus)
+        │                                                       ├─► buck to 5 V ─► ISO1042 bus sides
+        │                                                       └─► relay coils (via isolated drivers)
+        └── its 0 V is the CAN bus ground; never connected to logic ground
+```
+
+### 3.1 Host and logic domain
+
+- Hosts are powered by their native USB-C supplies: Raspberry Pi 5 from its
+  5 V / 5 A supply, Orange Pi 6 Plus from 20 V / 100 W USB-C PD.
+- Our boards **never drive the header 5 V**. On the Orange Pi 6 the header
+  5 V is an output of its own regulator, so back-feeding it would fight that
+  regulator.
+- Our boards draw their logic power from the **header 5 V** (and make their
+  own 3.3 V). Budget: **≤ 1 A for all of our boards together**. The Pi 5 is
+  the limit: it leaves about 1 A worst case after itself and its USB ports.
+  The Orange Pi 6 Plus header 5 V is rated for about 4 A (reference found by
+  the user, 2026-10-04).
+- MCC HATs also draw from the header 5 V and count against the same budget.
+
+### 3.2 12 V domain (CAN board)
+
+- **One external 12 V DIN-rail supply** wired to a keyed power terminal on the
+  CAN board. It powers everything heavy: CAN cable supplies for remote nodes,
+  the CAN transceivers' bus sides, and the relay coils.
+- The supply's output must be **floating** (normal for DIN-rail supplies). Its
+  0 V becomes the CAN bus ground. This is what keeps the 12 V domain isolated
+  from the Pi: see 3.3.
+- Input protection: reverse polarity, TVS, and an eFuse or fuse.
+- Each CAN bus gets the 12 V on its cable through its own fuse or current
+  limit. Both CAN buses share the 12 V domain and its ground (isolated from
+  the Pi, not from each other).
+- A buck converter makes 5 V for the ISO1042 bus sides.
+- The 12 V domain needs no isolated DC-DC converter.
+
+### 3.3 Where the isolation is
+
+There are only two domains on the CAN board: **logic** (Pi ground, header
+5 V) and **12 V** (CAN bus ground). The isolation barrier is made by the
+parts that cross between them, and nothing else:
+
+| Crossing | Part |
+|----------|------|
+| Mains to 12 V | The DIN supply itself (SELV, floating output) |
+| CAN data | ISO1042BQDWVRQ1 isolated CAN transceivers |
+| Relay control | Isolated relay drivers (optocouplers or isolated low-side switches), option 3 of 2026-10-04 |
+| Optional 12 V status | An optocoupler, if the MCU should sense whether 12 V is present (**TBD**) |
+
+Layout rules that follow:
+
+- Split the copper: no trace, pour, or component may connect 12 V ground to
+  logic ground. The isolators straddle the gap.
+- Keep creepage across the gap per the isolators' datasheets.
+- The relay supply comes from the 12 V domain, so the ULN2803A (or its
+  replacement) sits on the 12 V side, driven through the isolators.
+
+### 3.4 Serial board power
+
+- Logic from the header 5 V budget (3.1).
+- The RS-485 port has an isolated bus side powered by a TEA1-0505HI
+  (5 V to isolated 5 V, 1 W). Check that its light-load output stays under the
+  TPT7488's 5.5 V maximum.
+- RS-232 (ST3232B) is not isolated.
+
+## 4. Boards
+
+### 4.1 Primary controller: `can-controller` (on the header)
 
 | Item | Requirement |
 |------|-------------|
 | MCU | PIC32MK1024MCF064-I/PT (4× CAN 2.0B, USB FS device, 12-bit ADC, 3× DAC, op amps) |
-| Host link | USB to the host. Uses no header signal pins; the header supplies only 5 V/GND and mounting. |
-| CAN | 2 channels, each a 4-wire bus: CANH, CANL, GND, bus supply. Switchable 120 Ω termination. |
-| CAN bus supply | Feeds remote CAN nodes. Voltage: **TBD** (12 V or 24 V). Source/input connector: **TBD**. Fused/current-limited per channel. |
-| Local I/O | A handful of DI, DO, relay drive, AI and AO. Counts: **TBD** (see 4.1). |
-| Size | HAT (65 × 56.5 mm) if the connector budget fits, otherwise up to 100 × 100 mm |
+| Host link | USB to the host. Uses no header signal pins. |
+| CAN | 2 channels, **isolated** (ISO1042BQDWVRQ1). Each is a 4-wire bus: CANH, CANL, GND, +12 V. Switchable 120 Ω termination. |
+| Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
+| GPIO | 8, each software-configurable as input or output, **3.3 V** logic. MCP23017 (on the PIC32's own I2C, not the Pi's). Each GPIO has its own ground terminal. |
+| Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven through isolators. Coils from 12 V by default; COM may instead take an external relay supply up to 12 V (**TBD**: keep this option?). |
+| Analog out | 2 × 0–10 V. Baseline: MCP4912 DAC into MC34072 op amps with gain ≈ 3. The PIC32MK's own DACs may replace the MCP4912. The DAC reference must be a precision reference, not a switching rail. Op amp supply ≥ 13 V from a small boost on the logic side. Each output has its own ground terminal. |
+| Analog in | 4 channels. MCP3428 (16-bit, I2C 0x68–0x6F) behind 10 MΩ / 180 kΩ dividers with 0.1 µF across the 180 kΩ (anti-aliasing, fc ≈ 9 Hz). Full scale about ±116 V (**TBD**: confirm intended). The MCP3428 input loads the divider by about 7–8%: calibrate in firmware. Each input has its own ground terminal. |
+| Size | **TBD**: about 46 terminal positions (below) need a 100 × 100 mm board; or move GPIO and relays to a daughter card on the controller's I2C |
 
-Open: whether CAN is isolated (**TBD**); the USB connector type and where it
-sits on the board (**TBD**).
+Terminal count (3.5 mm pitch): 2 × CAN (8), 8 GPIO + 8 GND (16), 8 relay
+outputs + COM + supply (10), 2 AO + 2 GND (4), 4 AI + 4 GND (8): about 46
+positions, about 160 mm of edge, plus USB and the 12 V input.
 
-### 3.2 Remote CAN node, SSR: `can-ssr` (off the header)
+MCP23017 note: recent datasheet revisions make GPA7 and GPB7 output-only. Put
+the bidirectional GPIO on GPA0–GPA6 + GPB0 and the relay drives on GPB1–GPB7
++ GPA7.
+
+GPIO protection: a series resistor plus clamp on each pin to survive a short
+to 24 V. That limits output drive to a few mA, which is fine for logic inputs
+on the device under test; loads go on the relay outputs.
+
+Open: the USB connector type and where it sits on the board (**TBD**).
+
+### 4.2 Remote CAN node, SSR: `can-ssr` (off the header)
 
 | Item | Requirement |
 |------|-------------|
 | MCU | PIC18 with on-chip CAN (e.g. PIC18F26K83 CAN 2.0B, or PIC18F26Q84 CAN FD). Part: **TBD** |
-| Power | From the 4-wire CAN cable |
+| Power | From the 4-wire CAN cable: 12 V, referenced to CAN bus ground. The node's logic lives on the CAN bus side. |
 | Function | High-side P-MOSFET solid-state switching of DC loads up to **120 V DC** |
 | Channels / current | **TBD**. The user has specific MOSFETs in mind. |
-| Safety | 120 V DC is above the 60 V DC SELV limit. Needs creepage/clearance between the load and logic sections, a Vgs clamp, MOSFETs rated about 200 V, and probably isolation between the load side and CAN/logic (**TBD**). |
+| Safety | 120 V DC is above the 60 V DC SELV limit. Needs creepage/clearance between the load and logic sections, a Vgs clamp, MOSFETs rated about 200 V, and isolation between the load side and the CAN/logic side (**TBD**: how). |
 | Connectors | CAN in and CAN out (daisy chain), load terminals rated for the voltage and current |
 
 This board is the first of a possible family of bus-powered CAN nodes
 (relay, analog, digital), each with a single function and few connectors.
 Whether to build more nodes is a later decision.
 
-### 3.3 Serial expander: `serial-io` (on the header)
+### 4.3 Serial expander: `serial-io` (on the header)
 
 | Item | Requirement |
 |------|-------------|
-| UARTs | 2× SC16IS752 dual UART on shared I2C1, at addresses 0x48 and up. Linux `sc16is7xx` driver gives `/dev/ttySC*`. |
-| Ports | 2× RS-232, 2× RS-485. RS-485 direction controlled automatically through RTS. |
+| UARTs | 3 needed: e.g. one SC16IS752 (dual) plus one SC16IS740 (single), or two SC16IS752 with one spare. On shared I2C1 at addresses 0x48 and up. Linux `sc16is7xx` driver gives `/dev/ttySC*`. |
+| RS-232 | 2 ports, TX/RX only, ST3232BDR. Not isolated. |
+| RS-485 | **1 port** (reduced from 2 on 2026-10-04: CAN now reaches the SSR nodes, so one port covers the common case). **Full duplex, isolated**: TPT7488-SOBR (isolated full-duplex transceiver, 5 kV RMS) with a TEA1-0505HI for the isolated bus side. Point-to-point (no driver enable). Switchable termination. |
 | Header pins | I2C1 (pins 3/5) plus 1–2 IRQ GPIOs from the free list. Exact pins: **TBD**, after checking on the Orange Pi 6. |
-| RS-485 | Switchable termination and failsafe bias. Half or full duplex: **TBD**. |
-| Throughput | Console and Modbus rates. Four ports streaming at 115200 at once exceeds what 400 kHz I2C can carry; this is accepted. |
-| Connectors | **TBD** (DB9 for RS-232 versus pluggable terminals) |
+| Throughput | Console and Modbus rates. Three ports streaming at 115200 at once is near what 400 kHz I2C can carry; this is accepted. |
+| Connectors | **DB9** for all three ports (about 95 mm of edge). Use male for RS-232 and female for RS-485 so the two can't be swapped. DB9 height means this board goes at the top of the stack or uses taller stacking hardware. |
 
-## 4. Requirements common to all boards
+## 5. Requirements common to all boards
 
-### 4.1 Connector budget
+### 5.1 Connector budget
 
 Connectors sit on board edges, and edge length is the binding size constraint.
 Budget each board's connectors before starting the schematic:
@@ -97,8 +191,11 @@ Budget each board's connectors before starting the schematic:
 - On a 65 mm HAT edge: about 17 positions of 3.5 mm pluggable terminals, or about 12 at 5.08 mm.
 - The Pi header occupies one long edge's interior, and the standoffs take the corners.
 - At 100 × 100 mm: two to three usable edges of roughly 90 mm each.
+- A DB9 takes about 31 mm of edge.
+- Give each GPIO and analog channel its own ground terminal, so test engineers
+  don't need a separate ground bus.
 
-### 4.2 Field wiring protection (all external connections)
+### 5.2 Field wiring protection (all external connections)
 
 Wiring mistakes are common under test-schedule pressure, so every
 field-facing pin must survive the likely mistakes:
@@ -117,39 +214,38 @@ field-facing pin must survive the likely mistakes:
 - **Outputs default to off** at power-up, at reset, and when the host link is
   lost (firmware watchdog with a defined failsafe state).
 
-### 4.3 Usability
+### 5.3 Usability
 
 - A status LED per channel where practical, plus power and heartbeat/host-link LEDs.
 - Clear silkscreen: the signal name at every terminal, the board name and revision, and the address/termination setting.
 - Configuration (termination, address) by jumper or switch that is visible without disassembly.
 
-### 4.4 I/O signal ranges (TBD)
-
-To be filled in from rack experience:
+### 5.4 I/O signal ranges
 
 | Type | Range / level | Notes |
 |------|---------------|-------|
-| DI | **TBD** (e.g. 3.3–24 V, threshold about 2.5 V) | Dry contact support? |
-| DO | **TBD** (open-drain sinking, 24 V / 100 mA?) | |
-| Relay drive | **TBD** (coil voltage, flyback on board) | |
-| AI | **TBD** (0–10 V? ±10 V? 4–20 mA?) | Low accuracy OK; protect to 24 V |
-| AO | **TBD** (0–5 V or 0–10 V, mA drive) | Short-circuit tolerant |
+| GPIO | 3.3 V logic, input or output | Survives a 24 V short; output drive a few mA |
+| Relay drive | 12 V coils by default (5 V relays usable with an external COM supply, **TBD**) | Flyback diodes in the ULN2803A |
+| AI | About ±116 V full scale (**TBD**: confirm) | 10 MΩ input; low accuracy OK |
+| AO | 0–10 V | Short-circuit tolerant |
 
-### 4.5 Part selection
+### 5.5 Part selection
 
 - Boards are mostly hand assembled; larger parts beat cost and density.
 - Chip R/C: 1206 where possible; decoupling capacitors 0805; nothing smaller.
 - Ceramic capacitors: X5R/X7R or better (C0G/NP0); never Y5V/Y5U/Z5U.
 - Prefer SOIC/SOT/TQFP over leadless packages where there is a choice.
 
-## 5. Mechanical and manufacturing
+## 6. Mechanical and manufacturing
 
 - 2 layers, at most 100 × 100 mm, rounded corners, M2.5 holes on the Pi 58 × 49 mm pattern.
-- Header boards: 2×20 socket on the bottom side, at HAT position. Must stack with MCC HATs; check component height against the stacking header.
+- Header boards: Samtec REF-182665 SMT pass-through socket on top at the HAT
+  position, so they stack with MCC HATs using a stacking socket (e.g. Samtec
+  SSQ-120-03-T-D).
 - PCBWay standard service. House rules are in `tools/house_rules.py`.
 - Every part carries `Manufacturer` and `MPN` fields (BOM for ordering, and for PCBWay assembly when used).
 
-## 6. Firmware and host software
+## 7. Firmware and host software
 
 - One **host protocol** shared by all boards, defined before the controller
   firmware: discovery and identification (board type, revision, serial
