@@ -2,7 +2,7 @@
 	(version 20260101)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "36497bae-d552-46a1-a25c-8a8f3324cea8")
+	(uuid "a5eee820-30dd-46bf-b935-a26435aa8449")
 	(paper "A3")
 	(title_block
 		(title "CAN SSR: power path")
@@ -2016,7 +2016,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "6130a551-486e-472b-a487-e3cddf1c4570")
+		(uuid "8cce34bc-586a-4851-bd7e-8ec950b429eb")
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
@@ -2026,7 +2026,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "30de1bdd-a47b-45af-8171-9c39c3d3c342")
+		(uuid "b78ee473-115a-41c4-99bc-8068bb84fe0f")
 		(property "Reference" "H1"
 			(at 40.64 57.15 0)
 			(effects
@@ -2072,11 +2072,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "5c99ef03-0fcf-4f91-82ed-bff1b5271830")
+			(uuid "7d92ce79-95ae-4209-a12e-1a34c186e463")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "H1")
 					(unit 1)
 				)
@@ -2093,7 +2093,7 @@
 			)
 			(justify right)
 		)
-		(uuid "bf517c5d-385a-4b14-acba-09c8dff61549")
+		(uuid "23e22b6f-cbd7-4386-a693-acdacc8e808c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 35.56 63.5 0)
 			(effects
@@ -2112,7 +2112,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "46365968-d789-4b2e-a2a1-7b0624d08bdb")
+		(uuid "4df52aa2-4afa-4370-a312-9f00dd30572a")
 		(property "Reference" "H2"
 			(at 40.64 77.47 0)
 			(effects
@@ -2158,11 +2158,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "dcf9a4a0-16fc-4f38-842d-434e6d7ea3f4")
+			(uuid "029e7566-9603-4f5d-b784-6beb76f12cec")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "H2")
 					(unit 1)
 				)
@@ -2179,7 +2179,7 @@
 			)
 			(justify right)
 		)
-		(uuid "80a5930a-f85a-4658-ae3e-4585e6efe052")
+		(uuid "a68a5ec3-8fe0-436f-b877-c4ee0db3ffd3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 35.56 83.82 0)
 			(effects
@@ -2198,7 +2198,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c39cb189-c4c4-406d-b2ac-d03d801d31a5")
+		(uuid "ea60199e-5ea7-41ae-8aa5-15d208ee7ad5")
 		(property "Reference" "H3"
 			(at 40.64 97.79 0)
 			(effects
@@ -2244,11 +2244,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "20ca95f9-c8a1-458a-ab8c-fbd911c3e062")
+			(uuid "f31b6bc6-0b7c-4435-a5f4-195dfc0fc86d")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "H3")
 					(unit 1)
 				)
@@ -2265,7 +2265,7 @@
 			)
 			(justify right)
 		)
-		(uuid "fd638269-0cde-429b-b535-4308af2cc6df")
+		(uuid "f108c02d-27ba-4d0f-bd3f-cab6de449d25")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 35.56 104.14 0)
 			(effects
@@ -2284,7 +2284,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ae7c4a20-3eae-4d09-96d4-fa80269abbe9")
+		(uuid "7717ba7c-ac19-42a9-b338-b617dd51911e")
 		(property "Reference" "H4"
 			(at 40.64 118.11 0)
 			(effects
@@ -2330,11 +2330,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "8a23c66f-6d96-418f-a377-a31e07f1c5eb")
+			(uuid "9909a662-6055-4b71-96d8-4c02ca4e7408")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "H4")
 					(unit 1)
 				)
@@ -2351,7 +2351,7 @@
 			)
 			(justify right)
 		)
-		(uuid "546aaa0b-0fa7-42be-a2d2-60a859ca216d")
+		(uuid "1edda47b-17f7-474e-afb8-ab354455b989")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 35.56 124.46 0)
 			(effects
@@ -2371,7 +2371,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d4bae891-add0-4cff-9e97-0da5bf447a69")
+		(uuid "350ba0a4-ffa7-4037-b044-39c553070ff6")
 	)
 	(symbol
 		(lib_id "Transistor_FET:STB15N80K5")
@@ -2381,7 +2381,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5b6b4b77-bf14-4cfb-8d45-1946a610c21b")
+		(uuid "e617d7e5-b0a0-4a80-874a-ecd85b818026")
 		(property "Reference" "Q1"
 			(at 101.6 73.66 0)
 			(effects
@@ -2454,17 +2454,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "cb557e5b-bd24-435c-8537-6e172f4b5dd9")
+			(uuid "8d25c11f-6960-4b96-bf92-7c452d47e434")
 		)
 		(pin "2"
-			(uuid "4859937b-305c-409f-83e8-e00e46ad8348")
+			(uuid "4abb6302-ea1b-44f5-a3dd-df885d6003f8")
 		)
 		(pin "3"
-			(uuid "9cafb651-e77c-4b55-969a-24385725a183")
+			(uuid "38f0f83d-92e6-4306-a996-f7b6668c3816")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "Q1")
 					(unit 1)
 				)
@@ -2479,7 +2479,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "a17c998f-ff60-4e3c-b327-266e63f26236")
+		(uuid "2694fb04-41a4-4314-bc4b-036e3c6bde1d")
 	)
 	(global_label "VIN"
 		(shape bidirectional)
@@ -2491,7 +2491,7 @@
 			)
 			(justify left)
 		)
-		(uuid "81abf2e2-1e13-4302-b590-08a693c40b1a")
+		(uuid "62098183-fc01-4810-8d96-02d87e39765f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 99.06 71.12 0)
 			(effects
@@ -2510,7 +2510,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "ae8af1e7-5ad4-4aa3-bcf9-d480dbb29ba8")
+		(uuid "c3bd0717-3a2f-4edc-9f13-7e445ebe1689")
 	)
 	(symbol
 		(lib_id "Transistor_FET:STB15N80K5")
@@ -2520,7 +2520,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9de6273d-ed22-499d-b851-c19003077844")
+		(uuid "99f7161a-929b-4e99-820c-3ac7992d175b")
 		(property "Reference" "Q2"
 			(at 121.92 73.66 0)
 			(effects
@@ -2593,17 +2593,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "68e96afe-1c3f-466a-aafa-863160295aa5")
+			(uuid "3f59fe45-8d06-4cbd-b0cc-6c362b4c29a1")
 		)
 		(pin "2"
-			(uuid "ecf7885d-3d57-4b73-93bf-ce14b119c3eb")
+			(uuid "e46716c6-75bc-402d-a8d4-8b358e9c23ce")
 		)
 		(pin "3"
-			(uuid "1c78fb60-d6fa-4bc6-ac53-dee746cef2e3")
+			(uuid "2fa2bf29-26e4-4b6c-9bfb-b9a057215dcd")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "Q2")
 					(unit 1)
 				)
@@ -2618,7 +2618,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "4cfffdc7-87c6-4643-a75b-5c19ff970fa4")
+		(uuid "bf6ee009-9208-4be2-930a-d4974ac6cdb2")
 	)
 	(global_label "VIN"
 		(shape bidirectional)
@@ -2630,7 +2630,7 @@
 			)
 			(justify left)
 		)
-		(uuid "2426eff8-2bf1-4e89-82ae-72ff14012612")
+		(uuid "92d47243-c6a6-4c8e-817b-9ad28ea38552")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 119.38 71.12 0)
 			(effects
@@ -2649,7 +2649,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "a4b8ee60-1477-43ca-a050-74134807b28a")
+		(uuid "9da575e6-b459-4fd1-9be6-7b8485d99ff6")
 	)
 	(symbol
 		(lib_id "Transistor_FET:STB15N80K5")
@@ -2659,7 +2659,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fad6a67f-8765-4b2d-b69a-ffab2fb0330f")
+		(uuid "484da7e4-ae0d-430e-b861-32a4ab814c79")
 		(property "Reference" "Q3"
 			(at 170.18 73.66 0)
 			(effects
@@ -2732,17 +2732,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "588e94f7-b42b-4df5-adbd-97e4c5951a12")
+			(uuid "0ba6edf0-29a2-460f-8b6f-09a54d7a59dc")
 		)
 		(pin "2"
-			(uuid "c9cffc1d-feb6-491d-b473-6cef5f2da568")
+			(uuid "b59ede98-7a9b-498a-9581-31505bded353")
 		)
 		(pin "3"
-			(uuid "481d47cf-8a36-4663-852c-4ef91cc80518")
+			(uuid "6566291e-be52-4df2-a4dc-0bd1ab4d81eb")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "Q3")
 					(unit 1)
 				)
@@ -2757,7 +2757,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "838a9b93-e0f3-4e61-a132-ff5cc97bf95a")
+		(uuid "07af0025-be6c-45b7-8d7f-1f4b86639e54")
 	)
 	(label "VOUT_SW"
 		(at 167.64 71.12 90)
@@ -2767,7 +2767,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b04900f6-ff4f-4fe2-a35c-b8fce1475587")
+		(uuid "1aa49474-c4ab-44b9-90e8-0989fdc299a0")
 	)
 	(label "SRC"
 		(at 167.64 81.28 270)
@@ -2777,7 +2777,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "75211f1e-e018-42de-8756-0104f5d34333")
+		(uuid "7f9636eb-8e9f-4131-b208-7e782d055aa0")
 	)
 	(symbol
 		(lib_id "Transistor_FET:STB15N80K5")
@@ -2787,7 +2787,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "22720d3f-2918-43a6-9c42-f3b461c0a935")
+		(uuid "facfa221-556d-49d5-86ba-b8ed74f4f01e")
 		(property "Reference" "Q4"
 			(at 190.5 73.66 0)
 			(effects
@@ -2860,17 +2860,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "e416dfaa-68ce-48b2-88e2-665b101f6620")
+			(uuid "44553c07-4c5b-4e54-a297-5e196849f7f4")
 		)
 		(pin "2"
-			(uuid "913cb678-a94a-4372-bf9f-6ed46a15c38a")
+			(uuid "898dfa99-b7d7-4292-b1d9-78144415dbc4")
 		)
 		(pin "3"
-			(uuid "1551a4c0-c2a9-4b4f-a6fe-0a5924d6bb14")
+			(uuid "0407de57-5adf-4e12-a12e-8bdb5bd13a97")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "Q4")
 					(unit 1)
 				)
@@ -2885,7 +2885,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "9c3a1094-63b8-4ac3-b984-540d0db1b139")
+		(uuid "d00f01aa-080c-450c-94ce-db5d2e7a648f")
 	)
 	(label "VOUT_SW"
 		(at 187.96 71.12 90)
@@ -2895,7 +2895,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5826fde7-e560-4ab7-8ef7-764d05c91907")
+		(uuid "516b8942-43e2-41de-86b0-4400c67276c5")
 	)
 	(label "SRC"
 		(at 187.96 81.28 270)
@@ -2905,7 +2905,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "ce2fbb74-ed2d-4371-8276-5c2c6fe2bed2")
+		(uuid "191a155a-8661-4ccc-902a-a19ec4cfe5ce")
 	)
 	(text "Q1 || Q2 (input side) and Q3 || Q4 (output side), sources tied: off = blocks both directions.\nFitted MOSFET depends on the build (see Build field); the build resistor on the trip sheet\nmust match."
 		(exclude_from_sim no)
@@ -2916,7 +2916,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c672a47d-7bfe-459d-8f36-79e1989bef54")
+		(uuid "179ef5e9-7bf7-42f3-856e-c0fb131e7ed4")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -2926,7 +2926,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "38b705ab-3dbe-43e8-89fa-5878043743d5")
+		(uuid "64e3adca-370c-4ed6-ba29-513f3eed1376")
 		(property "Reference" "R10"
 			(at 86.36 100.33 0)
 			(effects
@@ -2990,14 +2990,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "c7c0eba4-a6f5-4c54-87fb-5dd34f72e94b")
+			(uuid "20c3b9df-539f-48a0-8eab-cf37b6e9f54a")
 		)
 		(pin "2"
-			(uuid "5d66850b-efa1-49f7-978e-b3844b8a3344")
+			(uuid "8e068f52-8b55-48a2-b201-3edc5018bb6a")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R10")
 					(unit 1)
 				)
@@ -3012,7 +3012,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "97686242-e278-4422-99ab-b7c9832ab351")
+		(uuid "3be277c0-f101-4ccf-a263-d1fb82e4dafe")
 	)
 	(label "G1"
 		(at 83.82 105.41 270)
@@ -3022,7 +3022,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fd1b113b-0ea7-44ee-8d7d-4d6fd4a64482")
+		(uuid "7fb0ea19-50c3-4ab4-9304-de478bfe7deb")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -3032,7 +3032,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d6202d8f-62d1-4c55-95e9-8c0671be1aeb")
+		(uuid "c0a0289e-f9ee-4feb-97aa-aefc45c2c16e")
 		(property "Reference" "R11"
 			(at 106.68 100.33 0)
 			(effects
@@ -3096,14 +3096,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "24a9be88-3a00-4491-b826-76cfb7adf229")
+			(uuid "f8cad711-3d3c-4d89-9ced-efe607df2254")
 		)
 		(pin "2"
-			(uuid "dc961339-5a11-47b9-9e47-e34f134ea75a")
+			(uuid "8b29ead8-d9a8-40e9-9900-8a0e590dc828")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R11")
 					(unit 1)
 				)
@@ -3118,7 +3118,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "2fdba745-fd59-465e-8ec1-232cc84f1126")
+		(uuid "0d471d41-e1aa-47f7-b5d6-b7ba29b053a0")
 	)
 	(label "G2"
 		(at 104.14 105.41 270)
@@ -3128,7 +3128,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fe9bf46d-fe36-464b-99cd-c1ae7d817bb7")
+		(uuid "a6a553a4-5bfa-45e6-b913-51575195cfa3")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -3138,7 +3138,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fab324fe-7f7c-4c41-87f2-a47253f90b30")
+		(uuid "5e5a4bd8-54b2-4964-94af-e1cefa76f136")
 		(property "Reference" "R12"
 			(at 154.94 100.33 0)
 			(effects
@@ -3202,14 +3202,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "f6d5fa67-2b79-4e18-9509-938fcd9dc935")
+			(uuid "c04faeea-7d45-488f-9d4d-135f5569f9f2")
 		)
 		(pin "2"
-			(uuid "f3a92883-c1bb-4714-96a6-83dfd18f55d5")
+			(uuid "73be33a6-d198-426a-9243-df66bbbee8b0")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R12")
 					(unit 1)
 				)
@@ -3224,7 +3224,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9ab8add0-d6c3-4fca-9034-21846c434e03")
+		(uuid "d1fe731d-8216-44cc-8567-b9df8943363f")
 	)
 	(label "G3"
 		(at 152.4 105.41 270)
@@ -3234,7 +3234,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "b4ac0a1d-bde0-4558-8b63-a0938181e024")
+		(uuid "827cc633-321b-423c-82d1-aee2adfc4d29")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -3244,7 +3244,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3fa155c1-aeec-4e24-9497-49830f1073e5")
+		(uuid "7efa2d27-12d1-4466-82da-1eaa1c58e1b7")
 		(property "Reference" "R13"
 			(at 175.26 100.33 0)
 			(effects
@@ -3308,14 +3308,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "b7d6c9a8-c0df-44de-9133-9ac0d803f13f")
+			(uuid "caf685a6-a2ca-4de6-a2c2-e39e61583beb")
 		)
 		(pin "2"
-			(uuid "c9e0950c-d48a-4f74-b44c-e20b3b8b3e38")
+			(uuid "c0637dba-1e62-41b2-839d-d89887ffb647")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R13")
 					(unit 1)
 				)
@@ -3330,7 +3330,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9d68d690-5dd2-4996-b053-78cbef0e57d6")
+		(uuid "00ef5100-44ea-4eda-8307-794372f5fa87")
 	)
 	(label "G4"
 		(at 172.72 105.41 270)
@@ -3340,7 +3340,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "7e46abb1-2de7-47d9-bd7c-6f2bf9380bfb")
+		(uuid "26971ffd-5cda-4f61-8d29-32a7bf7812da")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -3350,7 +3350,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "365b786c-abd9-470c-aa86-3d7d39a67bac")
+		(uuid "510f96b9-7a11-47b2-8642-e47151eeb6fd")
 		(property "Reference" "R14"
 			(at 226.06 100.33 0)
 			(effects
@@ -3414,14 +3414,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "b19577b1-900d-4fb4-8b97-4fa4f48b648e")
+			(uuid "82a4deb6-4a94-4a68-8f77-856564829b8e")
 		)
 		(pin "2"
-			(uuid "84489f15-f3fc-4072-a417-2af771cb95de")
+			(uuid "de88a439-b1ab-428d-8a32-8c2b81b314d3")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R14")
 					(unit 1)
 				)
@@ -3436,7 +3436,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "34e18b18-82be-4a5f-a3a0-d5f6bede5065")
+		(uuid "eebe2741-df92-4590-8bb2-15979cb42728")
 	)
 	(label "SRC"
 		(at 223.52 105.41 270)
@@ -3446,7 +3446,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0effdbd3-008f-4830-b18d-888ceea7060f")
+		(uuid "a17f9293-356c-4833-aa0c-c898e3d79dfa")
 	)
 	(symbol
 		(lib_id "Device:D_Zener")
@@ -3456,7 +3456,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4eb835de-b0ef-4102-b4a6-009c6ed4b9c8")
+		(uuid "c2ab2b7c-e925-454a-aec6-b68f3594331e")
 		(property "Reference" "D10"
 			(at 245.11 100.33 0)
 			(effects
@@ -3520,14 +3520,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "8b260312-df9c-4847-a61f-f191baa8a191")
+			(uuid "3e223d7b-a5a9-4b97-afd7-b417f1710b6f")
 		)
 		(pin "2"
-			(uuid "214a954d-3a72-48e3-b14c-91d932d64611")
+			(uuid "cf4498d2-c3b0-4f24-8d1f-cdef505faa3d")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "D10")
 					(unit 1)
 				)
@@ -3542,7 +3542,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "85d20b63-f141-4945-aeb1-5254091949bd")
+		(uuid "670d1ee5-4318-4468-903e-6f1a12f2878e")
 	)
 	(label "SRC"
 		(at 241.3 97.79 90)
@@ -3552,7 +3552,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7f70292c-cb76-4902-9b49-3191317a9d4a")
+		(uuid "eb5528a7-1f0c-4020-b0f2-cedadff54762")
 	)
 	(text "Gate clamp 15 V; 10M defines the off state."
 		(exclude_from_sim no)
@@ -3563,7 +3563,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c9a5b982-25f9-4a62-b8a2-b36cdcf083f6")
+		(uuid "5316b071-d80c-4ddf-b832-db0e44937c24")
 	)
 	(symbol
 		(lib_id "Device:D")
@@ -3573,7 +3573,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "213614c4-35bd-4023-9c58-0e7cb9f1286e")
+		(uuid "40d5a49c-4244-4c61-8b62-2977e9980ec2")
 		(property "Reference" "D11"
 			(at 223.52 135.89 0)
 			(effects
@@ -3636,14 +3636,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "a0bc1fac-53cd-438a-b42b-75c541a87c07")
+			(uuid "410d4ffd-afe5-4cdd-8a18-4f1b20a2db5c")
 		)
 		(pin "2"
-			(uuid "fb5b0162-cb9b-4702-9620-dbbd6d0634ff")
+			(uuid "07d9c261-a933-4dc2-8ad0-848fd95e9378")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "D11")
 					(unit 1)
 				)
@@ -3658,7 +3658,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5704e3c2-b4fc-4fbd-a772-d8b8881b48b6")
+		(uuid "65707284-728f-46ae-afae-e8ab975e1cc9")
 	)
 	(label "GATE"
 		(at 219.71 139.7 180)
@@ -3668,7 +3668,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "326dee81-3d7a-4a7d-9aed-4d63bed409ff")
+		(uuid "959e75ab-4bb2-453b-a172-b5a4bbef0d27")
 	)
 	(symbol
 		(lib_id "Transistor_BJT:Q_PNP_BEC")
@@ -3678,7 +3678,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "23b211b8-d073-4ebc-bbb5-6652d0ab94b3")
+		(uuid "5a5d2d50-045c-40c5-9139-6f1fbfc40028")
 		(property "Reference" "Q5"
 			(at 259.08 137.16 0)
 			(effects
@@ -3742,17 +3742,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "b07c3dd8-e6f9-49ef-9a45-68ef7cbd2258")
+			(uuid "eddb9a75-7509-4847-8838-1335bea300e4")
 		)
 		(pin "2"
-			(uuid "26a6be5a-ebaa-4919-a091-0e36e19a107e")
+			(uuid "1341a3a4-e8d4-4ded-99a2-1cc62da9f0ba")
 		)
 		(pin "3"
-			(uuid "8e308163-710b-47e8-a468-2ac632513df9")
+			(uuid "423bd034-32ea-4680-b135-21e6951667cd")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "Q5")
 					(unit 1)
 				)
@@ -3767,7 +3767,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "9db61bc6-bd18-429d-943a-40354bebaf6c")
+		(uuid "612c5e6f-8316-4f33-8ca0-ea9011e5f3b9")
 	)
 	(label "GATE"
 		(at 256.54 144.78 270)
@@ -3777,7 +3777,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "04b71576-ebca-4362-a539-9c22ca01682c")
+		(uuid "9a9966d6-19d5-4dbd-a723-a7cd3f210d4c")
 	)
 	(label "SRC"
 		(at 256.54 134.62 90)
@@ -3787,7 +3787,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "09cd3a9e-a516-4507-b7d9-c9a2e8667286")
+		(uuid "3b2c6ba6-d8cc-4fea-9a71-2e5a12fd3fbf")
 	)
 	(text "Turn-off: when the VOM1271 output collapses, Q5 dumps the gate into SRC (a few us)."
 		(exclude_from_sim no)
@@ -3798,7 +3798,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "15b5870d-694e-4c4b-9ddb-2d0a43431278")
+		(uuid "ee7cfc6f-ffe9-498c-8d92-0fb60079a19f")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -3808,7 +3808,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6db02878-ebe2-4ee9-8b54-bf815f4a6a7f")
+		(uuid "735a887d-cdc5-437e-afa7-1c97a3eb32ae")
 		(property "Reference" "C10"
 			(at 226.06 176.53 0)
 			(effects
@@ -3872,14 +3872,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "0c656e53-4d83-4033-809d-bee95ba24b29")
+			(uuid "d6ff7ffe-f176-42f5-9bf0-214c7444086f")
 		)
 		(pin "2"
-			(uuid "1a6ad7f6-6e85-47a6-8467-32ec935301f1")
+			(uuid "cab30327-fe09-4502-9ddf-bb36d5e956a4")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "C10")
 					(unit 1)
 				)
@@ -3896,7 +3896,7 @@
 			)
 			(justify left)
 		)
-		(uuid "150ddca8-ad79-40a5-9925-fc4e22591b5f")
+		(uuid "0cfd2b8a-6f72-4176-8550-c57386ae4238")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 223.52 173.99 0)
 			(effects
@@ -3915,7 +3915,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "881aefef-c54f-4cbf-a3c8-be83e3610bb8")
+		(uuid "dc061ec4-4331-4aa0-ab2f-93ce855e7c8e")
 	)
 	(symbol
 		(lib_id "Device:D")
@@ -3925,7 +3925,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "acdaed03-a1ec-4b81-a940-22d52591a455")
+		(uuid "ea1c06e8-d8c7-41ce-8da3-7f45f7d63670")
 		(property "Reference" "D12"
 			(at 241.3 186.69 0)
 			(effects
@@ -3988,14 +3988,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "0a265dfa-f8f7-480d-adbd-0a9c593f08e5")
+			(uuid "ac43dbd2-6f0f-4a26-8950-001fbbd5189e")
 		)
 		(pin "2"
-			(uuid "d737ac9b-3d86-45dd-a952-9e662ee3d736")
+			(uuid "dcd07c89-872e-402f-94c3-2e28460000aa")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "D12")
 					(unit 1)
 				)
@@ -4010,7 +4010,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5e0b3ab8-1b2a-4914-90d7-0f90dda91ffd")
+		(uuid "bb2f6fbf-9d35-4092-9668-32be8b4be415")
 	)
 	(label "SLEW"
 		(at 237.49 190.5 180)
@@ -4020,7 +4020,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "c5dc8fb5-5ed7-4639-9284-e13717256f6e")
+		(uuid "6621749c-3fa2-4f13-95fe-f4fea6aa5328")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -4030,7 +4030,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6afe14c9-01ae-4660-9d2e-48abc6d72d63")
+		(uuid "34c1f8c0-9a62-4b2d-b3d2-4866068861f1")
 		(property "Reference" "R15"
 			(at 259.08 187.96 0)
 			(effects
@@ -4093,14 +4093,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "996ca2bf-9bbd-4c58-bfc3-e08cce4173c1")
+			(uuid "51cd6dac-5a54-451a-a6f0-075b1855a40d")
 		)
 		(pin "2"
-			(uuid "5833297e-37a3-4428-9e73-b7ab77bf6339")
+			(uuid "4641391d-a2a1-48e8-bc9a-2358864dc54b")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "R15")
 					(unit 1)
 				)
@@ -4115,7 +4115,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f29b86fe-4e8c-465c-bcc1-7e23300771a4")
+		(uuid "be0c1591-b7d7-4d51-b4ed-116012e81fe7")
 	)
 	(label "GATE"
 		(at 262.89 190.5 0)
@@ -4125,7 +4125,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7c9248b7-7827-49b4-b9b9-6de1303cab47")
+		(uuid "324ea265-2315-4163-bf81-3554a260fe24")
 	)
 	(text "Hot turn-on slew limit: C10 from VIN to the gate (via D12) diverts the VOM1271 current,\nabout 30 uA at IF 20 mA -> ~0.45 V/ms; 1 mF load draws ~0.45 A. D12 keeps C10 out of the\nturn-off path; R15 resets C10 after turn-off. No DC path: C10 blocks."
 		(exclude_from_sim no)
@@ -4136,7 +4136,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1569155b-b0f8-40ae-9a3a-852076d1be77")
+		(uuid "ddb65438-89b0-45c4-82e3-67f2f469c0cd")
 	)
 	(symbol
 		(lib_id "Thl_Isolator:VOM1271T")
@@ -4146,7 +4146,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6cd02b6e-f2b8-4203-ba97-ed52b3f55690")
+		(uuid "09a55827-1cfe-4e98-acd1-47b3f6b48933")
 		(property "Reference" "U10"
 			(at 304.8 68.58 0)
 			(effects
@@ -4209,20 +4209,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "bf3447e9-c89a-4b9c-a6a8-920223dda8ca")
+			(uuid "b7e1ec22-eecf-4621-86ab-2afb80262c6e")
 		)
 		(pin "2"
-			(uuid "9f442b3b-cad0-4fec-8325-8c3f6c5ce31a")
+			(uuid "d436d676-f004-4261-a957-cd643ad43f44")
 		)
 		(pin "4"
-			(uuid "ee960092-6637-4063-9f80-cc62f2ad47cd")
+			(uuid "44f514ab-a26b-4db4-9d09-842b8d622823")
 		)
 		(pin "3"
-			(uuid "dc58ba06-6faa-4198-a918-53d0ace790fd")
+			(uuid "3f7f177c-0083-44ed-975e-adf00007bb5d")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "U10")
 					(unit 1)
 				)
@@ -4239,7 +4239,7 @@
 			)
 			(justify right)
 		)
-		(uuid "1d413ffc-47cd-4a3d-9890-8b2fcb48dcf9")
+		(uuid "5bcb114b-4817-4baf-a61c-2df6b3b4f19e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 292.1 76.2 0)
 			(effects
@@ -4258,7 +4258,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "3c7d7d31-8a5d-4bb7-8a23-726ec4294cff")
+		(uuid "a27e6f95-90a7-49d2-8d05-b8f126b4f206")
 	)
 	(label "VOM_P"
 		(at 317.5 76.2 0)
@@ -4268,7 +4268,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c0078ef6-e894-4e5e-a775-0374156756c6")
+		(uuid "95aa70fa-eafb-4efd-8af5-ad575d2b6a23")
 	)
 	(label "VOM_MID"
 		(at 317.5 78.74 0)
@@ -4278,7 +4278,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1c13d0b9-a1e5-4f3d-9fe2-bfa779ac5a1c")
+		(uuid "b6be166c-7b45-4a59-a3ac-74d4129f30c2")
 	)
 	(symbol
 		(lib_id "Thl_Isolator:VOM1271T")
@@ -4288,7 +4288,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e8dba05c-c717-4eee-be17-b6c49bd5dc87")
+		(uuid "d5d38e03-c29d-4b3a-922d-43369ec5a508")
 		(property "Reference" "U11"
 			(at 304.8 93.98 0)
 			(effects
@@ -4351,20 +4351,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "078388e3-2fa4-4abe-a4db-994218f53e65")
+			(uuid "94e0a4cc-6338-45c7-aedf-a3a834f3a80e")
 		)
 		(pin "2"
-			(uuid "79800841-eb3a-4101-ba12-46d0ed8637ea")
+			(uuid "4836e4d3-bde8-4411-a444-fba5b844b3f5")
 		)
 		(pin "4"
-			(uuid "a81f5075-aa2d-46bd-b0d6-9069ba91d4d5")
+			(uuid "a1510bd0-52fe-45fa-97e3-51fe2cf6c452")
 		)
 		(pin "3"
-			(uuid "da2ea4ca-3217-40b1-8eae-79a30537b846")
+			(uuid "1eb041e4-f982-42b3-a2e1-92aa338d8556")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "U11")
 					(unit 1)
 				)
@@ -4379,7 +4379,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "1326b832-d7fc-451c-9384-d8fbfe76b848")
+		(uuid "3cf03c84-51a4-4d7d-aa2b-4326fc76972f")
 	)
 	(global_label "VOM_LED_K"
 		(shape bidirectional)
@@ -4391,7 +4391,7 @@
 			)
 			(justify right)
 		)
-		(uuid "bd38405e-ef83-4b26-9968-994302cee539")
+		(uuid "9f80005e-a287-4e9d-9a14-96138102ad65")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 292.1 104.14 0)
 			(effects
@@ -4410,7 +4410,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5a4af8fb-b649-484e-9a92-b7e7aeb0cfda")
+		(uuid "5b381f05-1ce7-4412-9d57-b1114f54c9d5")
 	)
 	(label "SRC"
 		(at 317.5 104.14 0)
@@ -4420,7 +4420,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9d84daef-10d0-4d8b-b0f3-49b8ff0f9346")
+		(uuid "dd44271e-496a-435b-9721-f91b35e1b8ea")
 	)
 	(text "Two VOM1271T: LEDs in series (driven from the trip sheet, ~20 mA), outputs in series\nfor ~16 V gate drive. LED side = CAN/logic domain; output side = load domain."
 		(exclude_from_sim no)
@@ -4431,7 +4431,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ed9c58ff-bb17-4f1b-92fa-be65764e6fae")
+		(uuid "9d3bdcbc-251f-4a68-acd7-1f5c204e7716")
 	)
 	(symbol
 		(lib_id "Sensor_Current:ACS756xCB-050B-PFF")
@@ -4441,7 +4441,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "95783c81-c621-4fc5-9fb9-725028374f07")
+		(uuid "7db77620-f32f-4d5f-a9dc-86bf8fef8346")
 		(property "Reference" "U12"
 			(at 309.88 157.48 0)
 			(effects
@@ -4505,23 +4505,23 @@
 			)
 		)
 		(pin "1"
-			(uuid "93920763-0e06-4420-8c5e-c4e0bf96d423")
+			(uuid "a3c8180a-4e1a-4030-9464-f05edb8bd754")
 		)
 		(pin "2"
-			(uuid "60926038-ee6e-4092-b336-60fee32228d9")
+			(uuid "f901b1ed-390f-41c6-9f54-0cc8bb33f7b7")
 		)
 		(pin "3"
-			(uuid "9277c228-6d94-4a29-9f46-9ce6223642fe")
+			(uuid "cfc96a06-26db-419f-906a-b702a85d33e5")
 		)
 		(pin "4"
-			(uuid "09fe2de7-b800-4da6-950b-8b63b74a9831")
+			(uuid "f71ed343-4cfe-4477-ad11-21a6420e76af")
 		)
 		(pin "5"
-			(uuid "2dbed133-8f5e-4e15-b480-a6d22ed452dd")
+			(uuid "a3981744-cf73-401f-9719-9bf08a97bb81")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "U12")
 					(unit 1)
 				)
@@ -4536,7 +4536,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3672ddc2-27d7-4531-a842-cbbc9bee2fe1")
+		(uuid "8789d256-67f0-4fe3-b8ce-fa4beb4cb4cc")
 	)
 	(symbol
 		(lib_id "power:+5V")
@@ -4546,7 +4546,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cc85229a-6fc0-4057-ad93-62656851e674")
+		(uuid "e7aacac4-5a35-4007-85ad-caea738ffa52")
 		(property "Reference" "#PWR01"
 			(at 304.8 154.94 0)
 			(hide yes)
@@ -4592,11 +4592,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "7a4accb2-3890-431d-b9e0-6360b9519322")
+			(uuid "8c207178-3036-4fdf-a3d5-a78e263a1f39")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "#PWR01")
 					(unit 1)
 				)
@@ -4611,7 +4611,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5c52350c-42da-4354-bdde-26714d5cea1b")
+		(uuid "69868c01-2340-4296-ab51-6683b3402bdc")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -4621,7 +4621,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "63f6203a-7cc8-4c54-9740-14494b9dae2a")
+		(uuid "8e6eeae4-ef51-4610-a6f4-f3d13632399b")
 		(property "Reference" "#PWR02"
 			(at 304.8 175.26 0)
 			(hide yes)
@@ -4667,11 +4667,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "f4df242d-dad8-4b19-ab51-bf09e86f47e6")
+			(uuid "49c5b73c-0d43-458d-a880-49493fe8ecc8")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "#PWR02")
 					(unit 1)
 				)
@@ -4688,7 +4688,7 @@
 			)
 			(justify left)
 		)
-		(uuid "58b8ef35-f6c8-4620-a3cd-ea59b0eefec5")
+		(uuid "e8a024f5-12a4-4a84-835f-6201aa5c653a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 314.96 167.64 0)
 			(effects
@@ -4707,7 +4707,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "be97e4f7-9ca8-4e0e-95bb-fe7ac4a77d95")
+		(uuid "bbfe0d52-da24-4f36-a527-0c8f3922e1b7")
 	)
 	(global_label "VOUT"
 		(shape bidirectional)
@@ -4719,7 +4719,7 @@
 			)
 			(justify right)
 		)
-		(uuid "1b7222e6-3e30-4ec0-8cde-60198540229b")
+		(uuid "7ffd71e7-0904-4bcb-ba8f-301a2d12908f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 294.64 170.18 0)
 			(effects
@@ -4738,7 +4738,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e885158e-e789-4314-b024-7f81497ac91e")
+		(uuid "786f713c-e90b-4f89-96c7-1294bbebedd7")
 		(property "Reference" "C11"
 			(at 332.74 158.75 0)
 			(effects
@@ -4802,14 +4802,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "cc3895ca-0322-42fd-a5f9-65d724948874")
+			(uuid "79b92441-b835-4c09-83ab-4b29846a6ffa")
 		)
 		(pin "2"
-			(uuid "c90fb2e3-45d0-4b43-9889-349b49837f01")
+			(uuid "8c45d064-77fe-408c-94b2-c58d4dd743bf")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "C11")
 					(unit 1)
 				)
@@ -4824,7 +4824,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fa90698e-2c6c-45c9-bb78-d85430e6f482")
+		(uuid "f7db482d-30ce-4062-bb0e-bcd854434db1")
 	)
 	(symbol
 		(lib_id "power:+5V")
@@ -4834,7 +4834,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b1ad7439-114e-4b19-80e6-8cd7b85fb81c")
+		(uuid "499ce64a-2d48-43f2-b438-e3d4b1e6fe9b")
 		(property "Reference" "#PWR03"
 			(at 330.2 151.13 0)
 			(hide yes)
@@ -4880,11 +4880,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "76de5fa0-126e-4ac4-a4f5-214a85d12780")
+			(uuid "5bf870a5-4c08-46a8-bfaf-90b3600f4c0c")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "#PWR03")
 					(unit 1)
 				)
@@ -4899,7 +4899,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c7cfcbc4-ec7e-4d9c-9157-d8f0c1fb20dc")
+		(uuid "5411b4f2-ca94-42cd-8727-63b204a8ab90")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -4909,7 +4909,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0d9c6c5d-6d8c-4c99-a93b-730f1d84c24b")
+		(uuid "a2e63f3a-ef1e-4995-9fce-0cbdd7c2d682")
 		(property "Reference" "#PWR04"
 			(at 330.2 163.83 0)
 			(hide yes)
@@ -4955,11 +4955,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "1a191644-d7da-4001-9b94-7c31094fa6df")
+			(uuid "5c5377f0-c20d-4156-8c2c-63422c479f1d")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "#PWR04")
 					(unit 1)
 				)
@@ -4975,7 +4975,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "618f978d-9082-4233-b818-5abfb59e1950")
+		(uuid "81ca0f41-52b3-45e3-bc02-91a24ac7a561")
 	)
 	(symbol
 		(lib_id "Device:D")
@@ -4985,7 +4985,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e1bff963-a344-46a6-9b6c-3d80a540a045")
+		(uuid "21b1f795-7452-49c8-8631-9a6630e92374")
 		(property "Reference" "D13"
 			(at 156.21 151.13 0)
 			(effects
@@ -5049,14 +5049,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "4dfbb30e-5b18-42f0-950c-be0fde1facd1")
+			(uuid "3a2f289f-f0f1-4c45-8667-7d4fdf04e120")
 		)
 		(pin "2"
-			(uuid "9dc68f95-c4d6-40c3-b074-4f7213dada77")
+			(uuid "21720609-f703-4acb-af3b-3c0bcf4afb77")
 		)
 		(instances
 			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/ca3d23c6-da4b-4d7f-a525-4a1492be3661"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/9f2e283d-9951-472b-941a-83d175264942"
 					(reference "D13")
 					(unit 1)
 				)
@@ -5073,7 +5073,7 @@
 			)
 			(justify right)
 		)
-		(uuid "8dea49a6-95e3-4580-99d5-e505f3eeace7")
+		(uuid "346c866c-8590-42c0-bc1d-47d249bc6ebf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 152.4 156.21 0)
 			(effects
@@ -5094,7 +5094,7 @@
 			)
 			(justify left)
 		)
-		(uuid "c40d4ec3-a851-4489-8032-d289c27a1b4e")
+		(uuid "fa2bb729-f7dc-4171-8116-9b9ab08b63e5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 152.4 148.59 0)
 			(effects
@@ -5114,7 +5114,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "dcbdc7fb-2dc7-458b-b26c-bd033d874ffd")
+		(uuid "35496f23-ec91-48b1-81c5-e964fcfbcee6")
 	)
 	(embedded_fonts no)
 )

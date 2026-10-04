@@ -44,7 +44,7 @@ MPN = {
     "100R": ("Yageo", "RC1206FR-07100RL"), "100k": ("Yageo", "RC1206FR-07100KL"),
     "16.2k": ("Yageo", "RC1206FR-0716K2L"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
     "332k": ("Yageo", "RC1206FR-07332KL"), "8.06k": ("Yageo", "RC1206FR-078K06L"), "20k": ("Yageo", "RC1206FR-0720KL"),
-    "680R": ("Yageo", "RC1206FR-07680RL"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
+    "680R": ("Yageo", "RC1206FR-07680RL"), "470nF 50V X7R": ("Murata", "GRM31MR71H474KA01L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
 }
 
 
@@ -512,17 +512,21 @@ def load_side():
     s.R("R31", "4.7k", 33.02, 142.24, "+5V", "/I2C_SCL")
     s.R("R32", "4.7k", 96.52, 142.24, "V5_ISO", "SDA_ISO")
     s.R("R33", "4.7k", 106.68, 142.24, "V5_ISO", "SCL_ISO")
-    s.text("I2C on the load side: MCP3428 0x68, MCP4725 0x60 (PV) and 0x61 (PC).", 25.4, 203.2, 1.0)
+    s.text("I2C on the load side: MCP3426 0x68 / 0x69, MCP4725 0x60 (PV) / 0x61 (PC).", 25.4, 203.2, 1.0)
 
     # --- ADC + dividers -------------------------------------------------------
-    s.part("Analog_ADC:MCP3428x-xSL", "U32", "MCP3428-E/SL", 182.88, 71.12,
-           {"1": "VIN_DIV", "2": "/GND_LOAD", "3": "VOUT_DIV", "4": "/GND_LOAD", "11": "PV_FB", "12": "/GND_LOAD",
-            "13": "PC_FB", "14": "/GND_LOAD", "5": "/GND_LOAD", "6": "V5_ISO", "7": "SDA_ISO", "8": "SCL_ISO",
-            "9": "/GND_LOAD", "10": "/GND_LOAD"}, 0, "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm", "Microchip Technology",
-           "MCP3428-E/SL", ref_at=(185.42, 55.88), value_at=(185.42, 90.17))
-    s.C("C36", "100nF 50V X7R", 205.74, 50.8, "V5_ISO", "/GND_LOAD", decouple=True)
-    s.text("MCP3428: 4 differential channels, +/-2.048 V, 16 bit at 15 SPS.\n"
-           "CH1 Vin, CH2 Vout, CH3 PV readback, CH4 PC readback. Adr0/Adr1 low -> 0x68.", 160.02, 101.6, 1.0)
+    adc = "Analog_ADC:MCP3426Axx-xMS"
+    for ref, mpn, ch1, ch2, cref, y in (("U32", "MCP3426A0-E/SN", "VIN_DIV", "PV_FB", "C36", 60.96),
+                                        ("U36", "MCP3426A1-E/SN", "VOUT_DIV", "PC_FB", "C42", 93.98)):
+        s.part(adc, ref, mpn, 182.88, y,
+               {"1": ch1, "2": "/GND_LOAD", "7": ch2, "8": "/GND_LOAD", "3": "V5_ISO", "6": "/GND_LOAD",
+                "4": "SDA_ISO", "5": "SCL_ISO"}, 0, "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Microchip Technology",
+               mpn, ref_at=(185.42, y - 12.7), value_at=(185.42, y + 11.43))
+        s.C(cref, "100nF 50V X7R", 205.74, y - 12.7, "V5_ISO", "/GND_LOAD", decouple=True)
+    s.text("Two MCP3426 (2 ch, +/-2.048 V): U32 0x68 (A0 suffix) Vin + PV readback, U36 0x69 (A1) Vout + PC\n"
+           "readback. Each converts its voltage continuously at 240 SPS (12 bit, ~0.125 V at 250 V FS):\n"
+           "supports 100 Hz reporting; 10 Hz can average to finer resolution. Readbacks read occasionally.",
+           160.02, 121.92, 1.0)
     for i, (net, top, ref0, y) in enumerate((("VIN_DIV", "/VIN", 34, 132.08), ("VOUT_DIV", "/VOUT", 38, 172.72))):
         x0 = 147.32
         s.R(f"R{ref0}", "332k", x0, y, top, "", rot=90)
@@ -538,9 +542,9 @@ def load_side():
         s.wire(tap + 12.7, y, tap + 12.7, y + 3.81)
         s.llabel(net, tap + 12.7, y, 0)
         s.R(f"R{ref0 + 3}", "8.06k", tap, y + 7.62, "", "/GND_LOAD")
-        s.C(f"C{37 + i}", "100nF 50V X7R", tap + 12.7, y + 7.62, "", "/GND_LOAD", decouple=True)
+        s.C(f"C{37 + i}", "470nF 50V X7R", tap + 12.7, y + 7.62, "", "/GND_LOAD")
     s.text("Dividers: 3 x 332k (1206, 200 V each) over 8.06k = 1/124.6: 250 V -> 2.0 V full scale.\n"
-           "100 nF -> fc ~200 Hz anti-aliasing (sampled at 20 Hz, averaged). MCP3428 input loading\n"
+           "470 nF -> fc ~42 Hz anti-aliasing for 100 Hz reporting. MCP3426 input loading\n"
            "(~2 MOhm differential) is removed by calibration.", 139.7, 198.12, 1.0)
 
     # --- DACs for Mean Well PV / PC --------------------------------------------

@@ -93,3 +93,5 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Connector_Phoenix_MC | PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal | KiCad Connector_Phoenix_MC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Package_DIP | DIP-4_W7.62mm_LongPads | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Connector | Screw_Terminal_01x05 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Analog_ADC | MCP3426Axx-xMS | KiCad Analog_ADC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Analog_ADC | MCP3426Axx-xSN | KiCad Analog_ADC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |

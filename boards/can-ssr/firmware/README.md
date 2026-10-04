@@ -15,3 +15,7 @@ Target: PIC18F47Q84 (PDIP-40, 128 KB flash, CAN FD), XC8.
   turn-on only on HC/STD and only within the limits in requirements 4.2.1.
 - **Supply programming:** PV/PC through the isolated I2C DACs, closed loop on
   the measured input voltage.
+- **Sampling:** each MCP3426 converts one voltage continuously at 240 SPS
+  (12 bit); current from the PIC ADC at kHz rates. Report at a configurable
+  rate (10 Hz default, up to 100 Hz) with current average and peak per period.
+  Later: fault capture (rolling ~1 s buffer sent around a trip or anomaly).
