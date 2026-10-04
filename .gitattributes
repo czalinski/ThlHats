@@ -1,0 +1,12 @@
+# KiCad files are text; keep LF so diffs are clean across platforms.
+*.kicad_sch     text eol=lf
+*.kicad_pcb     text eol=lf
+*.kicad_sym     text eol=lf
+*.kicad_mod     text eol=lf
+*.kicad_pro     text eol=lf
+*.kicad_dru     text eol=lf
+*-lib-table     text eol=lf
+# 3D models: large and not meaningfully diffable.
+*.step          -diff
+*.stp           -diff
+*.wrl           -diff

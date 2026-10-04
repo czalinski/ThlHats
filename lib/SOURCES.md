@@ -1,0 +1,36 @@
+# Library sources
+
+Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
+
+| Date | Kind | Library | Item | Source | License |
+|------|------|---------|------|--------|---------|
+| 2026-10-04 | symbol library | power | (all) | KiCad power.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol library | Device | (all) | KiCad Device.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x02 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x03 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x04 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x05 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x06 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_01x08 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_02x20_Odd_Even | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector_Generic | Conn_02x05_Odd_Even | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Mechanical | MountingHole | KiCad Mechanical.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Regulator_Linear | AP1117-15 | KiCad Regulator_Linear.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Regulator_Linear | AMS1117-3.3 | KiCad Regulator_Linear.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_TO_SOT_SMD | SOT-223-3_TabPin2 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Resistor_SMD | R_0603_1608Metric | KiCad Resistor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Resistor_SMD | R_0805_2012Metric | KiCad Resistor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Capacitor_SMD | C_0603_1608Metric | KiCad Capacitor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Capacitor_SMD | C_0805_2012Metric | KiCad Capacitor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | LED_SMD | LED_0603_1608Metric | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | LED_SMD | LED_0805_2012Metric | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | MountingHole | MountingHole_2.7mm_M2.5 | KiCad MountingHole.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinSocket_2.54mm | PinSocket_2x20_P2.54mm_Vertical | KiCad Connector_PinSocket_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_2x20_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x02_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x03_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x04_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x05_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x06_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x08_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_PinHeader_1.27mm | PinHeader_2x05_P1.27mm_Vertical | KiCad Connector_PinHeader_1.27mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
