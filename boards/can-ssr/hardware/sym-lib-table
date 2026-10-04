@@ -1,0 +1,9 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "Connector_Generic") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Connector_Generic.kicad_sym") (options "") (descr ""))
+	(lib (name "Device") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Device.kicad_sym") (options "") (descr ""))
+	(lib (name "Mechanical") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Mechanical.kicad_sym") (options "") (descr ""))
+	(lib (name "Regulator_Linear") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Regulator_Linear.kicad_sym") (options "") (descr ""))
+	(lib (name "Thl_MCU") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Thl_MCU.kicad_sym") (options "") (descr ""))
+	(lib (name "power") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/power.kicad_sym") (options "") (descr ""))
+)
