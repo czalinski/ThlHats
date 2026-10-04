@@ -161,10 +161,15 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 |------|-------------|
 | MCU | PIC18 with on-chip **CAN FD**: PIC18F-Q84 family (e.g. PIC18F26Q84, exact part **TBD**). Must be CAN FD capable: a classic CAN 2.0B node on a bus carrying FD frames flags them as errors and disrupts the bus. |
 | Power | From the 4-wire CAN cable: 12 V, referenced to CAN bus ground. The node's logic lives on the CAN bus side. |
-| Function | High-side P-MOSFET solid-state switching of DC loads up to **120 V DC** |
-| Channels / current | **TBD**. The user has specific MOSFETs in mind. |
-| Safety | 120 V DC is above the 60 V DC SELV limit. Needs creepage/clearance between the load and logic sections, a Vgs clamp, MOSFETs rated about 200 V, and isolation between the load side and the CAN/logic side (**TBD**: how). |
-| Connectors | CAN in and CAN out (daisy chain), load terminals rated for the voltage and current |
+| Purpose | Turns a "dumb" fixed bench or DIN supply into a simple automatable DUT supply, replacing expensive, bulky SCPI rack supplies (e.g. BK Precision) where a single fixed voltage is enough (user, 2026-10-04). |
+| Function | High-side switch with **reverse current blocking**, DC loads up to **120 V DC, 30 A**. Load side isolated from the CAN/logic side. Switch topology **TBD** (P-MOSFET vs back-to-back N-MOSFET with isolated gate drive). |
+| Measurement | Load current by **Hall-effect sensor: Allegro ACS770ECB-050U-PFF-T** (50 A unidirectional, ~80 mV/A, 5 V ratiometric, isolated output; chosen over the -200U for 4× resolution, decided 2026-10-04). Its output also feeds the fast hardware overcurrent trip comparator. **Input (supply) and output (load) voltage**, each by resistor divider + anti-aliasing filter, referenced to the return bar (decided 2026-10-04). All sampled at **20 Hz** and reported over CAN. Firmware uses input voltage to refuse or warn on switch-on with the supply absent, and input − output to report the drop across the board. |
+| Protection | No automotive blade fuse: those are rated 32–58 V DC and can sustain an arc at 120 V. Backup fuse rated ≥ 125 V DC (e.g. a 10 × 38 mm midget fuse) or none: **TBD**. Fast hardware overcurrent trip that turns the switch off without the firmware. Outputs off automatically when the controller stops talking (CAN heartbeat timeout), at reset and at power-up. |
+| Display | Local LED or OLED readout of voltage and current (**TBD**) |
+| Channels | **TBD** (one per board assumed) |
+| Safety | 120 V DC is above the 60 V DC SELV limit: creepage/clearance between the load section and logic, a Vgs clamp, switch devices rated about 200 V. |
+| Current path | Top-side PCB traces with the solder mask removed, meant to have a copper busbar soldered on for 30 A (user, 2026-10-04). Load wires connect by bolt and nut through holes in the busbar/trace (ring lugs), not PCB terminal blocks. Four bolts: supply +, load + (switched path through fuse/MOSFETs/Hall sensor) and supply −, load − (return: a short straight copper bar with two holes, unswitched). The voltage sense references the return bar. |
+| Connectors | CAN in and CAN out (daisy chain); load connections are bolted (see Current path) |
 
 This board is the first of a possible family of bus-powered CAN nodes
 (relay, analog, digital), each with a single function and few connectors.
