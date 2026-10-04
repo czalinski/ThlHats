@@ -49,3 +49,6 @@ CMakeUserPresets.json
 __pycache__/
 *.pyc
 .DS_Store
+
+# ---- Library: vendor 3D models that may not be redistributed (see lib/3dmodels/LOCAL_ONLY.txt)
+lib/3dmodels/Sensor_Current.3dshapes/Allegro_CB_PFF.step

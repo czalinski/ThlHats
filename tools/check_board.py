@@ -88,17 +88,33 @@ def check_libraries(hw, r):
     else:
         r.ok("all footprints come from lib/")
 
-    bad = set()
+    bad, absent_local = set(), set()
+    local_only = local_only_models()
     for m in re.findall(r'\(model "([^"]+)"', pcb_text):
         path = m.replace("${KIPRJMOD}", str(hw))
-        if not path.startswith(str(hw)) or not Path(path).resolve().is_relative_to(kilib.MODEL_DIR) \
-                or not Path(path).exists():
+        if not path.startswith(str(hw)) or not Path(path).resolve().is_relative_to(kilib.MODEL_DIR):
             bad.add(m)
+        elif not Path(path).exists():
+            rel = Path(path).resolve().relative_to(kilib.MODEL_DIR).as_posix()
+            (absent_local if rel in local_only else bad).add(m)
     if bad:
         r.fail("3D models outside lib/3dmodels or missing: " + ", ".join(sorted(bad)))
     else:
         r.ok("all 3D models resolve into lib/3dmodels")
+    if absent_local:
+        r.warn("local-only 3D models not on this machine (see lib/3dmodels/LOCAL_ONLY.txt): "
+               + ", ".join(sorted(absent_local)))
     check_models_are_step(pcb_text, r)
+
+
+def local_only_models():
+    """Paths (relative to lib/3dmodels) of models that are git-ignored for
+    license reasons; see lib/3dmodels/LOCAL_ONLY.txt."""
+    f = kilib.MODEL_DIR / "LOCAL_ONLY.txt"
+    if not f.exists():
+        return set()
+    return {line.split("|")[0].strip() for line in f.read_text().splitlines()
+            if line.strip() and not line.lstrip().startswith("#")}
 
 
 def check_models_are_step(pcb_text, r):

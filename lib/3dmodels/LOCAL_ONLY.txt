@@ -1,0 +1,5 @@
+# 3D models whose license forbids redistribution: kept on the designer's
+# machine, git-ignored, and listed here so tools/check_board.py warns (instead
+# of failing) when they are absent, e.g. in a fresh clone.
+# Path relative to lib/3dmodels/   |  source (where to get it again)
+Sensor_Current.3dshapes/Allegro_CB_PFF.step  |  SamacSys / componentsearchengine.com "ACS770ECB-200U-PFF-T" zip, 3D/ACS770ECB-200U-PFF-T.stp (any ACS770/772 CB-PFF part); SamacSys license: no redistribution as a PCB library component

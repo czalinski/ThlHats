@@ -903,9 +903,9 @@
 		(uuid "ad26ad58-c6f3-4da9-919b-3441a3a63237")
 	)
 	(embedded_fonts no)
-	(model "${KICAD10_3DMODEL_DIR}/Sensor_Current.3dshapes/Allegro_CB_PFF.step"
+	(model "${KIPRJMOD}/../../../lib/3dmodels/Sensor_Current.3dshapes/Allegro_CB_PFF.step"
 		(offset
-			(xyz 0 0 0)
+			(xyz -3.26 7.08 -12.1)
 		)
 		(scale
 			(xyz 1 1 1)

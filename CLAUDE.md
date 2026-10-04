@@ -79,6 +79,9 @@ Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
   changing it.
 - **3D models are STEP** (`check_board.py` fails non-STEP models and warns on
   missing ones). Keep vendor STEP files in `lib/3dmodels/<Lib>.3dshapes/`.
+  The repo is public: a model whose license forbids redistribution (e.g.
+  SamacSys) stays local: git-ignore it and list it in
+  `lib/3dmodels/LOCAL_ONLY.txt` (the checker then only warns when it is absent).
 - `transfer/` is a temporary drop box for files from the user's Windows
   machine. Import what's there into `lib/` (recording the source in
   `lib/SOURCES.md`) and remove it from `transfer/` in the same commit.
