@@ -1,0 +1,28 @@
+# name: ISO1640DWR
+# mpn: ISO1640DWR
+# manufacturer: Texas Instruments
+# reference: U
+# footprint: Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm
+# datasheet: https://www.ti.com/lit/ds/symlink/iso1640.pdf
+# description: Hot-swappable bidirectional I2C isolator, reinforced (DW-16: 5 kVrms, 1500 Vrms working), 1.7 MHz, 3.0-5.5 V both sides, SOIC-16 wide. Pinout per SLLSFD4 Table 5-1 (DW).
+# keywords: I2C isolator reinforced digital isolator
+# fp_filters: SOIC*7.5x10.3mm*P1.27mm*
+pin,name,type,side
+3,VCC1,power_in,left
+5,SDA1,bidirectional,left
+6,SCL1,bidirectional,left
+,,,left
+1,GND1,power_in,left
+7,GND1,power_in,left
+14,VCC2,power_in,right
+12,SDA2,bidirectional,right
+11,SCL2,bidirectional,right
+,,,right
+9,GND2,power_in,right
+16,GND2,power_in,right
+2,NC,no_connect,bottom
+4,NC,no_connect,bottom
+8,NC,no_connect,bottom
+10,NC,no_connect,bottom
+13,NC,no_connect,bottom
+15,NC,no_connect,bottom

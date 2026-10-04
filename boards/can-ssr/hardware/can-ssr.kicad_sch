@@ -20,7 +20,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9d02c303-91a1-4bc9-8c3e-9601c0354249")
+		(uuid "d96682d0-4e98-4814-8193-8758a9256382")
 	)
 	(text "Requirements: docs/requirements.md 4.2. One PCB, three builds (HC/STD/HV): only the four\nMOSFETs and the build resistor differ. See boards/can-ssr/README.md."
 		(exclude_from_sim no)
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "14ad29cd-108f-4190-962a-c8913b9ee202")
+		(uuid "833ee605-4682-43fd-9e86-d675e06cb285")
 	)
 	(sheet
 		(at 30.48 55.88)
@@ -48,7 +48,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "458a26cc-7ab0-493e-8f55-ed43c647f0e7")
+		(uuid "7f024879-06e1-47ef-8560-b793a2a57925")
 		(property "Sheetname" "CAN, power, MCU"
 			(at 30.48 55.18 0)
 			(effects
@@ -90,7 +90,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "c64a2bd9-5497-4e3f-a10e-ded04b8c077f")
+		(uuid "064504af-df1e-403e-8d8a-7ae59a780357")
 		(property "Sheetname" "Power path"
 			(at 91.44 55.18 0)
 			(effects
@@ -132,7 +132,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "bebaee71-c752-4e1c-86b4-155d6a756c1f")
+		(uuid "24c113cf-e0a8-4f9d-80a4-add715334cdf")
 		(property "Sheetname" "Overcurrent trip, gate drive"
 			(at 152.4 55.18 0)
 			(effects
@@ -155,6 +155,48 @@
 			(project "can-ssr"
 				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
 					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 30.48 96.52)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d9c3e35f-b16f-4642-9e68-21cad4f9938b")
+		(property "Sheetname" "Load-side sense and supply control"
+			(at 30.48 95.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "load_side.kicad_sch"
+			(at 30.48 122.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "can-ssr"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
+					(page "5")
 				)
 			)
 		)

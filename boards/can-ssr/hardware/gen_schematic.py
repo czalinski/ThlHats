@@ -42,7 +42,9 @@ MPN = {
     "10R": ("Yageo", "RC1206FR-0710RL"), "1M": ("Yageo", "RC1206FR-071ML"), "10M": ("Yageo", "RC1206FR-0710ML"),
     "68nF 630V X7R": ("TDK", "C3225X7R2J683K250AA"),
     "100R": ("Yageo", "RC1206FR-07100RL"), "100k": ("Yageo", "RC1206FR-07100KL"),
-    "16.2k": ("Yageo", "RC1206FR-0716K2L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
+    "16.2k": ("Yageo", "RC1206FR-0716K2L"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
+    "332k": ("Yageo", "RC1206FR-07332KL"), "8.06k": ("Yageo", "RC1206FR-078K06L"), "20k": ("Yageo", "RC1206FR-0720KL"),
+    "680R": ("Yageo", "RC1206FR-07680RL"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
 }
 
 
@@ -320,13 +322,13 @@ def can_logic():
 
 def power_path():
     s = Sheet("power_path.kicad_sch", "Power path", 3, "CAN SSR: power path")
-    s.text("LOAD SIDE (referenced to RET, the return bar). Up to 200 V: keep 250 V working clearances;\n"
+    s.text("LOAD SIDE (referenced to GND_LOAD = RET, the return bar = supply -V). Up to 200 V: keep 250 V working clearances;\n"
            "about 6 mm creepage to anything on the CAN/logic side. Heavy nets (VIN, SRC, VOUT_SW, VOUT, RET)\n"
            "are busbar runs: mask-free top copper with a soldered copper bar.", 25.4, 30.48)
 
     # --- bolts -----------------------------------------------------------
-    for i, (ref, val, net, y) in enumerate((("H1", "SUPPLY +", "/VIN", 60.96), ("H2", "SUPPLY -", "/RET", 81.28),
-                                             ("H3", "LOAD +", "/VOUT", 101.6), ("H4", "LOAD -", "/RET", 121.92))):
+    for i, (ref, val, net, y) in enumerate((("H1", "SUPPLY +", "/VIN", 60.96), ("H2", "SUPPLY -", "/GND_LOAD", 81.28),
+                                             ("H3", "LOAD +", "/VOUT", 101.6), ("H4", "LOAD -", "/GND_LOAD", 121.92))):
         s.part("Mechanical:MountingHole_Pad", ref, val, 35.56, y, {"1": net}, 0,
                "MountingHole:MountingHole_5.3mm_M5_Pad", ref_at=(40.64, y - 3.81), value_at=(40.64, y - 1.27),
                value_justify="left")
@@ -389,7 +391,7 @@ def power_path():
     s.C("C11", "100nF 50V X7R", 330.2, 160.02, "+5V", "GND", decouple=True)
     s.text("ACS770: primary (IP+/IP-) in the load path; VCC/GND/VIOUT are CAN/logic side\n"
            "(+5V, GND). ~40 mV/A, 0.5 V at 0 A (unidirectional, ratiometric).", 287.02, 190.5, 1.0)
-    s.part("Device:D", "D13", "ES3J", 152.4, 152.4, {"1": "/VOUT", "2": "/RET"}, 90,
+    s.part("Device:D", "D13", "ES3J", 152.4, 152.4, {"1": "/VOUT", "2": "/GND_LOAD"}, 90,
            "Diode_SMD:D_SMC_Handsoldering", "Vishay", "ES3J-E3/57T", ref_at=(156.21, 151.13), value_at=(156.21, 153.67),
            value_justify="left")
     s.text("Freewheel diode, output to return:\nclamps inductive kick from DUT wiring.", 142.24, 165.1, 1.0)
@@ -467,7 +469,109 @@ def trip():
     return s
 
 
-SHEETS = [can_logic, power_path, trip]
+def load_side():
+    s = Sheet("load_side.kicad_sch", "Load-side sense and supply control", 5, "CAN SSR: load-side sense and Mean Well control")
+    s.text("Isolated load-side domain, referenced to GND_LOAD (return bar RET = supply -V). Powered and reached only\n"
+           "through reinforced parts: U30 (UCC12050 DC/DC) and U31 (ISO1640 I2C). Keep ~6 mm creepage across them.",
+           25.4, 30.48)
+
+    # --- isolated power -------------------------------------------------
+    u = "Thl_Isolator:UCC12050DVE"
+    s.part(u, "U30", "UCC12050DVE", 63.5, 71.12,
+           {"3": "+5V", "1": "+5V", "4": "GND", "5": "~", "2": "GND", "6": "GND", "7": "GND", "8": "GND",
+            "14": "V5_ISO", "13": "V5_ISO", "15": "/GND_LOAD", "9": "/GND_LOAD", "16": "/GND_LOAD", "10": "/GND_LOAD", "11": "/GND_LOAD",
+            "12": "/GND_LOAD"}, 0, "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm", "Texas Instruments", "UCC12050DVE",
+           ref_at=(63.5, 55.88), value_at=(63.5, 90.17))
+    s.C("C30", "10uF 25V X7R", 30.48, 106.68, "+5V", "GND")
+    s.C("C31", "100nF 50V X7R", 43.18, 106.68, "+5V", "GND", decouple=True)
+    s.C("C32", "10uF 25V X7R", 83.82, 106.68, "V5_ISO", "/GND_LOAD")
+    s.C("C33", "100nF 50V X7R", 96.52, 106.68, "V5_ISO", "/GND_LOAD", decouple=True)
+    s.text("SEL tied to VISO -> 5.0 V. EN high (always on), SYNC to GNDP (internal oscillator).\n"
+           "Load-side current ~10 mA of the 100 mA available.", 25.4, 120.65, 1.0)
+    s.flag(119.38, 114.3); s.glabel("GND_LOAD", 119.38, 114.3, 0)
+
+    # --- I2C isolator -----------------------------------------------------
+    iso = "Thl_Isolator:ISO1640DWR"
+    s.part(iso, "U31", "ISO1640DWR", 63.5, 157.48,
+           {"3": "+5V", "5": "/I2C_SDA", "6": "/I2C_SCL", "1": "GND", "7": "GND",
+            "14": "V5_ISO", "12": "SDA_ISO", "11": "SCL_ISO", "9": "/GND_LOAD", "16": "/GND_LOAD",
+            "2": "~", "4": "~", "8": "~", "10": "~", "13": "~", "15": "~"}, 0,
+           "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm", "Texas Instruments", "ISO1640DWR",
+           ref_at=(63.5, 142.24), value_at=(63.5, 175.26))
+    s.C("C34", "100nF 50V X7R", 30.48, 190.5, "+5V", "GND", decouple=True)
+    s.C("C35", "100nF 50V X7R", 96.52, 190.5, "V5_ISO", "/GND_LOAD", decouple=True)
+    s.R("R30", "4.7k", 22.86, 142.24, "+5V", "/I2C_SDA")
+    s.R("R31", "4.7k", 33.02, 142.24, "+5V", "/I2C_SCL")
+    s.R("R32", "4.7k", 96.52, 142.24, "V5_ISO", "SDA_ISO")
+    s.R("R33", "4.7k", 106.68, 142.24, "V5_ISO", "SCL_ISO")
+    s.text("I2C on the load side: MCP3428 0x68, MCP4725 0x60 (PV) and 0x61 (PC).", 25.4, 203.2, 1.0)
+
+    # --- ADC + dividers -------------------------------------------------------
+    s.part("Analog_ADC:MCP3428x-xSL", "U32", "MCP3428-E/SL", 182.88, 71.12,
+           {"1": "VIN_DIV", "2": "/GND_LOAD", "3": "VOUT_DIV", "4": "/GND_LOAD", "11": "PV_FB", "12": "/GND_LOAD",
+            "13": "PC_FB", "14": "/GND_LOAD", "5": "/GND_LOAD", "6": "V5_ISO", "7": "SDA_ISO", "8": "SCL_ISO",
+            "9": "/GND_LOAD", "10": "/GND_LOAD"}, 0, "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm", "Microchip Technology",
+           "MCP3428-E/SL", ref_at=(185.42, 55.88), value_at=(185.42, 90.17))
+    s.C("C36", "100nF 50V X7R", 205.74, 50.8, "V5_ISO", "/GND_LOAD", decouple=True)
+    s.text("MCP3428: 4 differential channels, +/-2.048 V, 16 bit at 15 SPS.\n"
+           "CH1 Vin, CH2 Vout, CH3 PV readback, CH4 PC readback. Adr0/Adr1 low -> 0x68.", 160.02, 101.6, 1.0)
+    for i, (net, top, ref0, y) in enumerate((("VIN_DIV", "/VIN", 34, 132.08), ("VOUT_DIV", "/VOUT", 38, 172.72))):
+        x0 = 147.32
+        s.R(f"R{ref0}", "332k", x0, y, top, "", rot=90)
+        s.R(f"R{ref0 + 1}", "332k", x0 + 15.24, y, "", "", rot=90)
+        s.R(f"R{ref0 + 2}", "332k", x0 + 30.48, y, "", "", rot=90)
+        for k in range(3):  # chain: R pin 2 (x+3.81) to next R pin 1 (x+15.24-3.81), last to the tap
+            xs = x0 + 15.24 * k + 3.81
+            s.wire(xs, y, xs + 7.62, y)
+        tap = x0 + 45.72
+        s.wire(x0 + 30.48 + 3.81 + 7.62, y, tap + 12.7, y)
+        s.junction(tap, y)
+        s.wire(tap, y, tap, y + 3.81)
+        s.wire(tap + 12.7, y, tap + 12.7, y + 3.81)
+        s.llabel(net, tap + 12.7, y, 0)
+        s.R(f"R{ref0 + 3}", "8.06k", tap, y + 7.62, "", "/GND_LOAD")
+        s.C(f"C{37 + i}", "100nF 50V X7R", tap + 12.7, y + 7.62, "", "/GND_LOAD", decouple=True)
+    s.text("Dividers: 3 x 332k (1206, 200 V each) over 8.06k = 1/124.6: 250 V -> 2.0 V full scale.\n"
+           "100 nF -> fc ~200 Hz anti-aliasing (sampled at 20 Hz, averaged). MCP3428 input loading\n"
+           "(~2 MOhm differential) is removed by calibration.", 139.7, 198.12, 1.0)
+
+    # --- DACs for Mean Well PV / PC --------------------------------------------
+    dac = "Analog_DAC:MCP4725xxx-xCH"
+    for ref, a0, out, tnet, fb, rs, rt, rb, cref, y in (
+            ("U33", "/GND_LOAD", "PV_DAC", "MW_PV", "PV_FB", "R42", "R44", "R45", "C40", 63.5),
+            ("U34", "V5_ISO", "PC_DAC", "MW_PC", "PC_FB", "R43", "R46", "R47", "C41", 106.68)):
+        s.part(dac, ref, "MCP4725A0T-E/CH", 271.78, y,
+               {"1": out, "2": "/GND_LOAD", "3": "V5_ISO", "4": "SDA_ISO", "5": "SCL_ISO", "6": a0}, 0,
+               "Package_TO_SOT_SMD:SOT-23-6", "Microchip Technology", "MCP4725A0T-E/CH",
+               ref_at=(274.32, 53.34 + y - 63.5), value_at=(274.32, 73.66 + y - 63.5))
+        s.C(cref, "100nF 50V X7R", 254.0, y - 15.24, "V5_ISO", "/GND_LOAD", decouple=True)
+        s.R(rs, "1k", 294.64, y, out, tnet, rot=90)
+        s.R(rt, "20k", 309.88, y + 7.62, tnet, fb)
+        s.R(rb, "10k", 309.88, y + 20.32, fb, "/GND_LOAD")
+    s.text("PV/PC: 0-5 V DAC outputs (rail-to-rail, VDD = V5_ISO), 1k series to the terminal.\n"
+           "20k/10k readback into the ADC confirms the voltage at the terminal (open/short wiring).\n"
+           "Firmware closes the loop on the measured Vin, so DAC accuracy does not matter.", 248.92, 142.24, 1.0)
+
+    # --- Mean Well remote ON/OFF ------------------------------------------------
+    s.part("Relay_SolidState:TLP222A", "U35", "TLP222A", 271.78, 175.26,
+           {"1": "RLY_A", "2": "GND", "3": "MW_RC_B", "4": "MW_RC_A"}, 0, "Package_DIP:DIP-4_W7.62mm_LongPads",
+           "Toshiba", "TLP222A(F)", ref_at=(271.78, 167.64), value_at=(271.78, 182.88))
+    s.R("R48", "680R", 248.92, 172.72, "/MW_REMOTE", "RLY_A", rot=90)
+    s.R("R49", "100k", 236.22, 185.42, "/MW_REMOTE", "GND")
+    s.text("Remote ON/OFF: TLP222A contact closes the Mean Well's Remote to its +12V-AUX (60 V, 500 mA).\n"
+           "LED ~5.7 mA from MW_REMOTE; R49 keeps it off at reset -> supply off.", 226.06, 198.12, 1.0)
+
+    # --- control connector -------------------------------------------------------
+    s.part("Connector:Screw_Terminal_01x05", "J30", "MEAN WELL", 345.44, 116.84,
+           {"1": "MW_PV", "2": "MW_PC", "3": "/GND_LOAD", "4": "MW_RC_A", "5": "MW_RC_B"}, 0,
+           "Connector_Phoenix_MC:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal", "Phoenix Contact", "1844249",
+           ref_at=(345.44, 109.22), value_at=(345.44, 127.0))
+    s.text("J30 to the Mean Well control connector: 1 PV, 2 PC, 3 GND(signal) = -V,\n"
+           "4/5 dry contact to Remote and +12V-AUX (polarity free).\nPlug: Phoenix Contact 1840395.", 325.12, 137.16, 1.0)
+    return s
+
+
+SHEETS = [can_logic, power_path, trip, load_side]
 
 
 def main():

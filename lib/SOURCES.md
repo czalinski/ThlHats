@@ -81,3 +81,15 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | symbol | Comparator | LM2903 | KiCad Comparator.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Transistor_FET | Q_NMOS_GSD | KiCad Transistor_FET.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Package_SO | SOIC-8_3.9x4.9mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Thl_Isolator | ISO1640DWR | generated from lib/symbol_src/Thl_Isolator/ISO1640DWR.csv | repo (MIT) |
+| 2026-10-04 | symbol | Thl_Isolator | UCC12050DVE | generated from lib/symbol_src/Thl_Isolator/UCC12050DVE.csv | repo (MIT) |
+| 2026-10-04 | symbol | Analog_ADC | MCP3428x-xSL | KiCad Analog_ADC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_SO | SOIC-14_3.9x8.7mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Analog_DAC | MCP4725xxx-xCH | KiCad Analog_DAC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_TO_SOT_SMD | SOT-23-6 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Relay_SolidState | TLP222A | KiCad Relay_SolidState.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_DIP | DIP-4_W7.62mm | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_SO | SOIC-16W_7.5x10.3mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Connector_Phoenix_MC | PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal | KiCad Connector_Phoenix_MC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_DIP | DIP-4_W7.62mm_LongPads | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Connector | Screw_Terminal_01x05 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |

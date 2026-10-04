@@ -1,0 +1,28 @@
+# name: UCC12050DVE
+# mpn: UCC12050DVE
+# manufacturer: Texas Instruments
+# reference: U
+# footprint: Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm
+# datasheet: https://www.ti.com/lit/ds/symlink/ucc12050.pdf
+# description: Isolated DC/DC module, 500 mW, 5 kVrms reinforced (1.2 kVrms working), VINP 4.5-5.5 V, VISO 5.0/5.4/3.3/3.7 V by SEL, SOIC-16 wide (DVE). NC 6-8 belong to the primary (tie to GNDP), NC 10-12 to the secondary (tie to GNDS). Pinout per Table 5-1.
+# keywords: isolated DC-DC converter reinforced
+# fp_filters: SOIC*7.5x10.3mm*P1.27mm*
+pin,name,type,side
+3,VINP,power_in,left
+1,EN,input,left
+4,SYNC,input,left
+5,~{SYNC_OK},open_collector,left
+,,,left
+2,GNDP,power_in,left
+6,NC,passive,left
+7,NC,passive,left
+8,NC,passive,left
+14,VISO,power_out,right
+13,SEL,input,right
+,,,right
+15,GNDS,power_in,right
+9,GNDS,passive,right
+16,GNDS,passive,right
+10,NC,passive,right
+11,NC,passive,right
+12,NC,passive,right
