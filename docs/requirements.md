@@ -256,11 +256,11 @@ flowchart LR
     XCVR <--> MCU["PIC18F-Q84<br/>(CAN FD)"]
     ADDR["Address switch<br/>+ termination jumper"] --> MCU
     BUILD["Build resistor"] --> TRIP["Overcurrent comparator<br/>+ latch"]
-    BUILD -- "ADC: build ID" --> MCU
+    BUILD -->|"ADC: build ID"| MCU
     HALL_OUT["ACS770 output"] --> TRIP
     HALL_OUT -- ADC --> MCU
-    TRIP -- "fault / reset" <--> MCU
-    MCU -- "gate enable" --> AND["LED drive gated by<br/>enable AND NOT trip"]
+    TRIP <-->|"fault / reset"| MCU
+    MCU -->|"gate enable"| AND["LED drive gated by<br/>enable AND NOT trip"]
     TRIP --> AND
     MCU -- SPI --> DISP["4-digit LED display<br/>driver + V/A indicators"]
     MCU --> STAT["Status LEDs"]
