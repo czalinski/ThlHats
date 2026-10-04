@@ -78,3 +78,6 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Diode_SMD | D_SOD-123 | KiCad Diode_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Thl_Isolator | VOM1271T | generated from lib/symbol_src/Thl_Isolator/VOM1271T.csv | repo (MIT) |
 | 2026-10-04 | 3D model | Sensor_Current | Allegro_CB_PFF.step | SamacSys (componentsearchengine.com) ACS770ECB-200U-PFF-T.stp, attached to the stock Allegro_CB_PFF footprint with offset (-3.26, 7.08, -12.1) mm from the vendor footprint | SamacSys: no redistribution; **local only, git-ignored** (lib/3dmodels/LOCAL_ONLY.txt) |
+| 2026-10-04 | symbol | Comparator | LM2903 | KiCad Comparator.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Transistor_FET | Q_NMOS_GSD | KiCad Transistor_FET.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | footprint | Package_SO | SOIC-8_3.9x4.9mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |

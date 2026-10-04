@@ -41,6 +41,8 @@ MPN = {
     "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
     "10R": ("Yageo", "RC1206FR-0710RL"), "1M": ("Yageo", "RC1206FR-071ML"), "10M": ("Yageo", "RC1206FR-0710ML"),
     "68nF 630V X7R": ("TDK", "C3225X7R2J683K250AA"),
+    "100R": ("Yageo", "RC1206FR-07100RL"), "100k": ("Yageo", "RC1206FR-07100KL"),
+    "16.2k": ("Yageo", "RC1206FR-0716K2L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
 }
 
 
@@ -114,7 +116,7 @@ class Sheet(nb.Sch):
         self.power(name, ex, ey, rot)
 
     def part(self, lib_id, ref, value, x, y, nets, rot=0, footprint="", mfr=None, mpn=None, glob=(),
-             fields_extra=None, **kw):
+             fields_extra=None, unit=1, **kw):
         """Place a symbol and attach a net to each pin: '~' = no connect,
         names starting with + or GND = power symbol, names in glob = global label."""
         pins = pin_table(lib_id)
@@ -122,7 +124,11 @@ class Sheet(nb.Sch):
         if mpn:
             fields = {"Manufacturer": mfr, "MPN": mpn}
         fields.update(fields_extra or {})
-        self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(pins), fields=fields, **kw)
+        multi = kw.pop("multi", False) or unit != 1  # multi-unit: list only this unit's pins
+        self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(nets) if multi else list(pins),
+                    fields=fields, **kw)
+        if unit != 1:
+            self.items[-1] = self.items[-1].replace("(unit 1)", f"(unit {unit})")
         for num, net in nets.items():
             px, py, out = self.pin_end(lib_id, x, y, rot, num)
             if net == "":
@@ -244,14 +250,14 @@ def can_logic():
     mcu = "Thl_MCU:PIC18F47Q84-IP"
     nets = {
         "11": "", "32": "", "12": "", "31": "",
-        "2": "/ACS_OUT", "3": "/BUILD_REF", "4": "V12_MON", "5": "~", "6": "~", "7": "~",
+        "2": "/ACS_ADC", "3": "/BUILD_REF", "4": "V12_MON", "5": "~", "6": "~", "7": "~",
         "13": "OSC1", "14": "OSC2",
         "8": "/MW_REMOTE", "9": "LED_STATUS", "10": "LED_FAULT", "1": "MCLR",
         "19": "/DISP_SCK", "20": "/DISP_DIN", "21": "/DISP_LOAD", "22": "~",
         "27": "ADDR0", "28": "ADDR1", "29": "ADDR2", "30": "ADDR3",
         "33": "~", "34": "~", "35": "CAN_TX", "36": "CAN_RX", "37": "CAN_STBY", "38": "~",
         "39": "ICSPCLK", "40": "ICSPDAT",
-        "15": "/GATE_EN", "16": "/TRIP_N", "17": "/TRIP_RST", "18": "/I2C_SCL",
+        "15": "/GATE_EN", "16": "/TRIP_OK", "17": "/TRIP_RST", "18": "/I2C_SCL",
         "23": "/I2C_SDA", "24": "~", "25": "UART_TX", "26": "UART_RX",
     }
     s.part(mcu, "U3", "PIC18F47Q84-I/P", 254.0, 106.68, nets, 0, "Package_DIP:DIP-40_W15.24mm_Socket_LongPads",
@@ -390,7 +396,78 @@ def power_path():
     return s
 
 
-SHEETS = [can_logic, power_path]
+def trip():
+    s = Sheet("trip.kicad_sch", "Overcurrent trip, gate drive", 4, "CAN SSR: overcurrent trip and gate drive")
+    s.text("CAN/LOGIC SIDE. Hardware overcurrent trip, independent of firmware: the comparator latches\n"
+           "and removes the VOM1271 LED current. Firmware can reset the latch (TRIP_RST) but not override it.",
+           25.4, 30.48)
+
+    # --- build resistor / threshold ------------------------------------
+    s.part("Device:R", "R20", "16.2k", 50.8, 66.04, {"1": "+5V", "2": "VTH"}, 0, FP["R"], "Yageo", "RC1206FR-0716K2L",
+           ref_at=(53.34, 64.77), value_at=(53.34, 67.31), value_justify="left",
+           fields_extra={"Build": "HC 7.15k (RC1206FR-077K15L) / STD 16.2k (RC1206FR-0716K2L) / "
+                                  "HV 35.7k (RC1206FR-0735K7L), 1 %"})
+    s.R("R21", "10k", 50.8, 81.28, "VTH", "GND")
+    s.C("C20", "100nF 50V X7R", 66.04, 81.28, "VTH", "GND", decouple=True)
+    s.llabel("VTH", 50.8, 73.66, 180)
+    s.wire(50.8, 69.85, 50.8, 77.47)
+    s.R("R22", "1k", 78.74, 73.66, "VTH", "/BUILD_REF", rot=90)
+    s.text("BUILD RESISTOR R20 (only part besides the MOSFETs that differs per build).\n"
+           "Vth = 5 V x 10k / (R20 + 10k); ACS770-100U: 0.5 V + 40 mV/A.\n"
+           "  HC  7.15k -> 2.92 V -> trip 60 A\n  STD 16.2k -> 1.91 V -> trip 35 A\n  HV  35.7k -> 1.10 V -> trip 15 A\n"
+           "R20 open -> Vth 0 -> always tripped (cannot turn on). PIC reads VTH (BUILD_REF) as the build ID;\n"
+           "out-of-band reading = fault. While latched VTH reads ~0.3 V (see D20).", 25.4, 106.68, 1.0)
+
+    # --- ACS770 filtering -------------------------------------------------
+    s.R("R23", "1k", 129.54, 55.88, "/ACS_OUT", "CMP_IN", rot=90)
+    s.C("C21", "1nF 50V C0G", 142.24, 63.5, "CMP_IN", "GND")
+    s.R("R24", "1k", 129.54, 152.4, "/ACS_OUT", "/ACS_ADC", rot=90)
+    s.C("C22", "100nF 50V X7R", 144.78, 160.02, "/ACS_ADC", "GND", decouple=True)
+    s.text("R23/C21: comparator filter ~1 us. R24/C22: ADC filter ~100 us (firmware samples at 20 Hz).", 116.84, 172.72, 1.0)
+
+    # --- comparator + latch -------------------------------------------------
+    cmp_ = "Comparator:LM2903"
+    s.part(cmp_, "U20", "LM393B", 180.34, 63.5, {"3": "VTH", "2": "CMP_IN", "1": "/TRIP_OK"}, 0,
+           "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "LM393BIDR", multi=True,
+           ref_at=(180.34, 55.88), value_at=(180.34, 71.12))
+    s.part(cmp_, "U20", "LM393B", 180.34, 99.06, {"5": "GND", "6": "VTH", "7": "~"}, 0,
+           "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "LM393BIDR", unit=2,
+           ref_at=(180.34, 91.44), value_at=(180.34, 106.68))
+    s.part(cmp_, "U20", "LM393B", 210.82, 99.06, {"8": "+5V", "4": "GND"}, 0,
+           "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "LM393BIDR", unit=3,
+           ref_at=(215.9, 96.52), value_at=(215.9, 101.6))
+    s.C("C23", "100nF 50V X7R", 226.06, 99.06, "+5V", "GND", decouple=True)
+    s.R("R25", "10k", 205.74, 50.8, "+5V", "/TRIP_OK")
+    s.part("Device:D_Schottky", "D20", "BAT54", 205.74, 76.2, {"1": "/TRIP_OK", "2": "VTH"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "Nexperia", "BAT54,215", ref_at=(205.74, 72.39), value_at=(205.74, 80.01))
+    s.text("Latch: on overcurrent the open-collector output pulls TRIP_OK low and D20 drags VTH to ~0.3 V,\n"
+           "below the 0.5 V zero-current output, so it stays tripped. Unit B unused (output open).", 167.64, 116.84, 1.0)
+
+    # reset
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q20", "2N7002", 154.94, 76.2, {"1": "/TRIP_RST", "2": "GND", "3": "CMP_IN"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(160.02, 74.93), value_at=(160.02, 77.47),
+           value_justify="left")
+    s.R("R26", "100k", 137.16, 93.98, "/TRIP_RST", "GND")
+    s.text("Reset: TRIP_RST high pulls CMP_IN low, the output releases and VTH recovers; if the\n"
+           "overcurrent persists it re-trips. Firmware resets only with GATE_EN low.", 116.84, 127.0, 1.0)
+
+    # --- VOM1271 LED drive: GATE_EN AND TRIP_OK ------------------------------
+    s.R("R27", "100R", 271.78, 55.88, "+5V", "/VOM_LED_A")
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q21", "2N7002", 271.78, 81.28, {"1": "/GATE_EN", "2": "EN_MID", "3": "/VOM_LED_K"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(276.86, 80.01), value_at=(276.86, 82.55),
+           value_justify="left")
+    s.part("Transistor_FET:Q_NMOS_GSD", "Q22", "2N7002", 271.78, 101.6, {"1": "/TRIP_OK", "2": "GND", "3": "EN_MID"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "2N7002LT1G", ref_at=(276.86, 100.33), value_at=(276.86, 102.87),
+           value_justify="left")
+    s.R("R28", "100k", 254.0, 91.44, "/GATE_EN", "GND")
+    s.text("VOM1271 LEDs (two in series, on the power-path sheet): +5V -> R27 -> LEDs -> Q21 -> Q22 -> GND.\n"
+           "Current flows only when GATE_EN (firmware) AND TRIP_OK (hardware) are high: ~21 mA\n"
+           "((5 - 2 x 1.4) V / 100 R), giving ~30 uA gate drive. R28 holds GATE_EN low at reset.",
+           243.84, 119.38, 1.0)
+    return s
+
+
+SHEETS = [can_logic, power_path, trip]
 
 
 def main():

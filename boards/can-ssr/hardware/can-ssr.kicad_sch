@@ -20,7 +20,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "eeb7740c-19c6-4421-9f94-279d6946bc77")
+		(uuid "9d02c303-91a1-4bc9-8c3e-9601c0354249")
 	)
 	(text "Requirements: docs/requirements.md 4.2. One PCB, three builds (HC/STD/HV): only the four\nMOSFETs and the build resistor differ. See boards/can-ssr/README.md."
 		(exclude_from_sim no)
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d93897e0-2198-4478-958b-62a1c7959cba")
+		(uuid "14ad29cd-108f-4190-962a-c8913b9ee202")
 	)
 	(sheet
 		(at 30.48 55.88)
@@ -48,7 +48,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "21b6f5eb-5430-40ab-8879-2591d40a470d")
+		(uuid "458a26cc-7ab0-493e-8f55-ed43c647f0e7")
 		(property "Sheetname" "CAN, power, MCU"
 			(at 30.48 55.18 0)
 			(effects
@@ -90,7 +90,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "13bcfa60-9af0-4b59-bf60-572a31fbbf81")
+		(uuid "c64a2bd9-5497-4e3f-a10e-ded04b8c077f")
 		(property "Sheetname" "Power path"
 			(at 91.44 55.18 0)
 			(effects
@@ -113,6 +113,48 @@
 			(project "can-ssr"
 				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
 					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 55.88)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "bebaee71-c752-4e1c-86b4-155d6a756c1f")
+		(property "Sheetname" "Overcurrent trip, gate drive"
+			(at 152.4 55.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "trip.kicad_sch"
+			(at 152.4 81.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "can-ssr"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
+					(page "4")
 				)
 			)
 		)
