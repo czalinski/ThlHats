@@ -1,0 +1,58 @@
+# name: PIC18F47Q84-IPT
+# mpn: PIC18F47Q84-I/PT
+# manufacturer: Microchip Technology
+# reference: U
+# footprint: Package_QFP:TQFP-44_10x10mm_P0.8mm
+# datasheet: https://www.microchip.com/en-us/product/PIC18F47Q84
+# description: PIC18-Q84 8-bit MCU with CAN FD, 64 MHz, 128 KB flash, 13 KB RAM, 1 KB EEPROM, 12-bit ADCC, 8-bit DAC, PPS, TQFP-44 10x10 mm, 0.8 mm pitch. Pinout per DS40002213C Fig 2-5 / Table 3-2 (44-TQFP column). CANTX/CANRX, I2C, SPI, UART and PWM are PPS-remappable.
+# keywords: PIC18 PIC18F-Q84 microcontroller 8-bit CAN-FD
+# fp_filters: TQFP*10x10mm*P0.8mm*
+# aliases: PIC18F47Q84-EPT=PIC18F47Q84-E/PT
+pin,name,type,side
+7,VDD,power_in,top
+28,VDD,power_in,top
+19,RA0,bidirectional,left
+20,RA1,bidirectional,left
+21,RA2,bidirectional,left
+22,RA3,bidirectional,left
+23,RA4,bidirectional,left
+24,RA5,bidirectional,left
+31,RA6,bidirectional,left
+30,RA7,bidirectional,left
+,,,left
+25,RE0,bidirectional,left
+26,RE1,bidirectional,left
+27,RE2,bidirectional,left
+18,RE3/~{MCLR}/VPP,input,left
+,,,left
+38,RD0,bidirectional,left
+39,RD1,bidirectional,left
+40,RD2,bidirectional,left
+41,RD3,bidirectional,left
+2,RD4,bidirectional,left
+3,RD5,bidirectional,left
+4,RD6,bidirectional,left
+5,RD7,bidirectional,left
+8,RB0,bidirectional,right
+9,RB1,bidirectional,right
+10,RB2,bidirectional,right
+11,RB3,bidirectional,right
+14,RB4,bidirectional,right
+15,RB5,bidirectional,right
+16,RB6/ICSPCLK,bidirectional,right
+17,RB7/ICSPDAT,bidirectional,right
+,,,right
+32,RC0,bidirectional,right
+35,RC1,bidirectional,right
+36,RC2,bidirectional,right
+37,RC3,bidirectional,right
+42,RC4,bidirectional,right
+43,RC5,bidirectional,right
+44,RC6,bidirectional,right
+1,RC7,bidirectional,right
+6,VSS,power_in,bottom
+29,VSS,power_in,bottom
+12,NC,no_connect,bottom
+13,NC,no_connect,bottom
+33,NC,no_connect,bottom
+34,NC,no_connect,bottom

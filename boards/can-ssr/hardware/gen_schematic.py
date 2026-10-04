@@ -249,7 +249,13 @@ def can_logic():
     s.flag(55.88, 147.32); s.power("GND", 55.88, 147.32)
 
     # --- MCU ---------------------------------------------------------
-    mcu = "Thl_MCU:PIC18F47Q84-IP"
+    mcu = "Thl_MCU:PIC18F47Q84-IPT"
+    # nets below are written with PDIP-40 pin numbers; DIP2TQFP maps them to TQFP-44
+    DIP2TQFP = {"2": "19", "3": "20", "4": "21", "5": "22", "6": "23", "7": "24", "14": "31", "13": "30",
+                "33": "8", "34": "9", "35": "10", "36": "11", "37": "14", "38": "15", "39": "16", "40": "17",
+                "15": "32", "16": "35", "17": "36", "18": "37", "23": "42", "24": "43", "25": "44", "26": "1",
+                "19": "38", "20": "39", "21": "40", "22": "41", "27": "2", "28": "3", "29": "4", "30": "5",
+                "8": "25", "9": "26", "10": "27", "1": "18", "11": "7", "32": "28", "12": "6", "31": "29"}
     nets = {
         "11": "", "32": "", "12": "", "31": "",
         "2": "/ACS_ADC", "3": "/BUILD_REF", "4": "V12_MON", "5": "~", "6": "~", "7": "~",
@@ -262,9 +268,11 @@ def can_logic():
         "15": "/GATE_EN", "16": "/TRIP_OK", "17": "/TRIP_RST", "18": "/I2C_SCL",
         "23": "/I2C_SDA", "24": "~", "25": "UART_TX", "26": "UART_RX",
     }
-    s.part(mcu, "U3", "PIC18F47Q84-I/P", 254.0, 106.68, nets, 0, "Package_DIP:DIP-40_W15.24mm_Socket_LongPads",
-           "Microchip Technology", "PIC18F47Q84-I/P", ref_at=(271.78, 77.47), value_at=(271.78, 139.7))
-    for a, b, net in (("11", "32", "+5V"), ("12", "31", "GND")):
+    nets = {DIP2TQFP[k]: v for k, v in nets.items()}
+    nets.update({"12": "~", "13": "~", "33": "~", "34": "~"})
+    s.part(mcu, "U3", "PIC18F47Q84-I/PT", 254.0, 106.68, nets, 0, "Package_QFP:TQFP-44_10x10mm_P0.8mm",
+           "Microchip Technology", "PIC18F47Q84-I/PT", ref_at=(271.78, 77.47), value_at=(271.78, 139.7))
+    for a, b, net in (("7", "28", "+5V"), ("6", "29", "GND")):
         ax, ay, _ = s.pin_end(mcu, 254.0, 106.68, 0, a)
         bx, by, _ = s.pin_end(mcu, 254.0, 106.68, 0, b)
         dy = -5.08 if net == "+5V" else 5.08
@@ -272,7 +280,7 @@ def can_logic():
         s.power(net, bx, by + dy, 0)
     s.text("Pin map (PPS): CANTX RB2, CANRX RB3, SCL1 RC3, SDA1 RC4, SPI1 SCK RD0 / SDO RD1, CS RD2,\n"
            "UART1 TX RC6 / RX RC7 (debug). RA0..RA2 analog. Address RD4..RD7 with weak pull-ups.\n"
-           "Socket: 40-pin 600 mil DIP socket, e.g. Mill-Max 110-43-640-41-001000 (in BOM separately).",
+           "TQFP-44 10x10 mm, 0.8 mm pitch (hand-solderable).",
            205.74, 165.1, 1.0)
     for ref, x in (("C5", 223.52), ("C6", 246.38)):
         s.C(ref, "100nF 50V X7R", x, 60.96, "+5V", "GND", decouple=True)

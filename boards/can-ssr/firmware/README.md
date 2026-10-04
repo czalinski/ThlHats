@@ -2,7 +2,7 @@
 
 Microchip PIC. Suggested toolchain: MPLAB X + XC8/XC16/XC32, or the `xc8-cc` CLI with a Makefile. Keep the MPLAB X project in this directory (nbproject/private and build/dist outputs are git-ignored).
 
-Target: PIC18F47Q84 (PDIP-40, 128 KB flash, CAN FD), XC8.
+Target: PIC18F47Q84 (TQFP-44, 128 KB flash, CAN FD), XC8.
 
 - **One image for all builds.** Read the build resistor on an ADC pin at boot;
   enforce that build's voltage, current and hot-switch limits. A reading

@@ -100,3 +100,5 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Display_7Segment | CA56-12SRWA | KiCad Display_7Segment.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Package_SO | SOIC-24W_7.5x15.4mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | MountingHole | MountingHole_3.2mm_M3 | KiCad MountingHole.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Thl_MCU | PIC18F47Q84-IPT | generated from lib/symbol_src/Thl_MCU/PIC18F47Q84-IPT.csv | repo (MIT) |
+| 2026-10-04 | footprint | Package_QFP | TQFP-44_10x10mm_P0.8mm | KiCad Package_QFP.pretty | CC-BY-SA-4.0 w/ KiCad exception |

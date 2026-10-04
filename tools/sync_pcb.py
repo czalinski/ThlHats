@@ -8,7 +8,8 @@
   grid to the right of the outline), linked to their symbols by path so
   schematic parity holds.
 - Updates value, footprint fields (Manufacturer, MPN, ...) and pad nets of
-  every linked footprint. Existing footprints keep their position.
+  every linked footprint. Existing footprints keep their position; one whose
+  footprint changed in the schematic is swapped in place (position, rotation, side).
 - Never deletes anything: footprints without a symbol (mounting holes, DIN
   clips, logos) are left alone; stale ones are listed.
 Footprints load from lib/ only (the lib nickname maps to lib/footprints/<nick>.pretty).
@@ -119,15 +120,15 @@ def main():
 
     bb = board.GetBoardEdgesBoundingBox()
     park_x, park_y, col = pcbnew.ToMM(bb.GetRight()) + 20, pcbnew.ToMM(bb.GetTop()), 0
-    added, changed = [], []
+    added, changed, swapped = [], [], []
     for ref, c in sorted(comps.items()):
         if not c["footprint"]:
             continue
         nick, fpname = c["footprint"].split(":", 1)
         fp = by_ref.get(ref)
+        old = None
         if fp is not None and fp.GetFPIDAsString() != c["footprint"]:
-            print(f"warning: {ref} footprint differs (board {fp.GetFPIDAsString()}, schematic {c['footprint']}); "
-                  "left as is", file=sys.stderr)
+            old, fp = fp, None  # footprint changed in the schematic: swap it, keep placement
         if fp is None:
             lib = FP_DIR / f"{nick}.pretty"
             fp = pcbnew.FootprintLoad(str(lib), fpname)
@@ -135,12 +136,20 @@ def main():
                 sys.exit(f"{ref}: footprint {c['footprint']} not found in {lib}")
             fp.SetFPIDAsString(c["footprint"])
             fp.SetReference(ref)
-            x = park_x + (col % 10) * 25
-            y = park_y + (col // 10) * 25
-            col += 1
-            fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
+            if old is not None:
+                if old.IsFlipped():
+                    fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+                fp.SetOrientation(old.GetOrientation())
+                fp.SetPosition(old.GetPosition())
+                board.Remove(old)
+                swapped.append(ref)
+            else:
+                x = park_x + (col % 10) * 25
+                y = park_y + (col // 10) * 25
+                col += 1
+                fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
+                added.append(ref)
             board.Add(fp)
-            added.append(ref)
         fp.SetPath(pcbnew.KIID_PATH(c["path"]))
         fp.SetSheetname(c["sheetname"])
         if fp.GetValue() != c["value"]:
@@ -162,7 +171,8 @@ def main():
             elif pad.GetNumber():
                 pad.SetNetCode(0)
     stale = sorted(r for r, fp in by_ref.items() if r not in comps and fp.GetPath().AsString() not in ("", "/"))
-    print(f"added {len(added)}, value updates {len(changed)}, nets {len(set(nets.values()))}")
+    print(f"added {len(added)}, footprints swapped {swapped or 0}, value updates {len(changed)}, "
+          f"nets {len(set(nets.values()))}")
     if stale:
         print("footprints whose symbol is gone (not removed): " + ", ".join(stale))
     if not a.dry_run:
