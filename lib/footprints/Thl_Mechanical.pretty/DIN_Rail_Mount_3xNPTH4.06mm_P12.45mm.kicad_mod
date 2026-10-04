@@ -1,0 +1,124 @@
+(footprint "DIN_Rail_Mount_3xNPTH4.06mm_P12.45mm"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "DIN rail mounting: three 4.06 mm non-plated holes on a 12.45 mm (0.49 in) pitch for a plastic DIN rail clip. Board-only (not in schematic, BOM or placement files); add the clip hardware to the BOM separately. Converted from the user's hand-made footprint.")
+	(tags "DIN rail clip mounting hole mechanical")
+	(property "Reference" "REF**"
+		(at -3.048 -6.858 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "9226c262-3125-4acd-b25f-64d9eb185bed")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "DIN_Rail_Mount_3xNPTH4.06mm_P12.45mm"
+		(at 3.556 7.366 90)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "1acdf309-560e-4bef-b726-ced7d7686f51")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "92d10df2-0e14-4343-ba14-d797cb31b97a")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "72f918a4-e683-47ee-a7a1-c56c32e3d1c8")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr board_only exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -5.35 -21.6)
+		(end 5.35 21.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+		(uuid "06a4bb87-926e-4be6-97f1-045cbc444c14")
+	)
+	(fp_rect
+		(start -5.35 -21.6)
+		(end 5.35 21.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "ab190fea-fdc7-475a-a33a-a745b9496215")
+	)
+	(fp_rect
+		(start -5.08 -21.336)
+		(end 5.08 21.336)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "a645d704-d6f9-4911-bd4f-54312c35c923")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 3.81 -11.43 90)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "7a1af3c1-9a69-4c00-964a-c6d507e10a80")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at 0 -12.446)
+		(size 4.064 4.064)
+		(drill 4.064)
+		(layers "*.Cu" "*.Mask")
+		(uuid "60d2465a-daea-402a-84db-dfd3047e87ac")
+	)
+	(pad "" np_thru_hole circle
+		(at 0 0)
+		(size 4.064 4.064)
+		(drill 4.064)
+		(layers "*.Cu" "*.Mask")
+		(uuid "49a99464-460d-488d-b316-d77582367afc")
+	)
+	(pad "" np_thru_hole circle
+		(at 0 12.446)
+		(size 4.064 4.064)
+		(drill 4.064)
+		(layers "*.Cu" "*.Mask")
+		(uuid "75d2ebdf-30e9-4a2a-982d-eadc1ead4eba")
+	)
+	(embedded_fonts no)
+)
