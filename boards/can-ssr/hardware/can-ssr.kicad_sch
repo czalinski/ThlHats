@@ -20,7 +20,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "976e47d5-f797-40d0-ab8e-80c6d49486b4")
+		(uuid "eeb7740c-19c6-4421-9f94-279d6946bc77")
 	)
 	(text "Requirements: docs/requirements.md 4.2. One PCB, three builds (HC/STD/HV): only the four\nMOSFETs and the build resistor differ. See boards/can-ssr/README.md."
 		(exclude_from_sim no)
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "75ecce28-8746-4481-a6ce-6c7f8beca9bc")
+		(uuid "d93897e0-2198-4478-958b-62a1c7959cba")
 	)
 	(sheet
 		(at 30.48 55.88)
@@ -48,7 +48,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "bdf25d4c-c670-4e2f-a866-ff65b033afc8")
+		(uuid "21b6f5eb-5430-40ab-8879-2591d40a470d")
 		(property "Sheetname" "CAN, power, MCU"
 			(at 30.48 55.18 0)
 			(effects
@@ -71,6 +71,48 @@
 			(project "can-ssr"
 				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 91.44 55.88)
+		(size 50.8 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "13bcfa60-9af0-4b59-bf60-572a31fbbf81")
+		(property "Sheetname" "Power path"
+			(at 91.44 55.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power_path.kicad_sch"
+			(at 91.44 81.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "can-ssr"
+				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe"
+					(page "3")
 				)
 			)
 		)

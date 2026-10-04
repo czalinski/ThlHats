@@ -39,6 +39,8 @@ MPN = {
     "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),
     "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
     "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
+    "10R": ("Yageo", "RC1206FR-0710RL"), "1M": ("Yageo", "RC1206FR-071ML"), "10M": ("Yageo", "RC1206FR-0710ML"),
+    "68nF 630V X7R": ("TDK", "C3225X7R2J683K250AA"),
 }
 
 
@@ -111,13 +113,15 @@ class Sheet(nb.Sch):
         rot = ({270: 0, 90: 180, 180: 270, 0: 90} if gnd else {90: 0, 270: 180, 180: 90, 0: 270})[out]
         self.power(name, ex, ey, rot)
 
-    def part(self, lib_id, ref, value, x, y, nets, rot=0, footprint="", mfr=None, mpn=None, glob=(), **kw):
+    def part(self, lib_id, ref, value, x, y, nets, rot=0, footprint="", mfr=None, mpn=None, glob=(),
+             fields_extra=None, **kw):
         """Place a symbol and attach a net to each pin: '~' = no connect,
         names starting with + or GND = power symbol, names in glob = global label."""
         pins = pin_table(lib_id)
         fields = {}
         if mpn:
             fields = {"Manufacturer": mfr, "MPN": mpn}
+        fields.update(fields_extra or {})
         self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(pins), fields=fields, **kw)
         for num, net in nets.items():
             px, py, out = self.pin_end(lib_id, x, y, rot, num)
@@ -140,9 +144,9 @@ class Sheet(nb.Sch):
             at = dict(ref_at=(x + 2.54, y - 1.27), value_at=(x + 2.54, y + 1.27), value_justify="left")
         self.part("Device:R", ref, value, x, y, {"1": n1, "2": n2}, rot, FP["R"], mfr, mpn, glob, **at)
 
-    def C(self, ref, value, x, y, n1, n2, decouple=False, glob=()):
+    def C(self, ref, value, x, y, n1, n2, decouple=False, glob=(), fp=None):
         mfr, mpn = MPN[value]
-        self.part("Device:C", ref, value, x, y, {"1": n1, "2": n2}, 0, FP["Cd" if decouple or "pF" in value else "C"],
+        self.part("Device:C", ref, value, x, y, {"1": n1, "2": n2}, 0, fp or FP["Cd" if decouple or "pF" in value else "C"],
                   mfr, mpn, glob, ref_at=(x + 2.54, y - 1.27), value_at=(x + 2.54, y + 1.27), value_justify="left")
 
     def render(self):
@@ -308,7 +312,85 @@ def can_logic():
     return s
 
 
-SHEETS = [can_logic]
+def power_path():
+    s = Sheet("power_path.kicad_sch", "Power path", 3, "CAN SSR: power path")
+    s.text("LOAD SIDE (referenced to RET, the return bar). Up to 200 V: keep 250 V working clearances;\n"
+           "about 6 mm creepage to anything on the CAN/logic side. Heavy nets (VIN, SRC, VOUT_SW, VOUT, RET)\n"
+           "are busbar runs: mask-free top copper with a soldered copper bar.", 25.4, 30.48)
+
+    # --- bolts -----------------------------------------------------------
+    for i, (ref, val, net, y) in enumerate((("H1", "SUPPLY +", "/VIN", 60.96), ("H2", "SUPPLY -", "/RET", 81.28),
+                                             ("H3", "LOAD +", "/VOUT", 101.6), ("H4", "LOAD -", "/RET", 121.92))):
+        s.part("Mechanical:MountingHole_Pad", ref, val, 35.56, y, {"1": net}, 0,
+               "MountingHole:MountingHole_5.3mm_M5_Pad", ref_at=(40.64, y - 3.81), value_at=(40.64, y - 1.27),
+               value_justify="left")
+    s.text("M5 bolt + ring lug per terminal, on the busbar.\nH2 and H4 share the return bar (unswitched).", 25.4, 134.62, 1.0)
+
+    # --- MOSFETs: Q1/Q2 input side, Q3/Q4 output side, common source ----
+    fet = "Transistor_FET:STB15N80K5"
+    build = {"Build": "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"}
+    for ref, gnet, dnet, x in (("Q1", "G1", "/VIN", 96.52), ("Q2", "G2", "/VIN", 116.84),
+                               ("Q3", "G3", "VOUT_SW", 165.1), ("Q4", "G4", "VOUT_SW", 185.42)):
+        s.part(fet, ref, "IPB110N20N3LF", x, 76.2, {"1": gnet, "2": dnet, "3": "SRC"}, 0,
+               "Package_TO_SOT_SMD:TO-263-2", "Infineon", "IPB110N20N3LFATMA1",
+               ref_at=(x + 5.08, 73.66), value_at=(x + 5.08, 78.74), value_justify="left", fields_extra=build)
+    s.text("Q1 || Q2 (input side) and Q3 || Q4 (output side), sources tied: off = blocks both directions.\n"
+           "Fitted MOSFET depends on the build (see Build field); the build resistor on the trip sheet\n"
+           "must match.", 96.52, 50.8, 1.0)
+    for ref, net, x in (("R10", "G1", 96.52), ("R11", "G2", 116.84), ("R12", "G3", 165.1), ("R13", "G4", 185.42)):
+        s.R(ref, "10R", x - 12.7, 101.6, "GATE", net)
+
+    # --- gate network ----------------------------------------------------
+    s.R("R14", "10M", 223.52, 101.6, "GATE", "SRC")
+    s.part("Device:D_Zener", "D10", "SMAZ15", 241.3, 101.6, {"1": "GATE", "2": "SRC"}, 90,
+           "Diode_SMD:D_SMA_Handsoldering", "Vishay", "SMAZ15-E3/61", ref_at=(245.11, 100.33),
+           value_at=(245.11, 102.87), value_justify="left")
+    s.text("Gate clamp 15 V; 10M defines the off state.", 218.44, 116.84, 1.0)
+
+    # turn-off accelerator
+    s.part("Device:D", "D11", "1N4148W", 223.52, 139.7, {"2": "VOM_P", "1": "GATE"}, 0,
+           "Diode_SMD:D_SOD-123", "Diodes Incorporated", "1N4148W-7-F", ref_at=(223.52, 135.89), value_at=(223.52, 143.51))
+    s.part("Transistor_BJT:Q_PNP_BEC", "Q5", "MMBT2907A", 254.0, 139.7, {"1": "VOM_P", "2": "GATE", "3": "SRC"}, 0,
+           "Package_TO_SOT_SMD:SOT-23", "onsemi", "MMBT2907ALT1G", ref_at=(259.08, 137.16), value_at=(259.08, 142.24),
+           value_justify="left")
+    s.text("Turn-off: when the VOM1271 output collapses, Q5 dumps the gate into SRC (a few us).", 213.36, 152.4, 1.0)
+
+    # slew limiter for hot turn-on
+    s.C("C10", "68nF 630V X7R", 223.52, 177.8, "/VIN", "SLEW", fp="Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
+    s.part("Device:D", "D12", "ES1J", 241.3, 190.5, {"2": "GATE", "1": "SLEW"}, 0,
+           "Diode_SMD:D_SMA_Handsoldering", "Vishay", "ES1J-E3/61T", ref_at=(241.3, 186.69), value_at=(241.3, 194.31))
+    s.R("R15", "1M", 259.08, 190.5, "SLEW", "GATE", rot=90)
+    s.text("Hot turn-on slew limit: C10 from VIN to the gate (via D12) diverts the VOM1271 current,\n"
+           "about 30 uA at IF 20 mA -> ~0.45 V/ms; 1 mF load draws ~0.45 A. D12 keeps C10 out of the\n"
+           "turn-off path; R15 resets C10 after turn-off. No DC path: C10 blocks.", 205.74, 203.2, 1.0)
+
+    # --- photovoltaic drivers (cross the barrier) ------------------------
+    vom = "Thl_Isolator:VOM1271T"
+    s.part(vom, "U10", "VOM1271T", 304.8, 76.2, {"1": "/VOM_LED_A", "2": "LED_MID", "4": "VOM_P", "3": "VOM_MID"}, 0,
+           "Thl_Package:Vishay_SOP-4_4.4x4.9mm_P2.54mm_HandSolder", "Vishay", "VOM1271T",
+           ref_at=(304.8, 68.58), value_at=(304.8, 83.82))
+    s.part(vom, "U11", "VOM1271T", 304.8, 101.6, {"1": "LED_MID", "2": "/VOM_LED_K", "4": "VOM_MID", "3": "SRC"}, 0,
+           "Thl_Package:Vishay_SOP-4_4.4x4.9mm_P2.54mm_HandSolder", "Vishay", "VOM1271T",
+           ref_at=(304.8, 93.98), value_at=(304.8, 109.22))
+    s.text("Two VOM1271T: LEDs in series (driven from the trip sheet, ~20 mA), outputs in series\n"
+           "for ~16 V gate drive. LED side = CAN/logic domain; output side = load domain.", 287.02, 121.92, 1.0)
+
+    # --- current sensor and freewheel -------------------------------------
+    s.part("Sensor_Current:ACS756xCB-050B-PFF", "U12", "ACS770ECB-100U-PFF-T", 304.8, 167.64,
+           {"1": "+5V", "2": "GND", "3": "/ACS_OUT", "4": "VOUT_SW", "5": "/VOUT"}, 0,
+           "Sensor_Current:Allegro_CB_PFF", "Allegro MicroSystems", "ACS770ECB-100U-PFF-T",
+           ref_at=(309.88, 157.48), value_at=(309.88, 180.34), value_justify="left")
+    s.C("C11", "100nF 50V X7R", 330.2, 160.02, "+5V", "GND", decouple=True)
+    s.text("ACS770: primary (IP+/IP-) in the load path; VCC/GND/VIOUT are CAN/logic side\n"
+           "(+5V, GND). ~40 mV/A, 0.5 V at 0 A (unidirectional, ratiometric).", 287.02, 190.5, 1.0)
+    s.part("Device:D", "D13", "ES3J", 152.4, 152.4, {"1": "/VOUT", "2": "/RET"}, 90,
+           "Diode_SMD:D_SMC_Handsoldering", "Vishay", "ES3J-E3/57T", ref_at=(156.21, 151.13), value_at=(156.21, 153.67),
+           value_justify="left")
+    s.text("Freewheel diode, output to return:\nclamps inductive kick from DUT wiring.", 142.24, 165.1, 1.0)
+    return s
+
+
+SHEETS = [can_logic, power_path]
 
 
 def main():

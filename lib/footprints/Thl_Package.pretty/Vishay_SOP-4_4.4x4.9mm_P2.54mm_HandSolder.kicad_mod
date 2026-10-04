@@ -1,0 +1,174 @@
+(footprint "Vishay_SOP-4_4.4x4.9mm_P2.54mm_HandSolder"
+	(version 20241229)
+	(generator "vishay_sop4.py")
+	(layer "F.Cu")
+	(descr "Vishay SOP-4, 4.4x4.9 mm body, 2.54 mm pitch, hand-solder pads (VOM1271, doc 83469)")
+	(tags "SOP-4 VOM1271 photovoltaic optocoupler")
+	(property "Reference" "REF**"
+		(at 0 -3.6 0)
+		(layer "F.SilkS")
+		(uuid "d5c504ae-4f02-4fa0-b38c-3b0255cbf6d7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Vishay_SOP-4_4.4x4.9mm_P2.54mm_HandSolder"
+		(at 0 3.6 0)
+		(layer "F.Fab")
+		(uuid "b7b5c627-28c7-4a98-9eb4-37fe41886105")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -2.285 -2.46)
+		(end 2.285 -2.46)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "35727b69-4e6f-47a9-b4a6-88381094dfe0")
+	)
+	(fp_line
+		(start 2.285 -2.46)
+		(end 2.285 2.46)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "6ee408a2-0fa2-40cc-9b99-237fd92fe9b4")
+	)
+	(fp_line
+		(start 2.285 2.46)
+		(end -2.285 2.46)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ef7a0229-ec9c-40ae-9e0d-c10a9a5eb0cb")
+	)
+	(fp_line
+		(start -2.285 2.46)
+		(end -2.285 -2.46)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8cb5d8e7-2534-4783-9229-c32986338fef")
+	)
+	(fp_line
+		(start -2.165 -2.58)
+		(end 2.165 -2.58)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ca5347ea-b129-4bd2-8f81-24a47974d6df")
+	)
+	(fp_line
+		(start -2.165 2.58)
+		(end 2.165 2.58)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f408a177-7652-4af9-aa66-962042a5f9ff")
+	)
+	(fp_line
+		(start -4.35 -2.4)
+		(end -2.405 -2.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a14b89c8-d7cb-48f5-a95b-8778f36b76ef")
+	)
+	(fp_line
+		(start -4.6 -2.71)
+		(end 4.6 -2.71)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6ca97b3c-bb32-4a0a-8be7-60eee4bc4991")
+	)
+	(fp_line
+		(start 4.6 -2.71)
+		(end 4.6 2.71)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5ba5ff74-c9b7-4871-a2aa-c0bfd5f7ed49")
+	)
+	(fp_line
+		(start 4.6 2.71)
+		(end -4.6 2.71)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "297e211c-c600-4830-8cd9-6d5c621c6a17")
+	)
+	(fp_line
+		(start -4.6 2.71)
+		(end -4.6 -2.71)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "56cb320a-0d33-4fa9-a52d-ec2b505179f9")
+	)
+	(pad "1" smd roundrect
+		(at -3.45 -1.27)
+		(size 1.8 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "7b2bd978-9e44-41a4-bdfe-b703952c0940")
+	)
+	(pad "2" smd roundrect
+		(at -3.45 1.27)
+		(size 1.8 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "d166c05b-9170-4006-aa77-95a46bcac988")
+	)
+	(pad "3" smd roundrect
+		(at 3.45 1.27)
+		(size 1.8 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "9753dc5d-bb98-43af-945e-219a13ed40bb")
+	)
+	(pad "4" smd roundrect
+		(at 3.45 -1.27)
+		(size 1.8 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "c67c9995-c5cb-4945-b7a9-a576448f510e")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Package.3dshapes/SOP-4_3.8x4.1mm_P2.54mm.step"
+		(offset (xyz 0 0 0))
+		(scale (xyz 1 1 1))
+		(rotate (xyz 0 0 0))
+	)
+)
