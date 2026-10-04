@@ -255,9 +255,22 @@ field-facing pin must survive the likely mistakes:
 - One **host protocol** shared by all boards, defined before the controller
   firmware: discovery and identification (board type, revision, serial
   number), I/O read/write, configuration, and the watchdog. **TBD**.
-- Controller over USB: a composite device presenting the two CAN channels so
-  the host gets SocketCAN (e.g. two CDC-ACM channels running slcan, brought up
-  by `slcand`), plus a control channel for local I/O.
+- Controller over USB: a composite device. The CAN channels use the
+  **gs_usb** protocol (as used by candleLight adapters), so the mainline Linux
+  `gs_usb` driver gives native SocketCAN interfaces (`can0`, `can1`) with
+  classic and CAN FD support and no daemon. slcan was considered and rejected:
+  it cannot carry CAN FD frames. A further interface carries the control
+  protocol for local I/O.
+  - USB IDs: either the candleLight VID:PID, or our own added to the driver at
+    runtime through sysfs (`new_id`) by the Python project's setup. **TBD**.
+- **Classic and FD per channel:** each channel is set to classic CAN 2.0 or
+  CAN FD (with its own arbitration and data bit rates) from the host, e.g.
+  `ip link set can0 type can bitrate 500000 [dbitrate 2000000 fd on]`. One
+  board serves both legacy and FD devices under test.
+- **Bus mode rule:** a bus may only carry FD frames if every node on it is
+  FD-capable. Run a bus in classic mode whenever a classic-only node (e.g. a
+  legacy DUT) is attached. Preferred rack wiring: DUT on one channel, our own
+  remote nodes on the other.
 - Remote CAN nodes: an application protocol on CAN for I/O and configuration,
   with a heartbeat. **TBD**.
 - Each board's firmware lives in `boards/<name>/firmware/`.
