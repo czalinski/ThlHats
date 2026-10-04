@@ -174,12 +174,13 @@ Whether to build more nodes is a later decision.
 
 | Item | Requirement |
 |------|-------------|
-| UARTs | 3 needed: e.g. one SC16IS752 (dual) plus one SC16IS740 (single), or two SC16IS752 with one spare. On shared I2C1 at addresses 0x48 and up. Linux `sc16is7xx` driver gives `/dev/ttySC*`. |
-| RS-232 | 2 ports, TX/RX only, ST3232BDR. Not isolated. |
+| UARTs | One SC16IS752 dual UART on shared I2C1 (one address in 0x48 and up, one IRQ line). Linux `sc16is7xx` driver gives `/dev/ttySC0` and `/dev/ttySC1`. |
+| RS-232 | **1 port** (reduced from 2 on 2026-10-04; covers the common case), TX/RX only, ST3232BDR (one channel spare). Not isolated. |
 | RS-485 | **1 port** (reduced from 2 on 2026-10-04: CAN now reaches the SSR nodes, so one port covers the common case). **Full duplex, isolated**: TPT7488-SOBR (isolated full-duplex transceiver, 5 kV RMS) with a TEA1-0505HI for the isolated bus side. Point-to-point (no driver enable). Switchable termination. |
 | Header pins | I2C1 (pins 3/5) plus 1–2 IRQ GPIOs from the free list. Exact pins: **TBD**, after checking on the Orange Pi 6. |
-| Throughput | Console and Modbus rates. Three ports streaming at 115200 at once is near what 400 kHz I2C can carry; this is accepted. |
-| Connectors | **DB9** for all three ports (about 95 mm of edge). Use male for RS-232 and female for RS-485 so the two can't be swapped. DB9 height means this board goes at the top of the stack or uses taller stacking hardware. |
+| Throughput | Console and Modbus rates; two ports at 115200 fit comfortably on 400 kHz I2C. |
+| Connectors | **DB9** for both ports, one on each short side edge. Use male for RS-232 and female for RS-485 so the two can't be swapped. DB9 height means this board goes at the top of the stack or uses taller stacking hardware. |
+| Size | Standard HAT, 65 × 56.5 mm |
 
 ## 5. Requirements common to all boards
 
@@ -188,9 +189,13 @@ Whether to build more nodes is a later decision.
 Connectors sit on board edges, and edge length is the binding size constraint.
 Budget each board's connectors before starting the schematic:
 
-- On a 65 mm HAT edge: about 17 positions of 3.5 mm pluggable terminals, or about 12 at 5.08 mm.
-- The Pi header occupies one long edge's interior, and the standoffs take the corners.
-- At 100 × 100 mm: two to three usable edges of roughly 90 mm each.
+- **Connectors go on three edges only: the bottom and the two sides. The edge
+  nearest the Pi header stays clear** (decided 2026-10-04).
+- The standoffs take the corners, so usable length is about the edge length
+  minus 13 mm.
+- HAT (65 × 56.5 mm): about 52 mm (bottom) + 43 + 43 mm (sides) ≈ 138 mm.
+- 100 × 100 mm: about 87 mm × 3 ≈ 260 mm.
+- A 3.5 mm pluggable terminal position takes 3.5 mm; a 5.08 mm one takes 5.08 mm.
 - A DB9 takes about 31 mm of edge.
 - Give each GPIO and analog channel its own ground terminal, so test engineers
   don't need a separate ground bus.
