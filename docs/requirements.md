@@ -294,6 +294,14 @@ flowchart LR
   HALL -.-> HALL_OUT
 ```
 
+**The PIC stays on the CAN/logic side (decided 2026-10-04).** Moving it to the
+load side would let it use its internal ADC and PWM for Vin/Vout and PV/PC, but
+the user considers the load/supply side unreliable (supply off, return
+disconnected or miswired, DUT faults and 50 A transients on the return). The
+controller lives in the quiet, cable-powered domain so it stays responsive and
+can always report faults; the load side is only sensors and outputs behind the
+barrier.
+
 Key behaviours:
 
 - **Hardware trip is independent of firmware.** The comparator latches and
