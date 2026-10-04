@@ -261,8 +261,12 @@ field-facing pin must survive the likely mistakes:
   classic and CAN FD support and no daemon. slcan was considered and rejected:
   it cannot carry CAN FD frames. A further interface carries the control
   protocol for local I/O.
-  - USB IDs: either the candleLight VID:PID, or our own added to the driver at
-    runtime through sysfs (`new_id`) by the Python project's setup. **TBD**.
+  - USB IDs: **our own VID:PID** (decided 2026-10-04), bound to `gs_usb` at
+    runtime: `echo <VID> <PID> > /sys/bus/usb/drivers/gs_usb/new_id`, made
+    persistent with a udev rule installed by the Python project's setup.
+    Source of the ID: **Microchip's free PID sublicensing** (VID 0x04D8, for
+    products built on Microchip MCUs), decided 2026-10-04. **TBD**: request
+    the PID before firmware release. Never use an unallocated ID.
 - **Classic and FD per channel:** each channel is set to classic CAN 2.0 or
   CAN FD (with its own arbitration and data bit rates) from the host, e.g.
   `ip link set can0 type can bitrate 500000 [dbitrate 2000000 fd on]`. One
