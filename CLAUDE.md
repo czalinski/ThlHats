@@ -8,7 +8,9 @@ Raspberry Pi standoffs (HAT form factor).
 - **2 copper layers** only.
 - **Board outline ≤ 100 × 100 mm.**
 - **4 × M2.5 mounting holes (2.7 mm) on the Raspberry Pi 58 × 49 mm pattern**,
-  3.5 mm in from the top-left corner. Default outline is the official HAT size,
+  3.5 mm in from the top-left corner. Boards that are not HATs (e.g. off-header CAN
+  nodes) may opt out with `boards/<name>/board.json`:
+  `{"rpi_mount": false, "reason": "..."}`. Default outline is the official HAT size,
   65 × 56.5 mm with 3 mm corner radii.
 - **Every symbol, footprint and 3D model comes from `lib/` in this repo**. Never
   reference the stock KiCad libraries (`${KICAD10_*}`) or the user's global lib tables.

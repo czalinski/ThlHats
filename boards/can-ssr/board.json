@@ -1,0 +1,4 @@
+{
+  "rpi_mount": false,
+  "reason": "off-header CAN node; mounts with 4 x M3 to a separate DIN-rail plate (load-side holes use nylon screws)"
+}

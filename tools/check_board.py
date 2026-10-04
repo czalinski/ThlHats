@@ -7,7 +7,9 @@ House rules checked:
   - lib tables in the project match lib/ (run `tools/kilib.py sync` to fix)
   - 2 copper layers
   - Edge.Cuts outline no larger than 100 x 100 mm
-  - 4 x 2.7 mm holes on the Raspberry Pi 58 x 49 mm pattern
+  - 4 x 2.7 mm holes on the Raspberry Pi 58 x 49 mm pattern, unless the
+    board's boards/<name>/board.json says {"rpi_mount": false, "reason": "..."}
+    (for boards that are not HATs, e.g. off-header CAN nodes)
   - no chip parts below 0805; no Y5V/Y5U/Z5U capacitors
 
 Usage:
@@ -161,8 +163,15 @@ def check_parts(pcb_path, r):
         r.ok("part sizes and capacitor dielectrics")
 
 
-def check_geometry(pcb_path, r):
+def board_config(hw):
+    """Per-board exceptions to the house rules: boards/<name>/board.json."""
+    f = hw.parent / "board.json"
+    return json.loads(f.read_text()) if f.exists() else {}
+
+
+def check_geometry(pcb_path, r, cfg=None):
     import pcbnew
+    cfg = cfg or {}
     board = pcbnew.LoadBoard(str(pcb_path))
     to = pcbnew.ToMM
 
@@ -183,6 +192,9 @@ def check_geometry(pcb_path, r):
     else:
         r.ok(f"outline {w:.2f} x {h:.2f} mm")
 
+    if not cfg.get("rpi_mount", True):
+        r.ok("RPi mounting holes not required: " + cfg.get("reason", "board.json rpi_mount = false"))
+        return
     holes = []
     for fp in board.GetFootprints():
         for pad in fp.Pads():
@@ -261,7 +273,7 @@ def check(board_dir, kicad=True):
     r = Result()
     check_libraries(hw, r)
     pcb = pro.with_suffix(".kicad_pcb")
-    check_geometry(pcb, r)
+    check_geometry(pcb, r, board_config(hw))
     check_parts(pcb, r)
     if kicad:
         run_erc(hw, pro.with_suffix(".kicad_sch"), r)

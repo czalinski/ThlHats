@@ -7,8 +7,8 @@ Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 4.2, 4.2.1 (builds and switching) and 4.2.2 (block diagram).
 
 - Board: 100 x 100 mm, 2 layers, rev A (smaller welcome, not required)
-- Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern **and** two DIN rail
-  clip patterns (MK1, MK2; positions provisional until layout)
+- Mounting: 4 x M3 to a separate DIN-rail mounting plate (no Pi holes, no DIN
+  clips on the board; see board.json). Load-side holes MH3/MH4 take nylon screws.
 - Off the Pi header; powered from the 4-wire CAN cable (12 V)
 - MCU: PIC18F47Q84-I/P (PDIP-40, socketed), on the CAN/logic side
 
