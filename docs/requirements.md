@@ -149,6 +149,15 @@ MCP23017 note: recent datasheet revisions make GPA7 and GPB7 output-only. Put
 the bidirectional GPIO on GPA0–GPA6 + GPB0 and the relay drives on GPB1–GPB7
 + GPA7.
 
+Resistor networks (decided 2026-10-04): use them on this board's repeated,
+identical channels to cut hand-soldering work, in easy packages only: SOIC-16
+isolated networks (e.g. Bourns 4816P, 8 resistors) or through-hole SIP
+(e.g. Bourns 4600X). Candidates: the 8 GPIO series resistors, the 8 relay
+driver inputs, the low-voltage legs of the 4 AI dividers. Not for high-voltage
+parts (network elements are rated ~50 V), gate resistors (must sit at each
+gate) or decoupling capacitors (must sit at each IC). No chip arrays with
+0603-size elements.
+
 GPIO protection: a series resistor plus clamp on each pin to survive a short
 to 24 V. That limits output drive to a few mA, which is fine for logic inputs
 on the device under test; loads go on the relay outputs.
