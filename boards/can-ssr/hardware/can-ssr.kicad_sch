@@ -20,7 +20,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "bf0c9d8f-812a-43ee-aad0-d52cd8375524")
+		(uuid "160e2a65-07cf-4741-8b15-46efcdeadd9a")
 	)
 	(text "Requirements: docs/requirements.md 4.2. One PCB, three builds (HC/STD/HV): only the four\nMOSFETs and the build resistor differ. See boards/can-ssr/README.md."
 		(exclude_from_sim no)
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "65eec95f-b478-4649-850d-2ecd773c9b2a")
+		(uuid "c602b5ef-beec-48ca-8b69-bbd4ef730754")
 	)
 	(sheet
 		(at 30.48 55.88)
@@ -48,7 +48,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "a52b09df-57d7-483a-9078-27b18af9e3dd")
+		(uuid "802ce767-44f4-4e5b-a10c-cfd718045d9f")
 		(property "Sheetname" "CAN, power, MCU"
 			(at 30.48 55.18 0)
 			(effects
@@ -90,7 +90,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "d4795749-164b-4982-89d8-a794ca71454f")
+		(uuid "ba322503-ad9a-4093-931c-9e932d54c7e6")
 		(property "Sheetname" "Power path"
 			(at 91.44 55.18 0)
 			(effects
@@ -132,7 +132,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "14b90d63-f91d-48a4-bbb0-b9bbc21ac1dc")
+		(uuid "14ebe12e-4755-4e49-997a-9986ccea3f71")
 		(property "Sheetname" "Overcurrent trip, gate drive"
 			(at 152.4 55.18 0)
 			(effects
@@ -174,7 +174,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "ec40617c-af94-4f54-867e-717224d6b4e9")
+		(uuid "65f5c4f7-c4f1-4539-b478-e039c60376f7")
 		(property "Sheetname" "Load-side sense and supply control"
 			(at 30.48 95.82 0)
 			(effects
@@ -216,7 +216,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "a92fac97-2063-4024-9634-4bf07e75ccbf")
+		(uuid "be7c3673-9f9d-47bb-b8df-14533f74d1fd")
 		(property "Sheetname" "Display"
 			(at 91.44 95.82 0)
 			(effects

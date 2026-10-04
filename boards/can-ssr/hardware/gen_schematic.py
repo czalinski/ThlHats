@@ -599,7 +599,7 @@ def display():
     s.part("Driver_LED:MAX7219", "U40", "MAX7219CWG+", 101.6, 101.6, nets, 0,
            "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm", "Analog Devices", "MAX7219CWG+",
            ref_at=(104.14, 73.66), value_at=(104.14, 130.81))
-    s.R("R40", "27k", 66.04, 76.2, "+5V", "ISET")
+    s.R("R50", "27k", 66.04, 76.2, "+5V", "ISET")
     s.C("C43", "100nF 50V X7R", 63.5, 139.7, "+5V", "GND", decouple=True)
     s.C("C44", "10uF 25V X7R", 83.82, 139.7, "+5V", "GND")
     s.text("RSET 27k -> ~15 mA peak segment current (scan limit 5 digits:\n~3 mA average per segment). Lower RSET for a brighter display.",
