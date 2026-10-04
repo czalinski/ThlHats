@@ -10,7 +10,7 @@ Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 - Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern **and** two DIN rail
   clip patterns (MK1, MK2; positions provisional until layout)
 - Off the Pi header; powered from the 4-wire CAN cable (12 V)
-- MCU: PIC18F-Q84 family (CAN FD), on the CAN/logic side
+- MCU: PIC18F47Q84-I/P (PDIP-40, socketed), on the CAN/logic side
 
 ## Builds (one PCB, one firmware image)
 
@@ -27,7 +27,7 @@ overcurrent trip threshold and is read by the PIC as the build ID.
 
 | Block | Baseline parts | Domain |
 |-------|----------------|--------|
-| CAN, power, MCU | CAN FD transceiver, 12 V to 5 V buck, PIC18F-Q84, address switch, termination jumper | CAN/logic |
+| CAN, power, MCU | CAN FD transceiver, 12 V to 5 V buck, PIC18F47Q84-I/P, address switch, termination jumper | CAN/logic |
 | Display | MAX7219, 4-digit 7-segment LED, V/A indicators | CAN/logic |
 | Overcurrent trip | Comparator + latch on the ACS770 output, threshold from the build resistor | CAN/logic |
 | Barrier | 2 x VOM1271T, ACS770ECB-100U, ISO1640 I2C isolator, isolated DC-DC, photorelay | crosses |

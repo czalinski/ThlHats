@@ -159,7 +159,7 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 
 | Item | Requirement |
 |------|-------------|
-| MCU | PIC18 with on-chip **CAN FD**: PIC18F-Q84 family (e.g. PIC18F26Q84, exact part **TBD**). Must be CAN FD capable: a classic CAN 2.0B node on a bus carrying FD frames flags them as errors and disrupts the bus. |
+| MCU | **PIC18F47Q84-I/P** (PDIP-40, through hole, socketable): the largest-memory Q84 (128 KB flash, ~12.5 KB RAM, 1 KB EEPROM) in the largest-pitch package, chosen as the common part for all PIC18 CAN nodes (user: hand soldering, larger pins worth up to about $1 more; one part for several designs). Decided 2026-10-04. Must be CAN FD capable: a classic CAN 2.0B node on a bus carrying FD frames flags them as errors and disrupts the bus. |
 | Power | From the 4-wire CAN cable: 12 V, referenced to CAN bus ground. The node's logic lives on the CAN bus side. |
 | Goals | Cover the 80% case for test engineers: more voltage and more current are better. Stretch: up to **200 V** or up to **50 A**, not necessarily at the same time. Designed specifically around **Mean Well adjustable supplies** (PV/PC/remote on-off); the specific supply is the test engineer's choice. Measurement precision is not critical: HASS mainly needs to detect catastrophic DUT failures (user, 2026-10-04). |
 | Purpose | Turns a "dumb" fixed bench or DIN supply into a simple automatable DUT supply, replacing expensive, bulky SCPI rack supplies (e.g. BK Precision) where a single fixed voltage is enough (user, 2026-10-04). |
