@@ -135,12 +135,19 @@ To be filled in from rack experience:
 | AI | **TBD** (0–10 V? ±10 V? 4–20 mA?) | Low accuracy OK; protect to 24 V |
 | AO | **TBD** (0–5 V or 0–10 V, mA drive) | Short-circuit tolerant |
 
+### 4.5 Part selection
+
+- Boards are mostly hand assembled; larger parts beat cost and density.
+- Chip R/C: 1206 where possible; decoupling capacitors 0805; nothing smaller.
+- Ceramic capacitors: X5R/X7R or better (C0G/NP0); never Y5V/Y5U/Z5U.
+- Prefer SOIC/SOT/TQFP over leadless packages where there is a choice.
+
 ## 5. Mechanical and manufacturing
 
 - 2 layers, at most 100 × 100 mm, rounded corners, M2.5 holes on the Pi 58 × 49 mm pattern.
 - Header boards: 2×20 socket on the bottom side, at HAT position. Must stack with MCC HATs; check component height against the stacking header.
 - PCBWay standard service. House rules are in `tools/house_rules.py`.
-- Every assembled part carries `Manufacturer` and `MPN` fields.
+- Every part carries `Manufacturer` and `MPN` fields (BOM for ordering, and for PCBWay assembly when used).
 
 ## 6. Firmware and host software
 

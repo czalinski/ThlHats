@@ -85,6 +85,21 @@ Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
 - Give every part to be assembled `Manufacturer` and `MPN` symbol fields;
   `fab.py` puts them in the PCBWay BOM.
 
+## Part selection (hand assembly)
+
+Boards are mostly **hand assembled**. Cost and density are not the main
+drivers, so choose parts that are easy to solder by hand:
+
+- Resistors and capacitors: **1206** wherever possible. Decoupling capacitors:
+  **0805**. Nothing smaller than 0805 (`check_board.py` fails 0603 and below).
+- Use the KiCad `_HandSolder` footprint variants (longer pads); `lib/` only
+  carries those for chip R/C/LED.
+- Ceramic capacitors: **X-rated dielectric (X5R, X7R, X7S, …) or better (C0G/NP0)**.
+  Never Y5V/Y5U/Z5U (`check_board.py` fails these if they appear in Value/MPN).
+  Put the dielectric and voltage in the Value, e.g. `100nF 50V X7R`.
+- Prefer leaded or large packages (SOIC, SOT-223, TQFP at 0.5 mm or coarser)
+  over QFN/BGA/DFN when a choice exists, and leave room around parts for an iron.
+
 ## Raspberry Pi header sharing (MCC DAQ HATs)
 
 These boards are HASS test fixtures. Any board on the 40-pin header shares it

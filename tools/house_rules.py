@@ -15,6 +15,11 @@ COPPER_LAYERS = 2
 RPI_HOLE_SPACING = (58.0, 49.0)
 RPI_HOLE_DRILL = 2.7
 
+# Hand assembly: chip passives are 1206 (0805 for decoupling caps); nothing smaller.
+TOO_SMALL_CHIP_SIZES = {"0201", "0402", "0603"}
+# Class II dielectrics must be X-rated (X5R/X7R/...) or C0G/NP0; never Y/Z-rated.
+BANNED_DIELECTRICS = r"\b[YZ]5[UVP]\b"
+
 # kicad_pro board.design_settings.rules (mm)
 RULES = {
     "min_clearance": 0.15,

@@ -8,6 +8,7 @@ House rules checked:
   - 2 copper layers
   - Edge.Cuts outline no larger than 100 x 100 mm
   - 4 x 2.7 mm holes on the Raspberry Pi 58 x 49 mm pattern
+  - no chip parts below 0805; no Y5V/Y5U/Z5U capacitors
 
 Usage:
   tools/check_board.py boards/<name>        # one board
@@ -121,6 +122,29 @@ def check_models_are_step(pcb_text, r):
         r.ok("every part has a STEP model")
 
 
+def check_parts(pcb_path, r):
+    """Hand-assembly part rules (see CLAUDE.md, "Part selection")."""
+    import pcbnew
+    board = pcbnew.LoadBoard(str(pcb_path))
+    small, bad_diel = [], []
+    for fp in board.GetFootprints():
+        ref = fp.GetReference()
+        name = fp.GetFPID().GetLibItemName().wx_str()
+        m = re.match(r"(R|C|L|LED|D|F)_(\d{4})_", name)
+        if m and m.group(2) in hr.TOO_SMALL_CHIP_SIZES:
+            small.append(f"{ref} ({m.group(2)})")
+        if re.match(r"C\d", ref):
+            text = " ".join(fp.GetFieldText(f) for f in ("Value", "MPN", "Description") if fp.HasField(f))
+            if re.search(hr.BANNED_DIELECTRICS, text, re.I):
+                bad_diel.append(ref)
+    if small:
+        r.fail("chip parts smaller than 0805 (hand assembly): " + ", ".join(sorted(small)))
+    if bad_diel:
+        r.fail("capacitors with Y5V/Y5U/Z5U-class dielectric: " + ", ".join(sorted(bad_diel)))
+    if not small and not bad_diel:
+        r.ok("part sizes and capacitor dielectrics")
+
+
 def check_geometry(pcb_path, r):
     import pcbnew
     board = pcbnew.LoadBoard(str(pcb_path))
@@ -222,6 +246,7 @@ def check(board_dir, kicad=True):
     check_libraries(hw, r)
     pcb = pro.with_suffix(".kicad_pcb")
     check_geometry(pcb, r)
+    check_parts(pcb, r)
     if kicad:
         run_erc(hw, pro.with_suffix(".kicad_sch"), r)
         run_drc(hw, pcb, r)
