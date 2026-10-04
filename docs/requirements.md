@@ -169,8 +169,8 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 | Build options | **One PCB layout, three builds** (decided 2026-10-04), laid out for the worst case of both (≥ 250 V working clearances, 50 A copper/busbars). MOSFETs are 4 × Infineon D2PAK (TO-263-3), two in parallel per side; build-specific parts are only the 4 MOSFETs and **one build resistor** (sets both the hardware trip threshold and the build ID; see 4.2.1). Current sensor **ACS770ECB-100U** on all builds. A mid build (150 V, IPB048N15N5LF) can be added later as a BOM/firmware change. See section 4.2.1. |
 | Load-side isolation | One isolated load-side domain referenced to the return bar: isolated DC-DC, reinforced I2C isolator, 4-channel ADC (Vin, Vout dividers), 2-channel DAC (Mean Well PV, PC). Chosen over AMC1100/AMC1311 isolated amplifiers, decided 2026-10-04. |
 | Supply programming | **Option A, decided 2026-10-04**: the power path stays an on/off switch; variable voltage comes from the supply's own remote programming input. The board provides isolated analog outputs referenced to the return bar (supply −V): **PV** (voltage) and **PC** (current limit), plus an isolated dry contact for the supply's **Remote ON/OFF**. Firmware closes the loop on the measured input voltage. With a fixed supply these are left unconnected. Typical use: DUT nominal 100 V, tested at 60 / 90 / 100 / 110 V. Example supply (not a design target): Mean Well **UHP-1500-115** (115 V, 13.05 A, 1500 W; PV sets 50–120 % = 57.5–138 V from about 1–4.8 V on CN71 pin 1; PC sets 20–100 % current; PV/PC are **non-isolated, referenced to −V**; Remote ON/OFF is a dry contact to its isolated +12V-AUX). |
-| Display | Local LED or OLED readout of voltage and current (**TBD**) |
-| Channels | **TBD** (one per board assumed) |
+| Display | **4-digit 7-segment LED** readout of voltage and current (no OLED: burn-in on long runs). Decided 2026-10-04. |
+| Channels | **One** per board. Decided 2026-10-04. |
 | Safety | 120 V DC is above the 60 V DC SELV limit: creepage/clearance between the load section and logic, a Vgs clamp, switch devices rated about 200 V. |
 | Current path | Top-side PCB traces with the solder mask removed, meant to have a copper busbar soldered on for 30 A (user, 2026-10-04). Load wires connect by bolt and nut through holes in the busbar/trace (ring lugs), not PCB terminal blocks. Four bolts: supply +, load + (switched path through fuse/MOSFETs/Hall sensor) and supply −, load − (return: a short straight copper bar with two holes, unswitched). The voltage sense references the return bar. |
 | Connectors | CAN in and CAN out (daisy chain); load connections are bolted (see Current path) |
@@ -240,6 +240,78 @@ cannot turn on. The silkscreen carries a build checkbox (HC / STD / HV).
 - Clearances designed for 250 V working: about 6 mm creepage (with a routed slot
   where needed) between the load-side domain and the CAN/logic side; wide-body
   isolators.
+
+#### 4.2.2 can-ssr block diagram
+
+Three domains. **CAN/logic** is referenced to CAN bus ground and powered from
+the 12 V in the CAN cable. **Load side** is referenced to the return bar
+(supply −V) and powered across a reinforced barrier. **Supply aux** is the Mean
+Well's own isolated 12 V aux, reached only through a photorelay contact.
+
+```mermaid
+flowchart LR
+  subgraph CAN["CAN / logic domain (CAN GND, 12 V from cable)"]
+    CANIN["CAN in / CAN out<br/>4-pin, daisy chain"] --> XCVR["CAN FD transceiver"]
+    CANIN --> PSU["12 V → 5 V buck"]
+    XCVR <--> MCU["PIC18F-Q84<br/>(CAN FD)"]
+    ADDR["Address switch<br/>+ termination jumper"] --> MCU
+    BUILD["Build resistor"] --> TRIP["Overcurrent comparator<br/>+ latch"]
+    BUILD -- "ADC: build ID" --> MCU
+    HALL_OUT["ACS770 output"] --> TRIP
+    HALL_OUT -- ADC --> MCU
+    TRIP -- "fault / reset" <--> MCU
+    MCU -- "gate enable" --> AND["LED drive gated by<br/>enable AND NOT trip"]
+    TRIP --> AND
+    MCU -- SPI --> DISP["4-digit LED display<br/>driver + V/A indicators"]
+    MCU --> STAT["Status LEDs"]
+  end
+
+  subgraph ISO["Isolation barrier (reinforced, ~6 mm creepage)"]
+    VOM["2 × VOM1271T<br/>photovoltaic drivers"]
+    I2CISO["I2C isolator<br/>(wide body)"]
+    DCDC["Isolated DC-DC<br/>5 V → 5 V"]
+    HALL["ACS770ECB-100U<br/>(primary in power path)"]
+    PR["Photorelay"]
+  end
+
+  subgraph LOAD["Load side (return bar = supply −V)"]
+    SUPP["Supply + bolt"] --> Q12["Q1 ∥ Q2"] --> SRC["Common source node"] --> Q34["Q3 ∥ Q4"] --> HALL --> LOADP["Load + bolt"]
+    GATE["Gate network: Zener, R,<br/>slew C + diode, discharge stage"] --> Q12
+    GATE --> Q34
+    RET["Return bar: supply − / load −"]
+    FW["Freewheel diode<br/>output → return"]
+    DIV["Dividers Vin, Vout<br/>(~250 V FS)"] --> ADC["4-ch ADC"]
+    DAC["2-ch DAC"] --> MWPV["Mean Well PV, PC,<br/>GND(signal)"]
+  end
+
+  AND --> VOM --> GATE
+  MCU -- I2C --> I2CISO --> ADC
+  I2CISO --> DAC
+  PSU --> DCDC --> ADC
+  DCDC --> DAC
+  MCU --> PR --> MWRC["Mean Well Remote ON/OFF<br/>↔ +12V-AUX"]
+  HALL -.-> HALL_OUT
+```
+
+Key behaviours:
+
+- **Hardware trip is independent of firmware.** The comparator latches and
+  removes the VOM1271T LED current directly; firmware can only reset the latch
+  after reading the fault, not override it.
+- **Watchdog/heartbeat:** if the controller's CAN heartbeat stops, firmware
+  opens the switch and turns the supply off through the photorelay. The PIC's
+  hardware watchdog resets the MCU, and reset leaves the gate enable low.
+- **Power-up and reset:** gate enable defaults low (pull-down), photorelay off,
+  DAC outputs at their power-on value (zero).
+- **Display:** alternates V and A, with a lit V or A indicator; shows a fault
+  code on a trip or a build-resistor fault.
+
+Part candidates (to confirm at schematic time; hand-solderable packages):
+CAN FD transceiver (5 V, SOIC-8), MCP3428 ADC (SOIC-14, same as the controller),
+2 × MCP4725 DAC (SOT-23-6, different A0) or one dual I2C DAC, TI UCC12050
+isolated DC-DC (reinforced, wide SOIC-16) or a module, ISO1640 (wide SOIC-16)
+I2C isolator, MAX7219 display driver (wide SOIC-24), a photorelay with ≥ 60 V
+contacts for the Mean Well remote input.
 
 This board is the first of a possible family of bus-powered CAN nodes
 (relay, analog, digital), each with a single function and few connectors.
