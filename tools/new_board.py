@@ -64,12 +64,19 @@ MCC_RESERVED = {
 }
 
 GPIO_SYMBOL = "Connector_Generic:Conn_02x20_Odd_Even"
-GPIO_FOOTPRINT = "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
+# Header styles. "passthru": Samtec REF-182665 SMT pass-through socket on top,
+# stackable with the MCC DAQ HATs via a stacking socket (e.g. Samtec
+# SSQ-120-03-T-D) whose tails pass up through the board. "socket": plain 2x20
+# socket on the bottom side (the board must then be the top of the stack).
+HEADERS = {
+    "passthru": ("Thl_Connector:Samtec_REF-182665-03_2x20_P2.54mm_PassThrough", False, 90),
+    "socket": ("Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical", True, -90),
+}  # style -> (footprint, on bottom side, orientation)
 HOLE_FOOTPRINT = "MountingHole:MountingHole_2.7mm_M2.5"
 # Positions relative to the board's top-left corner (from the KiCad RPi HAT
 # template / RPi mechanical drawings).
 HOLES = [(3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)]
-GPIO_PIN1 = (8.37, 4.77)  # header is on the bottom side, rotated -90
+GPIO_PIN1 = (8.37, 4.77)  # RPi pin 1, relative to the board's top-left corner
 
 
 def uid():
@@ -204,13 +211,13 @@ class Sch:
         )
 
 
-def build_schematic(name, title, rev, gpio):
+def build_schematic(name, title, rev, gpio, header="passthru"):
     sch = Sch(name, title, rev)
     gpio_uuid = None
     if gpio:
         X, Y = 63.5, 88.9  # symbol anchor, on the 1.27 mm grid
         pins = pin_positions(GPIO_SYMBOL)
-        gpio_uuid = sch.symbol(GPIO_SYMBOL, "J1", "RPi_GPIO", X, Y, footprint=GPIO_FOOTPRINT,
+        gpio_uuid = sch.symbol(GPIO_SYMBOL, "J1", "RPi_GPIO", X, Y, footprint=HEADERS[header][0],
                                ref_at=(X + 1.27, Y - 25.4), value_at=(X + 1.27, Y + 27.94),
                                pins=[str(n) for n in range(1, 41)])
         for num, net in GPIO_NETS.items():
@@ -241,7 +248,8 @@ def build_schematic(name, title, rev, gpio):
             else:
                 sch.power(net, x, fy)
                 sch.flag(x, fy, 180)
-        sch.text("Raspberry Pi 40-pin header (socket on the bottom side).\n"
+        sch.text("Raspberry Pi 40-pin header (" + ("Samtec REF-182665 pass-through, stackable" if header == "passthru"
+                 else "2x20 socket on the bottom side; must be top of stack") + ").\n"
                  "Pins marked MCC are used by the Digilent/MCC DAQ HAT stack: do not connect.\n"
                  "I2C1 (SDA/SCL) is shared; avoid addresses 0x20-0x27. No HAT ID EEPROM.",
                  30.48, 50.8)
@@ -252,7 +260,7 @@ def build_schematic(name, title, rev, gpio):
 
 # ---------------------------------------------------------------------- PCB
 
-def build_pcb(path, name, title, rev, width, height, gpio, gpio_uuid, nets_by_pin):
+def build_pcb(path, name, title, rev, width, height, gpio, gpio_uuid, nets_by_pin, header="passthru"):
     import pcbnew
 
     mm = pcbnew.FromMM
@@ -314,18 +322,22 @@ def build_pcb(path, name, title, rev, width, height, gpio, gpio_uuid, nets_by_pi
 
     gnd = None
     if gpio:
-        fp = load_fp(GPIO_FOOTPRINT)
+        fp_id, bottom, orient = HEADERS[header]
+        fp = load_fp(fp_id)
         fp.SetReference("J1")
         fp.SetValue("RPi_GPIO")
         fp.SetPosition(pt(*GPIO_PIN1))
-        fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
-        fp.SetOrientationDegrees(-90)
+        if bottom:
+            fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+        fp.SetOrientationDegrees(orient)
         fp.SetPath(pcbnew.KIID_PATH(f"/{gpio_uuid}"))
         fp.SetSheetname("/")
         fp.SetSheetfile(f"{name}.kicad_sch")
         fp.SetLocked(True)
         nets = {}
         for pad in fp.Pads():
+            if not pad.GetNumber():  # pass-through holes
+                continue
             net_name = nets_by_pin[pad.GetNumber()]
             if net_name not in nets:
                 ni = pcbnew.NETINFO_ITEM(board, net_name)
@@ -345,6 +357,29 @@ def build_pcb(path, name, title, rev, width, height, gpio, gpio_uuid, nets_by_pi
             t.SetLayer(pcbnew.F_Cu)
             t.SetNet(net)
             board.Add(t)
+
+        if not bottom:
+            # SMD header: stitch each GND pad down to the B.Cu pour. Even-row
+            # pads sit near the board edge, so their via goes between holes.
+            row_odd_y = pads["1"].GetPosition().y
+            for pad in fp.Pads():
+                if pad.GetNumber() and pad.GetNetname() == "GND":
+                    q = pad.GetPosition()
+                    if q.y == row_odd_y:
+                        v = pcbnew.VECTOR2I(q.x, q.y + mm(1.3))
+                        track(q, v, gnd)
+                    else:
+                        # Out sideways first, then down between the holes.
+                        c = pcbnew.VECTOR2I(q.x + mm(1.27), q.y)
+                        v = pcbnew.VECTOR2I(c.x, q.y + mm(1.44))
+                        track(q, c, gnd)
+                        track(c, v, gnd)
+                    via = pcbnew.PCB_VIA(board)
+                    via.SetPosition(v)
+                    via.SetWidth(mm(0.6))
+                    via.SetDrill(mm(0.3))
+                    via.SetNet(gnd)
+                    board.Add(via)
 
         p2, p4 = pads["2"].GetPosition(), pads["4"].GetPosition()
         track(p2, p4, nets["+5V"])
@@ -423,6 +458,9 @@ def main():
     ap.add_argument("name")
     ap.add_argument("--size", default="65x56.5", help="WxH in mm (default 65x56.5, max 100x100)")
     ap.add_argument("--no-gpio", action="store_true", help="omit the 40-pin RPi header")
+    ap.add_argument("--header", choices=sorted(HEADERS), default="passthru",
+                    help="passthru (default): stackable Samtec SMT socket on top; "
+                         "socket: 2x20 socket on the bottom (top of stack only)")
     ap.add_argument("--title")
     ap.add_argument("--rev", default="A")
     ap.add_argument("--mcu", choices=sorted(FW_README), default="none")
@@ -448,7 +486,7 @@ def main():
     hw.mkdir(parents=True, exist_ok=True)
     gpio = not a.no_gpio
 
-    sch, gpio_uuid = build_schematic(a.name, title, a.rev, gpio)
+    sch, gpio_uuid = build_schematic(a.name, title, a.rev, gpio, a.header)
     sch_path = hw / f"{a.name}.kicad_sch"
     sch_path.write_text(sch.render())
 
@@ -473,7 +511,7 @@ def main():
         if missing:
             sys.exit(f"netlist is missing J1 pins {missing}")
 
-    build_pcb(hw / f"{a.name}.kicad_pcb", a.name, title, a.rev, width, height, gpio, gpio_uuid, nets_by_pin)
+    build_pcb(hw / f"{a.name}.kicad_pcb", a.name, title, a.rev, width, height, gpio, gpio_uuid, nets_by_pin, a.header)
     patch_project(pro_path, a.name)
     shutil.copy2(kilib.REPO / "tools" / "house_rules.kicad_dru", hw / f"{a.name}.kicad_dru")
     kilib.sync(quiet=True)
@@ -491,7 +529,7 @@ def main():
             f"# {title}\n\n"
             f"- Board: {width:g} x {height:g} mm, 2 layers, rev {a.rev}\n"
             f"- Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern\n"
-            f"- RPi 40-pin header: {'yes (socket on the bottom)' if gpio else 'no'}\n"
+            f"- RPi 40-pin header: {('yes, ' + a.header) if gpio else 'no'}\n"
             f"- MCU: {a.mcu}\n\n"
             "## Layout\n\n- `hardware/` KiCad project\n- `firmware/` firmware sources\n"
         )

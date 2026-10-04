@@ -65,8 +65,16 @@ Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.
   0.3 mm min drill, 0.6/0.3 mm vias, 0.3 mm copper-to-edge — all inside PCBWay's
   no-extra-cost limits). New boards copy them; existing boards
   keep their own copies.
-- The RPi header (`J1`) is a 2×20 socket on the **bottom** side; pin 1 is at
-  (8.37, 4.77) mm from the board corner. Don't move J1 or the MH holes.
+- The RPi header (`J1`) defaults to the **Samtec REF-182665 SMT pass-through
+  socket on top** (`Thl_Connector:Samtec_REF-182665-03_…`, rotated 90°), so the
+  board stacks with MCC HATs using a stacking socket such as Samtec
+  SSQ-120-03-T-D. Its 1.0 mm holes are NPTH; keep copper ≥ 0.3 mm from them.
+  `new_board.py --header socket` puts a plain 2×20 socket on the bottom instead
+  (top of stack only). Pin 1 is at (8.37, 4.77) mm from the board corner.
+  Don't move J1 or the MH holes.
+- Its pad geometry is provisional (hand-measured, edge-constrained) until we
+  have the Samtec drawing; regenerate with
+  `lib/footprint_src/Thl_Connector/samtec_ref_182665.py`.
 - Give every part to be assembled `Manufacturer` and `MPN` symbol fields;
   `fab.py` puts them in the PCBWay BOM.
 
