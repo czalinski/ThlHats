@@ -131,9 +131,9 @@ Layout rules that follow:
 
 | Item | Requirement |
 |------|-------------|
-| MCU | PIC32MK1024MCF064-I/PT (4× CAN 2.0B, USB FS device, 12-bit ADC, 3× DAC, op amps) |
+| MCU | **PIC32MK1024GPK064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× CDAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). Changed 2026-10-04 from the PIC32MK1024MCF064, whose CAN is classic 2.0B only. |
 | Host link | USB to the host. Uses no header signal pins. |
-| CAN | 2 channels, **isolated** (ISO1042BQDWVRQ1). Each is a 4-wire bus: CANH, CANL, GND, +12 V. Switchable 120 Ω termination. |
+| CAN | 2 channels, **CAN FD**, **isolated** (ISO1042BQDWVRQ1). The MCU has 4 CAN FD controllers; lay out so channels 3–4 could be added later. Each is a 4-wire bus: CANH, CANL, GND, +12 V. Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
 | GPIO | 8, each software-configurable as input or output, **3.3 V** logic. MCP23017 (on the PIC32's own I2C, not the Pi's). Each GPIO has its own ground terminal. |
 | Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven through isolators. Coils from 12 V by default; COM may instead take an external relay supply up to 12 V (**TBD**: keep this option?). |
@@ -159,7 +159,7 @@ Open: the USB connector type and where it sits on the board (**TBD**).
 
 | Item | Requirement |
 |------|-------------|
-| MCU | PIC18 with on-chip CAN (e.g. PIC18F26K83 CAN 2.0B, or PIC18F26Q84 CAN FD). Part: **TBD** |
+| MCU | PIC18 with on-chip **CAN FD**: PIC18F-Q84 family (e.g. PIC18F26Q84, exact part **TBD**). Must be CAN FD capable: a classic CAN 2.0B node on a bus carrying FD frames flags them as errors and disrupts the bus. |
 | Power | From the 4-wire CAN cable: 12 V, referenced to CAN bus ground. The node's logic lives on the CAN bus side. |
 | Function | High-side P-MOSFET solid-state switching of DC loads up to **120 V DC** |
 | Channels / current | **TBD**. The user has specific MOSFETs in mind. |

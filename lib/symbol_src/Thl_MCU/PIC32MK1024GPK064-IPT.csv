@@ -1,0 +1,82 @@
+# name: PIC32MK1024GPK064-IPT
+# mpn: PIC32MK1024GPK064-I/PT
+# manufacturer: Microchip Technology
+# reference: U
+# footprint: Package_QFP:TQFP-64_10x10mm_P0.5mm
+# datasheet: https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK-GPK-MCM-with-CAN-FD-Family-DataSheet-DS60001519E.pdf
+# description: PIC32MK general purpose MCU with CAN FD, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN FD, USB FS OTG, 3x CDAC, 4 op amps, TQFP-64 10x10mm. Pin names from DS60001519E Table 3 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable.
+# keywords: PIC32 PIC32MK MIPS microcontroller CAN-FD USB
+# fp_filters: TQFP*10x10mm*P0.5mm*
+# aliases: PIC32MK1024GPK064-EPT=PIC32MK1024GPK064-E/PT, PIC32MK0512GPK064-IPT=PIC32MK0512GPK064-I/PT
+pin,name,type,side
+10,VDD,power_in,top
+26,VDD,power_in,top
+38,VDD,power_in,top
+57,VDD,power_in,top
+19,AVDD,power_in,top
+35,VUSB3V3,power_in,top
+7,~{MCLR},input,left
+39,RC12/OSC1/CLKI/AN49/RPC12,bidirectional,left
+40,RC15/OSC2/CLKO/RPC15,bidirectional,left
+,,,left
+34,VBUS,power_in,left
+37,D1+,bidirectional,left
+36,D1-,bidirectional,left
+,,,left
+13,RA0/OA2OUT/AN0/C2IN4-/C4IN3-/RPA0,bidirectional,left
+14,RA1/OA2IN+/AN1/C2IN1+/RPA1,bidirectional,left
+33,RA4/OA5IN+/CDAC1/AN24/C5IN1+/C5IN3-/RPA4,bidirectional,left
+1,RA7/TCK/RPA7,bidirectional,left
+31,RA8/TDI/CDAC3/AN26/RPA8/SDA2,bidirectional,left
+64,RA10/TDO,bidirectional,left
+12,RA11/AN9/RPA11,bidirectional,left
+11,RA12/AN10/RPA12,bidirectional,left
+,,,left
+15,RB0/PGD3/VREF-/OA2IN-/AN2/C2IN1-/RPB0/CTED2,bidirectional,left
+16,RB1/PGC3/OA1OUT/VREF+/AN3/C1IN4-/C4IN2-/RPB1/CTED1,bidirectional,left
+17,RB2/PGC1/OA1IN+/AN4/C1IN1+/C1IN3-/C2IN3-/RPB2,bidirectional,left
+18,RB3/PGD1/OA1IN-/AN5/CTCMP/C1IN1-/RTCC/RPB3,bidirectional,left
+32,RB4/RPB4/SCL2,bidirectional,left
+43,RB5/PGD2/RPB5/SDA3/USBID1,bidirectional,left
+44,RB6/PGC2/RPB6/SCL3/SCK2,bidirectional,left
+46,RB7/OA5OUT/AN25/C5IN4-/RPB7/SCK1/INT0,bidirectional,left
+48,RB8/SOSCO/T1CK/RPB8,bidirectional,left
+49,RB9/TMS/OA5IN-/AN27/LVDIN/C5IN1-/RPB9,bidirectional,left
+60,RB10/RPB10,bidirectional,left
+61,RB11/RPB11,bidirectional,left
+62,RB12/RPB12,bidirectional,left
+63,RB13/RPB13/CTPLS,bidirectional,left
+2,RB14/RPB14/VBUSON1,bidirectional,left
+3,RB15/RPB15,bidirectional,left
+21,RC0/OA3OUT/AN6/C3IN4-/C4IN1+/C4IN4-/RPC0,bidirectional,right
+22,RC1/OA3IN-/AN7/C3IN1-/C4IN1-/RPC1,bidirectional,right
+23,RC2/OA3IN+/AN8/C3IN1+/C3IN3-/RPC2,bidirectional,right
+50,RC6/TRCLK/RPC6,bidirectional,right
+51,RC7/TRD0/RPC7,bidirectional,right
+52,RC8/TRD1/RPC8,bidirectional,right
+55,RC9/RPC9,bidirectional,right
+45,RC10/CDAC2/AN48/RPC10,bidirectional,right
+24,RC11/AN11/C1IN2-,bidirectional,right
+47,RC13/SOSCI/RPC13,bidirectional,right
+,,,right
+53,RD5/TRD2/RPD5,bidirectional,right
+54,RD6/TRD3/RPD6,bidirectional,right
+42,RD8,bidirectional,right
+,,,right
+27,RE12/AN12/C2IN2-/C5IN2-/SDA4,bidirectional,right
+28,RE13/AN13/C3IN2-/SCL4,bidirectional,right
+29,RE14/AN14/RPE14,bidirectional,right
+30,RE15/AN15/RPE15,bidirectional,right
+,,,right
+58,RF0/RPF0,bidirectional,right
+59,RF1/RPF1,bidirectional,right
+,,,right
+4,RG6/AN19/RPG6,bidirectional,right
+5,RG7/AN18/RPG7/SCL1,bidirectional,right
+6,RG8/AN17/RPG8/SDA1,bidirectional,right
+8,RG9/AN16/RPG9,bidirectional,right
+9,VSS,power_in,bottom
+25,VSS,power_in,bottom
+41,VSS,power_in,bottom
+56,VSS,power_in,bottom
+20,AVSS,power_in,bottom

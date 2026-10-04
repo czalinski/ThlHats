@@ -37,7 +37,7 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Package_SO | SOIC-20W_7.5x12.8mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | Package_QFP | TQFP-64_10x10mm_P0.5mm | KiCad Package_QFP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Thl_MCU | PIC16F17146-ISO | generated from lib/symbol_src/Thl_MCU/PIC16F17146-ISO.csv | repo (MIT) |
-| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024MCF064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024MCF064-IPT.csv | repo (MIT) |
+| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024MCF064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024MCF064-IPT.csv (removed 2026-10-04: replaced by GPK064 for CAN FD) | repo (MIT) |
 | 2026-10-04 | footprint | Thl_Connector | Samtec_REF-182665_2x20_P2.54mm_PassThrough | SnapMagic (SnapEDA) SAMTEC_REF-182665-01, rev C; renumbered for top mounting and pads trimmed by lib/footprint_src/Thl_Connector/samtec_ref_182665.py; original in vendor/ | SnapMagic terms (CC BY-SA 4.0 w/ design exception) |
 | 2026-10-04 | 3D model | Thl_Connector | Samtec_REF-182665.step | SnapMagic (SnapEDA) REF-182665-01.step (Samtec SolidWorks export) | SnapMagic terms (CC BY-SA 4.0 w/ design exception) |
 | 2026-10-04 | footprint | Resistor_SMD | R_1206_3216Metric_Pad1.30x1.75mm_HandSolder | KiCad Resistor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
@@ -46,3 +46,4 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Resistor_SMD | R_0805_2012Metric_Pad1.20x1.40mm_HandSolder | KiCad Resistor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | LED_SMD | LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | LED_SMD | LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024GPK064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024GPK064-IPT.csv | repo (MIT) |

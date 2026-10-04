@@ -633,7 +633,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "PIC32MK1024MCF064-IPT"
+	(symbol "PIC32MK1024GPK064-IPT"
 		(pin_names
 			(offset 1.016)
 		)
@@ -649,7 +649,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "PIC32MK1024MCF064-IPT"
+		(property "Value" "PIC32MK1024GPK064-IPT"
 			(at 50.8 54.61 0)
 			(effects
 				(font
@@ -667,7 +667,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf"
+		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK-GPK-MCM-with-CAN-FD-Family-DataSheet-DS60001519E.pdf"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -676,7 +676,7 @@
 				)
 			)
 		)
-		(property "Description" "PIC32MK motor control MCU, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN 2.0B, USB, TQFP-64 10x10mm. Pin names from DS60001402G Table 4 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
+		(property "Description" "PIC32MK general purpose MCU with CAN FD, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN FD, USB FS OTG, 3x CDAC, 4 op amps, TQFP-64 10x10mm. Pin names from DS60001519E Table 3 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -694,7 +694,7 @@
 				)
 			)
 		)
-		(property "MPN" "PIC32MK1024MCF064-I/PT"
+		(property "MPN" "PIC32MK1024GPK064-I/PT"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -703,7 +703,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN USB"
+		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN-FD USB"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -721,7 +721,7 @@
 				)
 			)
 		)
-		(symbol "PIC32MK1024MCF064-IPT_0_1"
+		(symbol "PIC32MK1024GPK064-IPT_0_1"
 			(rectangle
 				(start -50.8 53.34)
 				(end 50.8 -53.34)
@@ -734,7 +734,7 @@
 				)
 			)
 		)
-		(symbol "PIC32MK1024MCF064-IPT_1_1"
+		(symbol "PIC32MK1024GPK064-IPT_1_1"
 			(pin input line
 				(at -53.34 40.64 0)
 				(length 2.54)
@@ -756,7 +756,7 @@
 			(pin bidirectional line
 				(at -53.34 38.1 0)
 				(length 2.54)
-				(name "RC12/OSCI/CLKI/AN49/RPC12"
+				(name "RC12/OSC1/CLKI/AN49/RPC12"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -774,7 +774,7 @@
 			(pin bidirectional line
 				(at -53.34 35.56 0)
 				(length 2.54)
-				(name "RC15/OSCO/CLKO/RPC15"
+				(name "RC15/OSC2/CLKO/RPC15"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -810,7 +810,7 @@
 			(pin bidirectional line
 				(at -53.34 27.94 0)
 				(length 2.54)
-				(name "D+"
+				(name "D1+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -828,7 +828,7 @@
 			(pin bidirectional line
 				(at -53.34 25.4 0)
 				(length 2.54)
-				(name "D-"
+				(name "D1-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -882,7 +882,7 @@
 			(pin bidirectional line
 				(at -53.34 15.24 0)
 				(length 2.54)
-				(name "RA4/OA5IN+/DAC1/AN24/C5IN1+/C5IN3-/RPA4/T1CK"
+				(name "RA4/OA5IN+/CDAC1/AN24/C5IN1+/C5IN3-/RPA4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -900,7 +900,7 @@
 			(pin bidirectional line
 				(at -53.34 12.7 0)
 				(length 2.54)
-				(name "RA7/TCK/RPA7/PWM10H/PWM4L"
+				(name "RA7/TCK/RPA7"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -918,7 +918,7 @@
 			(pin bidirectional line
 				(at -53.34 10.16 0)
 				(length 2.54)
-				(name "RA8/TDI/DAC3/AN26/RPA8"
+				(name "RA8/TDI/CDAC3/AN26/RPA8/SDA2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -936,7 +936,7 @@
 			(pin bidirectional line
 				(at -53.34 7.62 0)
 				(length 2.54)
-				(name "RA10/TDO/PWM4H"
+				(name "RA10/TDO"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -954,7 +954,7 @@
 			(pin bidirectional line
 				(at -53.34 5.08 0)
 				(length 2.54)
-				(name "RA11/AN9/RPA11/USBOEN1"
+				(name "RA11/AN9/RPA11"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1062,7 +1062,7 @@
 			(pin bidirectional line
 				(at -53.34 -12.7 0)
 				(length 2.54)
-				(name "RB4/FLT15/RPB4"
+				(name "RB4/RPB4/SCL2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1080,7 +1080,7 @@
 			(pin bidirectional line
 				(at -53.34 -15.24 0)
 				(length 2.54)
-				(name "RB5/PGD2/RPB5/USBID1"
+				(name "RB5/PGD2/RPB5/SDA3/USBID1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1098,7 +1098,7 @@
 			(pin bidirectional line
 				(at -53.34 -17.78 0)
 				(length 2.54)
-				(name "RB6/PGC2/RPB6/SCK2"
+				(name "RB6/PGC2/RPB6/SCL3/SCK2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1134,7 +1134,7 @@
 			(pin bidirectional line
 				(at -53.34 -22.86 0)
 				(length 2.54)
-				(name "RB8/SOSCO/RPB8"
+				(name "RB8/SOSCO/T1CK/RPB8"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1152,7 +1152,7 @@
 			(pin bidirectional line
 				(at -53.34 -25.4 0)
 				(length 2.54)
-				(name "RB9/TMS/OA5IN-/AN27/C5IN1-/RPB9"
+				(name "RB9/TMS/OA5IN-/AN27/LVDIN/C5IN1-/RPB9"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1170,7 +1170,7 @@
 			(pin bidirectional line
 				(at -53.34 -27.94 0)
 				(length 2.54)
-				(name "RB10/RPB10/PWM3H"
+				(name "RB10/RPB10"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1188,7 +1188,7 @@
 			(pin bidirectional line
 				(at -53.34 -30.48 0)
 				(length 2.54)
-				(name "RB11/RPB11/PWM9H/PWM3L"
+				(name "RB11/RPB11"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1206,7 +1206,7 @@
 			(pin bidirectional line
 				(at -53.34 -33.02 0)
 				(length 2.54)
-				(name "RB12/RPB12/PWM2H"
+				(name "RB12/RPB12"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1224,7 +1224,7 @@
 			(pin bidirectional line
 				(at -53.34 -35.56 0)
 				(length 2.54)
-				(name "RB13/RPB13/PWM8H/PWM2L/CTPLS"
+				(name "RB13/RPB13/CTPLS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1242,7 +1242,7 @@
 			(pin bidirectional line
 				(at -53.34 -38.1 0)
 				(length 2.54)
-				(name "RB14/RPB14/PWM1H/VBUSON1"
+				(name "RB14/RPB14/VBUSON1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1260,7 +1260,7 @@
 			(pin bidirectional line
 				(at -53.34 -40.64 0)
 				(length 2.54)
-				(name "RB15/RPB15/PWM7H/PWM1L"
+				(name "RB15/RPB15"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1314,7 +1314,7 @@
 			(pin bidirectional line
 				(at 53.34 27.94 180)
 				(length 2.54)
-				(name "RC2/OA3IN+/AN8/C3IN1+/C3IN3-/RPC2/FLT3"
+				(name "RC2/OA3IN+/AN8/C3IN1+/C3IN3-/RPC2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1332,7 +1332,7 @@
 			(pin bidirectional line
 				(at 53.34 25.4 180)
 				(length 2.54)
-				(name "RC6/TRCLK/RPC6/PWM6H"
+				(name "RC6/TRCLK/RPC6"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1350,7 +1350,7 @@
 			(pin bidirectional line
 				(at 53.34 22.86 180)
 				(length 2.54)
-				(name "RC7/TRD0/RPC7/PWM12H/PWM6L"
+				(name "RC7/TRD0/RPC7"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1368,7 +1368,7 @@
 			(pin bidirectional line
 				(at 53.34 20.32 180)
 				(length 2.54)
-				(name "RC8/TRD1/RPC8/PWM5H"
+				(name "RC8/TRD1/RPC8"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1386,7 +1386,7 @@
 			(pin bidirectional line
 				(at 53.34 17.78 180)
 				(length 2.54)
-				(name "RC9/RPC9/PWM11H/PWM5L"
+				(name "RC9/RPC9"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1404,7 +1404,7 @@
 			(pin bidirectional line
 				(at 53.34 15.24 180)
 				(length 2.54)
-				(name "RC10/DAC2/AN48/RPC10"
+				(name "RC10/CDAC2/AN48/RPC10"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1422,7 +1422,7 @@
 			(pin bidirectional line
 				(at 53.34 12.7 180)
 				(length 2.54)
-				(name "RC11/AN11/C1IN2-/FLT4"
+				(name "RC11/AN11/C1IN2-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1458,7 +1458,7 @@
 			(pin bidirectional line
 				(at 53.34 5.08 180)
 				(length 2.54)
-				(name "RD5/TRD2/RPD5/PWM12H"
+				(name "RD5/TRD2/RPD5"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1476,7 +1476,7 @@
 			(pin bidirectional line
 				(at 53.34 2.54 180)
 				(length 2.54)
-				(name "RD6/TRD3/RPD6/PWM12L"
+				(name "RD6/TRD3/RPD6"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1512,7 +1512,7 @@
 			(pin bidirectional line
 				(at 53.34 -5.08 180)
 				(length 2.54)
-				(name "RE12/AN12/C2IN2-/C5IN2-/FLT5"
+				(name "RE12/AN12/C2IN2-/C5IN2-/SDA4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1530,7 +1530,7 @@
 			(pin bidirectional line
 				(at 53.34 -7.62 180)
 				(length 2.54)
-				(name "RE13/AN13/C3IN2-/FLT6"
+				(name "RE13/AN13/C3IN2-/SCL4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1548,7 +1548,7 @@
 			(pin bidirectional line
 				(at 53.34 -10.16 180)
 				(length 2.54)
-				(name "RE14/AN14/RPE14/FLT7"
+				(name "RE14/AN14/RPE14"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1566,7 +1566,7 @@
 			(pin bidirectional line
 				(at 53.34 -12.7 180)
 				(length 2.54)
-				(name "RE15/AN15/RPE15/FLT8"
+				(name "RE15/AN15/RPE15"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1584,7 +1584,7 @@
 			(pin bidirectional line
 				(at 53.34 -17.78 180)
 				(length 2.54)
-				(name "RF0/RPF0/PWM11H"
+				(name "RF0/RPF0"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1602,7 +1602,7 @@
 			(pin bidirectional line
 				(at 53.34 -20.32 180)
 				(length 2.54)
-				(name "RF1/RPF1/PWM11L"
+				(name "RF1/RPF1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1638,7 +1638,7 @@
 			(pin bidirectional line
 				(at 53.34 -27.94 180)
 				(length 2.54)
-				(name "RG7/AN18/RPG7"
+				(name "RG7/AN18/RPG7/SCL1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1656,7 +1656,7 @@
 			(pin bidirectional line
 				(at 53.34 -30.48 180)
 				(length 2.54)
-				(name "RG8/AN17/RPG8"
+				(name "RG8/AN17/RPG8/SDA1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1890,8 +1890,8 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "PIC32MK1024MCF064-EPT"
-		(extends "PIC32MK1024MCF064-IPT")
+	(symbol "PIC32MK1024GPK064-EPT"
+		(extends "PIC32MK1024GPK064-IPT")
 		(property "Reference" "U"
 			(at 0 0 0)
 			(effects
@@ -1900,7 +1900,7 @@
 				)
 			)
 		)
-		(property "Value" "PIC32MK1024MCF064-EPT"
+		(property "Value" "PIC32MK1024GPK064-EPT"
 			(at 0 0 0)
 			(effects
 				(font
@@ -1917,7 +1917,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf"
+		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK-GPK-MCM-with-CAN-FD-Family-DataSheet-DS60001519E.pdf"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -1926,7 +1926,7 @@
 				)
 			)
 		)
-		(property "Description" "PIC32MK motor control MCU, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN 2.0B, USB, TQFP-64 10x10mm. Pin names from DS60001402G Table 4 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
+		(property "Description" "PIC32MK general purpose MCU with CAN FD, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN FD, USB FS OTG, 3x CDAC, 4 op amps, TQFP-64 10x10mm. Pin names from DS60001519E Table 3 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -1944,7 +1944,7 @@
 				)
 			)
 		)
-		(property "MPN" "PIC32MK1024MCF064-E/PT"
+		(property "MPN" "PIC32MK1024GPK064-E/PT"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -1953,7 +1953,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN USB"
+		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN-FD USB"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -1973,8 +1973,8 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "PIC32MK0512MCF064-IPT"
-		(extends "PIC32MK1024MCF064-IPT")
+	(symbol "PIC32MK0512GPK064-IPT"
+		(extends "PIC32MK1024GPK064-IPT")
 		(property "Reference" "U"
 			(at 0 0 0)
 			(effects
@@ -1983,7 +1983,7 @@
 				)
 			)
 		)
-		(property "Value" "PIC32MK0512MCF064-IPT"
+		(property "Value" "PIC32MK0512GPK064-IPT"
 			(at 0 0 0)
 			(effects
 				(font
@@ -2000,7 +2000,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf"
+		(property "Datasheet" "https://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK-GPK-MCM-with-CAN-FD-Family-DataSheet-DS60001519E.pdf"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -2009,7 +2009,7 @@
 				)
 			)
 		)
-		(property "Description" "PIC32MK motor control MCU, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN 2.0B, USB, TQFP-64 10x10mm. Pin names from DS60001402G Table 4 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
+		(property "Description" "PIC32MK general purpose MCU with CAN FD, MIPS32 microAptiv + FPU, 120 MHz, 1 MB flash, 256 KB RAM, 4x CAN FD, USB FS OTG, 3x CDAC, 4 op amps, TQFP-64 10x10mm. Pin names from DS60001519E Table 3 (CVDn and PMP aliases omitted). RPxx pins are PPS-remappable."
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -2027,7 +2027,7 @@
 				)
 			)
 		)
-		(property "MPN" "PIC32MK0512MCF064-I/PT"
+		(property "MPN" "PIC32MK0512GPK064-I/PT"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -2036,7 +2036,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN USB"
+		(property "ki_keywords" "PIC32 PIC32MK MIPS microcontroller CAN-FD USB"
 			(at 0 0 0)
 			(hide yes)
 			(effects
