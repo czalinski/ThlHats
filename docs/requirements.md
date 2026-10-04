@@ -166,7 +166,7 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 | Function | High-side switch with **reverse current blocking**, DC loads up to **120 V DC, 30 A**. Load side isolated from the CAN/logic side. Switch: **two N-channel MOSFETs back to back (common source)**, gate driven by Vishay **VOM1271T** photovoltaic driver(s) across gate–source (floating, so high-side N-channel needs no charge pump; also isolates the gate drive). Gate–source Zener + resistor; discharge stage for fast turn-off. Chosen over P-channel for Rds(on), decided 2026-10-04. **30 A continuous** rating with **two MOSFETs in parallel per side (four total)** for thermal margin; DUTs needing more go to a full rack supply (target is the 80% case). MOSFET part **TBD**, lead candidate Infineon IPB068N20NM6 (D2PAK, 6.8 mΩ, tabs soldered to the busbar), pending a turn-on SOA check. Capacitive load limit: **1 mF at 120 V** (DUTs are electronics, not motor drives); turn-on SOA is checked assuming one MOSFET per side carries the whole inrush. |
 | Measurement | Load current by **Hall-effect sensor: Allegro ACS770ECB-100U-PFF-T** (100 A unidirectional, ~40 mV/A, 5 V ratiometric, isolated output; see Build options). Its output also feeds the fast hardware overcurrent trip comparator. **Input (supply) and output (load) voltage**, each by resistor divider + anti-aliasing filter, referenced to the return bar (decided 2026-10-04). All sampled at **20 Hz** and reported over CAN. Firmware uses input voltage to refuse or warn on switch-on with the supply absent, and input − output to report the drop across the board. |
 | Protection | No automotive blade fuse: those are rated 32–58 V DC and can sustain an arc at 120 V. Backup fuse rated ≥ 125 V DC (e.g. a 10 × 38 mm midget fuse) or none: **TBD**. Fast hardware overcurrent trip that turns the switch off without the firmware. Outputs off automatically when the controller stops talking (CAN heartbeat timeout), at reset and at power-up. |
-| Build options | **One PCB layout, three builds** (decided 2026-10-04), laid out for the worst case of both (≥ 250 V working clearances, 50 A copper/busbars). MOSFETs are 4 × Infineon D2PAK (TO-263-3), two in parallel per side; build-specific parts are only MOSFETs, TVS, trip-threshold resistor and build-ID strap. Current sensor **ACS770ECB-100U** on all builds. A mid build (150 V, IPB048N15N5LF) can be added later as a BOM/firmware change. See section 4.2.1. |
+| Build options | **One PCB layout, three builds** (decided 2026-10-04), laid out for the worst case of both (≥ 250 V working clearances, 50 A copper/busbars). MOSFETs are 4 × Infineon D2PAK (TO-263-3), two in parallel per side; build-specific parts are only the 4 MOSFETs and **one build resistor** (sets both the hardware trip threshold and the build ID; see 4.2.1). Current sensor **ACS770ECB-100U** on all builds. A mid build (150 V, IPB048N15N5LF) can be added later as a BOM/firmware change. See section 4.2.1. |
 | Load-side isolation | One isolated load-side domain referenced to the return bar: isolated DC-DC, reinforced I2C isolator, 4-channel ADC (Vin, Vout dividers), 2-channel DAC (Mean Well PV, PC). Chosen over AMC1100/AMC1311 isolated amplifiers, decided 2026-10-04. |
 | Supply programming | **Option A, decided 2026-10-04**: the power path stays an on/off switch; variable voltage comes from the supply's own remote programming input. The board provides isolated analog outputs referenced to the return bar (supply −V): **PV** (voltage) and **PC** (current limit), plus an isolated dry contact for the supply's **Remote ON/OFF**. Firmware closes the loop on the measured input voltage. With a fixed supply these are left unconnected. Typical use: DUT nominal 100 V, tested at 60 / 90 / 100 / 110 V. Example supply (not a design target): Mean Well **UHP-1500-115** (115 V, 13.05 A, 1500 W; PV sets 50–120 % = 57.5–138 V from about 1–4.8 V on CN71 pin 1; PC sets 20–100 % current; PV/PC are **non-isolated, referenced to −V**; Remote ON/OFF is a dry contact to its isolated +12V-AUX). |
 | Display | Local LED or OLED readout of voltage and current (**TBD**) |
@@ -180,7 +180,7 @@ USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; V
 | Build | MOSFET (×4) | Rds(on) max | Max supply | Continuous current (≤ ~10 W total, still air) | Hot switching |
 |-------|-------------|-------------|------------|-----------------------------------------------|---------------|
 | **HC** (high current) | IPB021N10NM5LF2 (100 V, Linear FET 2) | 2.1 mΩ | 60 V (48 V Mean Well at 120 %) | **50 A** (~5 W cold, ~9 W hot) | Allowed, within limits below |
-| **STD** (standard) | IPB110N20N3LF (200 V, Linear FET) | 11 mΩ | 150 V | **25 A** (~7 W cold, ~12 W hot); 30 A with airflow | Allowed, within limits below |
+| **STD** (standard) | IPB110N20N3LF (200 V, Linear FET) | 11 mΩ | 150 V | **25 A** (~7 W cold, ~12 W hot); decided 2026-10-04 over a 30 A non-Linear-FET option to keep hot switching | Allowed, within limits below |
 | **HV** (high voltage) | IPB407N30N (300 V, standard trench) | 40.7 mΩ | 200 V | **12 A** (~6 W cold, ~10 W hot) | **Not allowed**: sequenced only |
 
 Hot Rds(on) taken as 1.7 × the 25 °C maximum. Two in parallel per side and two
@@ -202,9 +202,24 @@ FETs can only carry about 1 A for that long at 100–150 V. So:
    slow turn-off) limits the output slew to about 0.5 V/ms: 1 mF of DUT
    capacitance then draws about 0.5 A, and 120 V takes about 240 ms. Limit: DUT
    capacitance ≤ 1 mF and DUT load during the ramp ≤ ~0.5 A (a DUT whose
-   converter starts part-way up the ramp is the main risk). The HV build fits
-   no slew capacitor and firmware refuses to close the switch if the input
-   voltage is above about 20 V.
+   converter starts part-way up the ramp is the main risk). The slew network is
+   fitted on every build; on HV, firmware refuses to close the switch if the
+   input voltage is above about 20 V.
+
+HASS timing: supply changes on a ~100 ms timescale are fine (user,
+2026-10-04), so switching speed is never a design driver; turn-off is
+deliberately controlled (a few µs) rather than as fast as possible.
+
+**Build identification (decided 2026-10-04).** One firmware image for all
+builds. The build is a *physical* difference only, never stored in flash
+(flash holds calibration data only). A single **build resistor** forms the
+reference divider of the hardware overcurrent comparator, so the same part
+sets the trip threshold (about HC 60 A, STD 35 A, HV 15 A) and, read by a PIC
+ADC pin, tells firmware which build it is on. The two cannot disagree.
+Resistor values are widely spaced; a reading outside the three bands (missing,
+open, shorted, wrong value) is a fault: the switch stays off and the fault is
+reported over CAN. Open resistor = zero trip threshold, so the hardware itself
+cannot turn on. The silkscreen carries a build checkbox (HC / STD / HV).
 
 **Common to all builds (single layout):**
 
@@ -213,14 +228,15 @@ FETs can only carry about 1 A for that long at 100–150 V. So:
   Return: two-hole bar. Busbars solder onto mask-free top copper.
 - Per-MOSFET gate resistors; gate–source Zener (15 V) and resistor; discharge
   stage for fast turn-off; two VOM1271T in series for about 16 V of gate drive.
-- Freewheel diode from output to return (inductive DUT wiring), TVS from supply+
-  to return (value per build, clamp below the MOSFET rating).
+- Freewheel diode from output to return (inductive DUT wiring), rated for the
+  HV build. No build-specific TVS: with controlled turn-off (a few µs) the
+  cable-inductance overshoot is a few volts, and all three MOSFETs are
+  avalanche rated as a backstop.
 - Voltage dividers sized for about 250 V full scale on every build (precision
   is not critical; one BOM).
 - Hardware overcurrent trip: comparator on the ACS770 output, threshold set by
-  one resistor per build (about HC 60 A, STD 35 A, HV 15 A).
-- Build-ID strap (resistor to an ADC pin) so firmware enforces the build's
-  voltage, current and hot-switch limits.
+  the build resistor (above). Firmware enforces each build's voltage, current
+  and hot-switch limits from the same reading.
 - Clearances designed for 250 V working: about 6 mm creepage (with a routed slot
   where needed) between the load-side domain and the CAN/logic side; wide-body
   isolators.
