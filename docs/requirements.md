@@ -106,7 +106,7 @@ parts that cross between them, and nothing else:
 |----------|------|
 | Mains to 12 V | The DIN supply itself (SELV, floating output) |
 | CAN data | ISO1042BQDWVRQ1 isolated CAN transceivers |
-| Relay control | Isolated relay drivers (optocouplers or isolated low-side switches), option 3 of 2026-10-04 |
+| Relay control | Digital isolators (two 4-channel) driving the ULN2803A (decided 2026-10-05) |
 | 12 V status | An optocoupler, so the MCU can report whether 12 V (CAN bus power) is present (decided 2026-10-04) |
 
 Layout rules that follow:
@@ -135,8 +135,8 @@ Layout rules that follow:
 | Host link | USB to the host. Uses no header signal pins. |
 | CAN | 2 channels, **CAN FD**, **isolated** (ISO1042BQDWVRQ1). The MCU has 4 CAN FD controllers; lay out so channels 3–4 could be added later. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
-| GPIO | 8, each software-configurable as input or output, **3.3 V** logic. MCP23017 (on the PIC32's own I2C, not the Pi's). Each GPIO has its own ground terminal. |
-| Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven through isolators. Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
+| GPIO | 8, each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly** (decided 2026-10-05: the PIC32 has enough I/O, so no MCP23017). Each GPIO has its own ground terminal. |
+| Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven from PIC32 pins through **digital isolators** (two 4-channel, e.g. TI ISO6741; 12 V side powered by the 5 V buck that feeds the ISO1042s; decided 2026-10-05). Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
 | Analog out | 2 × 0–10 V. Baseline: MCP4912 DAC into MC34072 op amps with gain ≈ 3. The PIC32MK's own DACs may replace the MCP4912. The DAC reference must be a precision reference, not a switching rail. Op amp supply ≥ 13 V from a small boost on the logic side. Each output has its own ground terminal. |
 | Analog in | 4 channels. MCP3428 (16-bit, I2C 0x68–0x6F) behind 10 MΩ / 180 kΩ dividers with 0.1 µF across the 180 kΩ (anti-aliasing, fc ≈ 9 Hz). Full scale about ±116 V (confirmed 2026-10-04: covers the 120 V DC SSR loads). The MCP3428 input loads the divider by about 7–8%: calibrate in firmware. Each input has its own ground terminal. |
 | Size | 100 × 100 mm (the maximum), to fit about 45 terminal positions (below) on three edges. Decided 2026-10-04. |
@@ -144,10 +144,6 @@ Layout rules that follow:
 Terminal count (3.5 mm pitch): 2 × CAN (8), 8 GPIO + 8 GND (16), 8 relay
 outputs + 12 V coil supply (9), 2 AO + 2 GND (4), 4 AI + 4 GND (8): about 45
 positions, about 160 mm of edge, plus USB and the 12 V input.
-
-MCP23017 note: recent datasheet revisions make GPA7 and GPB7 output-only. Put
-the bidirectional GPIO on GPA0–GPA6 + GPB0 and the relay drives on GPB1–GPB7
-+ GPA7.
 
 Resistor networks (decided 2026-10-04): use them on this board's repeated,
 identical channels to cut hand-soldering work, in easy packages only: SOIC-16
@@ -377,8 +373,7 @@ field-facing pin must survive the likely mistakes:
   cannot go into an I/O socket.
 - **ESD/TVS protection** on every external pin.
 - **Series resistance or PTC** on signal I/O. Inputs must survive a short to
-  the highest voltage present on the rack: 24 V (**TBD**: confirm the rack's
-  maximum control voltage).
+  the highest voltage present on the rack: **24 V** (confirmed 2026-10-05).
 - **Reverse-polarity and overvoltage protection** on every supply input.
 - **Current limiting or fusing** on every supply output, including the CAN
   bus supply and any sensor supply.

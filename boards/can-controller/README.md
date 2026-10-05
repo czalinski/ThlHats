@@ -19,8 +19,8 @@ local GPIO, relay drive, analog in and analog out. Requirements:
 | CAN x2 (FD) | ISO1042BQDWVRQ1, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
 | 12 V input | Keyed terminal, reverse polarity, TVS, eFuse; per-bus fuse; buck to 5 V for ISO1042 bus sides | 12 V |
 | 12 V status | Optocoupler from the 12 V rail to an MCU input (reports CAN bus power present) | crosses 12 V / logic |
-| GPIO x8 | MCP23017 (PIC32 I2C), series R + clamp per pin, ground terminal per pin | logic |
-| Relay drive x8 | ULN2803A via isolated drivers, coils from 12 V only | 12 V |
+| GPIO x8 | PIC32 pins directly, series R + clamp per pin (survives a 24 V short), ground terminal per pin | logic |
+| Relay drive x8 | ULN2803A driven through two 4-channel digital isolators (e.g. ISO6741), coils from 12 V only | 12 V |
 | Analog out x2 | MCP4912 or PIC32 CDAC, MC34072 (gain about 3), boost to about 15 V, ground terminal per output | logic |
 | Analog in x4 | MCP3428, 10 MΩ / 180 kΩ dividers, 0.1 µF, ground terminal per input | logic |
 
