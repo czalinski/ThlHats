@@ -49,8 +49,27 @@ Drawn on the `Dwgs.User` layer of the PCB. Board corner at (100, 100) mm.
   opto on the left edge.
 - The MCU sits top right, close to USB-C and the ISO1042 logic sides. The
   USB-C on the right edge is right above the Pi's USB-A ports, so the cable is short.
-- CAN3/CAN4: no edge room is left for two more isolated ports. The spare
-  controllers go to an unpopulated logic-side header for a future add-on.
+- CAN3/CAN4: no edge room is left in this variant (A, `Dwgs.User`). The spare
+  controllers would go to an unpopulated logic-side header for a future add-on.
+
+### Variant B: four CAN channels (`Cmts.User` layer)
+
+- Right edge below the USB-C: CAN4, CAN3, CAN1, CAN2, all MC 3.5 horizontal
+  (76 mm of the 94 mm edge). The 12 V input moves inboard to a top-entry
+  MSTBV 5.08 header (this board is the top of the stack, so it stays reachable).
+- 12 V domain: a strip x > 168 mm under the USB-C plus the bottom-right block.
+  The four ISO1042s straddle x = 168 (spaced to clear the MH4 hole); fuse,
+  TVS and termination jumper sit between each isolator and its connector.
+- Bottom and left edges unchanged. The tight spot is the 12 V input
+  protection and buck next to CAN2.
+
+### Density estimate (courtyard area of the planned parts)
+
+| | Parts | Area left after edge connectors, Pi header, holes | Coverage |
+|---|---|---|---|
+| 2 CAN (A) | ~3,070 mm2 | ~7,240 mm2 | ~42 % |
+| 4 CAN (B) | ~3,580 mm2 | ~6,880 mm2 | ~52 % |
+| can-ssr logic area, for reference | | 4,200 mm2 | 78 % top + 7 % bottom |
 
 ## Layout rules
 
