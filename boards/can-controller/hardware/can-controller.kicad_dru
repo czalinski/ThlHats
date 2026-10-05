@@ -33,3 +33,13 @@
 (rule "USB4085 annular ring"
 	(constraint annular_width (min 0.15mm))
 	(condition "A.Type == 'Pad' && A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))
+
+# Its 0.7 mm pads on a 0.85 mm pitch are 0.15 mm apart (the house track/space
+# minimum) and the 0.4 mm drills 0.45 mm apart. Confirm the drill spacing with
+# PCBWay when ordering.
+(rule "USB4085 pad spacing"
+	(constraint clearance (min 0.15mm))
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085') && B.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))
+(rule "USB4085 drill spacing"
+	(constraint hole_to_hole (min 0.45mm))
+	(condition "A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085') && B.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))

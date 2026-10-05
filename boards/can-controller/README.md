@@ -115,6 +115,23 @@ MPNs to confirm before ordering: crystal (12 MHz, 5032, CL 18 pF: TBD);
 Phoenix MC 1,5/8, /9, /12-G-3,5 (1844278, 1844281, 1844317 entered from the
 series numbering); Littelfuse 1812L110/16DR; Bourns MF-NSMF075-2; TI LM4040A25IDBZR.
 
+## Placement (rev 1, 2026-10-05)
+
+First pass by `hardware/place_board.py` (run once; after hand edits in KiCad, don't rerun).
+Changes from floorplan rev 2:
+
+- The 12 V block grew upward: x 148-168, y 146-189 (was y > 166), because the
+  input stage, bus 5 V module and relay drive did not fit. CAN1/CAN2 isolators
+  (U10, U11) now straddle its top edge at y = 146; CAN3/CAN4 (U12, U13) straddle
+  x = 168. The 12 V status opto U21 straddles the block's left edge.
+- MH4 (Pi standoff) is inside the 12 V block. The hole has no copper; keep 12 V
+  copper clear of the standoff (it sits at Pi ground).
+- DIN clip screw heads keep 8 mm circles clear on top (footprint courtyard).
+- USB4085: footprint-scoped DRC rules for its 0.15 mm pad gap and 0.45 mm drill
+  spacing; confirm the drill spacing with PCBWay.
+
+DRC: clean apart from unrouted nets and silkscreen (references not placed yet).
+
 ## Layout rules
 
 - Connectors on the bottom and both side edges only; the header edge stays clear.
