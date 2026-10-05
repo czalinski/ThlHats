@@ -139,6 +139,7 @@ Layout rules that follow:
 | Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven from PIC32 pins through **digital isolators** (two 4-channel, e.g. TI ISO6741; 12 V side powered by the 5 V buck that feeds the ISO1042s; decided 2026-10-05). Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
 | Analog out | 2 × 0–10 V. Baseline: MCP4912 DAC into MC34072 op amps with gain ≈ 3. The PIC32MK's own DACs may replace the MCP4912. The DAC reference must be a precision reference, not a switching rail. Op amp supply ≥ 13 V from a small boost on the logic side. Each output has its own ground terminal. |
 | Analog in | 4 channels. MCP3428 (16-bit, I2C 0x68–0x6F) behind 10 MΩ / 180 kΩ dividers with 0.1 µF across the 180 kΩ (anti-aliasing, fc ≈ 9 Hz). Full scale about ±116 V (confirmed 2026-10-04: covers the 120 V DC SSR loads). The MCP3428 input loads the divider by about 7–8%: calibrate in firmware. Each input has its own ground terminal. |
+| Stack position | **Top of the stack**: MCC HATs below, can-controller above them (user, 2026-10-05). Nothing sits above it, so top-entry connectors and connectors inside the HAT outline stay reachable. |
 | Size | 100 × 100 mm (the maximum), to fit about 45 terminal positions (below) on three edges. Decided 2026-10-04. |
 
 Terminal count (3.5 mm pitch): 2 × CAN (8), 8 GPIO + 8 GND (16), 8 relay
