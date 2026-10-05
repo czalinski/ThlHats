@@ -92,8 +92,8 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | AI ADC | MCP3428-E/SL | SOIC-14 | stock | not on the Pi's I2C |
 | AI dividers | 10M + 180k 1206, 0.1 uF | 1206 | stock | 1206 thick film is rated 200 V |
 | AO DAC | MCP4922-E/SL (12-bit dual) + MCP1501-25 or LM4040 2.5 V | SOIC-14, SOT-23 | stock | precision reference |
-| AO amp | **LM358B** (stock symbol) or MC34072 (make) | SOIC-8 | stock | gain 4: 0-10 V |
-| AO supply | MT3608 or TPS61040 boost to 15 V | SOT-23-6/-5 | stock | |
+| AO amp | **LM358B** (decided 2026-10-05) | SOIC-8 | stock | gain 4: 0-10 V |
+| AO supply | MT3608 or TPS61040 boost to **13 V** from header 5 V | SOT-23-6/-5 | stock | LM358B swings to ~11.5 V |
 | Connectors | MC 1,5/4, /8, /9, /12-G-3,5; MSTBVA 2,5/2-G-5,08 | THT | stock | |
 | LEDs | 1206 | | stock | power, heartbeat, USB, CAN x4, relay x8, 12 V |
 
