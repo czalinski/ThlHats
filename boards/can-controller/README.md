@@ -16,7 +16,7 @@ local GPIO, relay drive, analog in and analog out. Requirements:
 | Block | Baseline parts | Domain |
 |-------|----------------|--------|
 | MCU, USB | PIC32MK1024GPK064, USB-C receptacle (USB 2.0 FS device) | logic |
-| CAN x2 (FD) | ISO1042BQDWVRQ1, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
+| CAN x4 (FD) | ISO1044BD, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
 | 12 V input | Keyed terminal, reverse polarity, TVS, eFuse; per-bus fuse; buck to 5 V for ISO1042 bus sides | 12 V |
 | 12 V status | Optocoupler from the 12 V rail to an MCU input (reports CAN bus power present) | crosses 12 V / logic |
 | GPIO x8 | PIC32 pins directly, series R + clamp per pin (survives a 24 V short), ground terminal per pin | logic |
@@ -78,10 +78,10 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | 3.3 V | MCP1826S-3302E/DB | SOT-223 | stock | from header 5 V |
 | USB-C | GCT USB4085-GF-A | THT | stock fp, generic symbol | 5.1k CC pull-downs, VBUS sensed only |
 | USB ESD | USBLC6-2SC6 | SOT-23-6 | stock | |
-| CAN transceiver x4 | **ISO1044BD** (proposed, instead of ISO1042BQDWVRQ1) | SOIC-8 | stock | CAN FD 5 Mbit/s, 3 kVrms basic isolation; SOIC-8 frees the CAN strip |
+| CAN transceiver x4 | **ISO1044BD** (decided 2026-10-05) | SOIC-8 | stock | CAN FD 5 Mbit/s, 3 kVrms basic isolation |
 | CAN TVS x4 | NUP2105L | SOT-23 | stock | as can-ssr |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | stock | |
-| CAN bus supply x4 | resettable fuse, 1812 | 1812 | stock fp | hold current TBD (nodes per bus) |
+| CAN bus supply x4 | resettable fuse, 1812 | 1812 | stock fp | one bus feeds the can-ssr nodes, three go to DUTs; same part on all four (hold ~1.1 A) |
 | Relay isolators x2 | **ISO6740** (4 forward channels; ISO6741 is 3+1) | SOIC-16W | stock | 12 V side from the 5 V buck |
 | Relay driver | ULN2803A | SOIC-18W | stock | |
 | 12 V input | MSTBVA 2,5/2-G-5,08, TVS SMBJ15A, P-FET reverse protection, SMD fuse | | stock | |

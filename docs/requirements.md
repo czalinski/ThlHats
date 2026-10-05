@@ -105,7 +105,7 @@ parts that cross between them, and nothing else:
 | Crossing | Part |
 |----------|------|
 | Mains to 12 V | The DIN supply itself (SELV, floating output) |
-| CAN data | ISO1042BQDWVRQ1 isolated CAN transceivers |
+| CAN data | ISO1044BD isolated CAN transceivers |
 | Relay control | Digital isolators (two 4-channel) driving the ULN2803A (decided 2026-10-05) |
 | 12 V status | An optocoupler, so the MCU can report whether 12 V (CAN bus power) is present (decided 2026-10-04) |
 
@@ -133,7 +133,7 @@ Layout rules that follow:
 |------|-------------|
 | MCU | **PIC32MK1024GPK064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× CDAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). Changed 2026-10-04 from the PIC32MK1024MCF064, whose CAN is classic 2.0B only. |
 | Host link | USB to the host. Uses no header signal pins. |
-| CAN | 2 channels, **CAN FD**, **isolated** (ISO1042BQDWVRQ1). The MCU has 4 CAN FD controllers; lay out so channels 3–4 could be added later. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
+| CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **isolated** (**ISO1044BD**, SOIC-8, replaces the ISO1042BQDWVRQ1; decided 2026-10-05). One bus is reserved for our remote nodes (can-ssr); the other three are for DUTs, so one HASS run can test several DUTs. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
 | GPIO | 8, each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly** (decided 2026-10-05: the PIC32 has enough I/O, so no MCP23017). Each GPIO has its own ground terminal. |
 | Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven from PIC32 pins through **digital isolators** (two 4-channel, e.g. TI ISO6741; 12 V side powered by the 5 V buck that feeds the ISO1042s; decided 2026-10-05). Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
