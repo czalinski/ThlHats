@@ -41,6 +41,15 @@ overcurrent trip threshold and is read by the PIC as the build ID.
 - 250 V working clearances; about 6 mm creepage between the load side and the
   CAN/logic side. No copper pour joins the domains.
 
+## Indicators and labels
+
+- D4 (green) status, D5 (red) fault: there is no room for silkscreen labels;
+  the colours identify them. D40 is the V indicator, D41 the A indicator
+  (DIG4 segments A and B of the MAX7219).
+- Mean Well connector J30: PV, PC, -V (supply -V / return bar), RC, RC
+  (Remote ON/OFF photorelay contact, either polarity).
+- One CAN pin legend above J1 covers J1 and J2 (same pinout).
+
 ## Fabrication
 
 - PCBWay, 2 layers, 1.6 mm. **Production boards: 2 oz outer copper**
