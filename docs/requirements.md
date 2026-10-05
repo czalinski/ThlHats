@@ -153,7 +153,7 @@ isolated networks (e.g. Bourns 4816P, 8 resistors) or through-hole SIP
 driver inputs, the low-voltage legs of the 4 AI dividers. Not for high-voltage
 parts (network elements are rated ~50 V), gate resistors (must sit at each
 gate) or decoupling capacitors (must sit at each IC). No chip arrays with
-0603-size elements.
+0603-size elements. On can-controller the GPIO series resistors are discrete 1206 after all (decided 2026-10-05): the GPIO is split over two connectors 30 mm apart, each resistor should sit at its connector pin, and the solder joint count is the same as a SOIC-16 network.
 
 GPIO protection: a series resistor plus clamp on each pin to survive a short
 to 24 V. That limits output drive to a few mA, which is fine for logic inputs

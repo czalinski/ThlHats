@@ -87,7 +87,7 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | 12 V input | MSTBVA 2,5/2-G-5,08, TVS SMBJ15A, P-FET reverse protection, SMD fuse | | stock | |
 | 12 V to 5 V | RECOM R-78E5.0-0.5 | SIP-3 | in lib/ | ISO1044/ISO6740 bus sides |
 | 12 V status | TLP293 | SO-4 | stock | LED on the logic side |
-| GPIO series R | Bourns 4816P-T01-472LF (8 x 4.7k isolated) | SOIC-16 | make (footprint) | or 8 x 1206 |
+| GPIO series R x8 | 4.7k 1206 (decided 2026-10-05, not a network) | 1206 | stock | GPIO is split over two connectors 30 mm apart; each resistor sits at its connector pin, next to its clamp |
 | GPIO clamps x8 | BAT54S to 3.3 V / GND | SOT-23 | stock | 24 V short: ~4.5 mA per pin |
 | AI ADC | MCP3428-E/SL | SOIC-14 | stock | not on the Pi's I2C |
 | AI dividers | 10M + 180k 1206, 0.1 uF | 1206 | stock | 1206 thick film is rated 200 V |
