@@ -8,14 +8,14 @@ local GPIO, relay drive, analog in and analog out. Requirements:
 - Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern
 - Pi header: Samtec REF-182665 pass-through socket on top (stacks with MCC HATs).
   Uses no header signal pins; draws logic power from header 5 V.
-- MCU: PIC32MK1024GPK064-I/PT
+- MCU: PIC32MK1024MCM064-I/PT
 - Host link: USB (gs_usb for CAN, plus a control interface)
 
 ## Functional blocks
 
 | Block | Baseline parts | Domain |
 |-------|----------------|--------|
-| MCU, USB | PIC32MK1024GPK064, USB-C receptacle (USB 2.0 FS device) | logic |
+| MCU, USB | PIC32MK1024MCM064, USB-C receptacle (USB 2.0 FS device) | logic |
 | CAN x4 (FD) | ISO1044BD, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
 | 12 V input | Keyed terminal, reverse polarity, TVS, eFuse; per-bus fuse; buck to 5 V for ISO1042 bus sides | 12 V |
 | 12 V status | Optocoupler from the 12 V rail to an MCU input (reports CAN bus power present) | crosses 12 V / logic |
@@ -73,8 +73,8 @@ Library status: **stock** = in KiCad's stock libraries (import with
 
 | Function | Part | Package | Library | Notes |
 |---|---|---|---|---|
-| MCU | PIC32MK1024GPK064-I/PT | TQFP-64 0.5 mm | in lib/ | 4 x CAN FD, USB FS |
-| Crystal | 12 MHz (TBC against the USB PLL input range) | 5032 SMD | stock | |
+| MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | in lib/ | 4 x CAN FD, USB FS |
+| Crystal | 12 MHz, CL 18 pF | 5032 SMD | stock | POSC HS 4-32 MHz; USB clock from the UPLL |
 | 3.3 V | MCP1826S-3302E/DB | SOT-223 | stock | from header 5 V |
 | USB-C | GCT USB4085-GF-A | THT | stock fp, generic symbol | 5.1k CC pull-downs, VBUS sensed only |
 | USB ESD | USBLC6-2SC6 | SOT-23-6 | stock | |

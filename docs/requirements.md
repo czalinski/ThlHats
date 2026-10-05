@@ -131,7 +131,7 @@ Layout rules that follow:
 
 | Item | Requirement |
 |------|-------------|
-| MCU | **PIC32MK1024GPK064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× CDAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). Changed 2026-10-04 from the PIC32MK1024MCF064, whose CAN is classic 2.0B only. |
+| MCU | **PIC32MK1024MCM064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× DAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). **Corrected 2026-10-05:** the PIC32MK1024GPK064 chosen on 2026-10-04 has *no* CAN FD (DS60001519E Table 1: CAN FD column "—" for all GPK parts); only the motor-control MCM parts have the 4 CAN FD modules. Same 64-pin pinout. 12 MHz crystal; USB clock from the UPLL. |
 | Host link | USB to the host. Uses no header signal pins. |
 | CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **isolated** (**ISO1044BD**, SOIC-8, replaces the ISO1042BQDWVRQ1; decided 2026-10-05). One bus is reserved for our remote nodes (can-ssr); the other three are for DUTs, so one HASS run can test several DUTs. All four keep the 4-pin connector and pinout; the +12 V cable supply fuse is **fitted on CAN1 only** and DNP on CAN2–4 (pin 4 dead unless fitted), decided 2026-10-05. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |

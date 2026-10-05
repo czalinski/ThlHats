@@ -1,6 +1,6 @@
 # CAN Controller firmware
 
-PIC32MK1024GPK064 (MIPS32, 1 MB flash, 256 KB RAM). Suggested toolchain:
+PIC32MK1024MCM064 (MIPS32, 1 MB flash, 256 KB RAM). Suggested toolchain:
 MPLAB X + XC32, with MPLAB Harmony v3 for peripheral setup, or a CMake build
 calling `xc32-gcc` directly. Keep the MPLAB X project in this directory
 (`nbproject/private`, `build/` and `dist/` are git-ignored).

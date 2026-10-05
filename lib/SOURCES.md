@@ -46,7 +46,7 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-04 | footprint | Resistor_SMD | R_0805_2012Metric_Pad1.20x1.40mm_HandSolder | KiCad Resistor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | LED_SMD | LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | footprint | LED_SMD | LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder | KiCad LED_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
-| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024GPK064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024GPK064-IPT.csv | repo (MIT) |
+| 2026-10-04 | symbol | Thl_MCU | PIC32MK1024GPK064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024GPK064-IPT.csv (NOTE 2026-10-05: GPK parts have no CAN FD; can-controller uses PIC32MK1024MCM064-IPT) | repo (MIT) |
 | 2026-10-04 | footprint | Thl_Mechanical | DIN_Rail_Mount_3xNPTH4.06mm_P12.45mm | user's hand-made "DIN Rail Mount" (original in lib/footprint_src/Thl_Mechanical/vendor/); NPTH pads sized to drill, board-only attributes, courtyards added (2026-10-05: clip body on B.CrtYd only; F.CrtYd = 8 mm screw-head circles) | repo (MIT) |
 | 2026-10-04 | footprint | Package_DIP | DIP-40_W15.24mm_Socket_LongPads | KiCad Package_DIP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-04 | symbol | Thl_MCU | PIC18F47Q84-IP | generated from lib/symbol_src/Thl_MCU/PIC18F47Q84-IP.csv | repo (MIT) |
@@ -133,3 +133,4 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-05 | footprint | Inductor_SMD | L_Bourns-SRN4018 | KiCad Inductor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | footprint | Package_TO_SOT_SMD | TO-252-2 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | footprint | Crystal | Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering | KiCad Crystal.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Thl_MCU | PIC32MK1024MCM064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024MCM064-IPT.csv | repo (MIT) |
