@@ -382,10 +382,12 @@ connectors is the isolated side). No GPIO LEDs.
 Wiring mistakes are common under test-schedule pressure, so every
 field-facing pin must survive the likely mistakes:
 
-- **Keyed, pluggable connectors** on every external connection, so fixtures
-  are swapped by unplugging rather than rewiring. Use different connector
-  families or keying for different functions where practical, so a CAN plug
-  cannot go into an I/O socket.
+- **Field I/O on push-in terminals soldered to the board** (decided 2026-10-05):
+  wires from the board go individually to the rack panel; the standardized
+  pluggable interface is between the rack panel and the DUT. **Exceptions,
+  pluggable:** CAN (Phoenix MC 3.5, same 4-pin pinout on every board) and
+  DB9-type connectors. Superseded rule (2026-10-04): keyed, pluggable
+  connectors on every external connection.
 - **ESD/TVS protection** on every external pin.
 - **Series resistance or PTC** on signal I/O. Inputs must survive a short to
   the highest voltage present on the rack: **24 V** (confirmed 2026-10-05).
