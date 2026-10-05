@@ -363,6 +363,14 @@ Budget each board's connectors before starting the schematic:
 - Give each GPIO and analog channel its own ground terminal, so test engineers
   don't need a separate ground bus.
 
+Double-row terminals (decided 2026-10-05): field I/O uses double-row 3.5 mm
+terminals (e.g. Phoenix SPTD 1,5/..-H-3,5 push-in) with **one row always
+ground** and the other the signal, so every channel brings its own return and
+the test engineer never builds a separate ground harness. Exception: the relay
+outputs (ULN2803A, low-side) pair each OUTn with **+12 V** (coil supply), so
+both coil wires land on the board. CAN keeps the 4-pin MC 3.5 pinout shared
+with every board.
+
 ### 5.2 Field wiring protection (all external connections)
 
 Wiring mistakes are common under test-schedule pressure, so every
