@@ -65,16 +65,35 @@
 		(layer "B.CrtYd")
 		(uuid "06a4bb87-926e-4be6-97f1-045cbc444c14")
 	)
-	(fp_rect
-		(start -5.35 -21.6)
-		(end 5.35 21.6)
+	(fp_circle
+		(center 0 -12.446)
+		(end 4 -12.446)
 		(stroke
 			(width 0.05)
 			(type default)
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "ab190fea-fdc7-475a-a33a-a745b9496215")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 4 0)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(fp_circle
+		(center 0 12.446)
+		(end 4 12.446)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
 	)
 	(fp_rect
 		(start -5.08 -21.336)
