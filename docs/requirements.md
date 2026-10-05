@@ -371,6 +371,12 @@ outputs (ULN2803A, low-side) pair each OUTn with **+12 V** (coil supply), so
 both coil wires land on the board. CAN keeps the 4-pin MC 3.5 pinout shared
 with every board.
 
+Indicator LEDs (decided 2026-10-05, can-controller): one LED per relay, on the
+12 V side directly behind its terminal pair (LED + resistor from +12 V to OUTn,
+lit when the output is on). CAN activity LEDs on the logic side at the edge of
+the CAN strip, lined up with each CAN connector (the area right behind the
+connectors is the isolated side). No GPIO LEDs.
+
 ### 5.2 Field wiring protection (all external connections)
 
 Wiring mistakes are common under test-schedule pressure, so every
