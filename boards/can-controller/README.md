@@ -84,18 +84,36 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | CAN bus supply | resettable fuse, 1812, hold ~1.1 A | 1812 | stock fp | footprint on all four buses; **fitted on CAN1 only** (the can-ssr bus). CAN2-4 (DUT buses) are DNP, so pin 4 is dead unless a fuse is fitted (decided 2026-10-05) |
 | Relay isolators x2 | **ISO6740** (4 forward channels; ISO6741 is 3+1) | SOIC-16W | stock | 12 V side from the 5 V buck |
 | Relay driver | ULN2803A | SOIC-18W | stock | |
-| 12 V input | MSTBVA 2,5/2-G-5,08, TVS SMBJ15A, P-FET reverse protection, SMD fuse | | stock | |
+| 12 V input | MSTBVA 2,5/2-G-5,08, NANO2 4 A fuse, SUD50P04-08 P-FET (reverse polarity), SMBJ15A TVS | | stock | |
 | 12 V to 5 V | RECOM R-78E5.0-0.5 | SIP-3 | in lib/ | ISO1044/ISO6740 bus sides |
 | 12 V status | TLP293 | SO-4 | stock | LED on the logic side |
 | GPIO series R x8 | 4.7k 1206 (decided 2026-10-05, not a network) | 1206 | stock | GPIO is split over two connectors 30 mm apart; each resistor sits at its connector pin, next to its clamp |
 | GPIO clamps x8 | BAT54S to 3.3 V / GND | SOT-23 | stock | 24 V short: ~4.5 mA per pin |
 | AI ADC | MCP3428-E/SL | SOIC-14 | stock | not on the Pi's I2C |
-| AI dividers | 10M + 180k 1206, 0.1 uF | 1206 | stock | 1206 thick film is rated 200 V |
+| AI dividers | 10M + 130k 1206 to VMID (1.65 V), 0.1 uF, BAT54S clamp | 1206 | stock | MCP3428 cannot go below VSS, so the dividers sit on VMID and CHn- = VMID |
 | AO DAC | MCP4922-E/SL (12-bit dual) + MCP1501-25 or LM4040 2.5 V | SOIC-14, SOT-23 | stock | precision reference |
 | AO amp | **LM358B** (decided 2026-10-05) | SOIC-8 | stock | gain 4: 0-10 V |
 | AO supply | MT3608 or TPS61040 boost to **13 V** from header 5 V | SOT-23-6/-5 | stock | LM358B swings to ~11.5 V |
 | Connectors | MC 1,5/4, /8, /9, /12-G-3,5; MSTBVA 2,5/2-G-5,08 | THT | stock | |
 | LEDs | 1206 | | stock | power, heartbeat, USB, CAN x4, relay x8, 12 V |
+
+## Schematic (generated 2026-10-05)
+
+`hardware/gen_schematic.py` wrote the root sheet and seven block sheets (MCU/USB/power,
+CAN x4, 12 V input, relay drive, GPIO, analog in, analog out). Like can-ssr's
+generator, it is for the first capture only: once the schematic is edited in
+KiCad, stop running it. ERC: 0 violations; schematic parity clean; every net has
+at least two pins; only the isolators (U10-U13, U21, U30, U31) have pins in both
+domains. Footprints are parked to the right of the board for placement.
+
+MCU pin map (PPS groups checked against DS60001519E Tables 13-1/13-2): GPIO1-8 on
+the left side, I2C1 RG7/RG8, CAN1 RB4/RA4, CAN2 RE15/RA8, CAN3 RE14/RC0, CAN4
+RB5/RC10, relays RC1, RC2, RC11, RE12, RE13, RD8, RB6, RB9, DAC SPI SCK1 RB7 /
+SDO1 RC8 / CS RA1, UART1 RC7/RC6, V12_OK RC13, ICSP PGC1/PGD1.
+
+MPNs to confirm before ordering: crystal (12 MHz, 5032, CL 18 pF: TBD);
+Phoenix MC 1,5/8, /9, /12-G-3,5 (1844278, 1844281, 1844317 entered from the
+series numbering); Littelfuse 1812L110/16DR; Bourns MF-NSMF075-2; TI LM4040A25IDBZR.
 
 ## Layout rules
 

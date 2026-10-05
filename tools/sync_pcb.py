@@ -84,6 +84,8 @@ def read_netlist(sch):
             "fields": {k: v for k, v in fields.items() if k not in ("Footprint", "Datasheet", "Description")},
             "path": first(sheet, "tstamps")[1] + first(c, "tstamps")[1],
             "sheetname": first(sheet, "names")[1],
+            "dnp": any(len(pr) > 1 and first(pr, "name") and first(pr, "name")[1] == "dnp"
+                       for pr in find(c, "property")),
         }
     nets = {}  # (ref, pin) -> net name
     for net in find(first(tree, "nets"), "net"):
@@ -152,6 +154,9 @@ def main():
             board.Add(fp)
         fp.SetPath(pcbnew.KIID_PATH(c["path"]))
         fp.SetSheetname(c["sheetname"])
+        if fp.IsDNP() != c["dnp"]:
+            fp.SetDNP(c["dnp"])
+            changed.append(ref)
         if fp.GetValue() != c["value"]:
             fp.SetValue(c["value"])
             changed.append(ref)

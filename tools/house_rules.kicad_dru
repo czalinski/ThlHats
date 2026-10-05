@@ -27,3 +27,9 @@
 (rule "REF-182665 peg hole spacing"
 	(constraint hole_to_hole (min 0.4mm))
 	(condition "A.memberOfFootprint('Thl_Connector:Samtec_REF-182665*') && B.memberOfFootprint('Thl_Connector:Samtec_REF-182665*')"))
+
+# GCT USB4085 (through-hole USB-C 2.0): 0.4 mm drills on a 0.85 mm pitch leave a
+# 0.15 mm annular ring (PCBWay standard minimum 0.15 mm). Allow it for this footprint only.
+(rule "USB4085 annular ring"
+	(constraint annular_width (min 0.15mm))
+	(condition "A.Type == 'Pad' && A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))

@@ -134,3 +134,13 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-05 | footprint | Package_TO_SOT_SMD | TO-252-2 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | footprint | Crystal | Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering | KiCad Crystal.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | symbol | Thl_MCU | PIC32MK1024MCM064-IPT | generated from lib/symbol_src/Thl_MCU/PIC32MK1024MCM064-IPT.csv | repo (MIT) |
+| 2026-10-05 | symbol | Connector | Screw_Terminal_01x02 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Connector | Screw_Terminal_01x08 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Connector | Screw_Terminal_01x09 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Connector | Screw_Terminal_01x12 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Transistor_FET | SUD19P06-60 | KiCad Transistor_FET.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | symbol | Transistor_FET | SUD50P04-08 | KiCad Transistor_FET.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | footprint | Fuse | Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder | KiCad Fuse.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | footprint | Inductor_SMD | L_0805_2012Metric_Pad1.05x1.20mm_HandSolder | KiCad Inductor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | 3D model | Package_SO | SOP-4_4.4x2.6mm_P1.27mm (used by SOIC-4_4.55x2.6mm; stock has no model of that name) | KiCad 3dmodels | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-05 | 3D model | Capacitor_SMD | C_1812_4532Metric (stand-in for the 1812 PTC; stock has no Fuse_1812 model) | KiCad 3dmodels | CC-BY-SA-4.0 w/ KiCad exception |
