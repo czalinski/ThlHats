@@ -42,10 +42,8 @@ connectors and the area inside the HAT outline stay reachable.
 
 - Mounting: the four Pi holes (MH1-MH4), plus M2.5 holes in the other three
   corners (MH5-MH7, a 93 x 93 mm square with MH1) for standoffs when the board
-  is mounted on its own, e.g. on a second stack fed by a ribbon cable. Two DIN
-  rail clip patterns (MK1, MK2: three 4.06 mm holes, 12.45 mm pitch) at
-  x = 125 and 175 mm, mid-height, as on the first can-ssr layout; the clip sits
-  underneath, screw heads need an 8 mm keep-out on top.
+  is mounted on its own, e.g. on a second stack fed by a ribbon cable. No DIN
+  clip holes (removed 2026-10-05): a 3D-printed adapter carries the DIN clip.
 - One connector family (Phoenix MC 3.5) for all signals; the 12 V input uses a
   5.08 mm MSTB so it cannot take a signal plug. Pin counts differ by function
   (CAN 4, GPIO 8, relay 9, analog 12). A smaller plug can still go into a larger
@@ -115,22 +113,24 @@ MPNs to confirm before ordering: crystal (12 MHz, 5032, CL 18 pF: TBD);
 Phoenix MC 1,5/8, /9, /12-G-3,5 (1844278, 1844281, 1844317 entered from the
 series numbering); Littelfuse 1812L110/16DR; Bourns MF-NSMF075-2; TI LM4040A25IDBZR.
 
-## Placement (rev 1, 2026-10-05)
+## Placement (rev 2, 2026-10-05)
 
 First pass by `hardware/place_board.py` (run once; after hand edits in KiCad, don't rerun).
-Changes from floorplan rev 2:
 
-- The 12 V block grew upward: x 148-168, y 146-189 (was y > 166), because the
-  input stage, bus 5 V module and relay drive did not fit. CAN1/CAN2 isolators
-  (U10, U11) now straddle its top edge at y = 146; CAN3/CAN4 (U12, U13) straddle
-  x = 168. The 12 V status opto U21 straddles the block's left edge.
-- MH4 (Pi standoff) is inside the 12 V block. The hole has no copper; keep 12 V
-  copper clear of the standoff (it sits at Pi ground).
-- DIN clip screw heads keep 8 mm circles clear on top (footprint courtyard).
+- Field I/O on double-level push-in terminals (Phoenix SPTD 1,5/..-H-3,5, 18 mm
+  deep, 24.2 mm tall): J40 GPIO (2x8) top left, J50 ANALOG (2x6) bottom left,
+  J30 RELAY (2x8) on the bottom edge. Lower level = signal, upper level = GND
+  (relays: +12 V). Footprints from `lib/footprint_src/Thl_Connector/phoenix_sptd.py`.
+- 12 V domain: the CAN strip (x > 168) plus the block x > 140, y > 160. All four
+  ISO1044s straddle x = 168; the ISO6740s straddle x = 140; the TLP293 straddles
+  y = 160. Relay LEDs (12 V side) sit right behind their J30 pins; CAN activity
+  LEDs form a column at the strip edge in connector order.
+- DIN clip patterns removed (no room once the terminals grew): mount with a
+  3D-printed DIN adapter on the M2.5 holes (four Pi + MH5-MH7), as on can-ssr.
 - USB4085: footprint-scoped DRC rules for its 0.15 mm pad gap and 0.45 mm drill
   spacing; confirm the drill spacing with PCBWay.
 
-DRC: clean apart from unrouted nets and silkscreen (references not placed yet).
+DRC: clean apart from unrouted nets and silkscreen.
 
 ## Layout rules
 

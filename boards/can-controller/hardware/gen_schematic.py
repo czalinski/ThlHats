@@ -41,6 +41,7 @@ FP = {
     "SOT23": "Package_TO_SOT_SMD:SOT-23",
     "SOD123": "Diode_SMD:D_SOD-123",
     "MC": "Connector_Phoenix_MC:PhoenixContact_MC_1,5_{n}-G-3.5_1x{n:02d}_P3.50mm_Horizontal",
+    "SPTD": "Thl_Connector:PhoenixContact_SPTD_1,5_{n}-H-3,5_2x{n:02d}_P3.5mm_Horizontal",
 }
 MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
@@ -415,7 +416,7 @@ def power12_sheet():
 def relay_sheet():
     s = Sheet("relay.kicad_sch", "Relay drive", 5, "CAN controller: relay drive")
     s.text("Eight relay outputs: MCU -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only (COM).\n"
-           "Each relay line also drives a logic-side LED (relay on = lit).", 25.4, 25.4)
+           "Each output has its own +12 V terminal and a 12 V-side LED right behind it.", 25.4, 25.4)
     for k in range(2):
         y = 63.5 + k * 71.12
         ins = {"3": "INA", "4": "INB", "5": "INC", "6": "IND"}
@@ -442,39 +443,40 @@ def relay_sheet():
            "Littelfuse", "1812L110/16DR", ref_at=(213.36, 59.69), value_at=(213.36, 67.31))
     s.C("C44", "10uF 25V X7R", 228.6, 76.2, "V12_RLY", "/GND_BUS")
     rly = {str(i): f"RLYO{i}" for i in range(1, 9)}
-    rly["9"] = "V12_RLY"
-    s.part("Connector:Screw_Terminal_01x09", "J30", "RELAY", 264.16, 99.06, rly, 0, FP["MC"].format(n=9),
-           "Phoenix Contact", "1844281", ref_at=(264.16, 83.82), value_at=(264.16, 115.57))
-    s.text("J30: 1-8 relay coil low sides (ULN2803A, flyback diodes to COM), 9 +12 V coil supply (F30).\n"
-           "Relay coil from pin 9 to pin n. Max about 300 mA per output, 1.1 A total (F30).", 213.36, 127.0, 1.0)
+    rly.update({str(8 + i): "V12_RLY" for i in range(1, 9)})
+    s.part("Connector_Generic:Conn_02x08_Top_Bottom", "J30", "RELAY", 271.78, 99.06, rly, 0, FP["SPTD"].format(n=8),
+           "Phoenix Contact", "1841555", ref_at=(271.78, 83.82), value_at=(271.78, 116.84))
+    s.text("J30 (SPTD 1,5/8-H-3,5, double-level push-in): lower level 1-8 = OUT1-8 (ULN2803A low side),\n"
+           "upper level 9-16 = +12 V coil supply (F30). Each relay coil goes between OUTn and the +12 V\n"
+           "terminal right above it. Max about 300 mA per output, 1.1 A total (F30).", 213.36, 127.0, 1.0)
     for i in range(1, 9):
         x = 50.8 + (i - 1) * 15.24
-        s.led_chain(f"D{30 + i}", f"R{40 + i}", "red", "LTST-C150KRKT", x, 233.68, f"/RLY{i}")
-    s.text("Relay LEDs D31-D38 (logic side, ~1.5 mA from the MCU pin).", 50.8, 264.16, 1.0)
+        s.led_chain(f"D{30 + i}", f"R{40 + i}", "red", "LTST-C150KRKT", x, 233.68, "V12_RLY", rval="4.7k",
+                    ground=f"RLYO{i}")
+    s.text("Relay LEDs D31-D38 on the 12 V side, right behind their terminals: +12 V -> 4.7k -> LED -> OUTn,\n"
+           "lit (~2 mA) when the ULN2803A output is on. Shows the real output state.", 50.8, 264.16, 1.0)
     return s
 
 
 def gpio_sheet():
     s = Sheet("gpio.kicad_sch", "GPIO", 6, "CAN controller: GPIO")
     s.text("Eight 3.3 V GPIO (MCU pins). Each: 4.7k series + BAT54S clamp to +3V3/GND on the MCU side,\n"
-           "so a 24 V short draws ~4.5 mA and the pin stays inside its rails. Own GND terminal per channel.",
+           "so a 24 V short draws ~4.5 mA and the pin stays inside its rails.\n"
+           "J40 SPTD double-level push-in: lower level = GPIO1-8, upper level = GND (one ground per channel).",
            25.4, 25.4)
-    for k in range(2):
-        conn = {}
-        for j in range(4):
-            ch = 4 * k + j + 1
-            conn[str(2 * j + 1)] = f"GPIO{ch}_EXT"
-            conn[str(2 * j + 2)] = "GND"
-            x = 76.2 + j * 30.48
-            y = 60.96 + k * 101.6
-            s.R(f"R{50 + ch}", "4.7k", x, y, f"/GPIO{ch}", f"GPIO{ch}_EXT")
-            s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 10.16, y + 20.32,
-                   {"1": "GND", "2": "+3V3", "3": f"/GPIO{ch}"}, 0, FP["SOT23"], "Nexperia", "BAT54S,215",
-                   ref_at=(x + 15.24, y + 17.78), value_at=(x + 15.24, y + 22.86))
-        s.part("Connector:Screw_Terminal_01x08", f"J{40 + k}", f"GPIO {4 * k + 1}-{4 * k + 4}", 228.6, 76.2 + k * 101.6,
-               conn, 0, FP["MC"].format(n=8), "Phoenix Contact", "1844278",
-               ref_at=(228.6, 63.5 + k * 101.6), value_at=(228.6, 90.17 + k * 101.6))
-    s.text("J40: GPIO1, GND, GPIO2, GND, GPIO3, GND, GPIO4, GND. J41 the same for GPIO5-8.", 190.5, 266.7, 1.0)
+    conn = {}
+    for ch in range(1, 9):
+        conn[str(ch)] = f"GPIO{ch}_EXT"
+        conn[str(8 + ch)] = "GND"
+        x = 76.2 + ((ch - 1) % 4) * 30.48
+        y = 60.96 + ((ch - 1) // 4) * 101.6
+        s.R(f"R{50 + ch}", "4.7k", x, y, f"/GPIO{ch}", f"GPIO{ch}_EXT")
+        s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 10.16, y + 20.32,
+               {"1": "GND", "2": "+3V3", "3": f"/GPIO{ch}"}, 0, FP["SOT23"], "Nexperia", "BAT54S,215",
+               ref_at=(x + 15.24, y + 17.78), value_at=(x + 15.24, y + 22.86))
+    s.part("Connector_Generic:Conn_02x08_Top_Bottom", "J40", "GPIO", 238.76, 116.84, conn, 0, FP["SPTD"].format(n=8),
+           "Phoenix Contact", "1841555", ref_at=(238.76, 101.6), value_at=(238.76, 134.62))
+    s.text("J40 lower level: 1 GPIO1 ... 8 GPIO8; upper level 9-16: GND.", 210.82, 143.51, 1.0)
     return s
 
 
@@ -562,11 +564,11 @@ def aout_sheet():
     s.flag(175.26, 205.74); s.llabel("V13", 175.26, 205.74, 0)
 
     # analog connector: AI1-4 + GND, AO1-2 + GND
-    conn = {"1": "/AI1_EXT", "2": "GND", "3": "/AI2_EXT", "4": "GND", "5": "/AI3_EXT", "6": "GND",
-            "7": "/AI4_EXT", "8": "GND", "9": "AO1_EXT", "10": "GND", "11": "AO2_EXT", "12": "GND"}
-    s.part("Connector:Screw_Terminal_01x12", "J50", "ANALOG", 299.72, 101.6, conn, 0, FP["MC"].format(n=12),
-           "Phoenix Contact", "1844317", ref_at=(299.72, 81.28), value_at=(299.72, 124.46))
-    s.text("J50: 1 AI1, 2 GND, 3 AI2, 4 GND, 5 AI3, 6 GND, 7 AI4, 8 GND,\n9 AO1, 10 GND, 11 AO2, 12 GND.",
+    conn = {"1": "/AI1_EXT", "2": "/AI2_EXT", "3": "/AI3_EXT", "4": "/AI4_EXT", "5": "AO1_EXT", "6": "AO2_EXT"}
+    conn.update({str(6 + k): "GND" for k in range(1, 7)})
+    s.part("Connector_Generic:Conn_02x06_Top_Bottom", "J50", "ANALOG", 304.8, 101.6, conn, 0, FP["SPTD"].format(n=6),
+           "Phoenix Contact", "1841539", ref_at=(304.8, 88.9), value_at=(304.8, 116.84))
+    s.text("J50 SPTD double-level push-in: lower level 1-4 AI1-AI4, 5 AO1, 6 AO2;\nupper level 7-12 GND.",
            276.86, 134.62, 1.0)
     return s
 

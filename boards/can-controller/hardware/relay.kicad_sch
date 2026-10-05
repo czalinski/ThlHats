@@ -2,7 +2,7 @@
 	(version 20260101)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "06b01433-c83f-43ec-9132-e50a8d6e7f40")
+	(uuid "cfd1b852-1019-4221-83b5-eaec6dbe7be5")
 	(paper "A3")
 	(title_block
 		(title "CAN controller: relay drive")
@@ -1786,7 +1786,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:Screw_Terminal_01x09"
+		(symbol "Connector_Generic:Conn_02x08_Top_Bottom"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -1797,7 +1797,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 0 12.7 0)
+				(at 1.27 10.16 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1806,8 +1806,8 @@
 					)
 				)
 			)
-			(property "Value" "Screw_Terminal_01x09"
-				(at 0 -12.7 0)
+			(property "Value" "Conn_02x08_Top_Bottom"
+				(at 1.27 -12.7 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1838,7 +1838,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic screw terminal, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1849,7 +1849,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "screw terminal"
+			(property "ki_keywords" "connector"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1860,7 +1860,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "TerminalBlock*:*"
+			(property "ki_fp_filters" "Connector*:*_2x??_*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1871,10 +1871,10 @@
 					)
 				)
 			)
-			(symbol "Screw_Terminal_01x09_1_1"
+			(symbol "Conn_02x08_Top_Bottom_1_1"
 				(rectangle
-					(start -1.27 11.43)
-					(end 1.27 -11.43)
+					(start -1.27 8.89)
+					(end 3.81 -11.43)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -1883,10 +1883,9 @@
 						(type background)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 10.4902) (xy 0.3302 9.652)
-					)
+				(rectangle
+					(start -1.27 7.747)
+					(end 0 7.493)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1895,10 +1894,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 7.9502) (xy 0.3302 7.112)
-					)
+				(rectangle
+					(start -1.27 5.207)
+					(end 0 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1907,10 +1905,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 5.4102) (xy 0.3302 4.572)
-					)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1919,10 +1916,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 2.8702) (xy 0.3302 2.032)
-					)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1931,10 +1927,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
-					)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1943,10 +1938,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 -2.2098) (xy 0.3302 -3.048)
-					)
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1955,10 +1949,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 -4.7498) (xy 0.3302 -5.588)
-					)
+				(rectangle
+					(start -1.27 -7.493)
+					(end 0 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1967,10 +1960,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 -7.2898) (xy 0.3302 -8.128)
-					)
+				(rectangle
+					(start -1.27 -10.033)
+					(end 0 -10.287)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1979,10 +1971,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.5334 -9.8298) (xy 0.3302 -10.668)
-					)
+				(rectangle
+					(start 3.81 7.747)
+					(end 2.54 7.493)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1991,10 +1982,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 10.668) (xy 0.508 9.8298)
-					)
+				(rectangle
+					(start 3.81 5.207)
+					(end 2.54 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2003,10 +1993,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 8.128) (xy 0.508 7.2898)
-					)
+				(rectangle
+					(start 3.81 2.667)
+					(end 2.54 2.413)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2015,10 +2004,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 5.588) (xy 0.508 4.7498)
-					)
+				(rectangle
+					(start 3.81 0.127)
+					(end 2.54 -0.127)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2027,10 +2015,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 3.048) (xy 0.508 2.2098)
-					)
+				(rectangle
+					(start 3.81 -2.413)
+					(end 2.54 -2.667)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2039,10 +2026,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 0.508) (xy 0.508 -0.3302)
-					)
+				(rectangle
+					(start 3.81 -4.953)
+					(end 2.54 -5.207)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2051,10 +2037,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 -2.032) (xy 0.508 -2.8702)
-					)
+				(rectangle
+					(start 3.81 -7.493)
+					(end 2.54 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2063,133 +2048,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -0.3556 -4.572) (xy 0.508 -5.4102)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.3556 -7.112) (xy 0.508 -7.9502)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.3556 -9.652) (xy 0.508 -10.4902)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 10.16)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 7.62)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 5.08)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 2.54)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 0)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -2.54)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -5.08)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -7.62)
-					(radius 0.635)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -10.16)
-					(radius 0.635)
+				(rectangle
+					(start 3.81 -10.033)
+					(end 2.54 -10.287)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -2199,7 +2060,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 10.16 0)
+					(at -5.08 7.62 0)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -2217,7 +2078,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 7.62 0)
+					(at -5.08 5.08 0)
 					(length 3.81)
 					(name "Pin_2"
 						(effects
@@ -2235,7 +2096,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 5.08 0)
+					(at -5.08 2.54 0)
 					(length 3.81)
 					(name "Pin_3"
 						(effects
@@ -2253,7 +2114,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 2.54 0)
+					(at -5.08 0 0)
 					(length 3.81)
 					(name "Pin_4"
 						(effects
@@ -2271,7 +2132,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "Pin_5"
 						(effects
@@ -2289,7 +2150,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -2.54 0)
+					(at -5.08 -5.08 0)
 					(length 3.81)
 					(name "Pin_6"
 						(effects
@@ -2307,7 +2168,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -5.08 0)
+					(at -5.08 -7.62 0)
 					(length 3.81)
 					(name "Pin_7"
 						(effects
@@ -2325,7 +2186,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -7.62 0)
+					(at -5.08 -10.16 0)
 					(length 3.81)
 					(name "Pin_8"
 						(effects
@@ -2343,7 +2204,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -10.16 0)
+					(at 7.62 7.62 180)
 					(length 3.81)
 					(name "Pin_9"
 						(effects
@@ -2353,6 +2214,132 @@
 						)
 					)
 					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 5.08 180)
+					(length 3.81)
+					(name "Pin_10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 2.54 180)
+					(length 3.81)
+					(name "Pin_11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "Pin_12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 3.81)
+					(name "Pin_13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -5.08 180)
+					(length 3.81)
+					(name "Pin_14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -7.62 180)
+					(length 3.81)
+					(name "Pin_15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -10.16 180)
+					(length 3.81)
+					(name "Pin_16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2705,7 +2692,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Eight relay outputs: MCU -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only (COM).\nEach relay line also drives a logic-side LED (relay on = lit)."
+	(text "Eight relay outputs: MCU -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only (COM).\nEach output has its own +12 V terminal and a 12 V-side LED right behind it."
 		(exclude_from_sim no)
 		(at 25.4 25.4 0)
 		(effects
@@ -2714,7 +2701,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "33b8c18e-d70e-4cec-b83e-f43f9d6bed76")
+		(uuid "a1fb2234-cea8-47a8-9b42-6ef512e7ee53")
 	)
 	(symbol
 		(lib_id "Isolator:ISO6740")
@@ -2724,7 +2711,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1b5a5249-8e00-47c3-8e23-419adfb9bf31")
+		(uuid "deae1e1d-f641-40e2-9257-fdf6b8929c2e")
 		(property "Reference" "U30"
 			(at 101.6 45.72 0)
 			(effects
@@ -2787,56 +2774,56 @@
 			)
 		)
 		(pin "1"
-			(uuid "53ea8611-89a9-4ba5-b364-1b607ae40e5a")
+			(uuid "9d6a4f8c-0e78-458b-b9a4-23ada6ef9002")
 		)
 		(pin "2"
-			(uuid "ffea8697-92fa-49d4-b318-75c0fd41a2cf")
+			(uuid "2847d51c-5567-4f4e-85bd-25a6ef4626a3")
 		)
 		(pin "3"
-			(uuid "a62acd8a-ce09-4b7c-be6b-41cab6cbb213")
+			(uuid "3872eefc-876f-4f33-ba84-999745ef3c25")
 		)
 		(pin "4"
-			(uuid "7f8b527c-b02c-43a8-b120-25748353af43")
+			(uuid "cc4c2920-4f45-4b6c-ad63-6af844cb1269")
 		)
 		(pin "5"
-			(uuid "07152fb2-fa52-4ef8-a3d3-5a4efd10f37a")
+			(uuid "6d29e232-509e-4063-a3a9-339d01839ee1")
 		)
 		(pin "6"
-			(uuid "066beafc-8e23-44d9-84a9-1a62afee66ab")
+			(uuid "6ed003ce-45d9-42d8-9db4-7d807543a858")
 		)
 		(pin "7"
-			(uuid "deb4fe5a-4cd6-49d5-abbd-17f5be62cc9b")
+			(uuid "a90cbe79-3c26-43af-8425-e2c927ce3525")
 		)
 		(pin "8"
-			(uuid "c80cfb6e-1742-4477-95b6-45a87ed4d30d")
+			(uuid "5b1acaf8-6418-49b6-b19b-976f6b53e8b3")
 		)
 		(pin "9"
-			(uuid "9b5548db-aee5-4f89-a6fa-c9f4125956e7")
+			(uuid "7c905f71-7831-49a6-b20a-b4782b6fa39e")
 		)
 		(pin "10"
-			(uuid "b25c0d27-e793-4928-9638-43ee4527582c")
+			(uuid "c5b2cc2d-e9e4-4215-b32c-4663643600c8")
 		)
 		(pin "11"
-			(uuid "0be118ef-2e38-4b6c-b3ad-b7dd14cb77d9")
+			(uuid "94c92754-0dca-4d3b-a083-c22444c92ff0")
 		)
 		(pin "12"
-			(uuid "1f9c4878-5904-46fb-83f3-a2339da42721")
+			(uuid "91ea6a20-0054-499a-8280-5d8725ba247f")
 		)
 		(pin "13"
-			(uuid "d66f0748-87c7-4322-b015-b3afca198754")
+			(uuid "0aa1b286-8c75-4675-9669-948d23393c5e")
 		)
 		(pin "14"
-			(uuid "2d210f7d-76d3-4d83-aecd-f6167009754b")
+			(uuid "58afe450-3464-4c31-b7af-a2c5dca8b8e5")
 		)
 		(pin "15"
-			(uuid "dd04821f-f366-499a-9bb4-ecd3d9ddc6a5")
+			(uuid "9ff98a8d-96a5-48f3-840f-3571b33b0639")
 		)
 		(pin "16"
-			(uuid "6178bfec-d699-448d-9b57-e6d7598beb40")
+			(uuid "001732de-d374-4393-8aac-74768b8bda42")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "U30")
 					(unit 1)
 				)
@@ -2851,7 +2838,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9e59931f-807c-495c-bb28-4d704df28c2c")
+		(uuid "6ee02350-3645-4ccf-a220-91e838d335bb")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2861,7 +2848,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "57ff3dcf-8235-4a51-8149-a4373dba943f")
+		(uuid "48e55036-094c-4803-93e7-e6dd5a18f12a")
 		(property "Reference" "#PWR01"
 			(at 96.52 43.18 0)
 			(hide yes)
@@ -2907,11 +2894,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "7d2c27fe-eb8d-4a83-bb1c-d198f4bc350a")
+			(uuid "ea1de5cd-61b4-40a6-8886-965c87c094eb")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR01")
 					(unit 1)
 				)
@@ -2926,7 +2913,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4bb8212c-6794-43de-8f57-138abdab9e1c")
+		(uuid "042d0074-08d1-4637-a69c-23e3d4e7ea3c")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -2936,7 +2923,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7f3e0cf7-5cd4-49eb-b3bd-d9adde039526")
+		(uuid "c33bef28-0f5e-4b87-b496-77588dcfcf52")
 		(property "Reference" "#PWR02"
 			(at 96.52 78.74 0)
 			(hide yes)
@@ -2982,11 +2969,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "65c4f407-c523-4691-860e-5e4dd370fb4e")
+			(uuid "f3a74b05-e18b-4efa-b6d2-53dcb84d46d2")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR02")
 					(unit 1)
 				)
@@ -3001,7 +2988,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "213cb6da-2df2-4f12-b5b3-52c1bd7754fa")
+		(uuid "4b78ada4-1e6a-4e25-960f-3a327d8b5bce")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3011,7 +2998,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c39dea49-969f-4b01-a49b-f573584f8441")
+		(uuid "5bd4964d-2be5-4752-b78d-3cc8150a94fb")
 		(property "Reference" "#PWR03"
 			(at 96.52 78.74 0)
 			(hide yes)
@@ -3057,11 +3044,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "b5307f40-3b61-4d42-a576-ec5622738220")
+			(uuid "d81fd863-a8bf-47ef-989b-195549c7daf8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR03")
 					(unit 1)
 				)
@@ -3070,7 +3057,7 @@
 	)
 	(no_connect
 		(at 93.98 68.58)
-		(uuid "25cc4b84-7fa7-4915-b492-2cea4f13fb92")
+		(uuid "22e3282a-3442-4ee5-874f-701373f09baa")
 	)
 	(global_label "GND_BUS"
 		(shape bidirectional)
@@ -3082,7 +3069,7 @@
 			)
 			(justify right)
 		)
-		(uuid "43d715d7-e85e-4812-b0ec-2c813b5c7cef")
+		(uuid "58eb5d31-0512-407b-848e-209f6800ed10")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 78.74 0)
 			(effects
@@ -3103,7 +3090,7 @@
 			)
 			(justify right)
 		)
-		(uuid "256e8db8-270b-4b28-8bd4-9e450d47b8ba")
+		(uuid "526a72c2-2349-45f3-bd95-ec292c82a138")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 78.74 0)
 			(effects
@@ -3124,7 +3111,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4df6a173-4fae-489a-abaf-2ed96c6b0ac4")
+		(uuid "248e7f65-4655-4fca-888b-e6e7806a2393")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 48.26 0)
 			(effects
@@ -3145,7 +3132,7 @@
 			)
 			(justify left)
 		)
-		(uuid "beaf6ce8-b326-4790-b768-99bb9745b8ab")
+		(uuid "bb694ce4-138d-4094-bfb3-5ca0ccb50292")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 111.76 68.58 0)
 			(effects
@@ -3166,7 +3153,7 @@
 			)
 			(justify right)
 		)
-		(uuid "ee4808d8-2fb1-4bd3-a181-b4294322b61d")
+		(uuid "e3e6e901-d10a-4d62-86b5-fdd3ab5a8d38")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 58.42 0)
 			(effects
@@ -3185,7 +3172,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b9857d69-9794-4915-81ab-2bb54599a81d")
+		(uuid "7d0e8786-2225-4580-8445-38062a7b16ad")
 	)
 	(global_label "RLY2"
 		(shape bidirectional)
@@ -3197,7 +3184,7 @@
 			)
 			(justify right)
 		)
-		(uuid "568a68bd-1176-4f2f-8c74-c1525900e5c6")
+		(uuid "7f9f15e4-61b7-474c-a711-b4950dce1db8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 60.96 0)
 			(effects
@@ -3216,7 +3203,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "92c65f16-b9b1-4533-9143-491d7720dd49")
+		(uuid "2d64cc60-e466-4d15-8bac-7f2bfc7a75ac")
 	)
 	(global_label "RLY3"
 		(shape bidirectional)
@@ -3228,7 +3215,7 @@
 			)
 			(justify right)
 		)
-		(uuid "7811f78c-7ec6-4405-aff2-62ddf10f1c91")
+		(uuid "70e2962c-d303-4368-9699-570b365373a5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 63.5 0)
 			(effects
@@ -3247,7 +3234,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "00f79ad1-dc71-4fbd-8330-5d8dc08d7972")
+		(uuid "e86c32bd-e194-46d8-a55f-2a1a3b3a79f6")
 	)
 	(global_label "RLY4"
 		(shape bidirectional)
@@ -3259,7 +3246,7 @@
 			)
 			(justify right)
 		)
-		(uuid "f5f431a4-31e8-4288-bc13-3d0ab4aaecd6")
+		(uuid "64e0572c-ab6d-456f-849b-9d373c61c81d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 66.04 0)
 			(effects
@@ -3278,7 +3265,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "22be20cc-1f4b-4a66-8578-a2c34d3c762f")
+		(uuid "2ef06c06-3837-4c84-abf6-2b4026ec20af")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -3288,7 +3275,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "bfe312b5-8d79-4709-ac2a-27917a69f80c")
+		(uuid "1f252163-47bb-4763-9eb7-c2a69d97a09f")
 		(property "Reference" "C40"
 			(at 73.66 46.99 0)
 			(effects
@@ -3352,14 +3339,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "bcb49d03-88da-49d0-9e20-83d806f00499")
+			(uuid "2566d2d1-81f2-4f72-9335-bb36e2e7113f")
 		)
 		(pin "2"
-			(uuid "d42177fd-7502-4561-aa0e-b945e861a672")
+			(uuid "66967d96-9415-49bb-953e-6458c523e403")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "C40")
 					(unit 1)
 				)
@@ -3374,7 +3361,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c046d292-a7d6-4ed6-a21d-2f28e1bbe170")
+		(uuid "76ba546d-d2fa-456a-ba19-110ef90f8451")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3384,7 +3371,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3d93970e-de75-4c61-aee2-2698aeef3145")
+		(uuid "0c2c5587-c55a-454b-87f2-e5461458fd1c")
 		(property "Reference" "#PWR04"
 			(at 71.12 39.37 0)
 			(hide yes)
@@ -3430,11 +3417,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "88c16770-a75a-44c0-8f63-f6f3e8d2c6b9")
+			(uuid "bcab9a70-8ae3-4047-bed1-58e2c0315888")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR04")
 					(unit 1)
 				)
@@ -3449,7 +3436,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c7020fbd-fa70-4133-9de1-1d46023f31c3")
+		(uuid "573a3498-71ec-4355-b06d-041d919aa399")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3459,7 +3446,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "41f1074d-ae96-4d54-b1be-994ff12c22da")
+		(uuid "0dc9e376-c887-4c76-bf47-5c9016d650fc")
 		(property "Reference" "#PWR05"
 			(at 71.12 52.07 0)
 			(hide yes)
@@ -3505,11 +3492,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "fdac06d9-89f9-4c11-8fc4-24e263eecc1c")
+			(uuid "9258d9d9-841c-4699-b352-348d477a7dec")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR05")
 					(unit 1)
 				)
@@ -3524,7 +3511,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "419b1fe3-54d3-46c2-8bd4-905df74455a9")
+		(uuid "648b0e23-a5d1-4074-bba0-74f7916c50bd")
 		(property "Reference" "C41"
 			(at 134.62 46.99 0)
 			(effects
@@ -3588,14 +3575,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "fdd5658a-b735-44a2-ad2a-c786811d7064")
+			(uuid "d2b56d3a-5326-4976-9767-44e5a9a7d279")
 		)
 		(pin "2"
-			(uuid "62cdeebd-cd5f-4493-a71c-d1ce816954ef")
+			(uuid "cfffbf83-b66d-45b9-a68c-8a4b835a50e8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "C41")
 					(unit 1)
 				)
@@ -3612,7 +3599,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7b907412-5812-4333-9a7c-baca10421af2")
+		(uuid "e439f2e7-a9f9-462a-bee8-19d3ef5b185a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 132.08 44.45 0)
 			(effects
@@ -3633,7 +3620,7 @@
 			)
 			(justify right)
 		)
-		(uuid "bee44506-6026-4a7d-b91a-6713d8947a92")
+		(uuid "cd58f5b5-39de-4ac4-8844-6ee0c255c4fb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 132.08 52.07 0)
 			(effects
@@ -3652,7 +3639,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b933baea-d2b8-4e95-a61f-b63711299cfe")
+		(uuid "164a4aad-d830-4815-bc12-baabc38319c3")
 		(property "Reference" "U31"
 			(at 101.6 116.84 0)
 			(effects
@@ -3715,56 +3702,56 @@
 			)
 		)
 		(pin "1"
-			(uuid "8f68afd7-6e4e-4e73-8369-b78e43d17f5d")
+			(uuid "8a4720b6-dc2e-4c5f-844b-1021925cdae3")
 		)
 		(pin "2"
-			(uuid "da8226b3-b795-4e52-8eca-1095e166d9e2")
+			(uuid "937015ae-2096-448f-99fe-1d93a0247615")
 		)
 		(pin "3"
-			(uuid "1f1c4b1a-22f1-4b09-90d8-fb913031207d")
+			(uuid "1d417da0-b1e0-47ee-bc56-b53aacb55787")
 		)
 		(pin "4"
-			(uuid "d0057414-4fd4-40be-9d09-ce8bf855bce6")
+			(uuid "93aadbe3-edf7-49a2-bbba-e77712195c0f")
 		)
 		(pin "5"
-			(uuid "5ad2d16e-4040-4023-bd01-ee19fb9cf1ed")
+			(uuid "847d3ddb-663d-4fef-b5bb-887fd1365ae0")
 		)
 		(pin "6"
-			(uuid "3b8864b4-6fc4-424e-87d9-b065fc8b28b2")
+			(uuid "b4091296-cf03-4cab-a251-0f78506fd054")
 		)
 		(pin "7"
-			(uuid "38fbb194-7ef4-4787-ae01-52e39fd65691")
+			(uuid "05396b5d-b754-47d2-a045-f55e51b384b3")
 		)
 		(pin "8"
-			(uuid "b298e02d-35d1-4586-be3b-efaa6a9314b3")
+			(uuid "84d35769-ba3b-49fa-a139-8fe907168c1c")
 		)
 		(pin "9"
-			(uuid "10dc5000-174d-4f1a-b6a3-e20ccc665279")
+			(uuid "58fcce01-8c97-428e-92c7-dfc16b38434a")
 		)
 		(pin "10"
-			(uuid "4927e80d-310b-4a77-84c4-1407b0c63f2c")
+			(uuid "334891c7-5686-4494-8f9e-c01d6b7af5b6")
 		)
 		(pin "11"
-			(uuid "b3217a60-0fb2-4c48-a6e7-04976372c88a")
+			(uuid "0cacc289-4073-4356-bcb4-73dfa580b208")
 		)
 		(pin "12"
-			(uuid "dd78b110-09d3-46a9-921e-f3bee0856ce1")
+			(uuid "6351efd9-7ffc-4b66-aa36-ab5e47662801")
 		)
 		(pin "13"
-			(uuid "baea5db8-a0fd-41f2-a60d-523e04e7e94c")
+			(uuid "230eb3b5-7ffd-4ed9-9b08-b1bf285c46c1")
 		)
 		(pin "14"
-			(uuid "1e2210cd-a798-45b9-88fe-92ef5fff31db")
+			(uuid "15daef0a-231f-499b-80b1-47c6c5e7bbc9")
 		)
 		(pin "15"
-			(uuid "5ad7e8c5-2730-4b0f-bee6-1132f2114e12")
+			(uuid "2a380113-a0fa-411f-a84a-caddafcfc022")
 		)
 		(pin "16"
-			(uuid "73edd09e-9c02-49d1-88c9-7a9b2ae7dac9")
+			(uuid "3463fc31-bab8-429d-8d56-e8593fe24179")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "U31")
 					(unit 1)
 				)
@@ -3779,7 +3766,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0f269204-0065-4f46-bece-4ad23334605e")
+		(uuid "37405ee7-d243-4284-8f09-8e2809ea2ffd")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -3789,7 +3776,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "122dab17-c770-4c80-9622-5e03c7a1d98e")
+		(uuid "0693e7c6-1468-4acb-87db-99ae64b7391c")
 		(property "Reference" "#PWR06"
 			(at 96.52 114.3 0)
 			(hide yes)
@@ -3835,11 +3822,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "380bb2ca-0830-4bad-8995-abfc874c3e19")
+			(uuid "29874396-2944-4a7f-b6f1-0c96676fbff0")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR06")
 					(unit 1)
 				)
@@ -3854,7 +3841,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "53093726-cfbc-4e32-b09f-20fffc68b374")
+		(uuid "67618045-8ae2-4d2a-909f-24c648ae2a93")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3864,7 +3851,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e4f62f51-fb07-4c36-8d25-c62f89782016")
+		(uuid "2e59071e-33ec-4125-b01a-f9a8f81f6bec")
 		(property "Reference" "#PWR07"
 			(at 96.52 149.86 0)
 			(hide yes)
@@ -3910,11 +3897,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "df42600f-8bf8-470f-960c-6a528582b9bf")
+			(uuid "8cfdba1d-80ad-4617-a723-38b3c41d3b27")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR07")
 					(unit 1)
 				)
@@ -3929,7 +3916,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "503c2dbb-8c33-4079-842c-f4ebb95edf52")
+		(uuid "f55f68cf-4037-4a91-9c47-e1f5c10eaed3")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -3939,7 +3926,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "60647858-7b56-4a70-a172-9691dccefc73")
+		(uuid "c34d0a0c-440f-4596-b924-8b00552eed53")
 		(property "Reference" "#PWR08"
 			(at 96.52 149.86 0)
 			(hide yes)
@@ -3985,11 +3972,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "f752651e-ae7d-4bf1-9ade-e3f3a7f29bf7")
+			(uuid "39b3b62a-7a45-4732-878a-5001ae83a280")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR08")
 					(unit 1)
 				)
@@ -3998,7 +3985,7 @@
 	)
 	(no_connect
 		(at 93.98 139.7)
-		(uuid "1371757e-7600-443a-b8a4-86c98df461ac")
+		(uuid "ac0e865c-0dbd-4277-98e4-aeface944bd3")
 	)
 	(global_label "GND_BUS"
 		(shape bidirectional)
@@ -4010,7 +3997,7 @@
 			)
 			(justify right)
 		)
-		(uuid "14e129e9-f583-4d88-ab28-ac32ae91a8be")
+		(uuid "84120193-cf4f-489d-814c-f5bb0f1d24e4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 149.86 0)
 			(effects
@@ -4031,7 +4018,7 @@
 			)
 			(justify right)
 		)
-		(uuid "665e089c-8e9d-4386-ae78-1411ec1d9832")
+		(uuid "928d5dc4-e3b0-46f1-8342-8b916375f867")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 149.86 0)
 			(effects
@@ -4052,7 +4039,7 @@
 			)
 			(justify left)
 		)
-		(uuid "b0a39d06-c99a-42d0-a1dd-fe281fdd01be")
+		(uuid "f084a2e5-ebcb-46fb-9f13-333bfdefac59")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.68 119.38 0)
 			(effects
@@ -4073,7 +4060,7 @@
 			)
 			(justify left)
 		)
-		(uuid "e8f01104-d0de-48e2-954c-f7b06e1ddd5b")
+		(uuid "3373f72d-5c4c-4522-ace9-67a53848cf25")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 111.76 139.7 0)
 			(effects
@@ -4094,7 +4081,7 @@
 			)
 			(justify right)
 		)
-		(uuid "3738d442-6342-4dee-86c3-2cdcc122ea7d")
+		(uuid "bcb9c16f-e6c7-4168-849a-9f5797012e19")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 129.54 0)
 			(effects
@@ -4113,7 +4100,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5a4f0fdb-a8d4-4a04-ba79-b7833a875b32")
+		(uuid "cce58328-e0ca-4916-8f9f-d8f904a52fa5")
 	)
 	(global_label "RLY6"
 		(shape bidirectional)
@@ -4125,7 +4112,7 @@
 			)
 			(justify right)
 		)
-		(uuid "fbbd3f98-b371-4dc3-9aab-2819d4e3708f")
+		(uuid "d06d2f8a-9b5c-432c-8032-94385094e432")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 132.08 0)
 			(effects
@@ -4144,7 +4131,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "cb35b824-1313-45c8-a31d-ff4c120d22c6")
+		(uuid "14aec568-060b-438e-9ef4-4ebb1dc054ba")
 	)
 	(global_label "RLY7"
 		(shape bidirectional)
@@ -4156,7 +4143,7 @@
 			)
 			(justify right)
 		)
-		(uuid "9b250e41-ba78-46cb-9396-ba3bdc35c011")
+		(uuid "fec41547-6673-45a6-a30c-a4408608985a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 134.62 0)
 			(effects
@@ -4175,7 +4162,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "60a7aa42-12fd-4a7d-9eae-067ac489ad99")
+		(uuid "c070d280-f718-4908-a703-a2224afe8586")
 	)
 	(global_label "RLY8"
 		(shape bidirectional)
@@ -4187,7 +4174,7 @@
 			)
 			(justify right)
 		)
-		(uuid "063a3d73-eb22-4463-98f3-474e708902eb")
+		(uuid "65fad3dc-ca5d-48f1-85dc-4d938001870d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.44 137.16 0)
 			(effects
@@ -4206,7 +4193,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "537cec64-5c51-4675-885f-4bcfa5a76749")
+		(uuid "8ff21da6-1e4e-4c21-b0a6-7db12d6d8de4")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -4216,7 +4203,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6c6d079c-960a-450d-8973-2c8904ece189")
+		(uuid "970e6942-9a77-4440-afe7-0348cca67af9")
 		(property "Reference" "C42"
 			(at 73.66 118.11 0)
 			(effects
@@ -4280,14 +4267,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "ab24c6c9-369b-4c33-be39-6abbd09ee657")
+			(uuid "ecda60fa-b4db-4857-8af8-4b3ca3efa54f")
 		)
 		(pin "2"
-			(uuid "71b09218-0b7c-4f27-b2e1-9d28c690f34d")
+			(uuid "a7f60448-dab3-489d-8eb8-40de1c97318c")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "C42")
 					(unit 1)
 				)
@@ -4302,7 +4289,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "79f88ae3-2c64-405b-8adf-83212d950574")
+		(uuid "407077b2-6f22-4ae8-a5c0-4640b61c510e")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -4312,7 +4299,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "26cf3bc8-5e1d-4ac1-a429-d2ac9cad264f")
+		(uuid "44f4dbf8-00d0-4f65-ae98-b5e947ebd914")
 		(property "Reference" "#PWR09"
 			(at 71.12 110.49 0)
 			(hide yes)
@@ -4358,11 +4345,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "b8b88fbc-490e-4c54-877e-58f75f874324")
+			(uuid "97c6666c-6fb5-4dd9-a356-c6bf55c5b5df")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR09")
 					(unit 1)
 				)
@@ -4377,7 +4364,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3ed1fe89-a49c-41b1-bd36-7b2c17ebca62")
+		(uuid "9af6bd33-ab23-48be-a022-8e7119855904")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -4387,7 +4374,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5751f9da-8632-4653-9e62-f634706a5880")
+		(uuid "1efaa793-d974-4acf-8adc-c597d1c1e6d5")
 		(property "Reference" "#PWR10"
 			(at 71.12 123.19 0)
 			(hide yes)
@@ -4433,11 +4420,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "8d3cfd39-d39b-45a3-93e3-2615a8d0f8a3")
+			(uuid "de15cb09-49ee-4f8e-b3f4-a54167a40b4c")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR10")
 					(unit 1)
 				)
@@ -4452,7 +4439,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fb8641d8-abb6-4dbb-ab4e-272db213ba5e")
+		(uuid "76345c9a-1f01-44e5-981b-f5130cb2e390")
 		(property "Reference" "C43"
 			(at 134.62 118.11 0)
 			(effects
@@ -4516,14 +4503,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "509f9d40-9d20-498b-acda-9ab5da6a9f82")
+			(uuid "08d4d9d9-5058-4fa2-9cb5-9f44315d6a1f")
 		)
 		(pin "2"
-			(uuid "e30aaffd-80ad-4828-a038-fbd96f6fc0a6")
+			(uuid "574b5aa6-968d-440c-ace2-5a6b16b41b9f")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "C43")
 					(unit 1)
 				)
@@ -4540,7 +4527,7 @@
 			)
 			(justify left)
 		)
-		(uuid "ff9427e2-05ca-487b-b726-7a088db470b8")
+		(uuid "4b88b412-f382-46fb-9438-89b27c46b07d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 132.08 115.57 0)
 			(effects
@@ -4561,7 +4548,7 @@
 			)
 			(justify right)
 		)
-		(uuid "8d507273-561d-42a5-bab9-409b0bbcdf55")
+		(uuid "ff162d8c-fe9b-42a3-ae42-206f61c18619")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 132.08 123.19 0)
 			(effects
@@ -4581,7 +4568,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3d2bcd31-d682-4a11-aadf-5e98f0f37343")
+		(uuid "e6c448c2-ce22-4ae2-bb5d-f5cfb2fa164c")
 	)
 	(symbol
 		(lib_id "Transistor_Array:ULN2803A")
@@ -4591,7 +4578,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b32f8e3a-7b50-43b2-abd7-e5ec684ffb06")
+		(uuid "a8081ece-f0a0-47b2-9e23-97216b48b9c6")
 		(property "Reference" "U32"
 			(at 190.5 81.28 0)
 			(effects
@@ -4654,62 +4641,62 @@
 			)
 		)
 		(pin "1"
-			(uuid "ec274807-69e3-4c1e-b36f-9e3c4aac40b8")
+			(uuid "268d919a-97ce-4812-ae86-26a52cf75a10")
 		)
 		(pin "2"
-			(uuid "a0377017-d818-40e8-8c61-27d18c159fa6")
+			(uuid "34bd37bf-54bd-4490-b93a-bc656e27ade0")
 		)
 		(pin "3"
-			(uuid "a24ae53b-a0f9-4300-a4b9-4a806f76775c")
+			(uuid "2407abd2-617c-49a0-a8cb-70582111ed00")
 		)
 		(pin "4"
-			(uuid "bf22d04e-445b-4a48-b499-e9c74be2ba6a")
+			(uuid "5f2a3ae5-6b00-4c2b-ae84-40df347df2e8")
 		)
 		(pin "5"
-			(uuid "aa11c785-16a9-4c73-a6b8-ef5dcf660d54")
+			(uuid "60ccff50-2835-49a7-b811-d44c6bf0dfcf")
 		)
 		(pin "6"
-			(uuid "97280edc-ec49-46cb-b425-c582c34ddbd2")
+			(uuid "96768d91-b859-4c02-bcc4-9eca11f21deb")
 		)
 		(pin "7"
-			(uuid "1b3e3b23-5039-4446-a1a9-83e7250587e0")
+			(uuid "2340c4e5-abae-40de-86c3-c42168cc6f8a")
 		)
 		(pin "8"
-			(uuid "c03a3725-be8a-4de8-9ec4-50a124f153bf")
+			(uuid "1b057b61-831e-4d80-8228-e1e453f559d1")
 		)
 		(pin "9"
-			(uuid "da132e7c-8277-49f6-86d2-5bc80efd4c16")
+			(uuid "cbe26256-2917-48d7-a98c-12c1b84e04d2")
 		)
 		(pin "10"
-			(uuid "ac67937f-3d4c-47b6-b39a-d4bae23d0f93")
+			(uuid "78b5991e-9998-4927-94f8-9be328e70ea5")
 		)
 		(pin "11"
-			(uuid "8bac6311-6c5c-41ca-9bb9-404687eab415")
+			(uuid "e3011492-a0c9-4fc8-9274-88e1617f8307")
 		)
 		(pin "12"
-			(uuid "8618dd92-6333-4d0e-b5aa-915a89625cde")
+			(uuid "b7f06a8b-9b54-4d7e-ad5c-012a0cb1d57b")
 		)
 		(pin "13"
-			(uuid "fa1412d6-031d-482b-a3ed-2f54c032dcc5")
+			(uuid "be2307d1-536f-45f1-830c-f0da3250aec6")
 		)
 		(pin "14"
-			(uuid "f513d904-2c4e-4bfd-807c-2826c6eea438")
+			(uuid "ae70849d-53d6-4730-aefb-734611bcb3e3")
 		)
 		(pin "15"
-			(uuid "0d7cf414-4a4e-4ce9-bcb1-1d6a170499f7")
+			(uuid "b8a0fa3a-11e4-49a5-9ff0-1bf11d190200")
 		)
 		(pin "16"
-			(uuid "86b60678-9a09-4b5b-9027-7e51c6684a9d")
+			(uuid "f38a70bc-e10a-40cc-b55b-7c70a878a0df")
 		)
 		(pin "17"
-			(uuid "9dceb6ea-38f7-4776-a9dc-48d4a1daf75e")
+			(uuid "9234a1de-84bb-40a3-a028-a2b9db96c148")
 		)
 		(pin "18"
-			(uuid "b777d3b3-9972-465f-b99b-399136c3797e")
+			(uuid "7c99c5a2-1487-4a9e-92c8-91b34ef08b9e")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "U32")
 					(unit 1)
 				)
@@ -4724,7 +4711,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0f05fbf2-d683-40ac-b6b2-047374d4c429")
+		(uuid "c8b592b2-ff70-4888-8ccf-c56cdb91fcc4")
 	)
 	(label "RLYD2"
 		(at 180.34 96.52 180)
@@ -4734,7 +4721,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "71fefba0-d56e-4bb3-bb3c-9dccb6dc7602")
+		(uuid "8f311bcc-eccd-4ef1-be23-32d1b769e76c")
 	)
 	(label "RLYD3"
 		(at 180.34 99.06 180)
@@ -4744,7 +4731,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "a7f2c6fb-e584-4fac-9608-b2e868f42f06")
+		(uuid "84b8bb4b-4c2e-47bc-b6d7-12b8f1a4865e")
 	)
 	(label "RLYD4"
 		(at 180.34 101.6 180)
@@ -4754,7 +4741,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "17a4ce04-b48b-4a36-95f5-41cda5befe7c")
+		(uuid "84c95d10-215c-40c8-a280-64df3dc7ebf0")
 	)
 	(label "RLYD5"
 		(at 180.34 104.14 180)
@@ -4764,7 +4751,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "00898d8a-d3e4-43d6-bf5d-bd223b9523f6")
+		(uuid "bdd32d96-0b64-4de6-99de-8c2ad28b3c63")
 	)
 	(label "RLYD6"
 		(at 180.34 106.68 180)
@@ -4774,7 +4761,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f628de75-3ecb-406d-a12c-abadf4c5697b")
+		(uuid "a8d17d74-e46c-4b52-8bef-4569fccd423b")
 	)
 	(label "RLYD7"
 		(at 180.34 109.22 180)
@@ -4784,7 +4771,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "4061bb7c-1d71-45aa-9858-41cc880374c2")
+		(uuid "d81d170e-49df-4a11-bd6b-6e52c1c6520b")
 	)
 	(label "RLYD8"
 		(at 180.34 111.76 180)
@@ -4794,7 +4781,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "b79dabb3-c0ee-45e3-bb42-7226d1b065ed")
+		(uuid "0a6096a7-1b32-466e-93d4-5c376ff13405")
 	)
 	(global_label "GND_BUS"
 		(shape bidirectional)
@@ -4806,7 +4793,7 @@
 			)
 			(justify right)
 		)
-		(uuid "eae306fb-3fe2-4b22-ba60-a5ec31d3e00e")
+		(uuid "c53428d3-770b-43cf-8d82-69b142c53b54")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 190.5 116.84 0)
 			(effects
@@ -4825,7 +4812,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ba551832-3da8-46b7-a963-add0381801aa")
+		(uuid "594330a4-7566-4a72-b788-ff60345637c1")
 	)
 	(label "RLYO1"
 		(at 200.66 93.98 0)
@@ -4835,7 +4822,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "0d3864f9-e9b5-45de-a088-ed3fece3f1c5")
+		(uuid "3a149749-6b3b-4f54-932a-52c148f497cd")
 	)
 	(label "RLYO2"
 		(at 200.66 96.52 0)
@@ -4845,7 +4832,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "49eecd81-bfea-4646-aaf2-1efbda499c84")
+		(uuid "f3e34b9b-2a21-474f-b407-f2664f0e5952")
 	)
 	(label "RLYO3"
 		(at 200.66 99.06 0)
@@ -4855,7 +4842,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "43f08f72-ea6d-4745-9210-e1456029f408")
+		(uuid "f4a50a4e-40e6-4739-aa4d-a52d425bf217")
 	)
 	(label "RLYO4"
 		(at 200.66 101.6 0)
@@ -4865,7 +4852,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "af108338-b223-4903-af39-111255943669")
+		(uuid "d971d302-62ba-4e1d-9cb4-d49bda07eb98")
 	)
 	(label "RLYO5"
 		(at 200.66 104.14 0)
@@ -4875,7 +4862,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5613512a-6ebd-4130-a3ed-7625d3f24b72")
+		(uuid "7d26ffe3-63a1-4c27-8ad1-04da9d062f7b")
 	)
 	(label "RLYO6"
 		(at 200.66 106.68 0)
@@ -4885,7 +4872,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "66126705-6166-44f4-b5ad-f9f6cda7dedc")
+		(uuid "cc64a2f9-a812-4fd8-8baf-1950f40c8884")
 	)
 	(label "RLYO7"
 		(at 200.66 109.22 0)
@@ -4895,7 +4882,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1153ab9a-071c-40cc-9fa3-14234124c201")
+		(uuid "0c86f2f8-476d-4ae5-a9ed-c77d5f9edb47")
 	)
 	(label "RLYO8"
 		(at 200.66 111.76 0)
@@ -4905,7 +4892,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "13a230a4-34bc-44a1-917a-96048cac5e58")
+		(uuid "d5223314-8428-43a1-8035-e15cdbf37300")
 	)
 	(symbol
 		(lib_id "Device:Polyfuse")
@@ -4915,7 +4902,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "74aafbc6-d405-4e10-a705-bb0f749761c6")
+		(uuid "e0f92317-8b77-417e-819b-89a22b1b96a6")
 		(property "Reference" "F30"
 			(at 213.36 59.69 0)
 			(effects
@@ -4978,14 +4965,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "1adddbd0-f7e9-450f-8a2b-2804ae47a6d5")
+			(uuid "90bb3017-ac3e-4ddb-afd5-517425e495f5")
 		)
 		(pin "2"
-			(uuid "d7f9e614-6c79-427b-b516-474adc597a39")
+			(uuid "172d421d-0698-4528-a6a0-b288bf269cbf")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "F30")
 					(unit 1)
 				)
@@ -5000,7 +4987,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6a141881-7413-4286-a014-353d2141ef78")
+		(uuid "3d433611-ad74-42e1-90dc-82bf60c9599d")
 	)
 	(symbol
 		(lib_id "power:+12V")
@@ -5010,7 +4997,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c9a4153a-bc42-4fae-b7c9-5d38a338e16d")
+		(uuid "db06ede3-d2be-4784-b1f0-19656091e20e")
 		(property "Reference" "#PWR11"
 			(at 207.01 60.96 0)
 			(hide yes)
@@ -5056,11 +5043,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "8299b724-2091-4d01-a7b9-f3cea73dcb05")
+			(uuid "12615753-2376-4d72-8ecc-0bbd4e245393")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "#PWR11")
 					(unit 1)
 				)
@@ -5075,7 +5062,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "370dd11a-b82c-459d-b5d6-75ffc620fffc")
+		(uuid "ce2d2367-2400-4c88-9b9b-e4a994f4e379")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -5085,7 +5072,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "80fae2b4-1ecf-4d35-b4bd-cb142242ff16")
+		(uuid "88afc93f-656d-49d2-b7e1-823ad36f5131")
 		(property "Reference" "C44"
 			(at 231.14 74.93 0)
 			(effects
@@ -5149,14 +5136,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "0ccb426e-a436-4200-9591-30718ddda93e")
+			(uuid "26b04356-5384-4032-b619-5612bbf6e98f")
 		)
 		(pin "2"
-			(uuid "c9aa4ae1-d641-420b-9a88-055ccf2c537b")
+			(uuid "e8eecd76-aa7a-4301-b17b-424e6feecc9f")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "C44")
 					(unit 1)
 				)
@@ -5171,7 +5158,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "27ec20a8-1c69-440a-96ab-2bb20c46f008")
+		(uuid "fe099891-880f-4b9c-acf3-7c865da95348")
 	)
 	(global_label "GND_BUS"
 		(shape bidirectional)
@@ -5183,7 +5170,7 @@
 			)
 			(justify right)
 		)
-		(uuid "043df5e8-90b4-4e40-ab15-ac70e3ff50bf")
+		(uuid "78842774-0bb8-480d-a34e-16a15b4dddaa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 228.6 80.01 0)
 			(effects
@@ -5195,16 +5182,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Screw_Terminal_01x09")
-		(at 264.16 99.06 0)
+		(lib_id "Connector_Generic:Conn_02x08_Top_Bottom")
+		(at 271.78 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "35580d3f-9535-40f0-b450-b1d335a9860e")
+		(uuid "3fb5696c-9bfc-49c5-93db-6c2c1c9e0930")
 		(property "Reference" "J30"
-			(at 264.16 83.82 0)
+			(at 271.78 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5212,15 +5199,15 @@
 			)
 		)
 		(property "Value" "RELAY"
-			(at 264.16 115.57 0)
+			(at 271.78 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Connector_Phoenix_MC:PhoenixContact_MC_1,5_9-G-3.5_1x09_P3.50mm_Horizontal"
-			(at 264.16 99.06 0)
+		(property "Footprint" "Thl_Connector:PhoenixContact_SPTD_1,5_8-H-3,5_2x08_P3.5mm_Horizontal"
+			(at 271.78 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -5229,7 +5216,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 264.16 99.06 0)
+			(at 271.78 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -5238,7 +5225,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 264.16 99.06 0)
+			(at 271.78 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -5247,7 +5234,7 @@
 			)
 		)
 		(property "Manufacturer" "Phoenix Contact"
-			(at 264.16 99.06 0)
+			(at 271.78 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -5255,8 +5242,8 @@
 				)
 			)
 		)
-		(property "MPN" "1844281"
-			(at 264.16 99.06 0)
+		(property "MPN" "1841555"
+			(at 271.78 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -5265,35 +5252,56 @@
 			)
 		)
 		(pin "1"
-			(uuid "eb682620-e0d7-4ac3-a440-33777f1fecb9")
+			(uuid "7d3645ce-41e9-4208-a712-8c24d4d8ed83")
 		)
 		(pin "2"
-			(uuid "f33e3916-4058-4a32-a3a6-b06554d06904")
+			(uuid "16c15389-09ea-43a3-8367-9fef6ced9cb0")
 		)
 		(pin "3"
-			(uuid "8c07dc0a-a780-45e7-8940-ca2f2fdb5805")
+			(uuid "28463a6f-60d4-467d-a278-6180d5b148ba")
 		)
 		(pin "4"
-			(uuid "0ede404d-28d3-43ae-bade-d963150943c3")
+			(uuid "661cdf29-09c6-41c9-8a77-6c1c9154e726")
 		)
 		(pin "5"
-			(uuid "d605d47e-587b-45c7-8a8b-e7baf6b798ff")
+			(uuid "1f19b8fd-aa51-4d49-9a76-f4f2c2af0e94")
 		)
 		(pin "6"
-			(uuid "9001f0ad-64e2-4f42-a664-a2456b6b9827")
+			(uuid "26d005b0-6935-4bf7-9bd7-a2d7167b7d53")
 		)
 		(pin "7"
-			(uuid "94c0472c-aac3-49ab-8854-53d012e512b6")
+			(uuid "7ebe51c2-cec7-45e0-9cae-6300370f22a1")
 		)
 		(pin "8"
-			(uuid "0b1191db-4565-41eb-a44c-a6b99b2ffcb9")
+			(uuid "e2e25eaa-359b-4f64-9813-a495422f01cb")
 		)
 		(pin "9"
-			(uuid "f9291a31-82dd-4649-b5a9-976e9e1487bb")
+			(uuid "9a339bc3-b7e0-470f-8336-3446bb7cb72c")
+		)
+		(pin "10"
+			(uuid "d4758166-6112-45e6-948c-8b2f58507495")
+		)
+		(pin "11"
+			(uuid "60c8eb1a-db5f-4b03-afee-e711188d9ac5")
+		)
+		(pin "12"
+			(uuid "f5176d43-c6bc-44fe-874f-8ac472cd8a30")
+		)
+		(pin "13"
+			(uuid "c6c04538-57b4-42d5-82c8-a93d5e325af3")
+		)
+		(pin "14"
+			(uuid "b10dbf18-0885-4738-a8d1-b5e5a1fa41f2")
+		)
+		(pin "15"
+			(uuid "4d5ce6bc-1d5b-4b89-a0a2-133cb992ae0f")
+		)
+		(pin "16"
+			(uuid "105cdd06-7063-4bc2-bd25-60a9affc6cab")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "J30")
 					(unit 1)
 				)
@@ -5301,96 +5309,166 @@
 		)
 	)
 	(label "RLYO1"
-		(at 259.08 88.9 180)
+		(at 266.7 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "402a5030-c426-4f51-acf4-80576c128e55")
+		(uuid "4e213b6b-0d98-4a1c-abe0-237d5af71e03")
 	)
 	(label "RLYO2"
-		(at 259.08 91.44 180)
+		(at 266.7 93.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "0107faf6-6de3-489b-a933-4813429714eb")
+		(uuid "d7eacbda-0cdf-46fe-af92-12ec484a18dc")
 	)
 	(label "RLYO3"
-		(at 259.08 93.98 180)
+		(at 266.7 96.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "ef4101a3-39d8-452c-b7d2-d7791f2d25c5")
+		(uuid "d55096df-1e1e-47c3-8ae5-5e56dd1eec68")
 	)
 	(label "RLYO4"
-		(at 259.08 96.52 180)
+		(at 266.7 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "9cfdd82c-c7ac-4577-875b-2e70d64990c8")
+		(uuid "b5d83d9f-e9a4-48fb-93af-de94b0b6d699")
 	)
 	(label "RLYO5"
-		(at 259.08 99.06 180)
+		(at 266.7 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "ede3c349-462f-498b-a589-9a482ed47695")
+		(uuid "c6ce6326-b0b9-464d-b84e-cfe41530f3ef")
 	)
 	(label "RLYO6"
-		(at 259.08 101.6 180)
+		(at 266.7 104.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "93014c17-30d1-4041-8359-6200a01a0cce")
+		(uuid "42bc4c00-3462-46af-805c-f2b8cd1df3f0")
 	)
 	(label "RLYO7"
-		(at 259.08 104.14 180)
+		(at 266.7 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "8d497fa7-bfde-4e44-b284-f45f78ffa8a1")
+		(uuid "ce6243aa-046a-41f2-90f0-018b06638506")
 	)
 	(label "RLYO8"
-		(at 259.08 106.68 180)
+		(at 266.7 109.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "22462dc9-12e6-448e-acd0-f45b29f0a285")
+		(uuid "aa8010ec-68aa-43f7-ad6f-5d7a521510fd")
 	)
 	(label "V12_RLY"
-		(at 259.08 109.22 180)
+		(at 279.4 91.44 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "533bccd1-d3ef-4567-bb20-b966ace67d37")
+		(uuid "46a39b7f-5a9c-4bb3-acaa-17b4b01a545f")
 	)
-	(text "J30: 1-8 relay coil low sides (ULN2803A, flyback diodes to COM), 9 +12 V coil supply (F30).\nRelay coil from pin 9 to pin n. Max about 300 mA per output, 1.1 A total (F30)."
+	(label "V12_RLY"
+		(at 279.4 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "49f4d044-89d1-42da-af75-824bbfa4f0ad")
+	)
+	(label "V12_RLY"
+		(at 279.4 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8df4ef25-d401-4195-9dcd-50c9b3e754bd")
+	)
+	(label "V12_RLY"
+		(at 279.4 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "669f528f-0c6e-49c8-82ae-75c94fd43c43")
+	)
+	(label "V12_RLY"
+		(at 279.4 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5af37417-b9b9-4494-bb2a-6c0a2dae6595")
+	)
+	(label "V12_RLY"
+		(at 279.4 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f0a65f3f-ef7f-426b-b9ce-b73a7fdbaf27")
+	)
+	(label "V12_RLY"
+		(at 279.4 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1890edd6-7777-4bc1-aa23-3e996d77c9a4")
+	)
+	(label "V12_RLY"
+		(at 279.4 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b730db9b-1901-4fae-bb41-23ba61b6af4e")
+	)
+	(text "J30 (SPTD 1,5/8-H-3,5, double-level push-in): lower level 1-8 = OUT1-8 (ULN2803A low side),\nupper level 9-16 = +12 V coil supply (F30). Each relay coil goes between OUTn and the +12 V\nterminal right above it. Max about 300 mA per output, 1.1 A total (F30)."
 		(exclude_from_sim no)
 		(at 213.36 127 0)
 		(effects
@@ -5399,7 +5477,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "0cbed1d3-44d6-43c0-b514-a3328c814969")
+		(uuid "b3da1c13-aa13-46c0-b8c3-53e4b0d06d56")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -5409,7 +5487,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c94f0304-8472-4763-92a8-0cb0bd939084")
+		(uuid "2a5dd2b0-fb17-4960-ae2d-4d0f5cf925f1")
 		(property "Reference" "R41"
 			(at 53.34 232.41 0)
 			(effects
@@ -5418,7 +5496,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 53.34 234.95 0)
 			(effects
 				(font
@@ -5463,7 +5541,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 50.8 233.68 0)
 			(hide yes)
 			(effects
@@ -5473,40 +5551,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "3a9b6b78-1670-4acc-9080-61a9cc87e723")
+			(uuid "4a767384-1a0f-4588-9973-03b47164d9b2")
 		)
 		(pin "2"
-			(uuid "370be4c4-44b3-4abd-8630-84818d3e416e")
+			(uuid "8a901b09-2a96-4a89-9cf5-116024568fe6")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R41")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY1"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 50.8 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "ded4ddcc-29fd-4b2e-ad22-d808f2fd71aa")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 50.8 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "a8df8854-9a9c-4168-949b-26e73381af8c")
 	)
 	(label "D31_A"
 		(at 50.8 237.49 270)
@@ -5516,7 +5583,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "43b332c7-3925-47a1-b095-8ece9229d9fd")
+		(uuid "094c2f42-862b-40ab-9709-be509d778a39")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -5526,7 +5593,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "36719074-a41e-46dd-a637-e477293fa012")
+		(uuid "b03f12a1-2f86-4305-8479-1c5c1a2b00ff")
 		(property "Reference" "D31"
 			(at 53.34 242.57 0)
 			(effects
@@ -5591,14 +5658,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "f478bf62-d039-4630-b7bd-248dec1a1ebb")
+			(uuid "be8aa3bf-89ab-4cfe-9a7f-8aa2428918d4")
 		)
 		(pin "2"
-			(uuid "fd0cdccd-a56b-44a0-99b3-6b515818cd2e")
+			(uuid "901b3094-0c8f-43e2-a1c8-bda64ce0ae8b")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D31")
 					(unit 1)
 				)
@@ -5613,82 +5680,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "50d70d5f-8329-4ac8-bfae-61d074bae77a")
+		(uuid "15eab687-e356-466f-ab0e-a2744070337b")
 	)
-	(wire
-		(pts
-			(xy 50.8 247.65) (xy 50.8 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9449f3de-4a57-4452-a792-d54a3d6177ef")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 50.8 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "2bb95895-edd8-430a-98b2-a7b58c276a1e")
-		(property "Reference" "#PWR12"
-			(at 50.8 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO1"
+		(at 50.8 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 50.8 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 50.8 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 50.8 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 50.8 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "048bccd8-c3d2-4339-bf5b-7e15a33b3035")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR12")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "40d09a2e-92e2-4125-89d9-149148f7255a")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -5698,7 +5700,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5420597e-11e9-4f68-a8b3-272e9d9feb43")
+		(uuid "408140ca-f34b-4198-bc79-6bbf0a27a751")
 		(property "Reference" "R42"
 			(at 68.58 232.41 0)
 			(effects
@@ -5707,7 +5709,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 68.58 234.95 0)
 			(effects
 				(font
@@ -5752,7 +5754,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 66.04 233.68 0)
 			(hide yes)
 			(effects
@@ -5762,40 +5764,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "25f0eec1-d66f-4d97-8390-b049527cfd58")
+			(uuid "0434ce38-87bf-4111-bc71-f1a46e2538d8")
 		)
 		(pin "2"
-			(uuid "8d34878d-0e64-41f4-bde2-cb845d905b4d")
+			(uuid "314bed0d-f8bc-4cb9-8417-245cf4c26083")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R42")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY2"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 66.04 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "d97ff104-3b5c-45b3-91ab-4d2d8941f1cf")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "d0fd7e99-0681-4755-a3f6-f576b0f74925")
 	)
 	(label "D32_A"
 		(at 66.04 237.49 270)
@@ -5805,7 +5796,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "b96d91ff-4a82-4a0a-b863-ec6db4feb48c")
+		(uuid "43cac3fc-b715-4c8e-9f7d-0296f673ffb0")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -5815,7 +5806,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "07e45718-4862-4caa-acbd-93adab3d792b")
+		(uuid "2fb6b44b-b58c-40d5-928f-adb94b218e55")
 		(property "Reference" "D32"
 			(at 68.58 242.57 0)
 			(effects
@@ -5880,14 +5871,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "ec650972-7da8-4cdd-9c4d-635bf8d5bbfd")
+			(uuid "7946832c-d669-40f2-9f63-baa5c03498c5")
 		)
 		(pin "2"
-			(uuid "4c8c9ea0-75d8-4972-93b4-fadc541b0037")
+			(uuid "14cf40f3-7015-43cb-aa65-ac3830b57e5f")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D32")
 					(unit 1)
 				)
@@ -5902,82 +5893,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "e6f88d30-b30e-438d-867d-9ace6cc248b6")
+		(uuid "535c6816-61ce-4001-9414-439eb49691fc")
 	)
-	(wire
-		(pts
-			(xy 66.04 247.65) (xy 66.04 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6411fe58-b66e-4654-bedd-bfef99fc101e")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 66.04 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9f7ba1b7-b6d2-4b8d-89fb-be53874090d9")
-		(property "Reference" "#PWR13"
-			(at 66.04 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO2"
+		(at 66.04 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 66.04 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 66.04 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 66.04 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 66.04 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ff3306e0-c45c-4e00-889c-658de86461e5")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR13")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "1c5cb460-37dc-435e-8447-bd3d00304695")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -5987,7 +5913,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7ce6ffb4-0870-47e8-bead-d89c2098beb1")
+		(uuid "82110535-74a8-4fe5-ae62-7b3f1b5f7333")
 		(property "Reference" "R43"
 			(at 83.82 232.41 0)
 			(effects
@@ -5996,7 +5922,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 83.82 234.95 0)
 			(effects
 				(font
@@ -6041,7 +5967,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 81.28 233.68 0)
 			(hide yes)
 			(effects
@@ -6051,40 +5977,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "919b9b6e-0852-4167-9647-62fc8b3d031d")
+			(uuid "75456c99-6bf0-4012-9fe2-8993a89a16be")
 		)
 		(pin "2"
-			(uuid "c88221d0-1f9d-4c98-8772-a2111e83710b")
+			(uuid "0504056d-5e93-4672-bf7b-3ee4762433ca")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R43")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY3"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 81.28 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "c491c5ca-b85b-4680-8f3e-d8106a6775e4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 81.28 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "fd34f9fb-d8e8-4199-b85c-03b959e1e481")
 	)
 	(label "D33_A"
 		(at 81.28 237.49 270)
@@ -6094,7 +6009,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "30726932-03d4-4993-acbc-412ce1e72d44")
+		(uuid "da99f82c-ef0f-4243-9fb7-c3d0a6a2b23c")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -6104,7 +6019,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f6172fc5-948b-47df-a985-3c727812d663")
+		(uuid "f6c1a2ff-855a-4913-b54d-6182590daf8c")
 		(property "Reference" "D33"
 			(at 83.82 242.57 0)
 			(effects
@@ -6169,14 +6084,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "0a4af944-f06a-463f-a39d-48f460508ed3")
+			(uuid "f1599b32-944e-4078-861f-d456135e0321")
 		)
 		(pin "2"
-			(uuid "f7df59a7-096d-44cc-825d-8d2f0f9a15e2")
+			(uuid "52fbe647-8db3-41c5-aaf1-f3086994a845")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D33")
 					(unit 1)
 				)
@@ -6191,82 +6106,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "2a34408c-3504-4f4c-ac6b-33d840f32673")
+		(uuid "cf0e0102-2d49-4e4d-ba3e-cf0b254f9319")
 	)
-	(wire
-		(pts
-			(xy 81.28 247.65) (xy 81.28 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69a672c3-3f43-4e86-9382-f5111c0b64d1")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 81.28 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "882399ae-5629-4088-87c8-7e03ecd3567e")
-		(property "Reference" "#PWR14"
-			(at 81.28 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO3"
+		(at 81.28 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 81.28 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 81.28 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 81.28 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 81.28 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3d649010-4347-4b1f-8c66-7f79fe2e1efc")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR14")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "daccfa55-82e9-497b-9deb-de0471ac0d12")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -6276,7 +6126,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9dcfb2ab-be8c-49b8-9c62-f32c9230bcf1")
+		(uuid "6555162d-4bfc-46ba-92fb-2088c04f4124")
 		(property "Reference" "R44"
 			(at 99.06 232.41 0)
 			(effects
@@ -6285,7 +6135,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 99.06 234.95 0)
 			(effects
 				(font
@@ -6330,7 +6180,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 96.52 233.68 0)
 			(hide yes)
 			(effects
@@ -6340,40 +6190,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "6237ba94-9f4f-4b6e-9bdf-4f2afa3b72dc")
+			(uuid "0336ef28-1cab-47ee-988a-0d85b69774e3")
 		)
 		(pin "2"
-			(uuid "eaeaeeef-3ed1-4e7a-b7ab-1d8d666de4ba")
+			(uuid "c1a0e4cb-8009-4458-8da0-b30da698e41e")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R44")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY4"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 96.52 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "3e06a3e6-0f8d-40ab-89e5-be0f2c307fef")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "59f3e2ed-42ab-4e4e-88e8-57d1fc3dc527")
 	)
 	(label "D34_A"
 		(at 96.52 237.49 270)
@@ -6383,7 +6222,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "79ff778b-2e37-459b-85be-a52019f4507d")
+		(uuid "dfe3df92-ebd3-4577-9e9c-399c0c89a8b6")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -6393,7 +6232,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0fc8bfe3-e316-44f7-977b-dd0d2112ff5c")
+		(uuid "41229b70-f24d-456f-97e0-e5a6654e6dfa")
 		(property "Reference" "D34"
 			(at 99.06 242.57 0)
 			(effects
@@ -6458,14 +6297,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "bf0dc7b9-4fb6-485e-b17c-6786b8638766")
+			(uuid "44367ec7-831b-43a0-bd86-4930032fd81e")
 		)
 		(pin "2"
-			(uuid "928e7191-f9c2-4ecf-b9c8-626c3a4fc2b8")
+			(uuid "268f3a6e-29ba-405e-b78c-5cea08423da2")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D34")
 					(unit 1)
 				)
@@ -6480,82 +6319,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "714272fc-19e0-4630-a386-ba9f03c80bb8")
+		(uuid "a046e752-d690-4a85-932e-0aa1ecb3630c")
 	)
-	(wire
-		(pts
-			(xy 96.52 247.65) (xy 96.52 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ee4e5bb5-c9b1-4bb9-bbda-fcdcaee2a082")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 96.52 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "095d71f4-d16f-4ada-9353-4b27e4435c75")
-		(property "Reference" "#PWR15"
-			(at 96.52 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO4"
+		(at 96.52 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 96.52 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 96.52 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 96.52 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 96.52 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "da435759-6e98-41f6-b45c-7d65a26d5b6e")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR15")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "ecd73b4d-e91b-4a25-96c5-84e84fcdd72e")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -6565,7 +6339,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fc965386-bb2e-4213-ad2c-486968986618")
+		(uuid "fd95a19c-ee98-4fce-a7b2-e7fcf8d86f8c")
 		(property "Reference" "R45"
 			(at 114.3 232.41 0)
 			(effects
@@ -6574,7 +6348,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 114.3 234.95 0)
 			(effects
 				(font
@@ -6619,7 +6393,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 111.76 233.68 0)
 			(hide yes)
 			(effects
@@ -6629,40 +6403,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "50f8b07d-75de-43be-a422-1ff6ab2b00ec")
+			(uuid "222faf8f-4635-49ed-9f49-85653b47bd6b")
 		)
 		(pin "2"
-			(uuid "26da2525-c229-4c62-ae1f-c4aabbd29640")
+			(uuid "9911f819-4d3f-4482-b2b8-969f93282ed8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R45")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY5"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 111.76 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "9d7ed0b2-9f0a-49a4-817a-9972c39d88f0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 111.76 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "71b61f76-d8f8-47f3-84a1-4b303f1bb425")
 	)
 	(label "D35_A"
 		(at 111.76 237.49 270)
@@ -6672,7 +6435,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "31e5d52c-c937-4e75-b583-ee2b50eb012d")
+		(uuid "58b187ca-fa65-47b9-b997-a654e0f109e6")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -6682,7 +6445,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7fdcff99-89a9-49a5-9b30-59f56e9ef5c0")
+		(uuid "0488be75-2b40-4d81-9221-f01b33963e8a")
 		(property "Reference" "D35"
 			(at 114.3 242.57 0)
 			(effects
@@ -6747,14 +6510,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "44262de4-ba86-426a-89ff-5df3011aab61")
+			(uuid "9da432c9-4248-474b-a333-c7ff62d53e93")
 		)
 		(pin "2"
-			(uuid "da0a2f1a-577e-49cf-b9a0-7a8bc70e3265")
+			(uuid "0c6a9947-f54c-4005-8e3c-2c3f3be71ee9")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D35")
 					(unit 1)
 				)
@@ -6769,82 +6532,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "685f0a24-911b-4ddd-abe0-8b9235075dd2")
+		(uuid "8074212e-f61e-4cf0-abdc-bb9a2310849b")
 	)
-	(wire
-		(pts
-			(xy 111.76 247.65) (xy 111.76 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bf8cab1c-25ff-40e2-95dd-eadfcf3cb08d")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 111.76 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e3fe4207-4bf6-4f0d-96ef-75316cdc8f5c")
-		(property "Reference" "#PWR16"
-			(at 111.76 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO5"
+		(at 111.76 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 111.76 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 111.76 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 111.76 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 111.76 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "9c45820e-ecb2-44af-8b94-1e719c17344d")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR16")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "25bba633-baf1-4537-a0fc-1b64462ce94b")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -6854,7 +6552,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9228aaae-52a7-46eb-a197-77a03ab43dd0")
+		(uuid "963339de-feff-4d73-8324-b6a1e37ea72a")
 		(property "Reference" "R46"
 			(at 129.54 232.41 0)
 			(effects
@@ -6863,7 +6561,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 129.54 234.95 0)
 			(effects
 				(font
@@ -6908,7 +6606,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 127 233.68 0)
 			(hide yes)
 			(effects
@@ -6918,40 +6616,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "4df05b58-f17c-4b8a-a468-9196c4c28d55")
+			(uuid "65e11b2e-f732-44f3-910a-93feb98334b6")
 		)
 		(pin "2"
-			(uuid "eb022463-e493-459c-ba42-aee6697a1b96")
+			(uuid "61f629c3-4f45-4e4a-a2e3-76485b778369")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R46")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY6"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 127 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "3388bff9-5e63-4416-8f67-4a2e15d8c99e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 127 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "060b6d83-c0c7-48af-a3b2-08df8b94eba8")
 	)
 	(label "D36_A"
 		(at 127 237.49 270)
@@ -6961,7 +6648,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "e7ce27a5-af48-4eb9-890a-5467d1cc284e")
+		(uuid "8ce758f5-112f-4abc-8a86-dece3ed92766")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -6971,7 +6658,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e1596302-2514-4d6f-b0e3-a832ef8a3dda")
+		(uuid "41f1d7d1-5f9d-4972-98dd-377018f07940")
 		(property "Reference" "D36"
 			(at 129.54 242.57 0)
 			(effects
@@ -7036,14 +6723,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "8eba685d-65c0-45ba-948e-a07ffe7140bd")
+			(uuid "3c769b28-0d83-4cd5-939b-d69c2bb06a17")
 		)
 		(pin "2"
-			(uuid "403cee1a-8549-4484-8f37-750e527d22e3")
+			(uuid "a37090d6-095f-4291-9946-d7ce36bba23a")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D36")
 					(unit 1)
 				)
@@ -7058,82 +6745,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "edaaa243-04fa-4736-8baf-6ff90aa3f161")
+		(uuid "e92bafd0-81ee-42fe-846e-67aa5748a76a")
 	)
-	(wire
-		(pts
-			(xy 127 247.65) (xy 127 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f816c729-f1ae-4996-9764-0715086aab93")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 127 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c3366e93-0c4b-4470-99a3-18861c5c6c3b")
-		(property "Reference" "#PWR17"
-			(at 127 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO6"
+		(at 127 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 127 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 127 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 127 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 127 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3813c030-2c42-4e2e-96a8-9c4b590231f1")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR17")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "ce89053c-7282-44f4-b3f3-c0dfeece2346")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -7143,7 +6765,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ad10d250-f815-44db-b11b-bc68e8729378")
+		(uuid "74ca0642-6b88-4b0d-8cc3-5ec28e5807ff")
 		(property "Reference" "R47"
 			(at 144.78 232.41 0)
 			(effects
@@ -7152,7 +6774,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 144.78 234.95 0)
 			(effects
 				(font
@@ -7197,7 +6819,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 142.24 233.68 0)
 			(hide yes)
 			(effects
@@ -7207,40 +6829,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "1847cdf4-c14b-4bbe-9691-e362c7e46d89")
+			(uuid "b44ffe0e-0e59-462a-b8ab-e3e9671be527")
 		)
 		(pin "2"
-			(uuid "3cf3b0c8-48e1-4721-85b2-4089672872d3")
+			(uuid "3d0720e0-fdfd-497f-a5f2-d77bd10ef702")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R47")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY7"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 142.24 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "9a1f8b33-ba7a-45a4-a628-d21f9b5f4fa8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 142.24 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "0e65095e-0284-400a-8c82-3d2a39e035e3")
 	)
 	(label "D37_A"
 		(at 142.24 237.49 270)
@@ -7250,7 +6861,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "188c0a10-0c7b-4cdd-aa1c-f4b72019c465")
+		(uuid "74496692-038c-499f-b468-229cf5776c30")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -7260,7 +6871,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "16027ec9-b6c5-43c3-bb7e-14e8ed8e9942")
+		(uuid "02be1586-688d-4e56-87e5-4a6d5ad97e9f")
 		(property "Reference" "D37"
 			(at 144.78 242.57 0)
 			(effects
@@ -7325,14 +6936,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "3b73e5eb-26cb-4d3e-bb4e-ade5ff9b959f")
+			(uuid "67f58022-ca3d-4fa7-8c8d-a2ce886da494")
 		)
 		(pin "2"
-			(uuid "093f660c-bc92-4ea1-919e-20680ed0fe1f")
+			(uuid "8e01250c-897a-487f-9943-07bb05085965")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D37")
 					(unit 1)
 				)
@@ -7347,82 +6958,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d2d458f8-dcd2-4e27-98ce-11092d5a846e")
+		(uuid "f245d567-e018-4617-ba7b-6e50098b9cef")
 	)
-	(wire
-		(pts
-			(xy 142.24 247.65) (xy 142.24 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4a0625b-d5ec-4c42-922d-38c0e40698a8")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 142.24 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0dd0a9d3-563f-4b3a-b687-ed26f41f1938")
-		(property "Reference" "#PWR18"
-			(at 142.24 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(label "RLYO7"
+		(at 142.24 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Value" "GND"
-			(at 142.24 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 142.24 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 142.24 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7b5ef695-613c-41bf-a2fc-a2092663ad62")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR18")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "185e93b8-d23b-4e5d-a577-a826aecc8459")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -7432,7 +6978,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3c208c56-0dd6-4aa8-960b-f8634f363572")
+		(uuid "6a4d2aa5-c03f-4cf1-9920-a69ed28467d2")
 		(property "Reference" "R48"
 			(at 160.02 232.41 0)
 			(effects
@@ -7441,7 +6987,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "4.7k"
 			(at 160.02 234.95 0)
 			(effects
 				(font
@@ -7486,7 +7032,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-071KL"
+		(property "MPN" "RC1206FR-074K7L"
 			(at 157.48 233.68 0)
 			(hide yes)
 			(effects
@@ -7496,40 +7042,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "0a85a888-ce61-4aac-a900-6c9723f02b0f")
+			(uuid "b1aa994c-3cf7-47c5-9a97-f7e89f83d657")
 		)
 		(pin "2"
-			(uuid "a72363d3-fb47-453c-ab60-30fa0ba528c5")
+			(uuid "7118b062-8541-419f-9283-c305240df8c5")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "R48")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "RLY8"
-		(shape bidirectional)
+	(label "V12_RLY"
 		(at 157.48 229.87 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "5703ab6a-edc2-459e-b711-b51908b1f0df")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
+		(uuid "e736fe45-64ce-4f6a-8a38-19fd4fae87c4")
 	)
 	(label "D38_A"
 		(at 157.48 237.49 270)
@@ -7539,7 +7074,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "40e10e90-cdfa-4df9-a2fb-285cff84e7f9")
+		(uuid "0350e934-3981-4ced-9744-52436bba6cd6")
 	)
 	(symbol
 		(lib_id "Device:LED")
@@ -7549,7 +7084,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "043e26c7-895d-4c13-8558-2de9b5d49235")
+		(uuid "1dd88102-3ec2-4c67-8607-31328d058b49")
 		(property "Reference" "D38"
 			(at 160.02 242.57 0)
 			(effects
@@ -7614,14 +7149,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "88e25140-9188-4c23-96e4-13afb8eec14b")
+			(uuid "66379300-3dc2-41fd-9e59-7c2505027a3a")
 		)
 		(pin "2"
-			(uuid "b75c8b12-43b1-43e2-9b3a-d5ac46288583")
+			(uuid "2fb2820b-72f4-41dc-ad86-faf45c9da65c")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/bfe5148e-ed33-4b6a-ae4e-a7beb55344dd"
 					(reference "D38")
 					(unit 1)
 				)
@@ -7636,84 +7171,19 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c1a7e4a9-2c2a-4f4f-a3f3-3f5b00411687")
+		(uuid "d400b305-5dbe-459f-8f0f-9ff6d8e0492c")
 	)
-	(wire
-		(pts
-			(xy 157.48 247.65) (xy 157.48 250.19)
+	(label "RLYO8"
+		(at 157.48 247.65 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
 		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4e21e12-8b38-45e9-a71f-279386e04a12")
+		(uuid "efa48657-d8b1-47ed-b989-c287978b8aac")
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 157.48 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "46e055eb-7ccb-4319-8a49-373546c606c9")
-		(property "Reference" "#PWR19"
-			(at 157.48 247.65 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 157.48 254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 157.48 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 157.48 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 157.48 250.19 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "96239c88-c1b0-4332-9b2f-67cc4b3b7d38")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/7fc6555a-4e70-42b4-a705-79f2d828ee7f"
-					(reference "#PWR19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(text "Relay LEDs D31-D38 (logic side, ~1.5 mA from the MCU pin)."
+	(text "Relay LEDs D31-D38 on the 12 V side, right behind their terminals: +12 V -> 4.7k -> LED -> OUTn,\nlit (~2 mA) when the ULN2803A output is on. Shows the real output state."
 		(exclude_from_sim no)
 		(at 50.8 264.16 0)
 		(effects
@@ -7722,7 +7192,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "251ae793-c096-47d3-942e-72d7d29220fb")
+		(uuid "10a4721e-fc87-46a8-837d-2aa253894ac2")
 	)
 	(embedded_fonts no)
 )
