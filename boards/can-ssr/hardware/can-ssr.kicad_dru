@@ -38,6 +38,12 @@
 	(constraint clearance (min 1.5mm))
 	(condition "(A.NetClass == 'HV' || A.NetClass == 'GD') && B.NetClass != 'HV' && B.NetClass != 'GD'"))
 
-(rule "VIN to gate drive and output"
+(rule "VIN and Vin-divider nodes to gate drive and output"
 	(constraint clearance (min 1.5mm))
-	(condition "A.NetName == 'VIN' && (B.NetClass == 'GD' || B.NetName == 'VOUT' || B.NetName == '/Power path/VOUT_SW')"))
+	(condition "(A.NetName == 'VIN' || A.NetName == 'Net-(R34-Pad2)' || A.NetName == 'Net-(R35-Pad2)') && (B.NetClass == 'GD' || B.NetName == 'VOUT' || B.NetName == '/Power path/VOUT_SW')"))
+
+# The return bar is clamped to the bottom copper between the S- and L- bolts
+# (rule area RETBAR): only GND_LOAD copper may be there.
+(rule "Only RET under the return bar"
+	(constraint disallow track via)
+	(condition "A.insideArea('RETBAR') && A.NetName != 'GND_LOAD'"))
