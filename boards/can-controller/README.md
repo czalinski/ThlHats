@@ -81,7 +81,7 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | CAN transceiver x4 | **ISO1044BD** (decided 2026-10-05) | SOIC-8 | stock | CAN FD 5 Mbit/s, 3 kVrms basic isolation |
 | CAN TVS x4 | NUP2105L | SOT-23 | stock | as can-ssr |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | stock | |
-| CAN bus supply x4 | resettable fuse, 1812 | 1812 | stock fp | one bus feeds the can-ssr nodes, three go to DUTs; same part on all four (hold ~1.1 A) |
+| CAN bus supply | resettable fuse, 1812, hold ~1.1 A | 1812 | stock fp | footprint on all four buses; **fitted on CAN1 only** (the can-ssr bus). CAN2-4 (DUT buses) are DNP, so pin 4 is dead unless a fuse is fitted (decided 2026-10-05) |
 | Relay isolators x2 | **ISO6740** (4 forward channels; ISO6741 is 3+1) | SOIC-16W | stock | 12 V side from the 5 V buck |
 | Relay driver | ULN2803A | SOIC-18W | stock | |
 | 12 V input | MSTBVA 2,5/2-G-5,08, TVS SMBJ15A, P-FET reverse protection, SMD fuse | | stock | |
