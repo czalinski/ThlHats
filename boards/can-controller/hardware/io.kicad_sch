@@ -2,11 +2,11 @@
 	(version 20260101)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "7d2a4b17-5969-4f3f-9ba4-75d64d17f783")
+	(uuid "18658a27-a03a-42ab-973a-90234d908cf7")
 	(paper "A3")
 	(title_block
-		(title "CAN controller: GPIO")
-		(date "2026-10-05")
+		(title "CAN controller: GPIO and differential analog inputs")
+		(date "2026-10-06")
 		(rev "A")
 	)
 	(lib_symbols
@@ -742,7 +742,162 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector_Generic:Conn_02x08_Top_Bottom"
+		(symbol "Device:C"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C"
+				(at 0.635 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Unpolarized capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector_Generic:Conn_02x06_Top_Bottom"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -753,7 +908,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 1.27 10.16 0)
+				(at 1.27 7.62 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -762,8 +917,8 @@
 					)
 				)
 			)
-			(property "Value" "Conn_02x08_Top_Bottom"
-				(at 1.27 -12.7 0)
+			(property "Value" "Conn_02x06_Top_Bottom"
+				(at 1.27 -10.16 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -794,7 +949,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic connector, double row, 02x06, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -827,27 +982,16 @@
 					)
 				)
 			)
-			(symbol "Conn_02x08_Top_Bottom_1_1"
+			(symbol "Conn_02x06_Top_Bottom_1_1"
 				(rectangle
-					(start -1.27 8.89)
-					(end 3.81 -11.43)
+					(start -1.27 6.35)
+					(end 3.81 -8.89)
 					(stroke
 						(width 0.254)
 						(type default)
 					)
 					(fill
 						(type background)
-					)
-				)
-				(rectangle
-					(start -1.27 7.747)
-					(end 0 7.493)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
 					)
 				)
 				(rectangle
@@ -908,28 +1052,6 @@
 				(rectangle
 					(start -1.27 -7.493)
 					(end 0 -7.747)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -10.033)
-					(end 0 -10.287)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 3.81 7.747)
-					(end 2.54 7.493)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -1004,19 +1126,8 @@
 						(type none)
 					)
 				)
-				(rectangle
-					(start 3.81 -10.033)
-					(end 2.54 -10.287)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(pin passive line
-					(at -5.08 7.62 0)
+					(at -5.08 5.08 0)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -1034,7 +1145,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 5.08 0)
+					(at -5.08 2.54 0)
 					(length 3.81)
 					(name "Pin_2"
 						(effects
@@ -1052,7 +1163,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 2.54 0)
+					(at -5.08 0 0)
 					(length 3.81)
 					(name "Pin_3"
 						(effects
@@ -1070,7 +1181,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "Pin_4"
 						(effects
@@ -1088,7 +1199,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -2.54 0)
+					(at -5.08 -5.08 0)
 					(length 3.81)
 					(name "Pin_5"
 						(effects
@@ -1106,7 +1217,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -5.08 0)
+					(at -5.08 -7.62 0)
 					(length 3.81)
 					(name "Pin_6"
 						(effects
@@ -1124,7 +1235,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -7.62 0)
+					(at 7.62 5.08 180)
 					(length 3.81)
 					(name "Pin_7"
 						(effects
@@ -1142,7 +1253,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -10.16 0)
+					(at 7.62 2.54 180)
 					(length 3.81)
 					(name "Pin_8"
 						(effects
@@ -1160,7 +1271,7 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 7.62 180)
+					(at 7.62 0 180)
 					(length 3.81)
 					(name "Pin_9"
 						(effects
@@ -1178,7 +1289,7 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 5.08 180)
+					(at 7.62 -2.54 180)
 					(length 3.81)
 					(name "Pin_10"
 						(effects
@@ -1196,7 +1307,7 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 2.54 180)
+					(at 7.62 -5.08 180)
 					(length 3.81)
 					(name "Pin_11"
 						(effects
@@ -1214,7 +1325,7 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 0 180)
+					(at 7.62 -7.62 180)
 					(length 3.81)
 					(name "Pin_12"
 						(effects
@@ -1231,83 +1342,11 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 3.81)
-					(name "Pin_13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -5.08 180)
-					(length 3.81)
-					(name "Pin_14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -7.62 180)
-					(length 3.81)
-					(name "Pin_15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -10.16 180)
-					(length 3.81)
-					(name "Pin_16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
 			(embedded_fonts no)
 		)
 	)
-	(text "Eight 3.3 V GPIO (MCU pins). Each: 4.7k series + BAT54S clamp to +3V3/GND on the MCU side,\nso a 24 V short draws ~4.5 mA and the pin stays inside its rails.\nJ40 SPTD double-level push-in: lower level = GPIO1-8, upper level = GND (one ground per channel)."
+	(text "Four 3.3 V GPIO (MCU pins): 330R series + BAT54S clamp, ESD protection only (not 24 V tolerant).\nTwo differential analog inputs, about +-116 V per input, 10 Mohm per input: each leg 10M / 130k to VMID,\n0.1 uF across 130k (fc ~ 12 Hz), BAT54S clamp; the PIC32 ADC reads both legs and firmware subtracts.\nVMID = 1.65 V: R60/R61 divider into OA5 IN+ (pin 33), OA5 follower output on pin 46 (= AN25)."
 		(exclude_from_sim no)
 		(at 25.4 25.4 0)
 		(effects
@@ -1316,27 +1355,27 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8f81e53c-de34-4b5d-be8b-2702fa949eb1")
+		(uuid "75a28a60-7007-45e6-b232-b4add88f3381")
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 76.2 60.96 0)
+		(at 63.5 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a14a0e70-49e9-4284-924c-db6f173d6e51")
-		(property "Reference" "R51"
-			(at 78.74 59.69 0)
+		(uuid "a70f4626-cbe0-483c-98ce-753e98a23baf")
+		(property "Reference" "R71"
+			(at 66.04 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 78.74 62.23 0)
+		(property "Value" "330R"
+			(at 66.04 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1345,7 +1384,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 76.2 60.96 0)
+			(at 63.5 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1354,7 +1393,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 60.96 0)
+			(at 63.5 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1363,7 +1402,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.2 60.96 0)
+			(at 63.5 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1372,7 +1411,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 76.2 60.96 0)
+			(at 63.5 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1380,8 +1419,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 76.2 60.96 0)
+		(property "MPN" "RC1206FR-07330RL"
+			(at 63.5 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1390,15 +1429,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "73fa6d7e-8f3a-4c6d-9578-13a5065ec476")
+			(uuid "cdd7798b-e176-4a52-a51a-79dd92a53c62")
 		)
 		(pin "2"
-			(uuid "03670bb1-879d-493f-abb8-b48f34c134ff")
+			(uuid "ea4bae24-b0ee-4015-8851-ecc665cb68c9")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R51")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R71")
 					(unit 1)
 				)
 			)
@@ -1406,7 +1445,7 @@
 	)
 	(global_label "GPIO1"
 		(shape bidirectional)
-		(at 76.2 57.15 90)
+		(at 63.5 59.69 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1414,9 +1453,9 @@
 			)
 			(justify left)
 		)
-		(uuid "e17187cb-4543-458c-88e0-8dd1562b84bb")
+		(uuid "a85c9fe3-70f6-42a9-b366-d685ab47f73d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 57.15 0)
+			(at 63.5 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1426,26 +1465,26 @@
 		)
 	)
 	(label "GPIO1_EXT"
-		(at 76.2 64.77 270)
+		(at 63.5 67.31 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "22d9b87e-44de-4f6a-8546-b43767616fea")
+		(uuid "f7dd128e-0665-470f-b7e4-313a14b01e31")
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 86.36 81.28 0)
+		(at 73.66 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c75eaa45-ef7f-419d-8193-1a5321cac4a7")
+		(uuid "73b7d87c-1c71-4c17-8fa9-3da005ede7e1")
 		(property "Reference" "D51"
-			(at 91.44 78.74 0)
+			(at 78.74 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1453,7 +1492,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 91.44 83.82 0)
+			(at 78.74 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1461,7 +1500,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 86.36 81.28 0)
+			(at 73.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1470,7 +1509,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 86.36 81.28 0)
+			(at 73.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1479,7 +1518,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 86.36 81.28 0)
+			(at 73.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1488,7 +1527,7 @@
 			)
 		)
 		(property "Manufacturer" "Nexperia"
-			(at 86.36 81.28 0)
+			(at 73.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1497,7 +1536,7 @@
 			)
 		)
 		(property "MPN" "BAT54S,215"
-			(at 86.36 81.28 0)
+			(at 73.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1506,17 +1545,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "1dd5640a-8d03-4a81-b284-c7b7d5a8ff3e")
+			(uuid "67b54cfe-1cb2-400c-a834-8fbff3c53f51")
 		)
 		(pin "2"
-			(uuid "1b37ff7e-5a26-4809-a39d-6e5a4250059f")
+			(uuid "5a284a96-9176-460c-9541-5d9c93376abc")
 		)
 		(pin "3"
-			(uuid "80d48a3a-a9d9-4a1e-8cd2-3c53d98815e2")
+			(uuid "936d691d-ad42-44e0-8b86-5b47a76205f0")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D51")
 					(unit 1)
 				)
@@ -1525,25 +1564,25 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 81.28) (xy 76.2 81.28)
+			(xy 66.04 86.36) (xy 63.5 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bdaec34c-f492-4e50-81b5-ef23e2959541")
+		(uuid "900dcaa3-7cee-4b94-8dc0-64f688d91aec")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 76.2 81.28 270)
+		(at 63.5 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6b6c2fdf-763f-4266-ab6b-c74f8005ebb1")
+		(uuid "1ff022ca-ee0f-451b-ac23-f9ae2daf3aca")
 		(property "Reference" "#PWR01"
-			(at 76.2 78.74 0)
+			(at 63.5 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -1552,7 +1591,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 68.58 81.28 270)
+			(at 55.88 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1560,7 +1599,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.2 81.28 0)
+			(at 63.5 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1569,7 +1608,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 81.28 0)
+			(at 63.5 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1578,7 +1617,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.2 81.28 0)
+			(at 63.5 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1587,11 +1626,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ec65a972-2d46-4918-bab2-398e8a316297")
+			(uuid "1f4e93c9-9b3c-47a2-97e9-fcc00dfe2483")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR01")
 					(unit 1)
 				)
@@ -1600,25 +1639,25 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 81.28) (xy 96.52 81.28)
+			(xy 81.28 86.36) (xy 83.82 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8eede90f-e3b3-461b-9af1-80636801cace")
+		(uuid "18caeeb4-6ad8-478c-a08c-f47724e8a957")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 96.52 81.28 270)
+		(at 83.82 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a4172631-ac16-48ab-a2da-9d40f51b4054")
+		(uuid "a7b0d655-fb04-4264-a2cd-55bc1e91acc5")
 		(property "Reference" "#PWR02"
-			(at 96.52 78.74 0)
+			(at 83.82 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -1627,7 +1666,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 104.14 81.28 270)
+			(at 91.44 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1635,7 +1674,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 96.52 81.28 0)
+			(at 83.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1644,7 +1683,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.52 81.28 0)
+			(at 83.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1653,7 +1692,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 96.52 81.28 0)
+			(at 83.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1662,11 +1701,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "956c7a17-8f97-49d8-aabd-54d62ea8efc9")
+			(uuid "649dd50e-146a-40b9-aae0-d6a2b3202541")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR02")
 					(unit 1)
 				)
@@ -1675,7 +1714,7 @@
 	)
 	(global_label "GPIO1"
 		(shape bidirectional)
-		(at 86.36 86.36 270)
+		(at 73.66 91.44 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1683,9 +1722,9 @@
 			)
 			(justify right)
 		)
-		(uuid "78255405-4afb-4a36-808d-b87912405b82")
+		(uuid "2322c594-14f9-46c4-a701-7e43404d650d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.36 86.36 0)
+			(at 73.66 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1696,23 +1735,23 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 106.68 60.96 0)
+		(at 109.22 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "236d6791-5a6b-4ce5-ad22-2e6563d46dc1")
-		(property "Reference" "R52"
-			(at 109.22 59.69 0)
+		(uuid "d9cba4b7-6183-49df-9456-619de0d7d4b2")
+		(property "Reference" "R72"
+			(at 111.76 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 109.22 62.23 0)
+		(property "Value" "330R"
+			(at 111.76 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1721,7 +1760,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 106.68 60.96 0)
+			(at 109.22 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1730,7 +1769,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 60.96 0)
+			(at 109.22 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1739,7 +1778,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 106.68 60.96 0)
+			(at 109.22 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1748,7 +1787,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 106.68 60.96 0)
+			(at 109.22 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1756,8 +1795,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 106.68 60.96 0)
+		(property "MPN" "RC1206FR-07330RL"
+			(at 109.22 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -1766,15 +1805,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "06254868-1041-4f4f-80fe-c6a0574f8c97")
+			(uuid "96fdb789-bc70-4567-9a1e-a51dd41d7dc0")
 		)
 		(pin "2"
-			(uuid "fd570239-7d24-458c-ac9f-642c8ae4c7a2")
+			(uuid "4baa8706-9435-48b5-9149-d4b8bafbae85")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R52")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R72")
 					(unit 1)
 				)
 			)
@@ -1782,7 +1821,7 @@
 	)
 	(global_label "GPIO2"
 		(shape bidirectional)
-		(at 106.68 57.15 90)
+		(at 109.22 59.69 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1790,9 +1829,9 @@
 			)
 			(justify left)
 		)
-		(uuid "78cd3121-4e6d-46a5-a550-8e0bcccc4828")
+		(uuid "a7b1483e-22a8-4e84-9b32-711f8959e8d0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.68 57.15 0)
+			(at 109.22 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1802,26 +1841,26 @@
 		)
 	)
 	(label "GPIO2_EXT"
-		(at 106.68 64.77 270)
+		(at 109.22 67.31 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "4a6e9e51-68c7-45e4-8938-6717d53b978f")
+		(uuid "5e563c91-4642-4f7b-8e57-03cfdc0807f1")
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 116.84 81.28 0)
+		(at 119.38 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "71e61730-337a-41c0-bbf0-e5514c454d8d")
+		(uuid "464cab98-461f-4b1c-b886-2dd46c3b8497")
 		(property "Reference" "D52"
-			(at 121.92 78.74 0)
+			(at 124.46 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1829,7 +1868,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 121.92 83.82 0)
+			(at 124.46 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1837,7 +1876,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 116.84 81.28 0)
+			(at 119.38 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1846,7 +1885,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 116.84 81.28 0)
+			(at 119.38 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1855,7 +1894,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 116.84 81.28 0)
+			(at 119.38 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1864,7 +1903,7 @@
 			)
 		)
 		(property "Manufacturer" "Nexperia"
-			(at 116.84 81.28 0)
+			(at 119.38 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1873,7 +1912,7 @@
 			)
 		)
 		(property "MPN" "BAT54S,215"
-			(at 116.84 81.28 0)
+			(at 119.38 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1882,17 +1921,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "e04d6a3c-507d-4237-8d68-a61f9e336591")
+			(uuid "218ce7c7-4666-4440-8587-7d2715f640cb")
 		)
 		(pin "2"
-			(uuid "7a5309db-7edc-41c8-85c0-e4f18333215d")
+			(uuid "c4eff133-5608-4599-b2aa-0899234b47d0")
 		)
 		(pin "3"
-			(uuid "cf801192-649d-413f-8f67-dcc57340d002")
+			(uuid "77d483be-40aa-4d38-84b6-13e38328e1be")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D52")
 					(unit 1)
 				)
@@ -1901,25 +1940,25 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 81.28) (xy 106.68 81.28)
+			(xy 111.76 86.36) (xy 109.22 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5fa0278f-f70d-496d-989b-a3ae0d310187")
+		(uuid "ef96ab61-dc38-4d51-83f8-01b04dfa871e")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 106.68 81.28 270)
+		(at 109.22 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "784cf53f-3079-4d30-9c6b-2d93be5fa9a9")
+		(uuid "94d09ea7-c822-4628-b707-50737c85440c")
 		(property "Reference" "#PWR03"
-			(at 106.68 78.74 0)
+			(at 109.22 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -1928,7 +1967,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 99.06 81.28 270)
+			(at 101.6 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1936,7 +1975,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 106.68 81.28 0)
+			(at 109.22 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1945,7 +1984,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 81.28 0)
+			(at 109.22 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1954,7 +1993,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 106.68 81.28 0)
+			(at 109.22 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -1963,11 +2002,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "d7a98fe1-afa2-4c8b-8272-587e2f58ca94")
+			(uuid "929c037f-c5e0-4348-aefa-39940e39a067")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR03")
 					(unit 1)
 				)
@@ -1976,25 +2015,25 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 81.28) (xy 127 81.28)
+			(xy 127 86.36) (xy 129.54 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "66380723-9f60-44f3-99a0-6cc5ca40d6e8")
+		(uuid "a90461ef-7d5b-4684-bbe0-7c67b7c4554f")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 127 81.28 270)
+		(at 129.54 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ad5ba76c-1cf0-4225-ad30-68bf5fc090a3")
+		(uuid "cf204cf2-1f69-41e1-84cb-25e3675f3c7c")
 		(property "Reference" "#PWR04"
-			(at 127 78.74 0)
+			(at 129.54 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2003,7 +2042,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 134.62 81.28 270)
+			(at 137.16 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2011,7 +2050,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 81.28 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2020,7 +2059,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 81.28 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2029,7 +2068,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 127 81.28 0)
+			(at 129.54 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2038,11 +2077,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "4a9e07be-e5f0-48c7-bd56-e554584fc881")
+			(uuid "9a955132-433a-4d55-9352-d24e51bf73a8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR04")
 					(unit 1)
 				)
@@ -2051,7 +2090,7 @@
 	)
 	(global_label "GPIO2"
 		(shape bidirectional)
-		(at 116.84 86.36 270)
+		(at 119.38 91.44 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2059,9 +2098,9 @@
 			)
 			(justify right)
 		)
-		(uuid "99e2c789-2e1b-4c17-ad75-df12cbb0bdcf")
+		(uuid "28778ab1-ac5a-4e9a-93aa-b37fd14be7a7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 116.84 86.36 0)
+			(at 119.38 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2072,23 +2111,23 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 137.16 60.96 0)
+		(at 154.94 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1761b7c5-26da-4cf6-971a-0b5469dd2e74")
-		(property "Reference" "R53"
-			(at 139.7 59.69 0)
+		(uuid "8b633e0e-ad07-4bdb-9b23-2f74c814ea07")
+		(property "Reference" "R73"
+			(at 157.48 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 139.7 62.23 0)
+		(property "Value" "330R"
+			(at 157.48 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2097,7 +2136,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 137.16 60.96 0)
+			(at 154.94 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2106,7 +2145,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 60.96 0)
+			(at 154.94 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2115,7 +2154,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 60.96 0)
+			(at 154.94 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2124,7 +2163,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 137.16 60.96 0)
+			(at 154.94 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2132,8 +2171,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 137.16 60.96 0)
+		(property "MPN" "RC1206FR-07330RL"
+			(at 154.94 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2142,15 +2181,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "9e710257-c4f6-4c44-a8ed-9345aa9d2a67")
+			(uuid "5abbd77a-cb27-42f9-be13-9639b6e7803f")
 		)
 		(pin "2"
-			(uuid "27b78630-c27a-47bc-b14a-356bacd40b09")
+			(uuid "17bc22e6-8e87-4502-88ea-5a50fc0e78a1")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R53")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R73")
 					(unit 1)
 				)
 			)
@@ -2158,7 +2197,7 @@
 	)
 	(global_label "GPIO3"
 		(shape bidirectional)
-		(at 137.16 57.15 90)
+		(at 154.94 59.69 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2166,9 +2205,9 @@
 			)
 			(justify left)
 		)
-		(uuid "d719e274-8941-49be-a65f-16a736fdb0c2")
+		(uuid "2561dd77-5482-4f4f-9d65-068d8995011c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 57.15 0)
+			(at 154.94 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2178,26 +2217,26 @@
 		)
 	)
 	(label "GPIO3_EXT"
-		(at 137.16 64.77 270)
+		(at 154.94 67.31 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "1840c526-e0fc-4db2-8924-808d3e94b641")
+		(uuid "2454acb2-435e-482b-8bfe-265041246dd6")
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 147.32 81.28 0)
+		(at 165.1 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "96c1f348-075d-4138-b4be-3d816378c6b7")
+		(uuid "20750978-c3b0-436c-9cd3-f4c380d6de7c")
 		(property "Reference" "D53"
-			(at 152.4 78.74 0)
+			(at 170.18 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2205,7 +2244,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 152.4 83.82 0)
+			(at 170.18 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2213,7 +2252,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 147.32 81.28 0)
+			(at 165.1 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2222,7 +2261,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 81.28 0)
+			(at 165.1 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2231,7 +2270,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 81.28 0)
+			(at 165.1 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2240,7 +2279,7 @@
 			)
 		)
 		(property "Manufacturer" "Nexperia"
-			(at 147.32 81.28 0)
+			(at 165.1 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2249,7 +2288,7 @@
 			)
 		)
 		(property "MPN" "BAT54S,215"
-			(at 147.32 81.28 0)
+			(at 165.1 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2258,17 +2297,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "98ec3a70-8da2-4b41-8a3b-4cbed44689ed")
+			(uuid "5bacea57-bce0-4abf-a195-d6d4de593f03")
 		)
 		(pin "2"
-			(uuid "fc067019-bec1-42f0-ab72-c9c43a664f87")
+			(uuid "1a0dd78e-ce7b-446d-9c40-a5b767feb649")
 		)
 		(pin "3"
-			(uuid "48ad50ff-4fdd-4f96-9947-7139ece835c9")
+			(uuid "0d3bc962-c877-44a4-a90b-2039b832d22a")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D53")
 					(unit 1)
 				)
@@ -2277,25 +2316,25 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 81.28) (xy 137.16 81.28)
+			(xy 157.48 86.36) (xy 154.94 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fa7b409c-09b4-4ff5-a4b9-127c88670f6a")
+		(uuid "2ae7a086-774d-4faa-9041-7ccbc48fe1d4")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 137.16 81.28 270)
+		(at 154.94 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8c21ada8-943d-430b-9266-ff8d61212900")
+		(uuid "1e3e929e-29eb-47a5-b850-7b5e002af79b")
 		(property "Reference" "#PWR05"
-			(at 137.16 78.74 0)
+			(at 154.94 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2304,7 +2343,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 129.54 81.28 270)
+			(at 147.32 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2312,7 +2351,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 81.28 0)
+			(at 154.94 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2321,7 +2360,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 81.28 0)
+			(at 154.94 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2330,7 +2369,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 81.28 0)
+			(at 154.94 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2339,11 +2378,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ed453f53-a240-46ec-926c-845907884cbd")
+			(uuid "149fe0cb-177d-4771-8cf5-1d0ff236a5ed")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR05")
 					(unit 1)
 				)
@@ -2352,25 +2391,25 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 81.28) (xy 157.48 81.28)
+			(xy 172.72 86.36) (xy 175.26 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c0d4101e-023b-4c2a-8505-e8d4912c4882")
+		(uuid "cf1e2351-36fd-4995-bb9e-59ae02a048c8")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 157.48 81.28 270)
+		(at 175.26 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a90dfa04-2ea3-4595-9336-bb97d33a9531")
+		(uuid "86e5a1b8-9683-40b6-9cb7-f53aa00c343e")
 		(property "Reference" "#PWR06"
-			(at 157.48 78.74 0)
+			(at 175.26 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2379,7 +2418,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 165.1 81.28 270)
+			(at 182.88 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2387,7 +2426,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 81.28 0)
+			(at 175.26 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2396,7 +2435,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 81.28 0)
+			(at 175.26 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2405,7 +2444,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 157.48 81.28 0)
+			(at 175.26 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2414,11 +2453,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "5552624a-73d1-4a25-a704-71de27701d4d")
+			(uuid "e382842b-6e14-4857-9e05-23addaaf7a27")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR06")
 					(unit 1)
 				)
@@ -2427,7 +2466,7 @@
 	)
 	(global_label "GPIO3"
 		(shape bidirectional)
-		(at 147.32 86.36 270)
+		(at 165.1 91.44 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2435,9 +2474,9 @@
 			)
 			(justify right)
 		)
-		(uuid "be5ba30d-ff69-466a-8b65-9e9531590f60")
+		(uuid "da92b4d6-0f4d-431c-923d-8e530b716cc9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.32 86.36 0)
+			(at 165.1 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2448,23 +2487,23 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 167.64 60.96 0)
+		(at 200.66 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7b41b38d-c3b3-4d7f-9601-67b955b2a0cf")
-		(property "Reference" "R54"
-			(at 170.18 59.69 0)
+		(uuid "a4383cac-712f-4584-bfc6-2bdabffaaf40")
+		(property "Reference" "R74"
+			(at 203.2 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 170.18 62.23 0)
+		(property "Value" "330R"
+			(at 203.2 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2473,7 +2512,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 167.64 60.96 0)
+			(at 200.66 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2482,7 +2521,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 60.96 0)
+			(at 200.66 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2491,7 +2530,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 167.64 60.96 0)
+			(at 200.66 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2500,7 +2539,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 167.64 60.96 0)
+			(at 200.66 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2508,8 +2547,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 167.64 60.96 0)
+		(property "MPN" "RC1206FR-07330RL"
+			(at 200.66 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2518,15 +2557,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "daecb7b9-196e-4810-9152-545609a57bc1")
+			(uuid "2d0b9266-56b3-49f3-82c4-634986fa74ff")
 		)
 		(pin "2"
-			(uuid "1e567133-8eca-41a9-9026-0511d9056cb1")
+			(uuid "7267fd9c-6986-4444-9e08-d8410f0f4df5")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R54")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R74")
 					(unit 1)
 				)
 			)
@@ -2534,7 +2573,7 @@
 	)
 	(global_label "GPIO4"
 		(shape bidirectional)
-		(at 167.64 57.15 90)
+		(at 200.66 59.69 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2542,9 +2581,9 @@
 			)
 			(justify left)
 		)
-		(uuid "2acce8ad-49de-4226-8eb3-c9f3d7283c8d")
+		(uuid "ca979747-051b-4795-9d60-c09d31cf4a26")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 57.15 0)
+			(at 200.66 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2554,26 +2593,26 @@
 		)
 	)
 	(label "GPIO4_EXT"
-		(at 167.64 64.77 270)
+		(at 200.66 67.31 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "54877046-0706-4cff-bdc7-dc91b4718c11")
+		(uuid "9015abfa-10fb-4961-ac04-86e15953bffd")
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 177.8 81.28 0)
+		(at 210.82 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fed5980d-09e6-4ae3-9949-97b0ba27d9ce")
+		(uuid "eb954195-3b4c-4f7b-b8be-739ebff064f7")
 		(property "Reference" "D54"
-			(at 182.88 78.74 0)
+			(at 215.9 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2581,7 +2620,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 182.88 83.82 0)
+			(at 215.9 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2589,7 +2628,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 177.8 81.28 0)
+			(at 210.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2598,7 +2637,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 81.28 0)
+			(at 210.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2607,7 +2646,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 177.8 81.28 0)
+			(at 210.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2616,7 +2655,7 @@
 			)
 		)
 		(property "Manufacturer" "Nexperia"
-			(at 177.8 81.28 0)
+			(at 210.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2625,7 +2664,7 @@
 			)
 		)
 		(property "MPN" "BAT54S,215"
-			(at 177.8 81.28 0)
+			(at 210.82 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2634,17 +2673,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "9dcea4e1-86a6-4190-adce-5eb06f7d31d3")
+			(uuid "d9faaefe-46f5-49ff-864b-8c5dea3a3c7e")
 		)
 		(pin "2"
-			(uuid "f387c0d9-acab-438c-8435-f0da5499e1f4")
+			(uuid "fdf84077-dbda-4224-9346-53c77074f09d")
 		)
 		(pin "3"
-			(uuid "54a77dc8-b77b-4946-9c3c-1a18e55bbf45")
+			(uuid "68dc6861-3dd3-4809-ac5d-e686cc997984")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D54")
 					(unit 1)
 				)
@@ -2653,25 +2692,25 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 81.28) (xy 167.64 81.28)
+			(xy 203.2 86.36) (xy 200.66 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5111e426-f3d5-4219-9a33-7bbd6b0c1e02")
+		(uuid "afa593ca-76de-47b8-b126-140d2b70dd91")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 167.64 81.28 270)
+		(at 200.66 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "daef96b2-256f-42d7-95ff-5331bd564f4e")
+		(uuid "2fe59dab-9226-4f43-88d0-a1c53cc06001")
 		(property "Reference" "#PWR07"
-			(at 167.64 78.74 0)
+			(at 200.66 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2680,7 +2719,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 160.02 81.28 270)
+			(at 193.04 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2688,7 +2727,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 81.28 0)
+			(at 200.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2697,7 +2736,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 81.28 0)
+			(at 200.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2706,7 +2745,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 167.64 81.28 0)
+			(at 200.66 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2715,11 +2754,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "235783da-14d7-4e39-b569-af59181da6e9")
+			(uuid "9d27e12d-7760-413f-b31b-63b387e04e03")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR07")
 					(unit 1)
 				)
@@ -2728,25 +2767,25 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 81.28) (xy 187.96 81.28)
+			(xy 218.44 86.36) (xy 220.98 86.36)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d924080e-6e86-40d5-84b0-a7f1ea621d76")
+		(uuid "eba12d08-1346-4b20-a6e8-a5ddbe20c01e")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 187.96 81.28 270)
+		(at 220.98 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "bbc2f472-4729-4e1f-ab84-3a7ec46e2db3")
+		(uuid "8f6c88ee-1ddc-453f-8ec8-ff32ee8453fe")
 		(property "Reference" "#PWR08"
-			(at 187.96 78.74 0)
+			(at 220.98 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2755,7 +2794,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 195.58 81.28 270)
+			(at 228.6 86.36 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2763,7 +2802,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 187.96 81.28 0)
+			(at 220.98 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2772,7 +2811,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 81.28 0)
+			(at 220.98 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2781,7 +2820,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 187.96 81.28 0)
+			(at 220.98 86.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -2790,11 +2829,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "889ba871-5cc7-4256-8029-722201adfd32")
+			(uuid "7ea7feef-2a2e-42a9-ad07-07ec303e6e1d")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR08")
 					(unit 1)
 				)
@@ -2803,7 +2842,7 @@
 	)
 	(global_label "GPIO4"
 		(shape bidirectional)
-		(at 177.8 86.36 270)
+		(at 210.82 91.44 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2811,9 +2850,9 @@
 			)
 			(justify right)
 		)
-		(uuid "4e4d17d9-041b-4ed4-bcf8-6d515f346eab")
+		(uuid "dd7db5b8-19e3-4842-b952-56718649716b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 177.8 86.36 0)
+			(at 210.82 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2824,32 +2863,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 76.2 162.56 0)
+		(at 76.2 127 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1d446bd4-3d3f-4e55-a6ea-3db804cb0296")
-		(property "Reference" "R55"
-			(at 78.74 161.29 0)
+		(uuid "255f0e94-c107-48d6-b5fc-eb895be749f7")
+		(property "Reference" "R80"
+			(at 76.2 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 78.74 163.83 0)
+		(property "Value" "10M"
+			(at 76.2 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 76.2 162.56 0)
+			(at 76.2 127 0)
 			(hide yes)
 			(effects
 				(font
@@ -2858,7 +2896,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 162.56 0)
+			(at 76.2 127 0)
 			(hide yes)
 			(effects
 				(font
@@ -2867,7 +2905,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.2 162.56 0)
+			(at 76.2 127 0)
 			(hide yes)
 			(effects
 				(font
@@ -2876,7 +2914,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 76.2 162.56 0)
+			(at 76.2 127 0)
 			(hide yes)
 			(effects
 				(font
@@ -2884,8 +2922,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 76.2 162.56 0)
+		(property "MPN" "RC1206FR-0710ML"
+			(at 76.2 127 0)
 			(hide yes)
 			(effects
 				(font
@@ -2894,23 +2932,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "5fff6856-798f-4f44-86e1-af2259062367")
+			(uuid "2166c4c0-a1e5-4df0-b9d3-e785b8f58761")
 		)
 		(pin "2"
-			(uuid "9e1f9eb6-4f44-48fa-8771-486a8bd62c93")
+			(uuid "5ecb11c4-9e47-4050-98f2-8d738c16815f")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R55")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R80")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO5"
+	(label "AI1P_EXT"
+		(at 72.39 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2496b4bf-013f-4b97-9244-96ea6ebb7797")
+	)
+	(global_label "AI1P"
 		(shape bidirectional)
-		(at 76.2 158.75 90)
+		(at 80.01 127 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2918,9 +2966,9 @@
 			)
 			(justify left)
 		)
-		(uuid "6de41bd2-7b86-4bc6-bc6b-b8a23968cbf6")
+		(uuid "5a66ceeb-ba54-41fb-9e93-24685db3b929")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 158.75 0)
+			(at 80.01 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2929,43 +2977,34 @@
 			)
 		)
 	)
-	(label "GPIO5_EXT"
-		(at 76.2 166.37 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "bc3ddd81-d603-466f-b357-77e91441b066")
-	)
 	(symbol
-		(lib_id "Diode:BAT54S")
-		(at 86.36 182.88 0)
+		(lib_id "Device:R")
+		(at 101.6 139.7 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8eb76447-bc16-411f-a0b5-9d9d2e3985bc")
-		(property "Reference" "D55"
-			(at 91.44 180.34 0)
+		(uuid "89cde9f6-5154-46b4-a47f-35f5e04b6350")
+		(property "Reference" "R84"
+			(at 104.14 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "BAT54S"
-			(at 91.44 185.42 0)
+		(property "Value" "130k"
+			(at 104.14 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 86.36 182.88 0)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 101.6 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -2974,7 +3013,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 86.36 182.88 0)
+			(at 101.6 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -2983,7 +3022,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 86.36 182.88 0)
+			(at 101.6 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -2991,8 +3030,8 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
-			(at 86.36 182.88 0)
+		(property "Manufacturer" "Yageo"
+			(at 101.6 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3000,8 +3039,8 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
-			(at 86.36 182.88 0)
+		(property "MPN" "RC1206FR-07130KL"
+			(at 101.6 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3010,17 +3049,272 @@
 			)
 		)
 		(pin "1"
-			(uuid "849a3055-ba49-4272-b808-b0400a20f330")
+			(uuid "fe37efbc-55ab-439e-892f-a53ed6c0e828")
 		)
 		(pin "2"
-			(uuid "042db20f-5f91-41da-b650-bcc3a6b073a8")
-		)
-		(pin "3"
-			(uuid "82d1669e-1905-401e-9a64-00c09454eb9d")
+			(uuid "65dbe205-436f-481b-9a62-991d553beef8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R84")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI1P"
+		(shape bidirectional)
+		(at 101.6 135.89 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3191b51e-eca5-4a48-b970-304db6823985")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 101.6 143.51 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "89d936d8-1792-43c4-a8d6-b47d18ce6382")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 116.84 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c60e159c-63f7-4b01-88ad-32389ce75608")
+		(property "Reference" "C80"
+			(at 119.38 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF 50V X7R"
+			(at 119.38 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 116.84 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 116.84 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM319R71H104KA01D"
+			(at 116.84 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c74e69d2-50a2-45b8-ad92-014ea4c161ce")
+		)
+		(pin "2"
+			(uuid "86482e15-12d2-432d-b202-76b4632b76ee")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "C80")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI1P"
+		(shape bidirectional)
+		(at 116.84 135.89 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fa88651a-360d-40fc-8a08-33ea4c002123")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 116.84 143.51 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "adc91cdc-d484-4fe1-af5a-4746ba7e09f5")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT54S")
+		(at 137.16 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "85e25566-9998-49d8-8542-c6223ff1f097")
+		(property "Reference" "D55"
+			(at 142.24 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT54S"
+			(at 142.24 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 137.16 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Nexperia"
+			(at 137.16 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "BAT54S,215"
+			(at 137.16 139.7 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0648bb49-7ab2-4c05-9360-f7897343b687")
+		)
+		(pin "2"
+			(uuid "2319421d-f2bd-488e-822d-3109983500a6")
+		)
+		(pin "3"
+			(uuid "fe100677-ae57-4a47-9fec-31164465f195")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D55")
 					(unit 1)
 				)
@@ -3029,25 +3323,25 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 182.88) (xy 76.2 182.88)
+			(xy 129.54 139.7) (xy 127 139.7)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e4ffe5b7-ec7f-4b48-846a-142856d0b416")
+		(uuid "d669d92a-a602-4612-8751-cf5f4ba495ff")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 76.2 182.88 270)
+		(at 127 139.7 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b22796cc-1fdd-4f74-8dba-cb5e69e186ad")
+		(uuid "e3773e71-57e7-4da9-9800-19ab77b16358")
 		(property "Reference" "#PWR09"
-			(at 76.2 180.34 0)
+			(at 127 137.16 0)
 			(hide yes)
 			(effects
 				(font
@@ -3056,7 +3350,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 68.58 182.88 270)
+			(at 119.38 139.7 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3064,7 +3358,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.2 182.88 0)
+			(at 127 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3073,7 +3367,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 182.88 0)
+			(at 127 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3082,7 +3376,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.2 182.88 0)
+			(at 127 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3091,11 +3385,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "b017fb93-eddf-47ce-acfb-dcc4a82485a0")
+			(uuid "df9f9f8a-ae0c-4c59-9d76-73ae24e6a264")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR09")
 					(unit 1)
 				)
@@ -3104,25 +3398,25 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 182.88) (xy 96.52 182.88)
+			(xy 144.78 139.7) (xy 147.32 139.7)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "262de97f-2e43-43d5-91ff-469474bca44d")
+		(uuid "4db47f0b-50bd-49ca-b69f-a90d73a17a28")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 96.52 182.88 270)
+		(at 147.32 139.7 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "32ba976a-1b30-4266-830a-80395225dfbb")
+		(uuid "49aa57b5-0c1e-4a01-9d70-deb3c29bb9f8")
 		(property "Reference" "#PWR10"
-			(at 96.52 180.34 0)
+			(at 147.32 137.16 0)
 			(hide yes)
 			(effects
 				(font
@@ -3131,7 +3425,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 104.14 182.88 270)
+			(at 154.94 139.7 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3139,7 +3433,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 96.52 182.88 0)
+			(at 147.32 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3148,7 +3442,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.52 182.88 0)
+			(at 147.32 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3157,7 +3451,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 96.52 182.88 0)
+			(at 147.32 139.7 0)
 			(hide yes)
 			(effects
 				(font
@@ -3166,20 +3460,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "c8e29bb3-a4bd-4015-8fd1-6a9bbdb761c2")
+			(uuid "854df838-70d3-497f-9fbd-092c7410c2aa")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR10")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO5"
+	(global_label "AI1P"
 		(shape bidirectional)
-		(at 86.36 187.96 270)
+		(at 137.16 144.78 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3187,9 +3481,9 @@
 			)
 			(justify right)
 		)
-		(uuid "81d0a8f5-d35f-4e04-97d7-5b7085de212e")
+		(uuid "05c51e13-59a6-44a6-800d-be6f5e8e8cc6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.36 187.96 0)
+			(at 137.16 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3200,32 +3494,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 106.68 162.56 0)
+		(at 76.2 165.1 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b0921172-0a8e-4494-9d75-e2131fd893bc")
-		(property "Reference" "R56"
-			(at 109.22 161.29 0)
+		(uuid "85d7a31e-f93b-47c1-a664-c177ffe12d0a")
+		(property "Reference" "R81"
+			(at 76.2 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 109.22 163.83 0)
+		(property "Value" "10M"
+			(at 76.2 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 106.68 162.56 0)
+			(at 76.2 165.1 0)
 			(hide yes)
 			(effects
 				(font
@@ -3234,7 +3527,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 162.56 0)
+			(at 76.2 165.1 0)
 			(hide yes)
 			(effects
 				(font
@@ -3243,7 +3536,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 106.68 162.56 0)
+			(at 76.2 165.1 0)
 			(hide yes)
 			(effects
 				(font
@@ -3252,7 +3545,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 106.68 162.56 0)
+			(at 76.2 165.1 0)
 			(hide yes)
 			(effects
 				(font
@@ -3260,8 +3553,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 106.68 162.56 0)
+		(property "MPN" "RC1206FR-0710ML"
+			(at 76.2 165.1 0)
 			(hide yes)
 			(effects
 				(font
@@ -3270,23 +3563,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "69dd5acd-9884-42ba-9e0b-9ff3378949da")
+			(uuid "d25e57e9-61e9-4585-a9cb-0bea3f95b00d")
 		)
 		(pin "2"
-			(uuid "176d0daa-88ed-4dee-b07a-a15fa34c0532")
+			(uuid "8157b295-5dc4-4139-860a-49a8ec8bf1bc")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R56")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R81")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO6"
+	(label "AI1N_EXT"
+		(at 72.39 165.1 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bc6bd321-087b-429f-9bbb-296bf4ce64d5")
+	)
+	(global_label "AI1N"
 		(shape bidirectional)
-		(at 106.68 158.75 90)
+		(at 80.01 165.1 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3294,9 +3597,9 @@
 			)
 			(justify left)
 		)
-		(uuid "c008ae76-ea50-420e-92af-b3578439c3ae")
+		(uuid "7f9ae6ee-544a-47de-9003-a7e2bb35e8b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.68 158.75 0)
+			(at 80.01 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3305,43 +3608,34 @@
 			)
 		)
 	)
-	(label "GPIO6_EXT"
-		(at 106.68 166.37 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "81642715-2dc5-47c2-b57e-bbf7ab122da9")
-	)
 	(symbol
-		(lib_id "Diode:BAT54S")
-		(at 116.84 182.88 0)
+		(lib_id "Device:R")
+		(at 101.6 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "53bbb3d2-1010-44b3-9341-74003180348c")
-		(property "Reference" "D56"
-			(at 121.92 180.34 0)
+		(uuid "6ea6f748-dbe7-4331-86fa-3dbb7e6a09ed")
+		(property "Reference" "R85"
+			(at 104.14 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "BAT54S"
-			(at 121.92 185.42 0)
+		(property "Value" "130k"
+			(at 104.14 179.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 116.84 182.88 0)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 101.6 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3350,7 +3644,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 116.84 182.88 0)
+			(at 101.6 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3359,7 +3653,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 116.84 182.88 0)
+			(at 101.6 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3367,8 +3661,8 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
-			(at 116.84 182.88 0)
+		(property "Manufacturer" "Yageo"
+			(at 101.6 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3376,8 +3670,8 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
-			(at 116.84 182.88 0)
+		(property "MPN" "RC1206FR-07130KL"
+			(at 101.6 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3386,17 +3680,272 @@
 			)
 		)
 		(pin "1"
-			(uuid "9c4ffffb-c3f9-4ddc-8633-114ea13410dd")
+			(uuid "fd749404-f899-4de1-92b4-ad81cbbbaadb")
 		)
 		(pin "2"
-			(uuid "a60200fc-3d6f-425e-a83b-69e34dbdafd2")
-		)
-		(pin "3"
-			(uuid "6598da28-3328-4aaf-ad30-0500cf7c4425")
+			(uuid "7c16fc4f-8262-499f-8c1d-9b602dda7408")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R85")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI1N"
+		(shape bidirectional)
+		(at 101.6 173.99 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1653773b-0721-407b-ae72-77842a326b8b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 101.6 181.61 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5dbb420e-4aed-4b17-9bf0-99610dd27484")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 116.84 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "735029eb-7879-4eff-9e94-d5c92a45c685")
+		(property "Reference" "C81"
+			(at 119.38 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF 50V X7R"
+			(at 119.38 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 116.84 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 116.84 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM319R71H104KA01D"
+			(at 116.84 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6195f562-ec24-43a0-800a-8e81b5edec7f")
+		)
+		(pin "2"
+			(uuid "f2394ff3-60c6-4dcc-ba79-503ca0a8a370")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "C81")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI1N"
+		(shape bidirectional)
+		(at 116.84 173.99 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "24c0f04a-39a0-4a4e-8401-751bd08d1923")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 116.84 181.61 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "beb329d0-76c6-4cef-8d02-b25ee68aff67")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT54S")
+		(at 137.16 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c45ba039-d061-4e2f-a4d0-e87da273c5e4")
+		(property "Reference" "D56"
+			(at 142.24 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT54S"
+			(at 142.24 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 137.16 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Nexperia"
+			(at 137.16 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "BAT54S,215"
+			(at 137.16 177.8 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "db932863-05c6-4ce6-8944-17ceeb2945fa")
+		)
+		(pin "2"
+			(uuid "a173c1a0-85ab-4507-a812-8efc5f760585")
+		)
+		(pin "3"
+			(uuid "4561fc55-c208-4cd5-9d38-535df558a971")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D56")
 					(unit 1)
 				)
@@ -3405,25 +3954,25 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 182.88) (xy 106.68 182.88)
+			(xy 129.54 177.8) (xy 127 177.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "719a8104-586c-42c3-bb43-1ff0f07ce422")
+		(uuid "7d32f5cc-550a-4c94-b2d8-5f53919449b0")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 106.68 182.88 270)
+		(at 127 177.8 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b14fdad0-37b5-4a9d-8ffa-5f5e9c19f5bd")
+		(uuid "e955b66a-a504-47c8-a05f-352f25f699c2")
 		(property "Reference" "#PWR11"
-			(at 106.68 180.34 0)
+			(at 127 175.26 0)
 			(hide yes)
 			(effects
 				(font
@@ -3432,7 +3981,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 99.06 182.88 270)
+			(at 119.38 177.8 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3440,7 +3989,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 106.68 182.88 0)
+			(at 127 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3449,7 +3998,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 182.88 0)
+			(at 127 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3458,7 +4007,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 106.68 182.88 0)
+			(at 127 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3467,11 +4016,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "f3ee9446-7bfa-4f7c-ad9d-8e3b2b8566f8")
+			(uuid "9b3023b3-f183-4e39-b563-625fa68daaa8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR11")
 					(unit 1)
 				)
@@ -3480,25 +4029,25 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 182.88) (xy 127 182.88)
+			(xy 144.78 177.8) (xy 147.32 177.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "85091cab-af71-4794-a21e-8761eb547532")
+		(uuid "a8b2b771-f3bc-444a-978a-973d5aa66946")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 127 182.88 270)
+		(at 147.32 177.8 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f550c3a5-e724-4399-9930-b398c99912da")
+		(uuid "6bdb8e07-2acf-4c8a-95ba-95b698b4ec99")
 		(property "Reference" "#PWR12"
-			(at 127 180.34 0)
+			(at 147.32 175.26 0)
 			(hide yes)
 			(effects
 				(font
@@ -3507,7 +4056,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 134.62 182.88 270)
+			(at 154.94 177.8 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3515,7 +4064,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 182.88 0)
+			(at 147.32 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3524,7 +4073,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 182.88 0)
+			(at 147.32 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3533,7 +4082,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 127 182.88 0)
+			(at 147.32 177.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -3542,20 +4091,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "d06e70e0-a218-4e93-b0b9-043fcbc6e311")
+			(uuid "6cf9fc04-89d5-4fec-b2df-f50c6c059b66")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR12")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO6"
+	(global_label "AI1N"
 		(shape bidirectional)
-		(at 116.84 187.96 270)
+		(at 137.16 182.88 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3563,9 +4112,9 @@
 			)
 			(justify right)
 		)
-		(uuid "5bca123d-2696-47f0-9cfe-588751625b02")
+		(uuid "c0416340-f8eb-43c0-b156-25191f9d1a70")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 116.84 187.96 0)
+			(at 137.16 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3576,32 +4125,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 137.16 162.56 0)
+		(at 76.2 203.2 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "32e08998-21c7-4062-8142-8181bf63fab1")
-		(property "Reference" "R57"
-			(at 139.7 161.29 0)
+		(uuid "75edd689-070c-4456-a53f-60af98200693")
+		(property "Reference" "R82"
+			(at 76.2 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 139.7 163.83 0)
+		(property "Value" "10M"
+			(at 76.2 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 137.16 162.56 0)
+			(at 76.2 203.2 0)
 			(hide yes)
 			(effects
 				(font
@@ -3610,7 +4158,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 162.56 0)
+			(at 76.2 203.2 0)
 			(hide yes)
 			(effects
 				(font
@@ -3619,7 +4167,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 162.56 0)
+			(at 76.2 203.2 0)
 			(hide yes)
 			(effects
 				(font
@@ -3628,7 +4176,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 137.16 162.56 0)
+			(at 76.2 203.2 0)
 			(hide yes)
 			(effects
 				(font
@@ -3636,8 +4184,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 137.16 162.56 0)
+		(property "MPN" "RC1206FR-0710ML"
+			(at 76.2 203.2 0)
 			(hide yes)
 			(effects
 				(font
@@ -3646,23 +4194,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "6104bb5c-6b0d-4f5f-91cc-b96dedaff164")
+			(uuid "b4fd4e0c-af2b-4ab8-867e-ea5db796044a")
 		)
 		(pin "2"
-			(uuid "2d66764d-d14e-45e4-93a6-dcf4291bc18b")
+			(uuid "64627d6d-e438-4336-b79a-2364a9599553")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R57")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R82")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO7"
+	(label "AI2P_EXT"
+		(at 72.39 203.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "030e7c91-57e3-48e7-b660-0f717c862485")
+	)
+	(global_label "AI2P"
 		(shape bidirectional)
-		(at 137.16 158.75 90)
+		(at 80.01 203.2 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3670,9 +4228,9 @@
 			)
 			(justify left)
 		)
-		(uuid "c15ad8fd-c281-4f45-a0e5-cf835743d61e")
+		(uuid "3c119d67-feed-402b-9b58-c52f4d9a53d7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 158.75 0)
+			(at 80.01 203.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3681,43 +4239,34 @@
 			)
 		)
 	)
-	(label "GPIO7_EXT"
-		(at 137.16 166.37 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b8430291-4474-49da-9427-7f8ef6a55556")
-	)
 	(symbol
-		(lib_id "Diode:BAT54S")
-		(at 147.32 182.88 0)
+		(lib_id "Device:R")
+		(at 101.6 215.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "021d51f2-5dd3-470e-beb3-c60b9f2dcdbf")
-		(property "Reference" "D57"
-			(at 152.4 180.34 0)
+		(uuid "f8c43e32-5e58-4663-af61-7b38b9b7d1a2")
+		(property "Reference" "R86"
+			(at 104.14 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "BAT54S"
-			(at 152.4 185.42 0)
+		(property "Value" "130k"
+			(at 104.14 217.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 147.32 182.88 0)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 101.6 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3726,7 +4275,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 182.88 0)
+			(at 101.6 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3735,7 +4284,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 182.88 0)
+			(at 101.6 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3743,8 +4292,8 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
-			(at 147.32 182.88 0)
+		(property "Manufacturer" "Yageo"
+			(at 101.6 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3752,8 +4301,8 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
-			(at 147.32 182.88 0)
+		(property "MPN" "RC1206FR-07130KL"
+			(at 101.6 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3762,17 +4311,272 @@
 			)
 		)
 		(pin "1"
-			(uuid "e677306f-b17d-4de8-8b2f-329b6986a224")
+			(uuid "81d347f2-05fb-4cc5-ae7c-d0e012a7b3a3")
 		)
 		(pin "2"
-			(uuid "b4b64b15-b7b7-40aa-abea-b87625b0b08c")
-		)
-		(pin "3"
-			(uuid "daa79b4b-05b6-4cc3-8349-4c96d7bb0dd9")
+			(uuid "0c95a796-ab1c-418b-af35-73d446040009")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R86")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI2P"
+		(shape bidirectional)
+		(at 101.6 212.09 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "48450703-baee-461d-b5d5-a1d31ad66e38")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 212.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 101.6 219.71 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b78c4569-4b84-45a7-b5a4-4ac8a158bbb3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 219.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 116.84 215.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e7cd359-4754-4e74-8f35-0c5e498e2103")
+		(property "Reference" "C82"
+			(at 119.38 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF 50V X7R"
+			(at 119.38 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 116.84 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 116.84 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM319R71H104KA01D"
+			(at 116.84 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7334ef84-2886-4126-9085-b54bd360fe16")
+		)
+		(pin "2"
+			(uuid "bb78b3e5-08ef-4250-bf70-48f2c7d4e5e7")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "C82")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI2P"
+		(shape bidirectional)
+		(at 116.84 212.09 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1cd7223c-fa14-47ad-8b08-ae179c623248")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 212.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 116.84 219.71 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0d477bd4-173e-40ff-9597-fe4878486103")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 219.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT54S")
+		(at 137.16 215.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eb96c3f2-eb52-44a5-bbff-79f49a550428")
+		(property "Reference" "D57"
+			(at 142.24 212.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT54S"
+			(at 142.24 219.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 137.16 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Nexperia"
+			(at 137.16 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "BAT54S,215"
+			(at 137.16 215.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2c742a49-0634-4714-812b-2f86cdba5e7f")
+		)
+		(pin "2"
+			(uuid "c9852a2a-027f-4994-8111-5f2c659708ab")
+		)
+		(pin "3"
+			(uuid "02be62be-2108-49af-9a55-3b2f83c17714")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D57")
 					(unit 1)
 				)
@@ -3781,25 +4585,25 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 182.88) (xy 137.16 182.88)
+			(xy 129.54 215.9) (xy 127 215.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4fb3b1f3-fc32-4512-8c80-cca4993bb3f2")
+		(uuid "ae5a7953-27c1-45e2-b92e-c836e664cf3a")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 137.16 182.88 270)
+		(at 127 215.9 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "03a40d96-6878-4874-bee1-5e1b8078a725")
+		(uuid "628dcfb3-aec4-405e-bac5-2ad43e9fc371")
 		(property "Reference" "#PWR13"
-			(at 137.16 180.34 0)
+			(at 127 213.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -3808,7 +4612,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 129.54 182.88 270)
+			(at 119.38 215.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3816,7 +4620,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 182.88 0)
+			(at 127 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3825,7 +4629,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 182.88 0)
+			(at 127 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3834,7 +4638,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 182.88 0)
+			(at 127 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3843,11 +4647,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "781097f5-7517-4811-afa2-f70535c3300b")
+			(uuid "de394823-5e97-4a72-8366-23c147767365")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR13")
 					(unit 1)
 				)
@@ -3856,25 +4660,25 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 182.88) (xy 157.48 182.88)
+			(xy 144.78 215.9) (xy 147.32 215.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8a9a92ff-f6a8-4fe5-881e-1618a4a49cc5")
+		(uuid "935e727b-b200-4f15-90aa-43ecbd61dc3f")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 157.48 182.88 270)
+		(at 147.32 215.9 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a6fdf8a1-5ccc-4895-ad20-207ec10ff13e")
+		(uuid "9d521e88-9540-4392-a2aa-ea0cf0e5c706")
 		(property "Reference" "#PWR14"
-			(at 157.48 180.34 0)
+			(at 147.32 213.36 0)
 			(hide yes)
 			(effects
 				(font
@@ -3883,7 +4687,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 165.1 182.88 270)
+			(at 154.94 215.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3891,7 +4695,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 182.88 0)
+			(at 147.32 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3900,7 +4704,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 182.88 0)
+			(at 147.32 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3909,7 +4713,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 157.48 182.88 0)
+			(at 147.32 215.9 0)
 			(hide yes)
 			(effects
 				(font
@@ -3918,20 +4722,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "e48ce02d-61ab-46d0-8e63-6cd59df33dc3")
+			(uuid "21a00304-9e87-4946-85b1-7eef569e32fe")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR14")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO7"
+	(global_label "AI2P"
 		(shape bidirectional)
-		(at 147.32 187.96 270)
+		(at 137.16 220.98 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3939,9 +4743,9 @@
 			)
 			(justify right)
 		)
-		(uuid "e4a3a795-7952-43b5-833b-def0769f7fee")
+		(uuid "1d8b1393-795d-431a-8b6c-b016179bf627")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.32 187.96 0)
+			(at 137.16 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3952,32 +4756,31 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 167.64 162.56 0)
+		(at 76.2 241.3 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "92e00649-b0ca-4f46-b365-fe8e90ca4976")
-		(property "Reference" "R58"
-			(at 170.18 161.29 0)
+		(uuid "cfccad59-2740-4a1d-a0d3-c34594addc88")
+		(property "Reference" "R83"
+			(at 76.2 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 170.18 163.83 0)
+		(property "Value" "10M"
+			(at 76.2 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 167.64 162.56 0)
+			(at 76.2 241.3 0)
 			(hide yes)
 			(effects
 				(font
@@ -3986,7 +4789,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 162.56 0)
+			(at 76.2 241.3 0)
 			(hide yes)
 			(effects
 				(font
@@ -3995,7 +4798,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 167.64 162.56 0)
+			(at 76.2 241.3 0)
 			(hide yes)
 			(effects
 				(font
@@ -4004,7 +4807,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 167.64 162.56 0)
+			(at 76.2 241.3 0)
 			(hide yes)
 			(effects
 				(font
@@ -4012,8 +4815,8 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-074K7L"
-			(at 167.64 162.56 0)
+		(property "MPN" "RC1206FR-0710ML"
+			(at 76.2 241.3 0)
 			(hide yes)
 			(effects
 				(font
@@ -4022,23 +4825,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "dad01f10-ae1b-4639-be29-93768813229c")
+			(uuid "b956ebb6-56f9-4cbc-9b2e-abb29a5fcc89")
 		)
 		(pin "2"
-			(uuid "41dc7e7f-215c-4257-a2d1-fba42b8cb52e")
+			(uuid "2a36b288-4bcf-4400-8b6c-d8a423b925af")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "R58")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R83")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO8"
+	(label "AI2N_EXT"
+		(at 72.39 241.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "26998a48-f236-4ad2-8438-441fff4adc89")
+	)
+	(global_label "AI2N"
 		(shape bidirectional)
-		(at 167.64 158.75 90)
+		(at 80.01 241.3 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4046,9 +4859,9 @@
 			)
 			(justify left)
 		)
-		(uuid "bb3e32cb-d27d-4e84-aa66-0784ec2682f9")
+		(uuid "65ab9bdd-a0b2-4889-8677-18180d75f0f2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 158.75 0)
+			(at 80.01 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4057,43 +4870,34 @@
 			)
 		)
 	)
-	(label "GPIO8_EXT"
-		(at 167.64 166.37 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5ab28ab7-c574-4da7-aaab-fcddfc6fdbdb")
-	)
 	(symbol
-		(lib_id "Diode:BAT54S")
-		(at 177.8 182.88 0)
+		(lib_id "Device:R")
+		(at 101.6 254 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cf737e24-1fab-4593-b62f-7422c49e1ac3")
-		(property "Reference" "D58"
-			(at 182.88 180.34 0)
+		(uuid "62d9bb22-4e09-4281-9d66-92ab597259db")
+		(property "Reference" "R87"
+			(at 104.14 252.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "BAT54S"
-			(at 182.88 185.42 0)
+		(property "Value" "130k"
+			(at 104.14 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 177.8 182.88 0)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 101.6 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4102,7 +4906,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 182.88 0)
+			(at 101.6 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4111,7 +4915,262 @@
 			)
 		)
 		(property "Description" ""
-			(at 177.8 182.88 0)
+			(at 101.6 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 101.6 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC1206FR-07130KL"
+			(at 101.6 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f77b2fac-fa4a-4c49-97eb-20ed61689008")
+		)
+		(pin "2"
+			(uuid "6722f4a6-0570-42f6-ac60-886d20a5f461")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R87")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI2N"
+		(shape bidirectional)
+		(at 101.6 250.19 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a7f11188-4aca-4463-bca4-5e923f339c2f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 101.6 257.81 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "14427e1e-7aec-4473-b064-5ca313b86b17")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 101.6 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 116.84 254 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5f8f03f7-0383-4bdf-8701-0d078ef4ec9d")
+		(property "Reference" "C83"
+			(at 119.38 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF 50V X7R"
+			(at 119.38 255.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 116.84 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 116.84 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM319R71H104KA01D"
+			(at 116.84 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "381e0076-f148-478a-9fa2-c501133656d0")
+		)
+		(pin "2"
+			(uuid "e686db34-949b-4d87-b0f2-cdae330a6b97")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "C83")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "AI2N"
+		(shape bidirectional)
+		(at 116.84 250.19 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6bdf4516-2b5d-4fe2-b9d2-96b623280883")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VMID"
+		(shape bidirectional)
+		(at 116.84 257.81 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3b19a701-b5d9-431b-b5b4-9165b0a3c726")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT54S")
+		(at 137.16 254 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c9a5b88b-3911-4f7f-b963-9a472218221a")
+		(property "Reference" "D58"
+			(at 142.24 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT54S"
+			(at 142.24 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 137.16 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 254 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4120,7 +5179,7 @@
 			)
 		)
 		(property "Manufacturer" "Nexperia"
-			(at 177.8 182.88 0)
+			(at 137.16 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4129,7 +5188,7 @@
 			)
 		)
 		(property "MPN" "BAT54S,215"
-			(at 177.8 182.88 0)
+			(at 137.16 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4138,17 +5197,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "2a5dfe3b-b7e8-45ae-b0f3-8e186f30682b")
+			(uuid "e914e5e8-fec9-4e2e-b11f-599eadef7497")
 		)
 		(pin "2"
-			(uuid "6b903671-323c-4696-ab0f-05094d35a78c")
+			(uuid "10c63464-7198-496e-8751-73403819dff4")
 		)
 		(pin "3"
-			(uuid "36423d5b-bafd-4ecf-b63c-2419b9f20004")
+			(uuid "7a3b2ca0-cdfe-4572-80de-0a8a037eaf00")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "D58")
 					(unit 1)
 				)
@@ -4157,25 +5216,25 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 182.88) (xy 167.64 182.88)
+			(xy 129.54 254) (xy 127 254)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d38f3292-ccdd-4c6e-8a1f-27a060975eb7")
+		(uuid "5b56aa65-8ffc-4160-af23-695d8e86cf8c")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 167.64 182.88 270)
+		(at 127 254 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "97008110-8a21-439a-9caf-bf51b5682ae0")
+		(uuid "ec47c2de-c8b0-49d4-9fe2-e64c8872cdfa")
 		(property "Reference" "#PWR15"
-			(at 167.64 180.34 0)
+			(at 127 251.46 0)
 			(hide yes)
 			(effects
 				(font
@@ -4184,7 +5243,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 160.02 182.88 270)
+			(at 119.38 254 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4192,7 +5251,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 182.88 0)
+			(at 127 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4201,7 +5260,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 182.88 0)
+			(at 127 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4210,7 +5269,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 167.64 182.88 0)
+			(at 127 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4219,11 +5278,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "bc9dba08-2337-460c-8893-eb1de89c5f1b")
+			(uuid "8088253d-de05-4ce6-9052-1a3bcc4c09c7")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR15")
 					(unit 1)
 				)
@@ -4232,25 +5291,25 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 182.88) (xy 187.96 182.88)
+			(xy 144.78 254) (xy 147.32 254)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7554c336-2552-4af1-9b07-cabac8e9a24b")
+		(uuid "36ba4fb5-1f8d-4d5b-8a57-91caa3cd5b05")
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 187.96 182.88 270)
+		(at 147.32 254 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5cc3ff85-f62c-497b-956f-8ee0a7db07b2")
+		(uuid "559cacb4-bfa8-41dd-be93-fd1110f92746")
 		(property "Reference" "#PWR16"
-			(at 187.96 180.34 0)
+			(at 147.32 251.46 0)
 			(hide yes)
 			(effects
 				(font
@@ -4259,7 +5318,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 195.58 182.88 270)
+			(at 154.94 254 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4267,7 +5326,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 187.96 182.88 0)
+			(at 147.32 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4276,7 +5335,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 182.88 0)
+			(at 147.32 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4285,7 +5344,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 187.96 182.88 0)
+			(at 147.32 254 0)
 			(hide yes)
 			(effects
 				(font
@@ -4294,20 +5353,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "799c360e-286f-444a-bb42-43cb27ecb520")
+			(uuid "ff280e6a-7c5c-4904-b2ff-0c08575abe14")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR16")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GPIO8"
+	(global_label "AI2N"
 		(shape bidirectional)
-		(at 177.8 187.96 270)
+		(at 137.16 259.08 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4315,9 +5374,9 @@
 			)
 			(justify right)
 		)
-		(uuid "40208be9-2b95-4991-85e3-722d813acfe0")
+		(uuid "aa9b1293-88bc-45d2-b63e-1611298e5889")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 177.8 187.96 0)
+			(at 137.16 259.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4327,32 +5386,32 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_02x08_Top_Bottom")
-		(at 238.76 116.84 0)
+		(lib_id "Connector_Generic:Conn_02x06_Top_Bottom")
+		(at 304.8 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4066b2fc-9c50-4b53-a2bc-b20f2de5b405")
+		(uuid "3d009fbe-bb4b-4b92-b9ce-aa30bd16d45b")
 		(property "Reference" "J40"
-			(at 238.76 101.6 0)
+			(at 304.8 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "GPIO"
-			(at 238.76 134.62 0)
+		(property "Value" "IO"
+			(at 304.8 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Thl_Connector:PhoenixContact_SPTD_1,5_8-H-3,5_2x08_P3.5mm_Horizontal"
-			(at 238.76 116.84 0)
+		(property "Footprint" "Thl_Connector:PhoenixContact_SPTD_1,5_6-H-3,5_2x06_P3.5mm_Horizontal"
+			(at 304.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4361,7 +5420,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 116.84 0)
+			(at 304.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4370,7 +5429,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 238.76 116.84 0)
+			(at 304.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4379,7 +5438,7 @@
 			)
 		)
 		(property "Manufacturer" "Phoenix Contact"
-			(at 238.76 116.84 0)
+			(at 304.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4387,8 +5446,8 @@
 				)
 			)
 		)
-		(property "MPN" "1841555"
-			(at 238.76 116.84 0)
+		(property "MPN" "1841539"
+			(at 304.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4397,56 +5456,44 @@
 			)
 		)
 		(pin "1"
-			(uuid "c4b8382f-060f-4cee-b18f-be92b254f72a")
+			(uuid "7f23d4d6-9164-4d41-b53e-8be63aa69fa3")
 		)
 		(pin "2"
-			(uuid "7ca18538-3131-4d47-8b62-5119d66233ce")
+			(uuid "fddb454f-302e-4adc-a361-86e9fde352bb")
 		)
 		(pin "3"
-			(uuid "41c341af-08a3-4498-8501-7a168fe29694")
+			(uuid "177b4261-90be-479b-abfd-dcb7117b7f14")
 		)
 		(pin "4"
-			(uuid "5821e793-5e46-421b-9458-e351ebd48279")
+			(uuid "6b4cda95-9a1a-4a2e-b2f3-e23379e915ba")
 		)
 		(pin "5"
-			(uuid "b02282cc-b8be-45bd-8d75-7f7c85b401d4")
+			(uuid "8f923541-c09b-499c-94d7-3c3a18ffe69d")
 		)
 		(pin "6"
-			(uuid "f32b4d86-b322-4158-9a9b-42b48cfe1483")
+			(uuid "eb2a905a-9e34-4a9b-b07e-f9858e2b4ea1")
 		)
 		(pin "7"
-			(uuid "9e4efe78-40df-4104-8a3e-e7e2b3e6874b")
+			(uuid "6703a7d1-8312-4a57-ab3c-358c7c3c1c95")
 		)
 		(pin "8"
-			(uuid "5f7dd902-1021-4f4c-849c-b7d622b5a76d")
+			(uuid "f1bacfe8-d055-45b3-baeb-d0b9270cd9d5")
 		)
 		(pin "9"
-			(uuid "b5d3256d-41aa-4845-9328-9ca228da9c89")
+			(uuid "9a0ea202-1393-45e4-9c57-66595d6fb8e4")
 		)
 		(pin "10"
-			(uuid "e11ebd78-a46b-4e2c-9b24-4f6c397fc4af")
+			(uuid "f9a00353-7820-4c42-b9d5-b202a308eac6")
 		)
 		(pin "11"
-			(uuid "ec7c311c-e022-46af-93ea-de218b5fc4a8")
+			(uuid "5feada33-d961-46e6-a574-c9103c7be299")
 		)
 		(pin "12"
-			(uuid "507245c5-c476-4725-8259-5eb92559bc98")
-		)
-		(pin "13"
-			(uuid "1275f9c9-f271-4662-872c-77af6da64a45")
-		)
-		(pin "14"
-			(uuid "64f41c3f-ddcf-42f2-a7ea-1c987143aa6b")
-		)
-		(pin "15"
-			(uuid "9c40b832-e019-4d52-9abb-4107126f6911")
-		)
-		(pin "16"
-			(uuid "8c491c93-5b49-4e9b-98c9-36e1b1e2be4a")
+			(uuid "48f0e1ec-a81c-489c-b529-a12b228c4b9e")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "J40")
 					(unit 1)
 				)
@@ -4454,36 +5501,36 @@
 		)
 	)
 	(label "GPIO1_EXT"
-		(at 233.68 109.22 180)
+		(at 299.72 96.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "55c7312b-8ab0-4457-a847-9e42d39467f0")
+		(uuid "a47d04da-2a44-4da4-849c-cd8c89008948")
 	)
 	(wire
 		(pts
-			(xy 246.38 109.22) (xy 248.92 109.22)
+			(xy 312.42 96.52) (xy 314.96 96.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3a12d8ac-0084-4a2f-9946-c7aad02cd010")
+		(uuid "face76dd-082b-442f-ac6a-557db6279886")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 248.92 109.22 90)
+		(at 314.96 96.52 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "feae5c01-528c-4b5d-a581-2b57cd31b0a7")
+		(uuid "314c68d7-a8d9-4b12-9214-173893eead23")
 		(property "Reference" "#PWR17"
-			(at 248.92 106.68 0)
+			(at 314.96 93.98 0)
 			(hide yes)
 			(effects
 				(font
@@ -4492,7 +5539,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 256.54 109.22 90)
+			(at 322.58 96.52 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4500,7 +5547,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 109.22 0)
+			(at 314.96 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -4509,7 +5556,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 109.22 0)
+			(at 314.96 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -4518,7 +5565,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 248.92 109.22 0)
+			(at 314.96 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -4527,11 +5574,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "b38a3486-9db1-41de-ba97-afc6c13dd08b")
+			(uuid "6eb10129-4abb-45a4-a0fc-ee57af898aa3")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR17")
 					(unit 1)
 				)
@@ -4539,36 +5586,36 @@
 		)
 	)
 	(label "GPIO2_EXT"
-		(at 233.68 111.76 180)
+		(at 299.72 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "553954bc-a852-44a2-9464-548d3a90fba1")
+		(uuid "64ac209d-b006-4884-ac84-c0959e199c57")
 	)
 	(wire
 		(pts
-			(xy 246.38 111.76) (xy 248.92 111.76)
+			(xy 312.42 99.06) (xy 314.96 99.06)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "16ee307a-8272-461f-a9c5-54787de755c6")
+		(uuid "6cc83d68-63a5-43ae-ba59-42957b936023")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 248.92 111.76 90)
+		(at 314.96 99.06 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cc6f7c03-22a7-4975-9c99-64937aba39b4")
+		(uuid "8b7633ea-d8ae-4d67-8805-5d0aa374bbce")
 		(property "Reference" "#PWR18"
-			(at 248.92 109.22 0)
+			(at 314.96 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -4577,7 +5624,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 256.54 111.76 90)
+			(at 322.58 99.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4585,7 +5632,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 111.76 0)
+			(at 314.96 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -4594,7 +5641,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 111.76 0)
+			(at 314.96 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -4603,7 +5650,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 248.92 111.76 0)
+			(at 314.96 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -4612,11 +5659,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "bb863635-f188-4bb9-9351-0ebbc17961e2")
+			(uuid "744b7e4d-eb54-4c67-9025-07bda8d0dc04")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR18")
 					(unit 1)
 				)
@@ -4624,36 +5671,36 @@
 		)
 	)
 	(label "GPIO3_EXT"
-		(at 233.68 114.3 180)
+		(at 299.72 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "02be52ee-1576-4154-a53b-df4e646c8181")
+		(uuid "d752a811-2586-463e-b031-528e22d3ad1c")
 	)
 	(wire
 		(pts
-			(xy 246.38 114.3) (xy 248.92 114.3)
+			(xy 312.42 101.6) (xy 314.96 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "98c62b7a-b8f6-4aa1-a7de-cb9793caa66e")
+		(uuid "18b16792-4ad7-4041-9e6d-270e417bfd8d")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 248.92 114.3 90)
+		(at 314.96 101.6 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "56d9b240-465e-49fd-b695-000517013e0a")
+		(uuid "a252ee6c-758d-4535-aaa0-1c2e43761237")
 		(property "Reference" "#PWR19"
-			(at 248.92 111.76 0)
+			(at 314.96 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -4662,7 +5709,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 256.54 114.3 90)
+			(at 322.58 101.6 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4670,7 +5717,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 114.3 0)
+			(at 314.96 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4679,7 +5726,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 114.3 0)
+			(at 314.96 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4688,7 +5735,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 248.92 114.3 0)
+			(at 314.96 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4697,11 +5744,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "50867ed9-3eff-4cd2-9a3a-377492e43975")
+			(uuid "ac6fce2e-ba2a-40a0-a217-19e11b93ccbd")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR19")
 					(unit 1)
 				)
@@ -4709,36 +5756,36 @@
 		)
 	)
 	(label "GPIO4_EXT"
-		(at 233.68 116.84 180)
+		(at 299.72 104.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "43260652-b43f-4557-a32a-472878f98347")
+		(uuid "9ac2dc99-1e7c-4c43-8229-4422ce98261d")
 	)
 	(wire
 		(pts
-			(xy 246.38 116.84) (xy 248.92 116.84)
+			(xy 312.42 104.14) (xy 314.96 104.14)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c6a6dad2-94ec-4dbc-8ace-4a6f891e8b7c")
+		(uuid "283f0769-085d-4fb9-ab38-721c1d41de5c")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 248.92 116.84 90)
+		(at 314.96 104.14 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e8c73c80-5958-43b9-a6c0-4e373d2bfaa8")
+		(uuid "d57c6072-629a-4742-a85f-b4af08f87b81")
 		(property "Reference" "#PWR20"
-			(at 248.92 114.3 0)
+			(at 314.96 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -4747,7 +5794,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 256.54 116.84 90)
+			(at 322.58 104.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4755,7 +5802,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 116.84 0)
+			(at 314.96 104.14 0)
 			(hide yes)
 			(effects
 				(font
@@ -4764,7 +5811,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 116.84 0)
+			(at 314.96 104.14 0)
 			(hide yes)
 			(effects
 				(font
@@ -4773,7 +5820,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 248.92 116.84 0)
+			(at 314.96 104.14 0)
 			(hide yes)
 			(effects
 				(font
@@ -4782,367 +5829,624 @@
 			)
 		)
 		(pin "1"
-			(uuid "14d32964-7b92-4130-8a40-bea17509c32c")
+			(uuid "576d2330-c292-472c-a678-de7f9ef4057e")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
 					(reference "#PWR20")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "GPIO5_EXT"
-		(at 233.68 119.38 180)
+	(label "AI1P_EXT"
+		(at 299.72 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "c252ad7f-2309-4341-a201-69a10c5f56f8")
+		(uuid "3b250b63-ef21-4d03-a2d2-21fc156330c8")
 	)
-	(wire
-		(pts
-			(xy 246.38 119.38) (xy 248.92 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aeb755bf-b5e0-4474-b69c-f8fac76021c5")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 248.92 119.38 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "19ff58d3-4323-4efa-8ca5-b7b288c14fcb")
-		(property "Reference" "#PWR21"
-			(at 248.92 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 256.54 119.38 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 248.92 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "802274f5-24bb-4f90-b941-c0eac470f84a")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "#PWR21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "GPIO6_EXT"
-		(at 233.68 121.92 180)
+	(label "AI2P_EXT"
+		(at 299.72 109.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "ab9728c2-c171-4d5d-9c91-1b69728539ce")
+		(uuid "6fe14ccf-ffaa-42cd-b31f-fddd4103072b")
 	)
-	(wire
-		(pts
-			(xy 246.38 121.92) (xy 248.92 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01498fd2-c02b-4009-a86d-2b594cafa299")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 248.92 121.92 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "19173f81-2e73-478f-813c-d2a31755c82d")
-		(property "Reference" "#PWR22"
-			(at 248.92 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 256.54 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 121.92 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 121.92 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 248.92 121.92 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "6d30da7a-baae-468c-81be-5e44fc37099c")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "#PWR22")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "GPIO7_EXT"
-		(at 233.68 124.46 180)
+	(label "AI1N_EXT"
+		(at 312.42 106.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "b01384f3-fe86-49d3-b59f-4b03e4833724")
+		(uuid "ed9c448e-de0c-44be-8f95-052782482680")
 	)
-	(wire
-		(pts
-			(xy 246.38 124.46) (xy 248.92 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "15d09489-65ec-44b0-8418-70649bd43875")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 248.92 124.46 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b5c72c31-a5ee-44cd-a6fe-580b43586d51")
-		(property "Reference" "#PWR23"
-			(at 248.92 121.92 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 256.54 124.46 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 248.92 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "2f302057-9fef-4614-9ac1-43a36d79cf3c")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "#PWR23")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "GPIO8_EXT"
-		(at 233.68 127 180)
+	(label "AI2N_EXT"
+		(at 312.42 109.22 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "9fa4f274-4d1a-4519-9977-bab99871498f")
+		(uuid "18464b67-0d48-4ea6-a4d2-a9bcb4a591ed")
 	)
-	(wire
-		(pts
-			(xy 246.38 127) (xy 248.92 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "02a1818d-012b-4fae-b016-7fffe65b9561")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 248.92 127 90)
-		(unit 1)
+	(text "J40 SPTD double-level push-in: lower level 1-4 GPIO1-4, 5 AI1+, 6 AI2+;\nupper level 7-10 GND, 11 AI1-, 12 AI2-."
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d8c95bdf-05e8-4c49-b5d0-73c132149a92")
-		(property "Reference" "#PWR24"
-			(at 248.92 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 256.54 127 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 127 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 127 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 248.92 127 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "af9fbdca-9708-48cc-92cb-d74064c4be92")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/b52e34ef-f7a6-49d2-add1-0bfbb78926ca"
-					(reference "#PWR24")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(text "J40 lower level: 1 GPIO1 ... 8 GPIO8; upper level 9-16: GND."
-		(exclude_from_sim no)
-		(at 210.82 143.51 0)
+		(at 276.86 129.54 0)
 		(effects
 			(font
 				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "3e780807-3ae7-4990-9a72-00fb3bd39620")
+		(uuid "67fee05b-935b-4120-9bec-b150430ba625")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 228.6 175.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "13114f3f-4409-4d3a-ae2c-aa812d2550bc")
+		(property "Reference" "R60"
+			(at 231.14 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 231.14 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 228.6 175.26 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 175.26 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 175.26 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 228.6 175.26 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC1206FR-0710KL"
+			(at 228.6 175.26 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7940a606-fc43-472e-a776-ee19d6b567f2")
+		)
+		(pin "2"
+			(uuid "76dac71e-f918-4f5e-9f07-8185b8d07628")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R60")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 228.6 171.45) (xy 228.6 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "206754ef-168d-46ff-95c4-aa3013352c5c")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 228.6 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a864e346-1b95-44b7-b890-f510cf9726a7")
+		(property "Reference" "#PWR21"
+			(at 228.6 166.37 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 228.6 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 168.91 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 168.91 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 168.91 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0e26892f-a7d2-45c1-9325-e11970523a46")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "#PWR21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "VMID_REF"
+		(shape bidirectional)
+		(at 228.6 179.07 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b56e76d1-6895-420c-a2d1-056f01ca3785")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 228.6 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 228.6 193.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0b912543-69ef-4474-b766-b8f395f06896")
+		(property "Reference" "R61"
+			(at 231.14 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 231.14 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 228.6 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 228.6 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC1206FR-0710KL"
+			(at 228.6 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2e622b46-e481-47d1-b468-996ce08a4261")
+		)
+		(pin "2"
+			(uuid "a2abf074-64af-4205-9bfa-3afbbac6eb79")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "R61")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "VMID_REF"
+		(shape bidirectional)
+		(at 228.6 189.23 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a8039446-b7ed-417a-bccd-0df957b5256b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 228.6 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 228.6 196.85) (xy 228.6 199.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1103b1d-2f83-4fc7-9488-b25623f588eb")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 228.6 199.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e4109387-7e8c-46ed-abc4-ebd19fbb1176")
+		(property "Reference" "#PWR22"
+			(at 228.6 196.85 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 228.6 203.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "10454d90-81d9-4cb5-bb52-5417cceaa87a")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "#PWR22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 243.84 193.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "06a618d5-b351-48c9-b13d-5c5e9d77704e")
+		(property "Reference" "C84"
+			(at 246.38 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF 50V X7R"
+			(at 246.38 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 243.84 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 243.84 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM21BR71H104KA01L"
+			(at 243.84 193.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f0976b7b-e12b-4ee5-9eb3-909cd252a671")
+		)
+		(pin "2"
+			(uuid "d158ddf7-90e4-40d6-985e-b949f24d497b")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "C84")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "VMID_REF"
+		(shape bidirectional)
+		(at 243.84 189.23 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "744a6dee-bb56-452b-bddb-fa27589bd7a4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 243.84 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 243.84 196.85) (xy 243.84 199.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "501ac78a-a76f-4a69-9ca9-d76f90d7280c")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 243.84 199.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f4e0361b-efbf-46f1-b140-3ba0f227c270")
+		(property "Reference" "#PWR23"
+			(at 243.84 196.85 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 243.84 203.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 199.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "82710a29-b8bf-420d-9b7f-0725abbcd62f")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/e766421c-8c75-4c47-865b-ce768404d348"
+					(reference "#PWR23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "VMID_REF -> MCU pin 33 (OA5 IN+). The MCU ties OA5 IN- (49) to OUT (46) = VMID."
+		(exclude_from_sim no)
+		(at 213.36 210.82 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "98e35f1b-8130-41f2-9202-4b63a3a05049")
 	)
 	(embedded_fonts no)
 )

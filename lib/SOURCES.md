@@ -154,3 +154,14 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-06 | symbol | Thl_Connector | JD0-0004NL | generated from lib/symbol_src/Thl_Connector/JD0-0004NL.csv | repo (MIT) |
 | 2026-10-06 | symbol | Thl_Connector | JD0-0004NL | lib/symbol_src/Thl_Connector/JD0-0004NL.csv from the Pulse datasheet rev A (pin functions, sheet 2); vendor SamacSys symbol (transfer/) only had P1-P14 | repo (MIT) |
 | 2026-10-06 | footprint | Thl_Connector | RJ45_Pulse_JD0-0004NL_Horizontal | lib/footprint_src/Thl_Connector/pulse_jd0_0004nl.py from the Pulse datasheet rev A recommended layout (sheet 4), checked pad for pad against the SamacSys footprint the user supplied; no 3D model (Pulse provides IGES only) | repo (MIT) |
+| 2026-10-06 | symbol | Interface_CAN_LIN | ISOW1044 | KiCad Interface_CAN_LIN.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | symbol | Interface_Ethernet | W5100S-L | KiCad Interface_Ethernet.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | symbol | Interface_Ethernet | W6100-L | KiCad Interface_Ethernet.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Package_QFP | LQFP-48_7x7mm_P0.5mm | KiCad Package_QFP.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | symbol | Regulator_Switching | TDN_5-0910WISM | KiCad Regulator_Switching.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | symbol | Regulator_Switching | TDN_5-2411WISM | KiCad Regulator_Switching.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Converter_DCDC | Converter_DCDC_TRACO_TDN_5-xxxxWISM_SMD | KiCad Converter_DCDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Converter_DCDC | Converter_DCDC_TRACO_TDN_5-xxxxWI_THT | KiCad Converter_DCDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Inductor_SMD | L_1206_3216Metric_Pad1.22x1.90mm_HandSolder | KiCad Inductor_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | symbol | Thl_Isolator | AQW212 | generated from lib/symbol_src/Thl_Isolator/AQW212.csv | repo (MIT) |
+| 2026-10-06 | symbol | Thl_Interface | W6100-L | generated from lib/symbol_src/Thl_Interface/W6100-L.csv | repo (MIT) |

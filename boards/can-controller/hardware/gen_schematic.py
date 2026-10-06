@@ -3,9 +3,10 @@
 
 Root sheet + one sub-sheet per functional block. Nets between blocks use
 global labels (names written with a leading "/"); nets inside a block use
-local labels placed on pin ends. Power symbols: +3V3, +5V, GND (logic domain)
-and +12V (12 V domain, after input protection). The 12 V domain's ground and
-5 V are the global nets GND_BUS and V5_BUS (CAN bus ground, not logic ground).
+local labels placed on pin ends. Power symbols: +3V3, +5V, GND (LOGIC domain,
+floating, fed by the isolated DC-DC) and +12V (RACK domain, after input
+protection). The RACK ground is the global net GND_RACK; each CAN bus has its
+own floating ground GND_CANn (sheet-local). Scope of 2026-10-06 (requirements 4.1).
 
 This writes can-controller.kicad_sch and every sub-sheet from scratch. It is
 only for the initial capture: once anyone edits the schematic in KiCad, stop
@@ -42,6 +43,7 @@ FP = {
     "SOD123": "Diode_SMD:D_SOD-123",
     "MC": "Connector_Phoenix_MC:PhoenixContact_MC_1,5_{n}-G-3.5_1x{n:02d}_P3.50mm_Horizontal",
     "SPTD": "Thl_Connector:PhoenixContact_SPTD_1,5_{n}-H-3,5_2x{n:02d}_P3.5mm_Horizontal",
+    "FB": "Inductor_SMD:L_1206_3216Metric_Pad1.22x1.90mm_HandSolder",
 }
 MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
@@ -53,6 +55,12 @@ MPN = {
     "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
     "4.7uF 25V X7R": ("Murata", "GRM31CR71E475KA88L"),
     "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
+    "330R": ("Yageo", "RC1206FR-07330RL"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
+    "300R": ("Yageo", "RC1206FR-07300RL"), "0R": ("Yageo", "RC1206JR-070RL"),
+    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
+    "3.3uF 25V X7R": ("TBD", "TBD (3.3 uF 25 V X7R 1206)"),
+    "8pF 50V C0G": ("TBD", "TBD (8 pF 50 V C0G 0805, to suit the 25 MHz crystal)"),
+    "1nF 2kV X7R": ("KEMET", "C1206C102KGRACTU"),
 }
 
 
@@ -180,9 +188,10 @@ def root_sheet(sheets, title):
     sch = nb.Sch(PROJECT, title, "A")
     sch.root = ROOT_UUID
     sch.text(title, 25.4, 30.48, 2.54)
-    sch.text("Requirements: docs/requirements.md 4.1. Floorplan and parts: boards/can-controller/README.md.\n"
-             "Two domains: LOGIC (Pi ground, header 5 V, 3.3 V) and 12 V (CAN bus ground GND_BUS, from the DIN supply).\n"
-             "Only the isolators cross: ISO1044 (CAN), ISO6740 (relay drive), TLP293 (12 V status).", 25.4, 38.1)
+    sch.text("Requirements: docs/requirements.md 3 and 4.1. Floorplan and parts: boards/can-controller/README.md.\n"
+             "Six domains: RACK (12 V DIN supply, GND_RACK), LOGIC (floating: +5V/+3V3/GND), CAN1-CAN4 (each floating).\n"
+             "Crossings: TDN 5-2411WI (RACK->LOGIC power), ISOW1044 x4 (LOGIC->CANn), AQW212 x2 (LOGIC->RACK relays),\n"
+             "Ethernet magnetics (LOGIC->host), CAN1 POWERED jumpers JP5/JP6 (RACK->CAN1, optional).", 25.4, 38.1)
     blocks = []
     for i, sh in enumerate(sheets):
         x, y, w, h = 30.48 + (i % 4) * 60.96, 60.96 + (i // 4) * 40.64, 50.8, 25.4
@@ -202,399 +211,353 @@ def root_sheet(sheets, title):
 
 MCU = "Thl_MCU:PIC32MK1024MCM064-IPT"
 
-# PIC32MK1024MCM064 pin map (TQFP-64). PPS groups per DS60001519E Table 13-1/13-2:
-# C1TX grp1 / C1RX grp3, C2TX grp4 / C2RX grp2, C3TX grp3 / C3RX grp1, C4TX grp2 / C4RX grp4,
-# U1TX grp1 / U1RX grp3, SDO1 grp1-2, SCK1 fixed RB7.
+# PIC32MK1024MCM064 pin map (TQFP-64), scope of 2026-10-06 (Ethernet, ISOW1044, PhotoMOS relays).
+# PPS groups per DS60001519E Tables 13-1 / 13-2:
+#   C1RX RPB2 (in grp 3) / C1TX RPB3 (out grp 1), C2RX RPA1 (in 2) / C2TX RPB0 (out 4),
+#   C3RX RPC0 (in 1) / C3TX RPC1 (out 3), C4RX RPE15 (in 4) / C4TX RPA8 (out 2),
+#   SPI3: SCK3 RPC9 (out 4), SDO3 RPC8 (out 2), SDI3 RPC7 (in 1); U1TX RPF1 (out 1), U1RX RPC6 (in 3).
+# OA5 follower: IN+ RA4 (33) from the VMID divider, IN- RB9 (49) tied to OUT RB7 (46) = VMID = AN25.
+# Firmware: disable JTAG (RA7/RA8/RB9/RA10), ICESEL = PGx2, drive unused pins low.
 MCU_NETS = {
-    # U1 sits rotated 90 deg on the PCB: pins 1-16 face down, 17-32 right, 33-48 up, 49-64 left.
-    # Each side carries the signals for the parts it faces, in the order the parts sit, so the
-    # escape routing never crosses (floorplan rev 3). PPS groups per DS60001519E Tables 13-1/13-2.
-    # bottom (left to right): DAC SPI4, I2C1 (ADC + relay expander), MCLR, CAN2
-    "1": "~", "2": "/DAC_SDI", "3": "/DAC_SCK", "4": "/DAC_CS",          # SDO4 RPB14, SCK4 RPB15, CS RG6
-    "5": "/I2C_SCL", "6": "/I2C_SDA", "7": "MCLR", "8": "~", "11": "~", "12": "~",
-    "13": "/LED_CAN2", "14": "/C2RX", "15": "/C2TX", "16": "/LED_CAN1",   # C2RX RPA1, C2TX RPB0
-    # right (bottom to top): CAN1, CAN3, CAN4 pairs, TX above RX like the ISO1044 pins; LED lines between
-    "17": "/C1RX", "18": "/C1TX", "21": "/C3RX", "22": "/C3TX",           # C1RX RPB2, C1TX RPB3, C3RX RPC0, C3TX RPC1
-    "23": "~", "24": "~", "27": "~", "28": "~", "29": "/LED_CAN3",
-    "30": "/C4RX", "31": "/C4TX", "32": "/LED_CAN4",                       # C4RX RPE15, C4TX RPA8
-    # top (right to left): 12 V status (opto at the top of the CAN strip), USB, crystal, ICSP on PGx2,
-    # heartbeat LED, UART1
-    "33": "/V12_OK", "34": "VBUS", "36": "USB_DN", "37": "USB_DP", "39": "OSC1", "40": "OSC2", "42": "~",
-    "43": "PGD2", "44": "PGC2", "45": "LED_HB", "46": "U1TX", "47": "U1RX", "48": "~",   # U1TX RPB7, U1RX RPC13
-    # left (top to bottom): GPIO1-8, USB LED
-    "49": "/GPIO1", "50": "/GPIO2", "51": "/GPIO3", "52": "/GPIO4", "53": "/GPIO5", "54": "/GPIO6",
-    "55": "/GPIO7", "58": "/GPIO8", "59": "LED_USB", "60": "~", "61": "~", "62": "~", "63": "~", "64": "~",
-    # power (AVDD straight to +3V3: it sits between two CAN pairs, and the PIC's own ADC is unused)
-    "10": "+3V3", "19": "+3V3", "26": "+3V3", "35": "+3V3", "38": "+3V3", "57": "+3V3",
-    "9": "GND", "20": "GND", "25": "GND", "41": "GND", "56": "GND",
+    "1": "~", "2": "/RLY1", "3": "/RLY2", "4": "/RLY3", "5": "/RLY4",
+    "6": "/LED_CAN1", "7": "MCLR", "8": "/LED_CAN2", "11": "/LED_CAN3", "12": "/LED_CAN4",
+    "13": "~", "14": "/C2RX", "15": "/C2TX", "16": "~", "17": "/C1RX", "18": "/C1TX",
+    "21": "/C3RX", "22": "/C3TX", "23": "/AI2N", "24": "/AI2P", "27": "/AI1P", "28": "/AI1N",
+    "29": "~", "30": "/C4RX", "31": "/C4TX", "32": "~", "33": "/VMID_REF",
+    "34": "GND", "36": "USB_DN", "37": "USB_DP", "39": "OSC1", "40": "OSC2", "42": "LED_HB",
+    "43": "PGD2", "44": "PGC2", "45": "~", "46": "/VMID", "47": "~", "48": "~", "49": "/VMID",
+    "50": "U1RX", "51": "/ETH_MISO", "52": "/ETH_MOSI", "53": "/ETH_CS", "54": "/ETH_INT", "55": "/ETH_SCK",
+    "58": "/ETH_RST", "59": "U1TX", "60": "/GPIO1", "61": "/GPIO2", "62": "/GPIO3", "63": "/GPIO4", "64": "~",
+    # power: VUSB3V3 to VDD and VBUS to VSS (USB unused, DS60001519E Table 1-x)
+    "10": "+3V3", "26": "+3V3", "38": "+3V3", "57": "+3V3", "35": "+3V3", "19": "AVDD",
+    "9": "GND", "25": "GND", "41": "GND", "56": "GND", "20": "GND",
 }
 
 
 def mcu_sheet():
-    s = Sheet("mcu.kicad_sch", "MCU, USB, power", 2, "CAN controller: MCU, USB, logic power")
-    s.text("LOGIC DOMAIN. Pi header 5 V -> 3.3 V LDO. The board never drives the header 5 V.", 25.4, 25.4)
-
-    # --- Pi header: 5 V and GND only ---------------------------------------
-    hdr = "Connector_Generic:Conn_02x20_Odd_Even"
-    nets = {str(n): "~" for n in range(1, 41)}
-    nets.update({"2": "V5_PI", "4": "V5_PI"})
-    for n in (6, 9, 14, 20, 25, 30, 34, 39):
-        nets[str(n)] = "GND"
-    s.part(hdr, "J1", "RPi_GPIO", 50.8, 88.9, nets, 0,
-           "Thl_Connector:Samtec_REF-182665_2x20_P2.54mm_PassThrough", "Samtec", "REF-182665-01",
-           ref_at=(50.8, 60.96), value_at=(50.8, 118.11))
-    s.text("Samtec REF-182665 pass-through socket. Uses no header signal pins\n"
-           "(MCC DAQ HATs share the header). Pi 3.3 V (pins 1, 17) not used.", 30.48, 127.0, 1.0)
-    s.part("Device:Polyfuse", "F1", "0.75A", 86.36, 60.96, {"1": "V5_PI", "2": "+5V"}, 90,
-           "Fuse:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder", "Bourns", "MF-NSMF075-2",
-           ref_at=(86.36, 57.15), value_at=(86.36, 64.77))
-    s.flag(78.74, 55.88); s.llabel("V5_PI", 78.74, 55.88, 180)
-    s.flag(99.06, 55.88); s.power("+5V", 99.06, 55.88)
-    s.flag(99.06, 76.2, 180); s.power("GND", 99.06, 76.2)
-    s.text("Header 5 V budget: <= 1 A for all of our boards (requirements 3.1).", 76.2, 71.12, 1.0)
+    s = Sheet("mcu.kicad_sch", "MCU, logic power", 2, "CAN controller: MCU and logic power")
+    s.text("LOGIC DOMAIN (floating). +5V from the isolated DC-DC (power sheet) -> 3.3 V LDO.\n"
+           "USB is not used: VUSB3V3 to VDD, VBUS to VSS, D+/D- through 10k to VSS (DS60001519E).", 25.4, 25.4)
 
     # --- 3.3 V LDO ------------------------------------------------------------
-    s.part("Regulator_Linear:MCP1826S", "U2", "MCP1826S-3302E/DB", 124.46, 60.96,
+    s.part("Regulator_Linear:MCP1826S", "U2", "MCP1826S-3302E/DB", 63.5, 60.96,
            {"1": "+5V", "2": "GND", "3": "+3V3"}, 0, "Package_TO_SOT_SMD:SOT-223-3_TabPin2",
-           "Microchip Technology", "MCP1826S-3302E/DB", ref_at=(124.46, 53.34), value_at=(124.46, 69.85))
-    s.C("C1", "10uF 25V X7R", 109.22, 76.2, "+5V", "GND")
-    s.C("C2", "10uF 25V X7R", 142.24, 76.2, "+3V3", "GND")
-    s.led_chain("D1", "R1", "green", "LTST-C150GKT", 157.48, 63.5, "+3V3")
-    s.text("D1: 3.3 V present.", 154.94, 86.36, 1.0)
+           "Microchip Technology", "MCP1826S-3302E/DB", ref_at=(63.5, 53.34), value_at=(63.5, 69.85))
+    s.C("C1", "10uF 25V X7R", 45.72, 76.2, "+5V", "GND")
+    s.C("C2", "10uF 25V X7R", 83.82, 76.2, "+3V3", "GND")
+    s.text("Load about 0.4 A worst case (W6100 up to 265 mA on a 10 Mbit link):\n"
+           "(5 - 3.3) V x 0.4 A = 0.7 W in the SOT-223; give the tab copper.", 40.64, 91.44, 1.0)
+    s.led_chain("D1", "R1", "green", "LTST-C150GKT", 101.6, 60.96, "+3V3")
+    s.text("D1: 3.3 V present.", 96.52, 83.82, 1.0)
 
     # --- MCU --------------------------------------------------------------------
-    mx, my = 254.0, 129.54
+    mx, my = 254.0, 139.7
     s.part(MCU, "U1", "PIC32MK1024MCM064-I/PT", mx, my, MCU_NETS, 0, "Package_QFP:TQFP-64_10x10mm_P0.5mm",
-           "Microchip Technology", "PIC32MK1024MCM064-I/PT", ref_at=(mx + 22.86, my - 50.8), value_at=(mx + 22.86, my + 50.8))
-    for i, x in enumerate((172.72, 190.5, 208.28, 226.06)):
+           "Microchip Technology", "PIC32MK1024MCM064-I/PT", ref_at=(mx + 22.86, my - 50.8),
+           value_at=(mx + 22.86, my + 50.8))
+    for i, x in enumerate((152.4, 167.64, 182.88, 198.12, 213.36)):
         s.C(f"C{3 + i}", "100nF 50V X7R", x, 45.72, "+3V3", "GND", decouple=True)
-    s.C("C7", "10uF 25V X7R", 243.84, 45.72, "+3V3", "GND")
-    s.C("C8", "100nF 50V X7R", 314.96, 50.8, "+3V3", "GND", decouple=True)
-    s.C("C9", "100nF 50V X7R", 261.62, 45.72, "+3V3", "GND", decouple=True)
-    s.text("C3-C6 at the four VDD pins, C9 at VUSB3V3, C8 at AVDD (tied to +3V3), C7 bulk.", 172.72, 33.02, 1.0)
+    s.C("C8", "10uF 25V X7R", 228.6, 45.72, "+3V3", "GND")
+    s.text("C3-C6 at the four VDD pins, C7 at VUSB3V3, C8 bulk.", 152.4, 33.02, 1.0)
+    # AVDD filter: the ADC now measures the analog inputs
+    s.part("Device:FerriteBead", "FB1", "HI1206P121R-10", 101.6, 116.84, {"1": "+3V3", "2": "AVDD"}, 90,
+           FP["FB"], "Laird", "HI1206P121R-10", ref_at=(101.6, 113.03), value_at=(101.6, 120.65))
+    s.C("C9", "100nF 50V X7R", 116.84, 129.54, "AVDD", "GND", decouple=True)
+    s.C("C10", "1uF 50V X7R", 129.54, 129.54, "AVDD", "GND")
+    s.text("AVDD through FB1 (ADC reference = AVDD).", 96.52, 142.24, 1.0)
+    s.flag(129.54, 116.84); s.llabel("AVDD", 129.54, 116.84, 0)
 
     # crystal
-    s.part("Device:Crystal", "Y1", "12MHz", 340.36, 116.84, {"1": "OSC1", "2": "OSC2"}, 0,
+    s.part("Device:Crystal", "Y1", "12MHz", 345.44, 116.84, {"1": "OSC1", "2": "OSC2"}, 0,
            "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering", "TBD", "TBD (12 MHz, 5032, CL 18 pF)",
-           ref_at=(340.36, 113.03), value_at=(340.36, 121.92))
-    s.C("C10", "27pF 50V C0G", 330.2, 129.54, "OSC1", "GND")
-    s.C("C11", "27pF 50V C0G", 350.52, 129.54, "OSC2", "GND")
-    s.text("12 MHz, CL 18 pF (POSC HS 4-32 MHz).\nSystem clock and the 48 MHz USB clock (UPLL) from it.", 325.12, 104.14, 1.0)
+           ref_at=(345.44, 113.03), value_at=(345.44, 121.92))
+    s.C("C11", "27pF 50V C0G", 335.28, 129.54, "OSC1", "GND")
+    s.C("C12", "27pF 50V C0G", 355.6, 129.54, "OSC2", "GND")
+    s.text("12 MHz, CL 18 pF (POSC HS).", 332.74, 104.14, 1.0)
+
+    # USB unused
+    s.R("R2", "10k", 345.44, 162.56, "USB_DP", "GND")
+    s.R("R3", "10k", 360.68, 162.56, "USB_DN", "GND")
 
     # MCLR + ICSP
-    s.R("R2", "10k", 106.68, 152.4, "+3V3", "MCLR")
-    s.C("C12", "100nF 50V X7R", 119.38, 165.1, "MCLR", "GND", decouple=True)
-    s.part("Connector_Generic:Conn_01x06", "J2", "ICSP", 76.2, 165.1,
+    s.R("R4", "10k", 63.5, 162.56, "+3V3", "MCLR")
+    s.C("C13", "100nF 50V X7R", 76.2, 175.26, "MCLR", "GND", decouple=True)
+    s.part("Connector_Generic:Conn_01x06", "J2", "ICSP", 38.1, 177.8,
            {"1": "MCLR", "2": "+3V3", "3": "GND", "4": "PGD2", "5": "PGC2", "6": "~"}, 0,
            "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical", "Samtec", "TSW-106-07-G-S",
-           ref_at=(76.2, 157.48), value_at=(76.2, 175.26))
-    s.text("ICSP (PICkit / ICD / Snap): 1 MCLR, 2 VDD, 3 VSS, 4 PGD2, 5 PGC2.\nMCU pins 43/44 (PGx2): debugging needs ICESEL = PGx2.", 55.88, 182.88, 1.0)
+           ref_at=(38.1, 170.18), value_at=(38.1, 187.96))
+    s.text("ICSP (PICkit / ICD / Snap): 1 MCLR, 2 VDD, 3 VSS, 4 PGD2, 5 PGC2. Firmware updates load here.",
+           25.4, 195.58, 1.0)
 
     # debug UART
-    s.part("Connector_Generic:Conn_01x03", "J3", "UART", 76.2, 205.74, {"1": "U1TX", "2": "U1RX", "3": "GND"}, 0,
+    s.part("Connector_Generic:Conn_01x03", "J3", "UART", 38.1, 218.44, {"1": "U1TX", "2": "U1RX", "3": "GND"}, 0,
            "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", "Samtec", "TSW-103-07-G-S",
-           ref_at=(76.2, 200.66), value_at=(76.2, 212.09))
-    s.text("Debug UART (3.3 V): 1 TX from MCU, 2 RX to MCU, 3 GND.", 55.88, 220.98, 1.0)
+           ref_at=(38.1, 213.36), value_at=(38.1, 224.79))
+    s.text("Debug UART (3.3 V): 1 TX from MCU, 2 RX to MCU, 3 GND.", 25.4, 233.68, 1.0)
 
-    # --- USB-C ------------------------------------------------------------------
-    usb = "Connector:USB_C_Receptacle_USB2.0_16P"
-    s.part(usb, "J4", "USB-C", 342.9, 190.5,
-           {"A4": "VBUS_C", "A9": "VBUS_C", "B4": "VBUS_C", "B9": "VBUS_C",
-            "A1": "GND", "A12": "GND", "B1": "GND", "B12": "GND", "SH": "GND",
-            "A5": "CC1", "B5": "CC2", "A6": "USB_DP_C", "B6": "USB_DP_C", "A7": "USB_DN_C", "B7": "USB_DN_C",
-            "A8": "~", "B8": "~"}, 0, "Connector_USB:USB_C_Receptacle_GCT_USB4085", "GCT", "USB4085-GF-A",
-           ref_at=(342.9, 162.56), value_at=(342.9, 218.44))
-    s.R("R3", "5.1k", 309.88, 228.6, "CC1", "GND")
-    s.R("R4", "5.1k", 297.18, 228.6, "CC2", "GND")
-    s.part("Power_Protection:USBLC6-2P6", "U3", "USBLC6-2SC6", 287.02, 190.5,
-           {"1": "USB_DP_C", "6": "USB_DP", "3": "USB_DN_C", "4": "USB_DN", "5": "VBUS_C", "2": "GND"}, 0,
-           "Package_TO_SOT_SMD:SOT-23-6", "STMicroelectronics", "USBLC6-2SC6",
-           ref_at=(287.02, 180.34), value_at=(287.02, 200.66))
-    s.R("R5", "1k", 271.78, 213.36, "VBUS_C", "VBUS", rot=90)
-    s.R("R6", "100k", 261.62, 226.06, "VBUS", "GND")
-    s.flag(254.0, 205.74); s.llabel("VBUS", 254.0, 205.74, 180)
-    s.text("USB 2.0 full speed, device only. CC 5.1k pull-downs. VBUS is sensed (1k series,\n"
-           "100k pull-down), never used for power: the board runs from the Pi header.\n"
-           "USBLC6 pass-through: pins 1/6 D+, 3/4 D- (route straight through).", 254.0, 254.0, 1.0)
+    s.led_chain("D2", "R5", "green", "LTST-C150GKT", 360.68, 50.8, "LED_HB")
+    s.text("D2 heartbeat.", 355.6, 76.2, 1.0)
+    return s
 
-    # --- status LEDs --------------------------------------------------------------
-    s.led_chain("D2", "R7", "green", "LTST-C150GKT", 360.68, 50.8, "LED_HB")
-    s.led_chain("D3", "R8", "green", "LTST-C150GKT", 375.92, 50.8, "LED_USB")
-    s.text("D2 heartbeat, D3 USB host link.", 355.6, 76.2, 1.0)
+
+def eth_sheet():
+    s = Sheet("ethernet.kicad_sch", "Ethernet", 3, "CAN controller: Ethernet (W6100)")
+    s.text("W6100 in SPI mode (MOD[3:0] = 0000) on SPI3. Support circuit per WIZnet W6100_Ref_Schematic_V110_use_mag:\n"
+           "2 x 49.9R + 0.1 uF per pair at the MDI pins, jack centre taps to 3V3A, beads 3V3D->3V3A and 1V2D->1V2A,\n"
+           "RSET_BG 12k + 300R (12.3k 1 %), 25 MHz crystal with 8 pF and 1M. The jack's magnetics isolate the host.",
+           25.4, 25.4)
+    w = {"29": "/ETH_CS", "30": "/ETH_SCK", "32": "/ETH_MOSI", "33": "/ETH_MISO", "47": "/ETH_INT", "48": "/ETH_RST",
+         "25": "MOD", "26": "MOD", "27": "MOD", "28": "MOD", "34": "+3V3", "35": "+3V3",
+         "3": "TXP", "2": "TXN", "6": "RXP", "5": "RXN", "9": "RSET", "12": "XSCI", "11": "XSCO",
+         "17": "LNKn", "18": "~", "19": "~", "20": "ACTn", "21": "~",
+         "24": "+3V3", "36": "+3V3", "8": "3V3A", "15": "3V3A", "14": "1V2D", "13": "1V2D", "22": "1V2D",
+         "31": "1V2D", "45": "1V2D", "4": "1V2A", "10": "GND", "23": "GND", "46": "GND", "1": "GND", "7": "GND",
+         "16": "GND"}
+    w.update({str(n): "~" for n in range(37, 45)})
+    s.part("Thl_Interface:W6100-L", "U3", "W6100-L", 165.1, 139.7, w, 0, "Package_QFP:LQFP-48_7x7mm_P0.5mm",
+           "WIZnet", "W6100-L", ref_at=(165.1, 101.6), value_at=(165.1, 177.8))
+    s.text("MOD[3:0] low (SPI). RDn/WRn high. DAT[7:0] open in SPI mode.", 101.6, 190.5, 1.0)
+    s.R("R10", "10k", 101.6, 157.48, "MOD", "GND")
+    s.R("R11", "10k", 88.9, 116.84, "+3V3", "/ETH_RST")
+    s.R("R12", "10k", 76.2, 116.84, "+3V3", "/ETH_INT")
+    s.R("R13", "10k", 63.5, 116.84, "+3V3", "/ETH_CS")
+    s.text("Pull-ups: CS (deselected at reset), INT, RST (MCU drives RST low >= 1 us, then 60 ms init).",
+           50.8, 104.14, 1.0)
+    # supplies
+    s.part("Device:FerriteBead", "FB2", "HI1206P121R-10", 101.6, 55.88, {"1": "+3V3", "2": "3V3A"}, 90,
+           FP["FB"], "Laird", "HI1206P121R-10", ref_at=(101.6, 52.07), value_at=(101.6, 59.69))
+    s.part("Device:FerriteBead", "FB3", "HI1206P121R-10", 101.6, 76.2, {"1": "1V2D", "2": "1V2A"}, 90,
+           FP["FB"], "Laird", "HI1206P121R-10", ref_at=(101.6, 72.39), value_at=(101.6, 80.01))
+    s.flag(116.84, 50.8); s.llabel("3V3A", 116.84, 50.8, 0)
+    s.flag(116.84, 71.12); s.llabel("1V2A", 116.84, 71.12, 0)
+    for i, (net, x) in enumerate((("1V2D", 127.0), ("1V2D", 139.7), ("1V2D", 152.4), ("1V2D", 165.1),
+                                  ("1V2A", 177.8), ("+3V3", 190.5), ("+3V3", 203.2), ("3V3A", 215.9),
+                                  ("3V3A", 228.6))):
+        s.C(f"C{20 + i}", "100nF 50V X7R", x, 55.88, net, "GND", decouple=True)
+    s.C("C29", "3.3uF 25V X7R", 241.3, 55.88, "1V2D", "GND")
+    s.text("C20-C23 at 1V2D (13/22/31/45), C24 at 1V2A, C25/C26 at 3V3D, C27/C28 at 3V3A, C29 on 1V2O.\n"
+           "1V2O (pin 14) feeds 1V2D only; it must not supply anything else.", 127.0, 43.18, 1.0)
+    # bias, crystal
+    s.R("R14", "12k", 228.6, 157.48, "RSET", "RSET2")
+    s.R("R15", "300R", 228.6, 175.26, "RSET2", "GND")
+    s.part("Device:Crystal", "Y2", "25MHz", 254.0, 190.5, {"1": "XSCI", "2": "XSCO"}, 0,
+           "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering", "TBD", "TBD (25 MHz, 5032, CL 12 pF)",
+           ref_at=(254.0, 186.69), value_at=(254.0, 195.58))
+    s.R("R16", "1M", 254.0, 205.74, "XSCI", "XSCO", rot=90)
+    s.C("C30", "8pF 50V C0G", 243.84, 213.36, "XSCI", "GND")
+    s.C("C31", "8pF 50V C0G", 264.16, 213.36, "XSCO", "GND")
+    # MDI termination
+    s.R("R17", "49.9R", 279.4, 116.84, "TXP", "TXCT")
+    s.R("R18", "49.9R", 279.4, 134.62, "TXCT", "TXN")
+    s.C("C32", "100nF 50V X7R", 294.64, 129.54, "TXCT", "GND", decouple=True)
+    s.R("R19", "49.9R", 279.4, 160.02, "RXP", "RXCT")
+    s.R("R20", "49.9R", 279.4, 177.8, "RXCT", "RXN")
+    s.C("C33", "100nF 50V X7R", 294.64, 172.72, "RXCT", "GND", decouple=True)
+    s.text("R17-R20 and C32/C33 right at the W6100 MDI pins.", 269.24, 190.5, 1.0)
+    # jack
+    j = {"1": "TXP", "2": "TXN", "3": "RXP", "5": "RXN", "4": "JCT", "6": "~", "7": "~", "8": "~", "9": "~",
+         "10": "~", "12": "LEDG_A", "11": "LNKn", "14": "LEDY_A", "13": "ACTn", "SH": "CHASSIS"}
+    s.part("Thl_Connector:JD0-0004NL", "J4", "JD0-0004NL", 345.44, 139.7, j, 0,
+           "Thl_Connector:RJ45_Pulse_JD0-0004NL_Horizontal", "Pulse Electronics", "JD0-0004NL",
+           ref_at=(345.44, 116.84), value_at=(345.44, 167.64))
+    s.part("Device:FerriteBead", "FB4", "HI1206P121R-10", 314.96, 205.74, {"1": "3V3A", "2": "JCT"}, 90,
+           FP["FB"], "Laird", "HI1206P121R-10", ref_at=(314.96, 201.93), value_at=(314.96, 209.55), dnp=True)
+    s.R("R21", "0R", 314.96, 218.44, "3V3A", "JCT", rot=90)
+    s.C("C34", "100nF 50V X7R", 330.2, 228.6, "JCT", "GND", decouple=True)
+    s.C("C35", "1uF 50V X7R", 342.9, 228.6, "JCT", "GND")
+    s.text("Centre taps (J4 pin 4) to 3V3A through R21 (0R); FB4 is an optional bead in its place (DNP).",
+           304.8, 241.3, 1.0)
+    s.R("R22", "330R", 370.84, 129.54, "+3V3", "LEDG_A")
+    s.R("R23", "330R", 370.84, 152.4, "+3V3", "LEDY_A")
+    s.text("Jack LEDs: green = link (LNKn), yellow = activity (ACTn).", 360.68, 172.72, 1.0)
+    s.C("C36", "1nF 2kV X7R", 345.44, 205.74, "CHASSIS", "GND")
+    s.text("Shield: 1 nF / 2 kV to GND (W6100 reference C5).", 335.28, 195.58, 1.0)
     return s
 
 
 def can_sheet():
-    s = Sheet("can.kicad_sch", "CAN x4", 3, "CAN controller: four isolated CAN FD channels")
-    s.text("Four isolated CAN FD channels (ISO1044BD). Logic side +3V3/GND, bus side V5_BUS/GND_BUS (12 V domain).\n"
-           "Connector pinout as every ThlHats board: 1 CANH, 2 CANL, 3 GND_BUS, 4 +12 V (cable supply).\n"
-           "CAN1 = can-ssr bus: F10 fitted. CAN2-4 = DUT buses: F11-F13 DNP, so pin 4 is dead unless fitted.",
-           25.4, 25.4)
+    s = Sheet("can.kicad_sch", "CAN x4", 4, "CAN controller: four isolated CAN FD channels")
+    s.text("Four CAN FD channels, each isolated on its own (TI ISOW1044, integrated isolated DC-DC).\n"
+           "Logic side: VIO +3V3, VDD +5V, GND. Bus side n: GND_CANn floats (no assumption about the DUT).\n"
+           "Per TI: VISOOUT/VSIN -> bead -> VISOIN, GND2 -> bead -> GISOIN (CISPR 32 class B on 2 layers).\n"
+           "Connector pinout as every ThlHats board: 1 CANH, 2 CANL, 3 GND (bus), 4 +12 V cable supply.\n"
+           "CAN1 (the can-ssr bus) has the POWERED jumpers: JP5 ties GND_CAN1 to GND_RACK, JP6 feeds +12 V\n"
+           "through F10. Without them CAN1 floats like the others. CAN2-4 pin 4 is not connected.", 25.4, 25.4)
     term = FP["MC"].format(n=4)
     for i in range(4):
         n = i + 1
-        y0 = 50.8 + i * 58.42
+        y0 = 50.8 + i * 55.88
         x0 = 50.8
-        s.text(f"CAN{n}", x0 - 20.32, y0 - 5.08, 2.0)
-        # ISO1044: logic side left, bus side right
-        s.part("Interface_CAN_LIN:ISO1044BD", f"U{10 + i}", "ISO1044BD", x0 + 60.96, y0 + 10.16,
-               {"1": "+3V3", "2": f"/C{n}TX", "3": f"/C{n}RX", "4": "GND",
-                "5": f"CANL{n}", "6": f"CANH{n}", "7": "/GND_BUS", "8": "/V5_BUS"}, 0,
-               "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "ISO1044BDR",
-               ref_at=(x0 + 66.04, y0 - 2.54), value_at=(x0 + 66.04, y0 + 22.86))
-        s.C(f"C{20 + 2 * i}", "100nF 50V X7R", x0 + 30.48, y0 + 5.08, "+3V3", "GND", decouple=True)
-        s.C(f"C{21 + 2 * i}", "100nF 50V X7R", x0 + 91.44, y0 + 5.08, "/V5_BUS", "/GND_BUS", decouple=True)
-        # ESD, termination
-        s.part("Power_Protection:NUP2105L", f"D{20 + i}", "NUP2105L", x0 + 129.54, y0 + 10.16,
-               {"1": f"CANH{n}", "2": f"CANL{n}", "3": "/GND_BUS"}, 0, FP["SOT23"], "onsemi", "NUP2105LT1G",
-               ref_at=(x0 + 134.62, y0 + 6.35), value_at=(x0 + 134.62, y0 + 13.97))
-        s.part("Jumper:Jumper_2_Open", f"JP{1 + i}", "TERM", x0 + 152.4, y0 + 2.54,
+        s.text(f"CAN{n}", x0 - 25.4, y0 - 5.08, 2.0)
+        nets = {"1": "+3V3", "2": "~", "3": f"/C{n}TX", "4": "GND", "5": f"/C{n}RX", "6": "GND", "7": "~",
+                "8": "~", "9": "+5V", "10": "GND", "11": f"GND2_{n}", "12": f"VISO{n}", "13": f"VISO{n}",
+                "14": "~", "15": f"GND_CAN{n}", "16": f"GND_CAN{n}", "17": f"GND_CAN{n}", "18": f"CANL{n}",
+                "19": f"CANH{n}", "20": f"VCAN{n}"}
+        s.part("Interface_CAN_LIN:ISOW1044", f"U{10 + i}", "ISOW1044", x0 + 60.96, y0 + 12.7, nets, 0,
+               "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm", "Texas Instruments", "ISOW1044DFMR",
+               ref_at=(x0 + 66.04, y0 - 7.62), value_at=(x0 + 66.04, y0 + 33.02))
+        s.C(f"C{40 + 4 * i}", "100nF 50V X7R", x0 + 12.7, y0 + 30.48, "+3V3", "GND", decouple=True)
+        s.C(f"C{41 + 4 * i}", "10uF 25V X7R", x0 + 25.4, y0 + 30.48, "+5V", "GND")
+        s.C(f"C{42 + 4 * i}", "10uF 25V X7R", x0 + 99.06, y0 + 30.48, f"VISO{n}", f"GND2_{n}")
+        s.C(f"C{43 + 4 * i}", "100nF 50V X7R", x0 + 142.24, y0 + 30.48, f"VCAN{n}", f"GND_CAN{n}", decouple=True)
+        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 2.54,
+               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+               ref_at=(x0 + 116.84, y0 - 1.27), value_at=(x0 + 116.84, y0 + 6.35))
+        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 15.24,
+               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+               ref_at=(x0 + 116.84, y0 + 11.43), value_at=(x0 + 116.84, y0 + 19.05))
+        s.flag(x0 + 129.54, y0 - 2.54); s.llabel(f"VCAN{n}", x0 + 129.54, y0 - 2.54, 0)
+        s.flag(x0 + 129.54, y0 + 22.86); s.llabel(f"GND_CAN{n}", x0 + 129.54, y0 + 22.86, 0)
+        s.part("Power_Protection:NUP2105L", f"D{10 + i}", "NUP2105L", x0 + 167.64, y0 + 12.7,
+               {"1": f"CANH{n}", "2": f"CANL{n}", "3": f"GND_CAN{n}"}, 0, FP["SOT23"], "onsemi", "NUP2105LT1G",
+               ref_at=(x0 + 172.72, y0 + 8.89), value_at=(x0 + 172.72, y0 + 16.51))
+        s.part("Jumper:Jumper_2_Open", f"JP{1 + i}", "TERM", x0 + 190.5, y0 + 2.54,
                {"1": f"CANH{n}", "2": f"TERM{n}"}, 0, "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
-               "Samtec", "TSW-102-07-G-S", ref_at=(x0 + 152.4, y0 - 1.27), value_at=(x0 + 152.4, y0 + 6.35))
-        s.R(f"R{20 + i}", "120R", x0 + 167.64, y0 + 10.16, f"TERM{n}", f"CANL{n}")
-        # cable supply fuse and connector
-        s.part("Device:Polyfuse", f"F{10 + i}", "1.1A", x0 + 190.5, y0 + 22.86, {"1": "+12V", "2": f"V12_CAN{n}"}, 90,
-               FP["PTC"], "Littelfuse", "1812L110/16DR", dnp=(n != 1),
-               ref_at=(x0 + 190.5, y0 + 19.05), value_at=(x0 + 190.5, y0 + 26.67))
-        s.part("Connector:Screw_Terminal_01x04", f"J{10 + i}", f"CAN{n}", x0 + 223.52, y0 + 10.16,
-               {"1": f"CANH{n}", "2": f"CANL{n}", "3": "/GND_BUS", "4": f"V12_CAN{n}"}, 0, term,
-               "Phoenix Contact", "1844236", ref_at=(x0 + 223.52, y0 + 2.54), value_at=(x0 + 223.52, y0 + 19.05))
-        # activity LED (logic side)
-        s.led_chain(f"D{24 + i}", f"R{24 + i}", "yellow", "LTST-C150YKT", x0 + 7.62, y0 + 20.32, f"/LED_CAN{n}")
+               "Samtec", "TSW-102-07-G-S", ref_at=(x0 + 190.5, y0 - 1.27), value_at=(x0 + 190.5, y0 + 6.35))
+        s.R(f"R{30 + i}", "120R", x0 + 205.74, y0 + 12.7, f"TERM{n}", f"CANL{n}")
+        pin4 = "V12_CAN1" if n == 1 else "~"
+        s.part("Connector:Screw_Terminal_01x04", f"J{10 + n}", f"CAN{n}", x0 + 254.0, y0 + 12.7,
+               {"1": f"CANH{n}", "2": f"CANL{n}", "3": f"GND_CAN{n}", "4": pin4}, 0, term,
+               "Phoenix Contact", "1844236", ref_at=(x0 + 254.0, y0 + 5.08), value_at=(x0 + 254.0, y0 + 21.59))
+        s.led_chain(f"D{20 + i}", f"R{34 + i}", "yellow", "LTST-C150YKT", x0 - 12.7, y0 + 7.62, f"/LED_CAN{n}")
+    # CAN1 powered-bus option
+    s.part("Jumper:Jumper_2_Open", "JP5", "POWERED GND", 381.0, 66.04, {"1": "GND_CAN1", "2": "/GND_RACK"}, 0,
+           "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical", "Samtec", "TSW-102-07-G-S",
+           ref_at=(381.0, 62.23), value_at=(381.0, 69.85))
+    s.part("Device:Polyfuse", "F10", "2A", 355.6, 45.72, {"1": "+12V", "2": "V12_F10"}, 90, FP["PTC"],
+           "Bourns", "MF-MSMF200/16X-2", ref_at=(355.6, 41.91), value_at=(355.6, 49.53))
+    s.part("Jumper:Jumper_2_Open", "JP6", "POWERED 12V", 381.0, 45.72, {"1": "V12_F10", "2": "V12_CAN1"}, 0,
+           "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical", "Samtec", "TSW-102-07-G-S",
+           ref_at=(381.0, 41.91), value_at=(381.0, 49.53))
+    s.text("CAN1 POWERED: fit JP5 + JP6 together on the can-ssr bus\n"
+           "(up to 4 can-ssr at ~0.2 A each; F10 2 A hold).\n"
+           "F10 and JP5/JP6 sit at the RACK | CAN1 boundary on the board.", 340.36, 78.74, 1.0)
     s.text("JP1-JP4: fit the shunt (Samtec SNT-100-BK-G) only where this board is a bus end.\n"
-           "Activity LEDs D24-D27 are driven by the MCU (logic side).", 76.2, 279.4, 1.0)
+           "Activity LEDs D20-D23 are on the logic side, driven by the MCU.", 25.4, 271.78, 1.0)
     return s
 
 
-def power12_sheet():
-    s = Sheet("power12.kicad_sch", "12 V input", 4, "CAN controller: 12 V input, bus-side 5 V, 12 V status")
-    s.text("12 V DOMAIN. External 12 V DIN supply with a floating output; its 0 V is the CAN bus ground GND_BUS,\n"
-           "never connected to logic GND. Reverse polarity: P-FET Q1. Overvoltage/transients: TVS D10. Fuse F1x.",
-           25.4, 25.4)
-    s.part("Connector:Screw_Terminal_01x02", "J20", "12V IN", 38.1, 63.5, {"1": "V12_IN", "2": "/GND_BUS"}, 0,
+def power_sheet():
+    s = Sheet("power.kicad_sch", "12 V input, logic supply", 5, "CAN controller: 12 V input and isolated logic supply")
+    s.text("RACK DOMAIN: external 12 V DIN supply (floating output); its 0 V is GND_RACK. Reverse polarity: P-FET Q1.\n"
+           "Transients: TVS D31. Fuse F20. Feeds the relay outputs, the CAN1 cable supply and U20.\n"
+           "U20 (TRACO TDN 5-2411WI, 9-36 V in, 5 V 1 A, 1600 VDC) makes the floating LOGIC +5V / GND.", 25.4, 25.4)
+    s.part("Connector:Screw_Terminal_01x02", "J20", "12V IN", 38.1, 71.12, {"1": "V12_IN", "2": "/GND_RACK"}, 0,
            "Connector_Phoenix_MSTB:PhoenixContact_MSTBVA_2,5_2-G-5,08_1x02_P5.08mm_Vertical", "Phoenix Contact",
-           "1755736", ref_at=(38.1, 57.15), value_at=(38.1, 69.85))
-    s.text("J20: top entry, 1 +12 V, 2 0 V.", 25.4, 78.74, 1.0)
-    s.part("Device:Fuse", "F20", "4A", 63.5, 50.8, {"1": "V12_IN", "2": "V12_F"}, 90,
-           "Fuse:Fuse_Littelfuse-NANO2-451_453", "Littelfuse", "0451004.MRL", ref_at=(63.5, 46.99), value_at=(63.5, 54.61))
-    s.part("Transistor_FET:SUD19P06-60", "Q1", "SUD50P04-08", 96.52, 53.34, {"2": "V12_F", "3": "+12V", "1": "Q1_G"}, 270,
-           "Package_TO_SOT_SMD:TO-252-2", "Vishay", "SUD50P04-08-GE3",
-           ref_at=(96.52, 45.72), value_at=(96.52, 60.96))
-    s.part("Device:D_Zener", "D10", "15V", 111.76, 76.2, {"1": "+12V", "2": "Q1_G"}, 90, FP["SOD123"],
-           "Diodes Incorporated", "BZT52C15-7-F", ref_at=(116.84, 74.93), value_at=(116.84, 77.47), value_justify="left")
-    s.R("R30", "10k", 96.52, 88.9, "Q1_G", "/GND_BUS")
-    s.text("Q1 reverse-polarity P-FET (body diode conducts first, then the channel).\nD10 keeps Vgs under 15 V.",
-           81.28, 101.6, 1.0)
-    s.part("Device:D_Zener", "D11", "SMBJ15A", 132.08, 76.2, {"1": "+12V", "2": "/GND_BUS"}, 90,
-           "Diode_SMD:D_SMB_Handsoldering", "Littelfuse", "SMBJ15A", ref_at=(137.16, 74.93), value_at=(137.16, 77.47),
+           "1755736", ref_at=(38.1, 64.77), value_at=(38.1, 77.47))
+    s.text("J20: top entry, 1 +12 V, 2 0 V.", 25.4, 86.36, 1.0)
+    s.part("Device:Fuse", "F20", "4A", 63.5, 58.42, {"1": "V12_IN", "2": "V12_F"}, 90,
+           "Fuse:Fuse_Littelfuse-NANO2-451_453", "Littelfuse", "0451004.MRL", ref_at=(63.5, 54.61),
+           value_at=(63.5, 62.23))
+    s.part("Transistor_FET:SUD19P06-60", "Q1", "SUD50P04-08", 96.52, 60.96, {"2": "V12_F", "3": "+12V", "1": "Q1_G"},
+           270, "Package_TO_SOT_SMD:TO-252-2", "Vishay", "SUD50P04-08-GE3", ref_at=(96.52, 53.34),
+           value_at=(96.52, 68.58))
+    s.part("Device:D_Zener", "D30", "15V", 111.76, 83.82, {"1": "+12V", "2": "Q1_G"}, 90, FP["SOD123"],
+           "Diodes Incorporated", "BZT52C15-7-F", ref_at=(116.84, 82.55), value_at=(116.84, 85.09),
            value_justify="left")
-    s.C("C30", "10uF 25V X7R", 149.86, 76.2, "+12V", "/GND_BUS")
-    s.C("C31", "10uF 25V X7R", 162.56, 76.2, "+12V", "/GND_BUS")
-    s.flag(172.72, 50.8); s.power("+12V", 172.72, 50.8)
-    s.flag(172.72, 99.06, 180); s.glabel("GND_BUS", 172.72, 99.06, 180)
-
-    # bus-side 5 V
-    s.part("Converter_DCDC:R-78E5.0-0.5", "U20", "R-78E5.0-0.5", 210.82, 63.5, {"1": "+12V", "2": "/GND_BUS", "3": "/V5_BUS"},
-           0, "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT", "RECOM", "R-78E5.0-0.5",
-           ref_at=(210.82, 55.88), value_at=(210.82, 73.66))
-    s.C("C32", "10uF 25V X7R", 233.68, 76.2, "/V5_BUS", "/GND_BUS")
-    s.text("V5_BUS: ISO1044 and ISO6740 bus sides (about 300 mA worst case).", 195.58, 91.44, 1.0)
-    s.led_chain("D12", "R31", "green", "LTST-C150GKT", 254.0, 63.5, "+12V", rval="4.7k", ground="/GND_BUS")
-    s.text("D12: 12 V present.", 248.92, 86.36, 1.0)
-
-    # 12 V status to the MCU
-    s.part("Isolator:TLP291", "U21", "TLP293", 205.74, 132.08,
-           {"1": "OPTO_A", "2": "/GND_BUS", "4": "V12_OK_C", "3": "GND"}, 0, "Package_SO:SOIC-4_4.55x2.6mm_P1.27mm",
-           "Toshiba", "TLP293(TPL,E", ref_at=(205.74, 124.46), value_at=(205.74, 139.7))
-    s.R("R32", "10k", 177.8, 124.46, "+12V", "OPTO_A")
-    s.R("R33", "10k", 233.68, 119.38, "+3V3", "V12_OK_C")
-    s.part("Device:R", "R34", "1k", 248.92, 132.08, {"1": "V12_OK_C", "2": "/V12_OK"}, 90, FP["R"], "Yageo", "RC1206FR-071KL",
-           ref_at=(248.92, 128.27), value_at=(248.92, 135.89))
-    s.text("V12_OK low = 12 V present (opto on). LED ~1 mA, CTR >= 50 %.", 172.72, 152.4, 1.0)
+    s.R("R40", "10k", 96.52, 96.52, "Q1_G", "/GND_RACK")
+    s.part("Device:D_Zener", "D31", "SMBJ15A", 132.08, 83.82, {"1": "+12V", "2": "/GND_RACK"}, 90,
+           "Diode_SMD:D_SMB_Handsoldering", "Littelfuse", "SMBJ15A", ref_at=(137.16, 82.55),
+           value_at=(137.16, 85.09), value_justify="left")
+    s.C("C60", "10uF 25V X7R", 149.86, 83.82, "+12V", "/GND_RACK")
+    s.C("C61", "10uF 25V X7R", 162.56, 83.82, "+12V", "/GND_RACK")
+    s.flag(172.72, 58.42); s.power("+12V", 172.72, 58.42)
+    s.flag(172.72, 106.68, 180); s.glabel("GND_RACK", 172.72, 106.68, 180)
+    s.led_chain("D32", "R41", "green", "LTST-C150GKT", 187.96, 63.5, "+12V", rval="4.7k", ground="/GND_RACK")
+    s.text("D32: 12 V present (rack side).", 182.88, 86.36, 1.0)
+    # isolated logic supply
+    s.part("Regulator_Switching:TDN_5-0910WISM", "U20", "TDN 5-2411WI", 238.76, 71.12,
+           {"1": "+12V", "2": "/GND_RACK", "4": "~", "5": "~", "6": "GND", "7": "+5V"}, 0,
+           "Converter_DCDC:Converter_DCDC_TRACO_TDN_5-xxxxWI_THT", "TRACO Power", "TDN 5-2411WI",
+           ref_at=(238.76, 60.96), value_at=(238.76, 81.28))
+    s.C("C62", "10uF 25V X7R", 215.9, 88.9, "+12V", "/GND_RACK")
+    s.C("C63", "10uF 25V X7R", 264.16, 88.9, "+5V", "GND")
+    s.text("U20 crosses RACK | LOGIC. Remote On/Off (pin 4) open = on. No traces under it (TRACO).\n"
+           "LOGIC budget: about 0.65 A typical, 0.8 A with all four CAN buses dominant (1 A rating).",
+           210.82, 106.68, 1.0)
     return s
 
 
 def relay_sheet():
-    s = Sheet("relay.kicad_sch", "Relay drive", 5, "CAN controller: relay drive")
-    s.text("Eight relay outputs: MCU -> I2C -> MCP23008 -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only.\n"
-           "Each output has its own +12 V terminal and a 12 V-side LED right behind it.", 25.4, 25.4)
+    s = Sheet("relay.kicad_sch", "Relay drive", 6, "CAN controller: relay drive")
+    s.text("Four relay outputs for standard 12 V coil relays. 2 x AQW212 PhotoMOS (2 Form A): the LED side is LOGIC,\n"
+           "driven from MCU pins through 470R (~4.5 mA, operate <= 3 mA); the contact sources +12 V (V12_RLY, fused by F30)\n"
+           "to OUTn. Coil between OUTn and 0 V (GND_RACK) on the same terminal pair. D40-D43 catch the coil kick.\n"
+           "Red LEDs D44-D47 on the rack side show the real output state.", 25.4, 25.4)
+    s.part("Device:Polyfuse", "F30", "1.1A", 152.4, 60.96, {"1": "+12V", "2": "V12_RLY"}, 90, FP["PTC"],
+           "Littelfuse", "1812L110/16DR", ref_at=(152.4, 57.15), value_at=(152.4, 64.77))
+    s.C("C70", "10uF 25V X7R", 172.72, 76.2, "V12_RLY", "/GND_RACK")
     for k in range(2):
-        y = 63.5 + k * 71.12
-        ins = {"3": "INA", "4": "INB", "5": "INC", "6": "IND"}
-        outs = {"14": "OUTA", "13": "OUTB", "12": "OUTC", "11": "OUTD"}
-        nets = {"1": "+3V3", "2": "GND", "8": "GND", "7": "~", "9": "/GND_BUS", "15": "/GND_BUS", "16": "/V5_BUS",
-                "10": "/V5_BUS"}
-        # The isolators sit rotated on the PCB, inputs up, outputs down, U30 left of U31; left to right
-        # their pins run IND..INA, so channel D carries the lowest relay number.
-        for j, (pi, po) in enumerate(zip(ins, outs)):
-            ch = 4 * k + 4 - j
-            nets[pi] = f"RLY{ch}"
-            nets[po] = f"RLYD{ch}"
-        s.part("Isolator:ISO6740", f"U{30 + k}", "ISO6740", 101.6, y, nets, 0, "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
-               "Texas Instruments", "ISO6740DWR", ref_at=(101.6, y - 17.78), value_at=(101.6, y + 17.78))
-        s.C(f"C{40 + 2 * k}", "100nF 50V X7R", 71.12, y - 15.24, "+3V3", "GND", decouple=True)
-        s.C(f"C{41 + 2 * k}", "100nF 50V X7R", 132.08, y - 15.24, "/V5_BUS", "/GND_BUS", decouple=True)
-    s.text("EN2 tied high: outputs always enabled. Default output state with VCC1 off: low (relays off).",
-           76.2, 210.82, 1.0)
-    # MCP23008 next to the isolators: the MCU drives the relays over I2C1, not 8 long traces.
-    # It sits rotated above the isolators, outputs down, GP0..GP7 left to right: RLY1 = GP0 ... RLY8 = GP7.
-    exp = {"1": "/I2C_SCL", "2": "/I2C_SDA", "3": "GND", "4": "GND", "5": "GND", "6": "+3V3", "7": "~", "8": "~",
-           "9": "GND", "18": "+3V3"}
-    exp.update({str(9 + n): f"RLY{n}" for n in range(1, 9)})
-    s.part("Interface_Expansion:MCP23008-xSO", "U33", "MCP23008-E/SO", 50.8, 99.06, exp, 0,
-           "Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm", "Microchip Technology", "MCP23008-E/SO",
-           ref_at=(50.8, 76.2), value_at=(50.8, 121.92))
-    s.C("C45", "100nF 50V X7R", 50.8, 139.7, "+3V3", "GND", decouple=True)
-    s.text("U33 MCP23008 on I2C1 at 0x20 (A2-A0 low), RESET tied high (power-on reset).\n"
-           "RLY1 = GP0 ... RLY8 = GP7. Outputs are inputs (high-Z) after reset: relays off.", 25.4, 162.56, 1.0)
-    # ULN2803A rotated with inputs up: its channels run 8..1 left to right, the relay terminal 1..8,
-    # so relay n uses channel 9 - n (input pin 9 - n, output pin 10 + n).
-    uln = {str(9 - n): f"RLYD{n}" for n in range(1, 9)}
-    uln.update({"9": "/GND_BUS", "10": "V12_RLY"})
-    for n in range(1, 9):
-        uln[str(10 + n)] = f"RLYO{n}"
-    s.part("Transistor_Array:ULN2803A", "U32", "ULN2803A", 190.5, 99.06, uln, 0, "Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm",
-           "Texas Instruments", "ULN2803ADWR", ref_at=(190.5, 81.28), value_at=(190.5, 116.84))
-    s.part("Device:Polyfuse", "F30", "1.1A", 213.36, 63.5, {"1": "+12V", "2": "V12_RLY"}, 90, FP["PTC"],
-           "Littelfuse", "1812L110/16DR", ref_at=(213.36, 59.69), value_at=(213.36, 67.31))
-    s.C("C44", "10uF 25V X7R", 228.6, 76.2, "V12_RLY", "/GND_BUS")
-    rly = {str(i): f"RLYO{i}" for i in range(1, 9)}
-    rly.update({str(8 + i): "V12_RLY" for i in range(1, 9)})
-    s.part("Connector_Generic:Conn_02x08_Top_Bottom", "J30", "RELAY", 271.78, 99.06, rly, 0, FP["SPTD"].format(n=8),
-           "Phoenix Contact", "1841555", ref_at=(271.78, 83.82), value_at=(271.78, 116.84))
-    s.text("J30 (SPTD 1,5/8-H-3,5, double-level push-in): lower level 1-8 = OUT1-8 (ULN2803A low side),\n"
-           "upper level 9-16 = +12 V coil supply (F30). Each relay coil goes between OUTn and the +12 V\n"
-           "terminal right above it. Max about 300 mA per output, 1.1 A total (F30).", 213.36, 127.0, 1.0)
-    for i in range(1, 9):
-        x = 50.8 + (i - 1) * 15.24
-        s.led_chain(f"D{30 + i}", f"R{40 + i}", "red", "LTST-C150KRKT", x, 233.68, "V12_RLY", rval="4.7k",
-                    ground=f"RLYO{i}")
-    s.text("Relay LEDs D31-D38 on the 12 V side, right behind their terminals: +12 V -> 4.7k -> LED -> OUTn,\n"
-           "lit (~2 mA) when the ULN2803A output is on. Shows the real output state.", 50.8, 264.16, 1.0)
+        y = 106.68 + k * 60.96
+        a, b = 2 * k + 1, 2 * k + 2
+        s.part("Thl_Isolator:AQW212", f"K{1 + k}", "AQW212", 127.0, y,
+               {"1": f"RLED{a}", "2": "GND", "3": f"RLED{b}", "4": "GND",
+                "8": "V12_RLY", "7": f"RLYOUT{a}", "6": "V12_RLY", "5": f"RLYOUT{b}"}, 0,
+               "Package_DIP:DIP-8_W7.62mm", "Panasonic", "AQW212", ref_at=(127.0, y - 12.7), value_at=(127.0, y + 12.7))
+        for ch, dy in ((a, -2.54), (b, 5.08)):
+            s.R(f"R{50 + ch}", "470R", 88.9, y + dy, f"/RLY{ch}", f"RLED{ch}", rot=90)
+    s.text("AQW212 pins: 1/2 LED1, 3/4 LED2, 8-7 output 1, 6-5 output 2.", 101.6, 190.5, 1.0)
+    conn = {}
+    for ch in range(1, 5):
+        x = 190.5 + (ch - 1) * 25.4
+        s.part("Device:D", f"D{39 + ch}", "S1G", x, 129.54, {"1": f"RLYOUT{ch}", "2": "/GND_RACK"}, 90,
+               "Diode_SMD:D_SMA_Handsoldering", "Diodes Incorporated", "S1G-13-F",
+               ref_at=(x + 5.08, 128.27), value_at=(x + 5.08, 130.81), value_justify="left")
+        s.led_chain(f"D{43 + ch}", f"R{54 + ch}", "red", "LTST-C150KRKT", x, 154.94, f"RLYOUT{ch}", rval="4.7k",
+                    ground="/GND_RACK")
+        conn[str(ch)] = f"RLYOUT{ch}"
+        conn[str(4 + ch)] = "/GND_RACK"
+    s.part("Connector_Generic:Conn_02x04_Top_Bottom", "J30", "RELAY", 330.2, 129.54, conn, 0, FP["SPTD"].format(n=4),
+           "Phoenix Contact", "1841513", ref_at=(330.2, 119.38), value_at=(330.2, 140.97))
+    s.text("J30 (SPTD 1,5/4-H-3,5): lower level 1-4 = OUT1-4 (+12 V when on), upper level 5-8 = 0 V.\n"
+           "Coil current up to about 100 mA each; 0.5 A per AQW212 channel, F30 1.1 A total.", 299.72, 152.4, 1.0)
     return s
 
 
-def gpio_sheet():
-    s = Sheet("gpio.kicad_sch", "GPIO", 6, "CAN controller: GPIO")
-    s.text("Eight 3.3 V GPIO (MCU pins). Each: 4.7k series + BAT54S clamp to +3V3/GND on the MCU side,\n"
-           "so a 24 V short draws ~4.5 mA and the pin stays inside its rails.\n"
-           "J40 SPTD double-level push-in: lower level = GPIO1-8, upper level = GND (one ground per channel).",
+def io_sheet():
+    s = Sheet("io.kicad_sch", "GPIO, analog in", 7, "CAN controller: GPIO and differential analog inputs")
+    s.text("Four 3.3 V GPIO (MCU pins): 330R series + BAT54S clamp, ESD protection only (not 24 V tolerant).\n"
+           "Two differential analog inputs, about +-116 V per input, 10 Mohm per input: each leg 10M / 130k to VMID,\n"
+           "0.1 uF across 130k (fc ~ 12 Hz), BAT54S clamp; the PIC32 ADC reads both legs and firmware subtracts.\n"
+           "VMID = 1.65 V: R60/R61 divider into OA5 IN+ (pin 33), OA5 follower output on pin 46 (= AN25).",
            25.4, 25.4)
     conn = {}
-    for ch in range(1, 9):
-        conn[str(ch)] = f"GPIO{ch}_EXT"
-        conn[str(8 + ch)] = "GND"
-        x = 76.2 + ((ch - 1) % 4) * 30.48
-        y = 60.96 + ((ch - 1) // 4) * 101.6
-        s.R(f"R{50 + ch}", "4.7k", x, y, f"/GPIO{ch}", f"GPIO{ch}_EXT")
-        s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 10.16, y + 20.32,
+    for ch in range(1, 5):
+        x = 63.5 + (ch - 1) * 45.72
+        s.R(f"R{70 + ch}", "330R", x, 63.5, f"/GPIO{ch}", f"GPIO{ch}_EXT")
+        s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 10.16, 86.36,
                {"1": "GND", "2": "+3V3", "3": f"/GPIO{ch}"}, 0, FP["SOT23"], "Nexperia", "BAT54S,215",
-               ref_at=(x + 15.24, y + 17.78), value_at=(x + 15.24, y + 22.86))
-    s.part("Connector_Generic:Conn_02x08_Top_Bottom", "J40", "GPIO", 238.76, 116.84, conn, 0, FP["SPTD"].format(n=8),
-           "Phoenix Contact", "1841555", ref_at=(238.76, 101.6), value_at=(238.76, 134.62))
-    s.text("J40 lower level: 1 GPIO1 ... 8 GPIO8; upper level 9-16: GND.", 210.82, 143.51, 1.0)
-    return s
-
-
-def ain_sheet():
-    s = Sheet("ain.kicad_sch", "Analog in", 7, "CAN controller: analog inputs")
-    s.text("Four analog inputs, about +-116 V full scale, 10 Mohm input. MCP3428 (16 bit, I2C 0x68) on the MCU's I2C1.\n"
-           "The MCP3428 cannot take inputs below its VSS, so each divider is referenced to VMID (~1.65 V) and CHn- = VMID:\n"
-           "CHn+ - CHn- = Vin x 130k / 10.13M (+-1.49 V at +-116 V; PGA range +-2.048 V). VMID cancels in the difference.\n"
-           "10M is a 1206 rated 200 V. 0.1 uF across 130k: fc ~ 12 Hz.", 25.4, 25.4)
-    adc = {"1": "AIN1", "2": "VMID", "3": "AIN2", "4": "VMID", "11": "AIN3", "12": "VMID", "13": "AIN4", "14": "VMID",
-           "5": "GND", "6": "+3V3", "7": "/I2C_SDA", "8": "/I2C_SCL", "9": "GND", "10": "GND"}
-    s.part("Analog_ADC:MCP3428x-xSL", "U50", "MCP3428-E/SL", 304.8, 106.68, adc, 0, "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
-           "Microchip Technology", "MCP3428-E/SL", ref_at=(304.8, 86.36), value_at=(304.8, 127.0))
-    s.C("C50", "100nF 50V X7R", 330.2, 76.2, "+3V3", "GND", decouple=True)
-    s.R("R60", "4.7k", 345.44, 99.06, "+3V3", "/I2C_SCL")
-    s.R("R61", "4.7k", 358.14, 99.06, "+3V3", "/I2C_SDA")
-    s.text("Adr0/Adr1 low: address 0x68. I2C1 pull-ups R60/R61.", 325.12, 134.62, 1.0)
-    # VMID
-    s.R("R62", "10k", 345.44, 162.56, "+3V3", "VMID")
-    s.R("R63", "10k", 345.44, 180.34, "VMID", "GND")
-    s.C("C51", "10uF 25V X7R", 360.68, 180.34, "VMID", "GND")
-    s.text("VMID = 1.65 V, 5k + 10 uF.", 337.82, 198.12, 1.0)
-    for i in range(4):
-        n = i + 1
-        y = 63.5 + i * 50.8
-        s.R(f"R{64 + i}", "10M", 101.6, y, f"/AI{n}_EXT", f"AIN{n}", rot=90)
-        s.R(f"R{68 + i}", "130k", 127.0, y + 12.7, f"AIN{n}", "VMID")
-        s.C(f"C{52 + i}", "100nF 50V X7R 1206", 142.24, y + 12.7, f"AIN{n}", "VMID")
-        s.part("Diode:BAT54S", f"D{50 + 10 + n}", "BAT54S", 162.56, y + 12.7, {"1": "GND", "2": "+3V3", "3": f"AIN{n}"},
-               0, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(167.64, y + 8.89), value_at=(167.64, y + 16.51))
-    s.text("Analog connector J50 is on the analog-out sheet (AI1-4 + GND, AO1-2 + GND).", 76.2, 266.7, 1.0)
-    return s
-
-
-def aout_sheet():
-    s = Sheet("aout.kicad_sch", "Analog out", 8, "CAN controller: analog outputs, analog connector")
-    s.text("Two 0-10 V outputs. MCP4922 (SPI, 12 bit) with an LM4040 2.5 V reference -> LM358B, gain 4.\n"
-           "Op-amp supply V13 = 13 V from a TPS61040 boost on the header 5 V (logic side; no third supply).\n"
-           "Output: 470R + 15 V Zener at the terminal, feedback taken after the 470R, so a 24 V short (or the\n"
-           "CAN cable 12 V from a wrong plug) puts < 20 mA into the Zener and the output recovers.", 25.4, 25.4)
-    dac = {"1": "+3V3", "2": "~", "3": "/DAC_CS", "4": "/DAC_SCK", "5": "/DAC_SDI", "6": "~", "7": "~", "8": "GND",
-           "9": "+3V3", "10": "DACB", "11": "VREF", "12": "GND", "13": "VREF", "14": "DACA"}
-    s.part("Analog_DAC:MCP4922-EP", "U60", "MCP4922-E/SL", 71.12, 88.9, dac, 0, "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
-           "Microchip Technology", "MCP4922-E/SL", ref_at=(71.12, 71.12), value_at=(71.12, 106.68))
-    s.C("C60", "100nF 50V X7R", 50.8, 124.46, "+3V3", "GND", decouple=True)
-    s.text("LDAC low: outputs update on CS rising. SHDN high.", 50.8, 137.16, 1.0)
-    s.part("Reference_Voltage:LM4040DBZ-2.0", "U61", "LM4040-2.5", 116.84, 139.7, {"1": "VREF", "2": "GND", "3": "~"},
-           90, FP["SOT23"], "Texas Instruments", "LM4040A25IDBZR", ref_at=(121.92, 138.43), value_at=(121.92, 140.97),
-           value_justify="left")
-    s.R("R80", "1k", 116.84, 119.38, "+3V3", "VREF")
-    s.C("C61", "100nF 50V X7R", 132.08, 139.7, "VREF", "GND", decouple=True)
-    # op amp, two channels
-    for k, (ain, ch) in enumerate((("DACA", 1), ("DACB", 2))):
-        unit = 1 + k
-        pins = {1: ("3", "2", "1"), 2: ("5", "6", "7")}[unit]
-        y = 76.2 + k * 50.8
-        s.part("Amplifier_Operational:LM2904", "U62", "LM358B", 182.88, y,
-               {pins[0]: ain, pins[1]: f"FB{ch}", pins[2]: f"OA{ch}"}, 0, "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
-               "Texas Instruments", "LM358BIDR", unit=unit, multi=True, ref_at=(182.88, y - 7.62), value_at=(182.88, y + 7.62))
-        s.R(f"R{81 + 4 * k}", "470R", 215.9, y, f"OA{ch}", f"AO{ch}_EXT", rot=90)
-        s.R(f"R{82 + 4 * k}", "30k", 203.2, y + 17.78, f"AO{ch}_EXT", f"FB{ch}", rot=90)
-        s.R(f"R{83 + 4 * k}", "10k", 177.8, y + 22.86, f"FB{ch}", "GND")
-        s.part("Device:D_Zener", f"D{70 + ch}", "15V", 233.68, y + 12.7, {"1": f"AO{ch}_EXT", "2": "GND"}, 90, FP["SOD123"],
-               "Diodes Incorporated", "BZT52C15-7-F", ref_at=(238.76, y + 11.43), value_at=(238.76, y + 13.97),
-               value_justify="left")
-    s.part("Amplifier_Operational:LM2904", "U62", "LM358B", 182.88, 182.88, {"8": "V13", "4": "GND"}, 0,
-           "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "LM358BIDR", unit=3, multi=True,
-           ref_at=(185.42, 175.26), value_at=(185.42, 190.5))
-    s.C("C62", "100nF 50V X7R", 198.12, 182.88, "V13", "GND", decouple=True)
-    s.text("Gain 1 + 30k/10k = 4: 0-2.5 V -> 0-10 V at the terminal.", 160.02, 160.02, 1.0)
-
-    # 13 V boost
-    s.part("Regulator_Switching:TPS61041DDC", "U63", "TPS61040", 116.84, 220.98,
-           {"5": "+5V", "4": "+5V", "2": "GND", "1": "SW", "3": "BFB"}, 0, "Package_TO_SOT_SMD:SOT-23-5",
-           "Texas Instruments", "TPS61040DBVR", ref_at=(116.84, 210.82), value_at=(116.84, 231.14))
-    s.part("Device:L", "L60", "10uH", 116.84, 198.12, {"1": "+5V", "2": "SW"}, 90, "Inductor_SMD:L_Bourns-SRN4018",
-           "Bourns", "SRN4018-100M", ref_at=(116.84, 194.31), value_at=(116.84, 201.93))
-    s.part("Device:D_Schottky", "D73", "MBR0530", 147.32, 205.74, {"2": "SW", "1": "V13"}, 0, FP["SOD123"],
-           "onsemi", "MBR0530T1G", ref_at=(147.32, 201.93), value_at=(147.32, 209.55))
-    s.R("R90", "1M", 165.1, 215.9, "V13", "BFB")
-    s.R("R91", "105k", 165.1, 233.68, "BFB", "GND")
-    s.C("C63", "4.7uF 25V X7R", 180.34, 223.52, "V13", "GND")
-    s.C("C64", "10uF 25V X7R", 86.36, 223.52, "+5V", "GND")
-    s.text("V13 = 1.233 V x (1 + 1M/105k) = 13.0 V. About 50 mA from the header 5 V at full AO load.", 101.6, 248.92, 1.0)
-    s.flag(175.26, 205.74); s.llabel("V13", 175.26, 205.74, 0)
-
-    # analog connector: AI1-4 + GND, AO1-2 + GND
-    # AO on the top two pins: the outputs leave the terminal toward the op amp without crossing the
-    # input dividers, which sit at their own pins below.
-    conn = {"1": "AO1_EXT", "2": "AO2_EXT", "3": "/AI1_EXT", "4": "/AI2_EXT", "5": "/AI3_EXT", "6": "/AI4_EXT"}
-    conn.update({str(6 + k): "GND" for k in range(1, 7)})
-    s.part("Connector_Generic:Conn_02x06_Top_Bottom", "J50", "ANALOG", 304.8, 101.6, conn, 0, FP["SPTD"].format(n=6),
+               ref_at=(x + 15.24, 83.82), value_at=(x + 15.24, 88.9))
+        conn[str(ch)] = f"GPIO{ch}_EXT"
+        conn[str(6 + ch)] = "GND"
+    legs = (("AI1P", "/AI1P"), ("AI1N", "/AI1N"), ("AI2P", "/AI2P"), ("AI2N", "/AI2N"))
+    for i, (ext, adc) in enumerate(legs):
+        y = 127.0 + i * 38.1
+        s.R(f"R{80 + i}", "10M", 76.2, y, f"{ext}_EXT", adc, rot=90)
+        s.R(f"R{84 + i}", "130k", 101.6, y + 12.7, adc, "/VMID")
+        s.C(f"C{80 + i}", "100nF 50V X7R 1206", 116.84, y + 12.7, adc, "/VMID")
+        s.part("Diode:BAT54S", f"D{55 + i}", "BAT54S", 137.16, y + 12.7, {"1": "GND", "2": "+3V3", "3": adc},
+               0, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(142.24, y + 8.89), value_at=(142.24, y + 16.51))
+    conn.update({"5": "AI1P_EXT", "6": "AI2P_EXT", "11": "AI1N_EXT", "12": "AI2N_EXT"})
+    s.part("Connector_Generic:Conn_02x06_Top_Bottom", "J40", "IO", 304.8, 101.6, conn, 0, FP["SPTD"].format(n=6),
            "Phoenix Contact", "1841539", ref_at=(304.8, 88.9), value_at=(304.8, 116.84))
-    s.text("J50 SPTD double-level push-in: lower level 1 AO1, 2 AO2, 3-6 AI1-AI4;\nupper level 7-12 GND.",
-           276.86, 134.62, 1.0)
+    s.text("J40 SPTD double-level push-in: lower level 1-4 GPIO1-4, 5 AI1+, 6 AI2+;\n"
+           "upper level 7-10 GND, 11 AI1-, 12 AI2-.", 276.86, 129.54, 1.0)
+    # VMID reference
+    s.R("R60", "10k", 228.6, 175.26, "+3V3", "/VMID_REF")
+    s.R("R61", "10k", 228.6, 193.04, "/VMID_REF", "GND")
+    s.C("C84", "100nF 50V X7R", 243.84, 193.04, "/VMID_REF", "GND", decouple=True)
+    s.text("VMID_REF -> MCU pin 33 (OA5 IN+). The MCU ties OA5 IN- (49) to OUT (46) = VMID.", 213.36, 210.82, 1.0)
     return s
 
 
-SHEETS = [mcu_sheet, can_sheet, power12_sheet, relay_sheet, gpio_sheet, ain_sheet, aout_sheet]
+SHEETS = [mcu_sheet, eth_sheet, can_sheet, power_sheet, relay_sheet, io_sheet]
 
 
 def main():
+    for old in ("power12.kicad_sch", "gpio.kicad_sch", "ain.kicad_sch", "aout.kicad_sch"):
+        if (HW / old).exists():
+            (HW / old).unlink()
     sheets = [f() for f in SHEETS]
     for sh in sheets:
         (HW / sh.file).write_text(sh.render())

@@ -1,0 +1,64 @@
+# name: W6100-L
+# mpn: W6100-L
+# manufacturer: WIZnet
+# reference: U
+# footprint: Package_QFP:LQFP-48_7x7mm_P0.5mm
+# datasheet: https://docs.wiznet.io/assets/files/w6100_ds_v105e-80d78a133f56617f0fde12b69b1f4ca9.pdf
+# description: WIZnet W6100 hardwired TCP/IP (IPv4/IPv6 dual stack) Ethernet controller with 10/100 PHY, 8 sockets, SPI or 8-bit bus, LQFP-48. Pins from datasheet v1.0.5 Table 2. Flat copy (KiCad's stock W6100-L extends W5100S-L).
+# keywords: Ethernet TCP/IP IPv6 WIZnet SPI
+# fp_filters: LQFP*7x7mm*P0.5mm*
+pin,name,type,side
+29,~{CS},input,left
+30,SCLK,input,left
+32,MOSI,input,left
+33,MISO,output,left
+47,~{INT},output,left
+48,~{RST},input,left
+,,,left
+25,MOD0,input,left
+26,MOD1,input,left
+27,MOD2,input,left
+28,MOD3,input,left
+,,,left
+34,~{RD},input,left
+35,~{WR},input,left
+,,,left
+37,DAT0,bidirectional,left
+38,DAT1,bidirectional,left
+39,DAT2,bidirectional,left
+40,DAT3,bidirectional,left
+41,DAT4,bidirectional,left
+42,DAT5,bidirectional,left
+43,DAT6,bidirectional,left
+44,DAT7,bidirectional,left
+3,TXOP,output,right
+2,TXON,output,right
+6,RXIP,input,right
+5,RXIN,input,right
+,,,right
+9,RSET_BG,passive,right
+,,,right
+12,XSCI,input,right
+11,XSCO,output,right
+,,,right
+17,~{LNK},output,right
+18,~{SPD},output,right
+19,~{DPX},output,right
+20,~{ACT},output,right
+21,~{COL},output,right
+24,3V3D,power_in,top
+36,3V3D,power_in,top
+8,3V3A,power_in,top
+15,3V3A,power_in,top
+14,1V2O,power_out,top
+13,1V2D,power_in,top
+22,1V2D,power_in,top
+31,1V2D,power_in,top
+45,1V2D,power_in,top
+4,1V2A,power_in,top
+10,GND,power_in,bottom
+23,GND,power_in,bottom
+46,GND,power_in,bottom
+1,GNDA,power_in,bottom
+7,GNDA,power_in,bottom
+16,GNDA,power_in,bottom

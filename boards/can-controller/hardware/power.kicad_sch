@@ -2,11 +2,11 @@
 	(version 20260101)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "f0a39e6a-380d-4e9e-bf34-d3b4507152b4")
+	(uuid "623d38e0-5128-43a2-9189-17857fabaf89")
 	(paper "A3")
 	(title_block
-		(title "CAN controller: 12 V input, bus-side 5 V, 12 V status")
-		(date "2026-10-05")
+		(title "CAN controller: 12 V input and isolated logic supply")
+		(date "2026-10-06")
 		(rev "A")
 	)
 	(lib_symbols
@@ -1397,164 +1397,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Converter_DCDC:R-78E5.0-0.5"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -3.81 3.175 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "R-78E5.0-0.5"
-				(at 0 3.175 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT"
-				(at 1.27 -6.35 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Exx-0.5.pdf"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "500mA Step-Down DC/DC-Regulator, 7-28V input, 5V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "dc-dc recom Step-Down DC/DC-Regulator"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Converter*DCDC*RECOM*R*78E*0.5*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "R-78E5.0-0.5_0_1"
-				(rectangle
-					(start -5.08 1.905)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "R-78E5.0-0.5_1_1"
-				(pin power_in line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "OUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:LED"
 			(pin_numbers
 				(hide yes)
@@ -1756,61 +1598,34 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Isolator:TLP291"
+		(symbol "Regulator_Switching:TDN_5-0910WISM"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "U"
-				(at -5.08 5.08 0)
+				(at -12.7 8.89 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "TLP291"
-				(at 0 5.08 0)
+			(property "Value" "TDN_5-0910WISM"
+				(at 5.08 8.89 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Footprint" "Package_SO:SOIC-4_4.55x2.6mm_P1.27mm"
-				(at -5.08 -5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Datasheet" "https://toshiba.semicon-storage.com/info/docget.jsp?did=12884&prodName=TLP291"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Description" "DC Optocoupler, Vce 80V, CTR 50-100%, SOP4"
-				(at 0 0 0)
+			(property "Footprint" "Converter_DCDC:Converter_DCDC_TRACO_TDN_5-xxxxWISM_SMD"
+				(at -3.81 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -1820,7 +1635,18 @@
 					)
 				)
 			)
-			(property "ki_keywords" "NPN DC Optocoupler"
+			(property "Datasheet" "https://assets.tracopower.com/20190626081517/TDN5WISM/documents/tdn5wism-datasheet.pdf"
+				(at -1.27 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Input 4.5 to 13.2V, Output 3.3V"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1831,7 +1657,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "SOIC*4.55x2.6mm*P1.27mm*"
+			(property "ki_keywords" "dcdc traco 5W"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1842,10 +1668,21 @@
 					)
 				)
 			)
-			(symbol "TLP291_0_1"
+			(property "ki_fp_filters" "Converter?DCDC?TRACO?TDN?5*WISM?SMD*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TDN_5-0910WISM_0_1"
 				(rectangle
-					(start -5.08 3.81)
-					(end 5.08 -3.81)
+					(start -12.7 7.62)
+					(end 12.7 -7.62)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -1854,156 +1691,156 @@
 						(type background)
 					)
 				)
-				(polyline
-					(pts
-						(xy -5.08 2.54) (xy -2.54 2.54) (xy -2.54 -1.27) (xy -2.54 0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.175 -0.635) (xy -1.905 -0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -0.635) (xy -2.54 -2.54) (xy -5.08 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -0.635) (xy -3.175 0.635) (xy -1.905 0.635) (xy -2.54 -0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.508 0.508) (xy 0.762 0.508) (xy 0.381 0.381) (xy 0.381 0.635) (xy 0.762 0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.508 -0.508) (xy 0.762 -0.508) (xy 0.381 -0.635) (xy 0.381 -0.381) (xy 0.762 -0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.905) (xy 2.54 -1.905)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 0.635) (xy 4.445 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.048 -1.651) (xy 3.556 -1.143) (xy 4.064 -2.159) (xy 3.048 -1.651)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.445 2.54) (xy 5.08 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.445 -2.54) (xy 2.54 -0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.445 -2.54) (xy 5.08 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
-			(symbol "TLP291_1_1"
-				(pin passive line
-					(at -7.62 2.54 0)
+			(symbol "TDN_5-0910WISM_1_1"
+				(polyline
+					(pts
+						(xy 0 6.35) (xy 0 5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 3.81) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -3.81) (xy 0 -5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -6.35) (xy 0 -7.62)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 7.62) (xy 1.27 6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 5.08) (xy 1.27 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 1.27 -3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 1.27 -6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin power_in line
+					(at -15.24 5.08 0)
 					(length 2.54)
-					(name ""
+					(name "+VIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2018,10 +1855,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at -7.62 -2.54 0)
+				(pin power_in line
+					(at -15.24 -5.08 0)
 					(length 2.54)
-					(name ""
+					(name "-VIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2036,28 +1873,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 7.62 -2.54 180)
+				(pin input line
+					(at -15.24 0 0)
 					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 2.54 180)
-					(length 2.54)
-					(name ""
+					(name "ON/OFF"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2065,6 +1884,61 @@
 						)
 					)
 					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 12.7 2.54 180)
+					(length 2.54)
+					(hide yes)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 15.24 -5.08 180)
+					(length 2.54)
+					(name "-VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 15.24 5.08 180)
+					(length 2.54)
+					(name "+VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2190,7 +2064,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+3V3"
+		(symbol "power:+5V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -2215,7 +2089,7 @@
 					)
 				)
 			)
-			(property "Value" "+3V3"
+			(property "Value" "+5V"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2247,7 +2121,7 @@
 					)
 				)
 			)
-			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(property "Description" "Power symbol creates a global label with name \"+5V\""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2269,7 +2143,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_0_1"
+			(symbol "+5V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -2307,7 +2181,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_1_1"
+			(symbol "+5V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -2330,7 +2204,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "12 V DOMAIN. External 12 V DIN supply with a floating output; its 0 V is the CAN bus ground GND_BUS,\nnever connected to logic GND. Reverse polarity: P-FET Q1. Overvoltage/transients: TVS D10. Fuse F1x."
+	(text "RACK DOMAIN: external 12 V DIN supply (floating output); its 0 V is GND_RACK. Reverse polarity: P-FET Q1.\nTransients: TVS D31. Fuse F20. Feeds the relay outputs, the CAN1 cable supply and U20.\nU20 (TRACO TDN 5-2411WI, 9-36 V in, 5 V 1 A, 1600 VDC) makes the floating LOGIC +5V / GND."
 		(exclude_from_sim no)
 		(at 25.4 25.4 0)
 		(effects
@@ -2339,19 +2213,19 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "dc9874c1-8f2e-4082-8c22-8aabf45569ad")
+		(uuid "e782e174-d481-4d87-a3f1-790ee92383d5")
 	)
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 38.1 63.5 0)
+		(at 38.1 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f19c3f1a-2bf8-42e6-9cb0-40916348c24a")
+		(uuid "fd8167ab-40c9-4d84-b537-d6bd1a4ed90a")
 		(property "Reference" "J20"
-			(at 38.1 57.15 0)
+			(at 38.1 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2359,7 +2233,7 @@
 			)
 		)
 		(property "Value" "12V IN"
-			(at 38.1 69.85 0)
+			(at 38.1 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2367,7 +2241,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Phoenix_MSTB:PhoenixContact_MSTBVA_2,5_2-G-5,08_1x02_P5.08mm_Vertical"
-			(at 38.1 63.5 0)
+			(at 38.1 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -2376,7 +2250,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.1 63.5 0)
+			(at 38.1 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -2385,7 +2259,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 38.1 63.5 0)
+			(at 38.1 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -2394,7 +2268,7 @@
 			)
 		)
 		(property "Manufacturer" "Phoenix Contact"
-			(at 38.1 63.5 0)
+			(at 38.1 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -2403,7 +2277,7 @@
 			)
 		)
 		(property "MPN" "1755736"
-			(at 38.1 63.5 0)
+			(at 38.1 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -2412,14 +2286,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "ad85958f-f6f6-4242-8072-676c852abeeb")
+			(uuid "26acbd83-b988-4e56-867a-7e166251321c")
 		)
 		(pin "2"
-			(uuid "b11806e4-f4cd-4147-aed1-f0fb369d0b78")
+			(uuid "4995f5eb-ae6b-4298-ba1e-e5d8a25cc663")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "J20")
 					(unit 1)
 				)
@@ -2427,18 +2301,18 @@
 		)
 	)
 	(label "V12_IN"
-		(at 33.02 63.5 180)
+		(at 33.02 71.12 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "b2f4c038-853d-4405-a6cf-2fc4c731eacb")
+		(uuid "cb08eefd-188f-453e-b08d-cb4836368b0f")
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 33.02 66.04 180)
+		(at 33.02 73.66 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2446,9 +2320,9 @@
 			)
 			(justify right)
 		)
-		(uuid "0b227ab1-0d44-4af9-91a7-a104ff654648")
+		(uuid "07f59425-5809-4119-80ac-cfc2eb0e5afb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 33.02 66.04 0)
+			(at 33.02 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2459,33 +2333,25 @@
 	)
 	(text "J20: top entry, 1 +12 V, 2 0 V."
 		(exclude_from_sim no)
-		(at 25.4 78.74 0)
+		(at 25.4 86.36 0)
 		(effects
 			(font
 				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "370b6186-a53e-448e-9ab6-e3e4203a1a87")
+		(uuid "5a4d898a-d6ba-476c-b80d-4be2cd367077")
 	)
 	(symbol
 		(lib_id "Device:Fuse")
-		(at 63.5 50.8 90)
+		(at 63.5 58.42 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4c535469-9f53-48d4-b9b8-8ef84dccf481")
+		(uuid "4d54fb0c-37d7-4941-82fc-8d374dfe6017")
 		(property "Reference" "F20"
-			(at 63.5 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "4A"
 			(at 63.5 54.61 0)
 			(effects
 				(font
@@ -2493,8 +2359,16 @@
 				)
 			)
 		)
+		(property "Value" "4A"
+			(at 63.5 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property "Footprint" "Fuse:Fuse_Littelfuse-NANO2-451_453"
-			(at 63.5 50.8 0)
+			(at 63.5 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -2503,7 +2377,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 63.5 50.8 0)
+			(at 63.5 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -2512,7 +2386,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 63.5 50.8 0)
+			(at 63.5 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -2521,7 +2395,7 @@
 			)
 		)
 		(property "Manufacturer" "Littelfuse"
-			(at 63.5 50.8 0)
+			(at 63.5 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -2530,7 +2404,7 @@
 			)
 		)
 		(property "MPN" "0451004.MRL"
-			(at 63.5 50.8 0)
+			(at 63.5 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -2539,14 +2413,14 @@
 			)
 		)
 		(pin "1"
-			(uuid "21e9b611-ccd5-4fe2-987e-12a6af87ce65")
+			(uuid "eab044fd-d666-4a2a-8495-cced76d735cf")
 		)
 		(pin "2"
-			(uuid "3e110740-c927-4dd8-a329-8fca034f91d1")
+			(uuid "9c0f3cac-fc2f-4fe1-9f2c-fbed7cd1647c")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "F20")
 					(unit 1)
 				)
@@ -2554,36 +2428,36 @@
 		)
 	)
 	(label "V12_IN"
-		(at 59.69 50.8 180)
+		(at 59.69 58.42 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "6329081b-2b8b-40d1-82ed-ace4e3639ba6")
+		(uuid "48fab3fe-a532-4146-9a91-c3288d982c0b")
 	)
 	(label "V12_F"
-		(at 67.31 50.8 0)
+		(at 67.31 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "52d455b9-6158-40ad-afe9-3aee8533bb64")
+		(uuid "7e74b4d1-2d51-4c91-ae31-c63feb4d1368")
 	)
 	(symbol
 		(lib_id "Transistor_FET:SUD19P06-60")
-		(at 96.52 53.34 270)
+		(at 96.52 60.96 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "02bfea93-131d-4eeb-a111-714eded8ea68")
+		(uuid "6fc2e9c8-82ac-4a8d-bc02-849e2b6a5c31")
 		(property "Reference" "Q1"
-			(at 96.52 45.72 0)
+			(at 96.52 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2591,7 +2465,7 @@
 			)
 		)
 		(property "Value" "SUD50P04-08"
-			(at 96.52 60.96 0)
+			(at 96.52 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2599,7 +2473,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:TO-252-2"
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2608,7 +2482,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2617,7 +2491,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2626,7 +2500,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay"
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2635,7 +2509,7 @@
 			)
 		)
 		(property "MPN" "SUD50P04-08-GE3"
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2644,17 +2518,17 @@
 			)
 		)
 		(pin "1"
-			(uuid "5d310a9c-81a1-4c4a-a534-3ff751e6a96c")
+			(uuid "6ffa52c5-b843-4523-a2a3-8a50f3354fa9")
 		)
 		(pin "2"
-			(uuid "9ebadde7-f4c2-4635-8f75-90e2f270734c")
+			(uuid "13875ed8-4b38-493e-9d0e-1cda55d70892")
 		)
 		(pin "3"
-			(uuid "a395b908-d937-4440-8df9-104e23f8b362")
+			(uuid "025ebb2f-1d5b-425b-a5e8-712241992669")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "Q1")
 					(unit 1)
 				)
@@ -2662,36 +2536,36 @@
 		)
 	)
 	(label "V12_F"
-		(at 101.6 55.88 0)
+		(at 101.6 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "f8c4e197-d1ae-4f6b-ac48-d569cbc1da51")
+		(uuid "6f94d4af-c84a-4920-8ce7-2c34ee6cc615")
 	)
 	(wire
 		(pts
-			(xy 91.44 55.88) (xy 88.9 55.88)
+			(xy 91.44 63.5) (xy 88.9 63.5)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2454feae-cf60-47a0-af59-c9d2c6f5d25e")
+		(uuid "6bb4e793-1a26-4f2a-b837-93565b77ff87")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 88.9 55.88 90)
+		(at 88.9 63.5 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "15a3b3af-e356-4cfd-88b3-54d7a8be7e71")
+		(uuid "1dd5685b-fffd-41a3-9902-d7cc217f9f3a")
 		(property "Reference" "#PWR01"
-			(at 88.9 53.34 0)
+			(at 88.9 60.96 0)
 			(hide yes)
 			(effects
 				(font
@@ -2700,7 +2574,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 81.28 55.88 90)
+			(at 81.28 63.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2708,7 +2582,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 88.9 55.88 0)
+			(at 88.9 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2717,7 +2591,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 88.9 55.88 0)
+			(at 88.9 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2726,7 +2600,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 88.9 55.88 0)
+			(at 88.9 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -2735,11 +2609,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "04ea2350-c83f-4980-a157-0341239298bd")
+			(uuid "e24c22ed-7b0c-434b-ae06-c21a06131920")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR01")
 					(unit 1)
 				)
@@ -2747,26 +2621,26 @@
 		)
 	)
 	(label "Q1_G"
-		(at 96.52 48.26 90)
+		(at 96.52 55.88 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "fbcd9c52-2517-4545-9fd7-3fd0a7f65df0")
+		(uuid "773fbada-f555-4032-9e1b-50782908d61e")
 	)
 	(symbol
 		(lib_id "Device:D_Zener")
-		(at 111.76 76.2 90)
+		(at 111.76 83.82 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6b8007c6-0979-4804-a815-2a34c3747470")
-		(property "Reference" "D10"
-			(at 116.84 74.93 0)
+		(uuid "2b50bdfa-a805-4c69-ba2f-c536a830dd71")
+		(property "Reference" "D30"
+			(at 116.84 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2774,7 +2648,7 @@
 			)
 		)
 		(property "Value" "15V"
-			(at 116.84 77.47 0)
+			(at 116.84 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2783,7 +2657,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-123"
-			(at 111.76 76.2 0)
+			(at 111.76 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2792,7 +2666,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 76.2 0)
+			(at 111.76 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2801,7 +2675,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 111.76 76.2 0)
+			(at 111.76 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2810,7 +2684,7 @@
 			)
 		)
 		(property "Manufacturer" "Diodes Incorporated"
-			(at 111.76 76.2 0)
+			(at 111.76 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2819,7 +2693,7 @@
 			)
 		)
 		(property "MPN" "BZT52C15-7-F"
-			(at 111.76 76.2 0)
+			(at 111.76 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -2828,15 +2702,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "4796cedf-5262-4982-a31a-04c5a8710ac4")
+			(uuid "8740071a-1262-4802-96bc-1f017277cf63")
 		)
 		(pin "2"
-			(uuid "9c396116-64fe-42cc-a34f-1e4ea9630d13")
+			(uuid "f40126e1-3423-4bff-b3d2-0a45ae9cc5bc")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "D10")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "D30")
 					(unit 1)
 				)
 			)
@@ -2844,25 +2718,25 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 80.01) (xy 111.76 82.55)
+			(xy 111.76 87.63) (xy 111.76 90.17)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "427afe93-4fec-4da1-adbb-b354c81fc7a4")
+		(uuid "d4f924c0-1976-4655-8236-ca1946073106")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 111.76 82.55 180)
+		(at 111.76 90.17 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "2b50c104-08bd-4313-ad72-b265edd5871c")
+		(uuid "b01beb30-3d94-4759-aed4-e59d0720ae2b")
 		(property "Reference" "#PWR02"
-			(at 111.76 80.01 0)
+			(at 111.76 87.63 0)
 			(hide yes)
 			(effects
 				(font
@@ -2871,7 +2745,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 111.76 78.74 0)
+			(at 111.76 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2879,7 +2753,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 111.76 82.55 0)
+			(at 111.76 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -2888,7 +2762,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 82.55 0)
+			(at 111.76 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -2897,7 +2771,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 111.76 82.55 0)
+			(at 111.76 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -2906,11 +2780,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "121988bc-9db3-499f-9443-6bddb2121778")
+			(uuid "4593aaba-c799-4125-9c66-83b0ec962156")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR02")
 					(unit 1)
 				)
@@ -2918,26 +2792,26 @@
 		)
 	)
 	(label "Q1_G"
-		(at 111.76 72.39 90)
+		(at 111.76 80.01 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "9e9ab0be-1ff0-46a4-9795-d9cc9d9b0ab8")
+		(uuid "d4eab57d-04e5-4910-8a53-8f33599fdc17")
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 96.52 88.9 0)
+		(at 96.52 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "47f34331-8676-4d30-8cbe-48fc4ca51844")
-		(property "Reference" "R30"
-			(at 99.06 87.63 0)
+		(uuid "f5eb0803-88ec-49c3-a5d3-9574d48c3b8e")
+		(property "Reference" "R40"
+			(at 99.06 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2945,7 +2819,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 99.06 90.17 0)
+			(at 99.06 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2954,7 +2828,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 96.52 88.9 0)
+			(at 96.52 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -2963,7 +2837,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.52 88.9 0)
+			(at 96.52 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -2972,7 +2846,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 96.52 88.9 0)
+			(at 96.52 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -2981,7 +2855,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 96.52 88.9 0)
+			(at 96.52 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -2990,7 +2864,7 @@
 			)
 		)
 		(property "MPN" "RC1206FR-0710KL"
-			(at 96.52 88.9 0)
+			(at 96.52 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -2999,33 +2873,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "cda08062-385c-4a15-a935-dbcd22c17bac")
+			(uuid "6c728c75-4608-410b-9a24-8879c9411e8d")
 		)
 		(pin "2"
-			(uuid "7a958542-5826-4299-9603-f17ce307bd12")
+			(uuid "230289b9-bd1d-454b-9099-af08efb471a8")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "R30")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "R40")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(label "Q1_G"
-		(at 96.52 85.09 90)
+		(at 96.52 92.71 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "c2b0b811-4800-4916-b27a-e1ae7eecd40a")
+		(uuid "73995de5-653d-4ae6-962a-6508d71a921a")
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 96.52 92.71 270)
+		(at 96.52 100.33 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3033,9 +2907,9 @@
 			)
 			(justify right)
 		)
-		(uuid "b1bf2484-b85e-4abf-ba6e-9790cedbe8ea")
+		(uuid "dc7ec8fe-d143-421e-be10-f671dda12cb4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 92.71 0)
+			(at 96.52 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3044,28 +2918,17 @@
 			)
 		)
 	)
-	(text "Q1 reverse-polarity P-FET (body diode conducts first, then the channel).\nD10 keeps Vgs under 15 V."
-		(exclude_from_sim no)
-		(at 81.28 101.6 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "c14bea80-d114-43b5-9e8e-0a67265b616d")
-	)
 	(symbol
 		(lib_id "Device:D_Zener")
-		(at 132.08 76.2 90)
+		(at 132.08 83.82 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5140a607-8341-4a18-a0e0-a7cdecec0c28")
-		(property "Reference" "D11"
-			(at 137.16 74.93 0)
+		(uuid "ddc0b300-b908-4963-8418-f5c0a514b7c9")
+		(property "Reference" "D31"
+			(at 137.16 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3073,7 +2936,7 @@
 			)
 		)
 		(property "Value" "SMBJ15A"
-			(at 137.16 77.47 0)
+			(at 137.16 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3082,7 +2945,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMB_Handsoldering"
-			(at 132.08 76.2 0)
+			(at 132.08 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3091,7 +2954,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 132.08 76.2 0)
+			(at 132.08 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3100,7 +2963,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 132.08 76.2 0)
+			(at 132.08 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3109,7 +2972,7 @@
 			)
 		)
 		(property "Manufacturer" "Littelfuse"
-			(at 132.08 76.2 0)
+			(at 132.08 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3118,7 +2981,7 @@
 			)
 		)
 		(property "MPN" "SMBJ15A"
-			(at 132.08 76.2 0)
+			(at 132.08 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3127,15 +2990,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "fd3110d1-48a5-48dc-9524-d2a4bd85dc63")
+			(uuid "6f6404fe-5c2d-4ecf-bd75-4a4c2e2d488b")
 		)
 		(pin "2"
-			(uuid "0fb2f9ca-20f8-4ee3-8c29-54a828e4ea33")
+			(uuid "9915c6de-8428-41fe-be81-d00f8a608e67")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "D11")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "D31")
 					(unit 1)
 				)
 			)
@@ -3143,25 +3006,25 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 80.01) (xy 132.08 82.55)
+			(xy 132.08 87.63) (xy 132.08 90.17)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a1ba5188-1e62-498d-a4ad-07ce3c19af06")
+		(uuid "2a22ee72-8c68-4c35-a8e9-72e725285e35")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 132.08 82.55 180)
+		(at 132.08 90.17 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d2ba81d8-ebe9-4305-a945-2ce984004973")
+		(uuid "8bbe4c8a-483b-47c6-87f2-36aa62167471")
 		(property "Reference" "#PWR03"
-			(at 132.08 80.01 0)
+			(at 132.08 87.63 0)
 			(hide yes)
 			(effects
 				(font
@@ -3170,7 +3033,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 132.08 78.74 0)
+			(at 132.08 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3178,7 +3041,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 132.08 82.55 0)
+			(at 132.08 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -3187,7 +3050,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 132.08 82.55 0)
+			(at 132.08 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -3196,7 +3059,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 132.08 82.55 0)
+			(at 132.08 90.17 0)
 			(hide yes)
 			(effects
 				(font
@@ -3205,20 +3068,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "23da743f-ab85-4c00-8e9a-ceeb198a3a53")
+			(uuid "4482d5b7-ecf6-452f-b8d3-56f63ca70adf")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR03")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 132.08 72.39 90)
+		(at 132.08 80.01 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3226,9 +3089,9 @@
 			)
 			(justify left)
 		)
-		(uuid "de213fb1-78b2-46be-96ef-3a44e66463f8")
+		(uuid "606d7a6b-5371-4e50-b65d-dd0f5cfc71dd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 132.08 72.39 0)
+			(at 132.08 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3239,15 +3102,15 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 149.86 76.2 0)
+		(at 149.86 83.82 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "75702282-69b9-45d0-af44-313b4e564c2a")
-		(property "Reference" "C30"
-			(at 152.4 74.93 0)
+		(uuid "446385a3-402c-4970-b8d0-a6d2a9669a08")
+		(property "Reference" "C60"
+			(at 152.4 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3255,7 +3118,7 @@
 			)
 		)
 		(property "Value" "10uF 25V X7R"
-			(at 152.4 77.47 0)
+			(at 152.4 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3264,7 +3127,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 149.86 76.2 0)
+			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3273,7 +3136,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 76.2 0)
+			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3282,7 +3145,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 149.86 76.2 0)
+			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3291,7 +3154,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
-			(at 149.86 76.2 0)
+			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3300,7 +3163,7 @@
 			)
 		)
 		(property "MPN" "GRM31CR71E106KA12L"
-			(at 149.86 76.2 0)
+			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3309,15 +3172,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "4e216eb3-1024-48fd-a58f-1195298e38d8")
+			(uuid "f33db83b-40ed-4244-a003-8307021cceef")
 		)
 		(pin "2"
-			(uuid "dddf1cd9-f753-4187-a430-5f804eb77fb7")
+			(uuid "71ec39d6-793a-4a76-b8fb-f446b03e5337")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "C30")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "C60")
 					(unit 1)
 				)
 			)
@@ -3325,25 +3188,25 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 72.39) (xy 149.86 69.85)
+			(xy 149.86 80.01) (xy 149.86 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a479e6b6-60d0-4de0-bba1-c4f5b2705be2")
+		(uuid "59ae3f83-44d1-40a6-9b97-426cb69468a9")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 149.86 69.85 0)
+		(at 149.86 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "24f5b4ac-7639-47a2-84a8-23319bf79912")
+		(uuid "4e7e2084-40cd-4be9-878a-32a21e15864d")
 		(property "Reference" "#PWR04"
-			(at 149.86 67.31 0)
+			(at 149.86 74.93 0)
 			(hide yes)
 			(effects
 				(font
@@ -3352,7 +3215,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 149.86 66.04 0)
+			(at 149.86 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3360,7 +3223,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 69.85 0)
+			(at 149.86 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3369,7 +3232,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 69.85 0)
+			(at 149.86 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3378,7 +3241,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 149.86 69.85 0)
+			(at 149.86 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3387,20 +3250,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "2c078259-a64b-4663-a22f-cb115c56af6f")
+			(uuid "a132266e-741d-45ff-b980-e5b9dddc4448")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR04")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 149.86 80.01 270)
+		(at 149.86 87.63 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3408,9 +3271,9 @@
 			)
 			(justify right)
 		)
-		(uuid "780a4475-d591-4cee-a4f5-20deae621a34")
+		(uuid "b52c5a75-19c9-43e6-9aa2-26bc185b42b5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 149.86 80.01 0)
+			(at 149.86 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3421,15 +3284,15 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 162.56 76.2 0)
+		(at 162.56 83.82 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5d1667fd-2659-4340-94b0-b08935f4d65b")
-		(property "Reference" "C31"
-			(at 165.1 74.93 0)
+		(uuid "672ffb63-370c-4c69-a700-e81cbe978417")
+		(property "Reference" "C61"
+			(at 165.1 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3437,7 +3300,7 @@
 			)
 		)
 		(property "Value" "10uF 25V X7R"
-			(at 165.1 77.47 0)
+			(at 165.1 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3446,7 +3309,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 162.56 76.2 0)
+			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3455,7 +3318,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 162.56 76.2 0)
+			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3464,7 +3327,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 162.56 76.2 0)
+			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3473,7 +3336,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
-			(at 162.56 76.2 0)
+			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3482,7 +3345,7 @@
 			)
 		)
 		(property "MPN" "GRM31CR71E106KA12L"
-			(at 162.56 76.2 0)
+			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
 				(font
@@ -3491,15 +3354,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "7d298819-804e-40c1-8102-c7d4df9e822e")
+			(uuid "9e0c12c7-58f7-453b-b225-6acc4c02b4d7")
 		)
 		(pin "2"
-			(uuid "236e05b9-e1c5-4a24-b3f4-0acf4897c451")
+			(uuid "d34d7455-3cfd-4d85-9870-9a655afaa0b1")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "C31")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "C61")
 					(unit 1)
 				)
 			)
@@ -3507,25 +3370,25 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 72.39) (xy 162.56 69.85)
+			(xy 162.56 80.01) (xy 162.56 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "673e364f-924c-427c-af53-17834dee0746")
+		(uuid "ad2f7f90-630b-44b7-963d-28ce3ed2442b")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 162.56 69.85 0)
+		(at 162.56 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a76b0261-f211-4e53-8467-2b39ff02a099")
+		(uuid "f0f82927-e40b-4482-9514-3ee82b54d460")
 		(property "Reference" "#PWR05"
-			(at 162.56 67.31 0)
+			(at 162.56 74.93 0)
 			(hide yes)
 			(effects
 				(font
@@ -3534,7 +3397,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 162.56 66.04 0)
+			(at 162.56 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3542,7 +3405,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 162.56 69.85 0)
+			(at 162.56 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3551,7 +3414,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 162.56 69.85 0)
+			(at 162.56 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3560,7 +3423,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 162.56 69.85 0)
+			(at 162.56 77.47 0)
 			(hide yes)
 			(effects
 				(font
@@ -3569,20 +3432,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "94b7bf1d-b2ad-44c8-a918-d99e48c0460a")
+			(uuid "3e847e12-1c76-4685-8d72-ea12ce986403")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR05")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 162.56 80.01 270)
+		(at 162.56 87.63 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3590,9 +3453,9 @@
 			)
 			(justify right)
 		)
-		(uuid "b7938a00-a8b4-43ec-b80e-13a5cd05f223")
+		(uuid "c6fa1e3f-d14f-4d25-af00-ab4161edf5c3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 162.56 80.01 0)
+			(at 162.56 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3603,15 +3466,15 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 172.72 50.8 0)
+		(at 172.72 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "18b682d7-622e-4e9f-bd9b-da4a2bf734cc")
+		(uuid "69178b83-1393-4b92-a6aa-3b520c2abf3d")
 		(property "Reference" "#FLG01"
-			(at 172.72 48.26 0)
+			(at 172.72 55.88 0)
 			(hide yes)
 			(effects
 				(font
@@ -3620,7 +3483,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 172.72 46.99 0)
+			(at 172.72 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3628,7 +3491,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3637,7 +3500,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3646,7 +3509,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3655,11 +3518,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "a60d8277-8d9d-447d-b377-12cf6af2ae93")
+			(uuid "f2e8999d-40e4-4035-a2c3-44e859e48559")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#FLG01")
 					(unit 1)
 				)
@@ -3668,15 +3531,15 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 172.72 50.8 0)
+		(at 172.72 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fc241dc7-9792-427a-b031-65dc42fd412e")
+		(uuid "9a4d16b1-9835-479c-adc4-b0e78059a3f0")
 		(property "Reference" "#PWR06"
-			(at 172.72 48.26 0)
+			(at 172.72 55.88 0)
 			(hide yes)
 			(effects
 				(font
@@ -3685,7 +3548,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 172.72 46.99 0)
+			(at 172.72 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3693,7 +3556,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3702,7 +3565,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3711,7 +3574,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 172.72 50.8 0)
+			(at 172.72 58.42 0)
 			(hide yes)
 			(effects
 				(font
@@ -3720,11 +3583,11 @@
 			)
 		)
 		(pin "1"
-			(uuid "ccb2adaa-c54b-44bf-a8f4-e4802fb7268d")
+			(uuid "956e4d3e-f6df-4cda-97f4-cb022841dea5")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#PWR06")
 					(unit 1)
 				)
@@ -3733,15 +3596,15 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 172.72 99.06 180)
+		(at 172.72 106.68 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "38d48a22-8c7f-452e-a2ee-a24f32628441")
+		(uuid "ed38caa5-645d-427c-a1f5-8f1e8ef3fb3b")
 		(property "Reference" "#FLG02"
-			(at 172.72 96.52 0)
+			(at 172.72 104.14 0)
 			(hide yes)
 			(effects
 				(font
@@ -3750,7 +3613,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 172.72 102.87 0)
+			(at 172.72 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3758,7 +3621,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 172.72 99.06 0)
+			(at 172.72 106.68 0)
 			(hide yes)
 			(effects
 				(font
@@ -3767,7 +3630,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 172.72 99.06 0)
+			(at 172.72 106.68 0)
 			(hide yes)
 			(effects
 				(font
@@ -3776,7 +3639,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 172.72 99.06 0)
+			(at 172.72 106.68 0)
 			(hide yes)
 			(effects
 				(font
@@ -3785,20 +3648,20 @@
 			)
 		)
 		(pin "1"
-			(uuid "b680088c-063b-4ab0-98d7-edd051dafe5f")
+			(uuid "f12eddc4-c4bc-4cca-aeea-a522a6bc221e")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
 					(reference "#FLG02")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 172.72 99.06 180)
+		(at 172.72 106.68 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3806,9 +3669,9 @@
 			)
 			(justify right)
 		)
-		(uuid "379239c2-59d9-4067-bc80-4042eebd0ba0")
+		(uuid "a87c8b2b-2fe4-4e76-a247-5496db6f40f4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 172.72 99.06 0)
+			(at 172.72 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3816,362 +3679,18 @@
 				(hide yes)
 			)
 		)
-	)
-	(symbol
-		(lib_id "Converter_DCDC:R-78E5.0-0.5")
-		(at 210.82 63.5 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e2568542-961d-4e13-9360-472b78bb9dec")
-		(property "Reference" "U20"
-			(at 210.82 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "R-78E5.0-0.5"
-			(at 210.82 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT"
-			(at 210.82 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 210.82 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 210.82 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "RECOM"
-			(at 210.82 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "R-78E5.0-0.5"
-			(at 210.82 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e1446150-89c1-41ec-ba8d-68c5e1204e3e")
-		)
-		(pin "2"
-			(uuid "773b3e7f-316f-42e8-b89a-8eb8b857a742")
-		)
-		(pin "3"
-			(uuid "6e62a358-f9e0-4414-afc1-246eafcbe712")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "U20")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 203.2 63.5) (xy 200.66 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d8abe4f6-ffd0-4dcb-8871-c5d0bf5785b6")
-	)
-	(symbol
-		(lib_id "power:+12V")
-		(at 200.66 63.5 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4ebfffd1-2835-47bf-b214-1b1a3daefea2")
-		(property "Reference" "#PWR07"
-			(at 200.66 60.96 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+12V"
-			(at 193.04 63.5 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 200.66 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 200.66 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 200.66 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b114732f-7024-4276-a83b-6d071566d117")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "#PWR07")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "GND_BUS"
-		(shape bidirectional)
-		(at 210.82 71.12 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a984f979-5cfb-497d-84db-a2bcca5b435e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 210.82 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "V5_BUS"
-		(shape bidirectional)
-		(at 218.44 63.5 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "10a88f7a-29eb-441c-bd1a-1b93970fa52c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 218.44 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 233.68 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a7320d8f-a4ae-485e-a4b5-69c69c9f09ba")
-		(property "Reference" "C32"
-			(at 236.22 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10uF 25V X7R"
-			(at 236.22 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
-			(at 233.68 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 233.68 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 233.68 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
-			(at 233.68 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "GRM31CR71E106KA12L"
-			(at 233.68 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "657ef22f-727b-4997-9568-a6b1c25a0d6c")
-		)
-		(pin "2"
-			(uuid "864160e1-f45b-4412-a569-d86fc91eafff")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "C32")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "V5_BUS"
-		(shape bidirectional)
-		(at 233.68 72.39 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5a93031c-d8c2-4d93-9731-ae7a077500d5")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 233.68 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GND_BUS"
-		(shape bidirectional)
-		(at 233.68 80.01 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "83a40b29-4bc4-4345-9c49-e960d0b3a9bd")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 233.68 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(text "V5_BUS: ISO1044 and ISO6740 bus sides (about 300 mA worst case)."
-		(exclude_from_sim no)
-		(at 195.58 91.44 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "10e463e3-28c0-452c-9e31-91aa01b25c7a")
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 254 63.5 0)
+		(at 187.96 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "86a4e38e-a870-47ee-bc31-a11ea54028d3")
-		(property "Reference" "R31"
-			(at 256.54 62.23 0)
+		(uuid "dc2d0663-33b6-4676-967d-708a2cb03493")
+		(property "Reference" "R41"
+			(at 190.5 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4179,7 +3698,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 256.54 64.77 0)
+			(at 190.5 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4188,7 +3707,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 254 63.5 0)
+			(at 187.96 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4197,7 +3716,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 63.5 0)
+			(at 187.96 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4206,7 +3725,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 254 63.5 0)
+			(at 187.96 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4215,7 +3734,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 254 63.5 0)
+			(at 187.96 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4224,7 +3743,7 @@
 			)
 		)
 		(property "MPN" "RC1206FR-074K7L"
-			(at 254 63.5 0)
+			(at 187.96 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4233,15 +3752,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "a78cd385-3c00-45dd-b15d-44cbd4b293f2")
+			(uuid "d30aaa37-2578-4a99-8b8b-cdebb5832d4c")
 		)
 		(pin "2"
-			(uuid "98f8f487-09d6-45a4-85e7-5a671630624e")
+			(uuid "b0da2845-b7fa-4977-afd1-4ae094db08f1")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "R31")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "R41")
 					(unit 1)
 				)
 			)
@@ -4249,25 +3768,25 @@
 	)
 	(wire
 		(pts
-			(xy 254 59.69) (xy 254 57.15)
+			(xy 187.96 59.69) (xy 187.96 57.15)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "06658438-30ca-4fa6-aaca-f12f8ab18f47")
+		(uuid "8af16698-f93f-4ffa-aecc-4e9f38643279")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 254 57.15 0)
+		(at 187.96 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "39f4d11a-6535-48d9-9465-4f21697ca5f1")
-		(property "Reference" "#PWR08"
-			(at 254 54.61 0)
+		(uuid "138699e7-b758-40f3-959d-32d1ad09c63b")
+		(property "Reference" "#PWR07"
+			(at 187.96 54.61 0)
 			(hide yes)
 			(effects
 				(font
@@ -4276,7 +3795,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 254 53.34 0)
+			(at 187.96 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4284,7 +3803,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 254 57.15 0)
+			(at 187.96 57.15 0)
 			(hide yes)
 			(effects
 				(font
@@ -4293,7 +3812,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 57.15 0)
+			(at 187.96 57.15 0)
 			(hide yes)
 			(effects
 				(font
@@ -4302,7 +3821,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 254 57.15 0)
+			(at 187.96 57.15 0)
 			(hide yes)
 			(effects
 				(font
@@ -4311,38 +3830,38 @@
 			)
 		)
 		(pin "1"
-			(uuid "0d13b4e8-ac1a-4921-bf93-62db8a6fb0f0")
+			(uuid "7ea6b073-7269-4e5d-a5e6-bc200acfde5b")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "#PWR08")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "D12_A"
-		(at 254 67.31 270)
+	(label "D32_A"
+		(at 187.96 67.31 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "27fd71ae-8b24-477e-9756-3df25ad77f6e")
+		(uuid "91c8ee04-4f84-4346-b78b-f5ea08f87128")
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 254 73.66 90)
+		(at 187.96 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "530f9d86-ce23-4366-ad37-a20d0e9cca61")
-		(property "Reference" "D12"
-			(at 256.54 72.39 0)
+		(uuid "988b7d62-7a53-4afd-85c2-bc83c289af3f")
+		(property "Reference" "D32"
+			(at 190.5 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4350,7 +3869,7 @@
 			)
 		)
 		(property "Value" "LED green"
-			(at 256.54 74.93 0)
+			(at 190.5 74.93 0)
 			(hide yes)
 			(effects
 				(font
@@ -4360,7 +3879,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
-			(at 254 73.66 0)
+			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
 				(font
@@ -4369,7 +3888,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 73.66 0)
+			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
 				(font
@@ -4378,7 +3897,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 254 73.66 0)
+			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
 				(font
@@ -4387,7 +3906,7 @@
 			)
 		)
 		(property "Manufacturer" "Lite-On"
-			(at 254 73.66 0)
+			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
 				(font
@@ -4396,7 +3915,7 @@
 			)
 		)
 		(property "MPN" "LTST-C150GKT"
-			(at 254 73.66 0)
+			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
 				(font
@@ -4405,33 +3924,33 @@
 			)
 		)
 		(pin "1"
-			(uuid "314fe779-fd8c-41d0-872f-c80ada52b504")
+			(uuid "131b7083-3be3-4067-b5ac-1149f5ae30d4")
 		)
 		(pin "2"
-			(uuid "d1a4cc22-f00e-480f-b326-f6f9fe54e49a")
+			(uuid "cafbc93a-3ce2-4b61-9c9e-5b33ffa3a940")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "D12")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "D32")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "D12_A"
-		(at 254 69.85 90)
+	(label "D32_A"
+		(at 187.96 69.85 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "724ab126-8f1f-4c52-b31b-734f722757ed")
+		(uuid "7aa1e867-cf50-42fe-b77b-afcc057668cd")
 	)
-	(global_label "GND_BUS"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 254 77.47 270)
+		(at 187.96 77.47 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4439,9 +3958,9 @@
 			)
 			(justify right)
 		)
-		(uuid "57d9231c-809e-4997-8e6c-27cbc90a972c")
+		(uuid "abcd5d73-2c06-4192-aec2-fd2c1b67d14e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 254 77.47 0)
+			(at 187.96 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4450,44 +3969,44 @@
 			)
 		)
 	)
-	(text "D12: 12 V present."
+	(text "D32: 12 V present (rack side)."
 		(exclude_from_sim no)
-		(at 248.92 86.36 0)
+		(at 182.88 86.36 0)
 		(effects
 			(font
 				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "be15c45c-0faf-4a87-9360-e735ee6f7e09")
+		(uuid "edc5d41d-26c2-479f-9900-9eb8f0190ab3")
 	)
 	(symbol
-		(lib_id "Isolator:TLP291")
-		(at 205.74 132.08 0)
+		(lib_id "Regulator_Switching:TDN_5-0910WISM")
+		(at 238.76 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "127b3d0d-bf06-4944-8f42-123d208bf08e")
-		(property "Reference" "U21"
-			(at 205.74 124.46 0)
+		(uuid "0ddf512a-54a5-41f7-8bc0-431134df40e2")
+		(property "Reference" "U20"
+			(at 238.76 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "TLP293"
-			(at 205.74 139.7 0)
+		(property "Value" "TDN 5-2411WI"
+			(at 238.76 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-4_4.55x2.6mm_P1.27mm"
-			(at 205.74 132.08 0)
+		(property "Footprint" "Converter_DCDC:Converter_DCDC_TRACO_TDN_5-xxxxWI_THT"
+			(at 238.76 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -4496,7 +4015,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 205.74 132.08 0)
+			(at 238.76 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -4505,7 +4024,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 205.74 132.08 0)
+			(at 238.76 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -4513,8 +4032,8 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Toshiba"
-			(at 205.74 132.08 0)
+		(property "Manufacturer" "TRACO Power"
+			(at 238.76 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -4522,8 +4041,8 @@
 				)
 			)
 		)
-		(property "MPN" "TLP293(TPL,E"
-			(at 205.74 132.08 0)
+		(property "MPN" "TDN 5-2411WI"
+			(at 238.76 71.12 0)
 			(hide yes)
 			(effects
 				(font
@@ -4532,223 +4051,27 @@
 			)
 		)
 		(pin "1"
-			(uuid "14359f43-443f-41fd-8279-10e7fb04d5ba")
+			(uuid "6b277537-20bf-481a-93d2-9bd88ffc2f8b")
 		)
 		(pin "2"
-			(uuid "9cce8649-fce0-4e81-ae02-3dc8d2b6c74c")
-		)
-		(pin "3"
-			(uuid "c05fa6c9-230d-4bdc-ae72-fe8b762a83f5")
+			(uuid "347dbc4f-7f9d-410b-9263-ad6526b01087")
 		)
 		(pin "4"
-			(uuid "bca21035-5ec4-4883-864b-9f6f85ca1187")
+			(uuid "201a9467-2f12-40de-bf75-2799a3761646")
+		)
+		(pin "5"
+			(uuid "b1459871-c63a-4a3c-95ca-fa55b7b28605")
+		)
+		(pin "6"
+			(uuid "ca6a257f-2ef9-4896-8b48-b8f55a033433")
+		)
+		(pin "7"
+			(uuid "8560e727-89ef-44eb-a4ab-c41b361728c5")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "U21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "OPTO_A"
-		(at 198.12 129.54 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "983f2e0a-ceb2-40fd-bf86-2c91c6b40f1e")
-	)
-	(global_label "GND_BUS"
-		(shape bidirectional)
-		(at 198.12 134.62 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "dd3f5f48-3478-4e20-b4ae-5a92a26e2955")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 198.12 134.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(label "V12_OK_C"
-		(at 213.36 129.54 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1c10dea7-4a1f-4135-9972-fc2f60cacf25")
-	)
-	(wire
-		(pts
-			(xy 213.36 134.62) (xy 215.9 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a9f264dc-94fc-4f3e-bdc2-862216cef535")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 215.9 134.62 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c304378a-f2f1-423e-b9e3-998188c24eab")
-		(property "Reference" "#PWR09"
-			(at 215.9 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 223.52 134.62 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 215.9 134.62 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 134.62 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 215.9 134.62 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "97a89149-e5c9-4792-bdf0-5d96f4122b0f")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 177.8 124.46 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3f5cbcce-d7d4-4f59-ac55-7a4e8f6603e5")
-		(property "Reference" "R32"
-			(at 180.34 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10k"
-			(at 180.34 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 177.8 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 177.8 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 177.8 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Yageo"
-			(at 177.8 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "RC1206FR-0710KL"
-			(at 177.8 124.46 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8e1a2e4b-8e61-4d5a-be12-000db7b48b29")
-		)
-		(pin "2"
-			(uuid "08976ea2-af2a-4446-ad12-726cad3d0ae6")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "R32")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "U20")
 					(unit 1)
 				)
 			)
@@ -4756,25 +4079,25 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 120.65) (xy 177.8 118.11)
+			(xy 223.52 66.04) (xy 220.98 66.04)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c2376363-24e3-4f2f-9819-facfcfa53eeb")
+		(uuid "d62c217e-0402-40b2-a6cb-b090a74c735d")
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 177.8 118.11 0)
+		(at 220.98 66.04 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "be0791ee-ac6e-49d0-af55-9d7ef70a52d8")
-		(property "Reference" "#PWR10"
-			(at 177.8 115.57 0)
+		(uuid "f71e0ddd-7505-40f2-ba79-413c0204dfe8")
+		(property "Reference" "#PWR08"
+			(at 220.98 63.5 0)
 			(hide yes)
 			(effects
 				(font
@@ -4783,7 +4106,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 177.8 114.3 0)
+			(at 213.36 66.04 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4791,7 +4114,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 177.8 118.11 0)
+			(at 220.98 66.04 0)
 			(hide yes)
 			(effects
 				(font
@@ -4800,7 +4123,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 118.11 0)
+			(at 220.98 66.04 0)
 			(hide yes)
 			(effects
 				(font
@@ -4809,7 +4132,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 177.8 118.11 0)
+			(at 220.98 66.04 0)
 			(hide yes)
 			(effects
 				(font
@@ -4818,306 +4141,30 @@
 			)
 		)
 		(pin "1"
-			(uuid "f6ac912c-5ba5-4b64-9636-d60ebda22ded")
+			(uuid "acd62fa3-34af-48a5-9796-1ee97a58e6dc")
 		)
 		(instances
 			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "#PWR10")
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "OPTO_A"
-		(at 177.8 128.27 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c0eeb6fe-f247-4f66-9204-a90c4a366b4a")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 233.68 119.38 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1805e1e9-7720-46f1-9589-27fdab3c59d9")
-		(property "Reference" "R33"
-			(at 236.22 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10k"
-			(at 236.22 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 233.68 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 233.68 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 233.68 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Yageo"
-			(at 233.68 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "RC1206FR-0710KL"
-			(at 233.68 119.38 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c7d84aa5-cc23-4a8b-a312-be42ddf5d186")
-		)
-		(pin "2"
-			(uuid "3881d7fe-a3cf-48cf-a221-5c64dcf1e9d1")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "R33")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 233.68 115.57) (xy 233.68 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "968c99d5-97c1-47c3-8cba-0a53a3a63258")
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 233.68 113.03 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "667fedc8-c621-4d19-91f0-c73d2cf3d591")
-		(property "Reference" "#PWR11"
-			(at 233.68 110.49 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 233.68 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 233.68 113.03 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 233.68 113.03 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 233.68 113.03 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7ce24f7a-3ae2-4022-8737-c887d37f63c1")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "#PWR11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "V12_OK_C"
-		(at 233.68 123.19 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a9457a14-867b-4ec6-a846-357c4e7050d6")
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 248.92 132.08 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f6b13ad4-4e4b-43f3-839d-dd32ab6e2c18")
-		(property "Reference" "R34"
-			(at 248.92 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 248.92 135.89 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 248.92 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 248.92 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Yageo"
-			(at 248.92 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "RC1206FR-071KL"
-			(at 248.92 132.08 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "53c521aa-fe5d-48fd-99d7-324b9e721cb3")
-		)
-		(pin "2"
-			(uuid "36719544-5a92-4b10-8e76-5260bb6813d2")
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/a3186a92-9588-4388-a883-382b3bdd8e73"
-					(reference "R34")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "V12_OK_C"
-		(at 245.11 132.08 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c78d453c-584d-46d3-8994-17b0e50bb361")
-	)
-	(global_label "V12_OK"
+	(global_label "GND_RACK"
 		(shape bidirectional)
-		(at 252.73 132.08 0)
+		(at 223.52 76.2 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "2bf6ccc6-0afa-4c01-a7fb-215db03deccb")
+		(uuid "b00a4c33-5a88-432e-b83f-33d5fc5e2464")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 252.73 132.08 0)
+			(at 223.52 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5126,16 +4173,592 @@
 			)
 		)
 	)
-	(text "V12_OK low = 12 V present (opto on). LED ~1 mA, CTR >= 50 %."
+	(no_connect
+		(at 223.52 71.12)
+		(uuid "bd31efb7-e48b-43a2-9e27-2d0e457cc335")
+	)
+	(no_connect
+		(at 251.46 68.58)
+		(uuid "4ef306b6-2d30-45eb-a9e3-1edfa98fcef9")
+	)
+	(wire
+		(pts
+			(xy 254 76.2) (xy 256.54 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d80dcc4-0d23-4818-887d-78cecf63210f")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 256.54 76.2 90)
+		(unit 1)
 		(exclude_from_sim no)
-		(at 172.72 152.4 0)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4fad18b8-a69b-43d3-9093-16b16745418a")
+		(property "Reference" "#PWR09"
+			(at 256.54 73.66 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 264.16 76.2 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 256.54 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "591d0e96-b6db-4aa2-93f6-3207be04740e")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 254 66.04) (xy 256.54 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7875be6f-8425-442d-a266-688563fb876d")
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 256.54 66.04 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7ffb104d-a926-44e3-b5d1-428e9a786100")
+		(property "Reference" "#PWR10"
+			(at 256.54 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 264.16 66.04 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 66.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 66.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 256.54 66.04 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "96a9644d-ec25-4423-9856-9d7ffa3ca726")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 215.9 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8a2d9c70-0074-4895-b11e-8ea2cde8dc04")
+		(property "Reference" "C62"
+			(at 218.44 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF 25V X7R"
+			(at 218.44 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 215.9 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 215.9 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 215.9 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM31CR71E106KA12L"
+			(at 215.9 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cdcd816b-0a8a-4e56-8b94-ac212c2f02ca")
+		)
+		(pin "2"
+			(uuid "109c2009-061d-47d0-a8a1-d74dac5aa9ab")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "C62")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 215.9 85.09) (xy 215.9 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "406910d1-c80c-41ba-8603-7ef6aa3c728b")
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 215.9 82.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8e778d44-cf73-4623-9ff2-0f13380c1c53")
+		(property "Reference" "#PWR11"
+			(at 215.9 80.01 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+12V"
+			(at 215.9 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 215.9 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "159e46b7-ef8b-4f69-8662-a3286932741b")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "GND_RACK"
+		(shape bidirectional)
+		(at 215.9 92.71 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "22188f08-739a-43ca-a495-d51b3b2a2943")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 215.9 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 264.16 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a90ef4b5-fd5a-4d33-b363-52930003b5e9")
+		(property "Reference" "C63"
+			(at 266.7 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF 25V X7R"
+			(at 266.7 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 264.16 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 264.16 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM31CR71E106KA12L"
+			(at 264.16 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7d8d62ad-08bc-47c5-b93f-30f7496ca94b")
+		)
+		(pin "2"
+			(uuid "8a10ec56-9a5d-4385-a7a1-4a5763e6a35f")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "C63")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 264.16 85.09) (xy 264.16 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca9143af-c276-45f0-8b2a-3db38a73d638")
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 264.16 82.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0c7700be-0323-4335-b7dd-26af1ca24cb5")
+		(property "Reference" "#PWR12"
+			(at 264.16 80.01 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 264.16 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 264.16 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4fc8a99a-d421-4e61-9f9f-c7e5ab7d2b0f")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 264.16 92.71) (xy 264.16 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91b7b752-210a-40d5-8ea8-0800c5ed6632")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 264.16 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "85010d5d-b156-4508-b809-5680f22ba5cc")
+		(property "Reference" "#PWR13"
+			(at 264.16 92.71 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 264.16 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 264.16 95.25 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 95.25 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 95.25 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7440c022-4aac-4a3c-b0dd-6f173316017b")
+		)
+		(instances
+			(project "can-controller"
+				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8/6e736658-c3e4-49c8-af92-e8b769801043"
+					(reference "#PWR13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "U20 crosses RACK | LOGIC. Remote On/Off (pin 4) open = on. No traces under it (TRACO).\nLOGIC budget: about 0.65 A typical, 0.8 A with all four CAN buses dominant (1 A rating)."
+		(exclude_from_sim no)
+		(at 210.82 106.68 0)
 		(effects
 			(font
 				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "43998fa9-47fc-4377-87fb-67bacfa19fee")
+		(uuid "8e753a4f-2936-46bf-ab59-2d8f3556d984")
 	)
 	(embedded_fonts no)
 )

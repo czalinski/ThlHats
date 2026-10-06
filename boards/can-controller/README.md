@@ -98,6 +98,30 @@ coordinates below are from the corner.
 - Much more room than rev 5: logic routing and the CAN bus zones are no longer
   tight.
 
+## Schematic (generated 2026-10-06, new scope)
+
+`hardware/gen_schematic.py` writes the root sheet and six block sheets: MCU and
+logic power, Ethernet (W6100), CAN x4 (ISOW1044), 12 V input and isolated logic
+supply, relay drive (AQW212), GPIO and differential analog in. It is for the
+initial capture only: once the schematic is edited in KiCad, stop running it.
+ERC: 0 violations. A netlist check confirms no net crosses a domain except at
+the designed crossings (TDN 5-2411WI, ISOW1044, AQW212, CAN1 POWERED jumpers;
+the Ethernet shield couples to logic GND through 1 nF / 2 kV only).
+
+MCU pin map (PPS groups checked against DS60001519E Tables 13-1/13-2):
+CAN1 RB2/RB3 (17/18), CAN2 RA1/RB0 (14/15), CAN3 RC0/RC1 (21/22), CAN4
+RE15/RA8 (30/31); W6100 on SPI3: SCK3 RC9 (55), SDO3 RC8 (52), SDI3 RC7 (51),
+CS RD5 (53), INT RD6 (54), RST RF0 (58); UART1 TX RF1 (59), RX RC6 (50);
+OA5 follower IN+ RA4 (33), IN- RB9 (49), OUT RB7 (46) = VMID = AN25; AI1+/-
+AN12/AN13 (27/28), AI2+/- AN11/AN8 (24/23); GPIO1-4 RB10-RB13 (60-63); relay
+drives RB14, RB15, RG6, RG7 (2-5); CAN LEDs RG8, RG9, RA12, RA11 (6, 8, 11,
+12); heartbeat RD8 (42); ICSP PGx2 (43/44). USB unused: VUSB3V3 to VDD, VBUS to
+VSS, D+/D- 10k to VSS. Firmware: disable JTAG, ICESEL = PGx2, drive unused pins low.
+
+Still TBD in the schematic: both crystals (12 MHz CL 18 pF, 25 MHz CL 12 pF)
+and the W6100 load caps and 3.3 uF 1V2O capacitor MPNs; the ISOW1044 beads
+(BLM31KN102SN1L entered) to be checked against TI's layout guide.
+
 ## Layout rules
 
 - Connectors on any edge (no Pi header since 2026-10-06).

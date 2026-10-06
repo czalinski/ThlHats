@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "CAN Controller")
-		(date "2026-10-05")
+		(date "2026-10-06")
 		(rev "A")
 	)
 	(lib_symbols
@@ -20,9 +20,9 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "de6975f3-501f-4ba5-8394-f1c4c9258213")
+		(uuid "71ee5196-1fb2-440c-a9dd-8d0e682040ce")
 	)
-	(text "Requirements: docs/requirements.md 4.1. Floorplan and parts: boards/can-controller/README.md.\nTwo domains: LOGIC (Pi ground, header 5 V, 3.3 V) and 12 V (CAN bus ground GND_BUS, from the DIN supply).\nOnly the isolators cross: ISO1044 (CAN), ISO6740 (relay drive), TLP293 (12 V status)."
+	(text "Requirements: docs/requirements.md 3 and 4.1. Floorplan and parts: boards/can-controller/README.md.\nSix domains: RACK (12 V DIN supply, GND_RACK), LOGIC (floating: +5V/+3V3/GND), CAN1-CAN4 (each floating).\nCrossings: TDN 5-2411WI (RACK->LOGIC power), ISOW1044 x4 (LOGIC->CANn), AQW212 x2 (LOGIC->RACK relays),\nEthernet magnetics (LOGIC->host), CAN1 POWERED jumpers JP5/JP6 (RACK->CAN1, optional)."
 		(exclude_from_sim no)
 		(at 25.4 38.1 0)
 		(effects
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "22c0a1d3-1dea-4e61-ba9a-de13f35f7a2c")
+		(uuid "82034d79-3fb7-4919-a4f2-f47aa0b18b4c")
 	)
 	(sheet
 		(at 30.48 60.96)
@@ -48,8 +48,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "ccb96422-0d23-44fc-97d0-b3f7b7151943")
-		(property "Sheetname" "MCU, USB, power"
+		(uuid "bc0f5b48-6505-4da2-a78c-3f428e980d4a")
+		(property "Sheetname" "MCU, logic power"
 			(at 30.48 60.26 0)
 			(effects
 				(font
@@ -90,8 +90,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "f3593490-3edc-4f16-97b5-56f2a2482ab6")
-		(property "Sheetname" "CAN x4"
+		(uuid "dd96f316-4530-40c0-aae1-faccdf3ce436")
+		(property "Sheetname" "Ethernet"
 			(at 91.44 60.26 0)
 			(effects
 				(font
@@ -100,7 +100,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "can.kicad_sch"
+		(property "Sheetfile" "ethernet.kicad_sch"
 			(at 91.44 86.96 0)
 			(effects
 				(font
@@ -132,8 +132,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "a3186a92-9588-4388-a883-382b3bdd8e73")
-		(property "Sheetname" "12 V input"
+		(uuid "e4ee1469-9185-415e-92a0-3018c3a0def8")
+		(property "Sheetname" "CAN x4"
 			(at 152.4 60.26 0)
 			(effects
 				(font
@@ -142,7 +142,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "power12.kicad_sch"
+		(property "Sheetfile" "can.kicad_sch"
 			(at 152.4 86.96 0)
 			(effects
 				(font
@@ -174,8 +174,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "3f6319c5-0140-4f12-8095-3e9e14390366")
-		(property "Sheetname" "Relay drive"
+		(uuid "6e736658-c3e4-49c8-af92-e8b769801043")
+		(property "Sheetname" "12 V input, logic supply"
 			(at 213.36 60.26 0)
 			(effects
 				(font
@@ -184,7 +184,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "relay.kicad_sch"
+		(property "Sheetfile" "power.kicad_sch"
 			(at 213.36 86.96 0)
 			(effects
 				(font
@@ -216,8 +216,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "b52e34ef-f7a6-49d2-add1-0bfbb78926ca")
-		(property "Sheetname" "GPIO"
+		(uuid "85bd3b4f-8072-495b-a67a-fab23f16d549")
+		(property "Sheetname" "Relay drive"
 			(at 30.48 100.9 0)
 			(effects
 				(font
@@ -226,7 +226,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "gpio.kicad_sch"
+		(property "Sheetfile" "relay.kicad_sch"
 			(at 30.48 127.6 0)
 			(effects
 				(font
@@ -258,8 +258,8 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "7abcfab2-6e11-482a-a3bc-d2d45dfc03cc")
-		(property "Sheetname" "Analog in"
+		(uuid "e766421c-8c75-4c47-865b-ce768404d348")
+		(property "Sheetname" "GPIO, analog in"
 			(at 91.44 100.9 0)
 			(effects
 				(font
@@ -268,7 +268,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "ain.kicad_sch"
+		(property "Sheetfile" "io.kicad_sch"
 			(at 91.44 127.6 0)
 			(effects
 				(font
@@ -281,48 +281,6 @@
 			(project "can-controller"
 				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8"
 					(page "7")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 152.4 101.6)
-		(size 50.8 25.4)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "e0b6d1ea-0648-422f-a1eb-d4ae6d21c56a")
-		(property "Sheetname" "Analog out"
-			(at 152.4 100.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "aout.kicad_sch"
-			(at 152.4 127.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "can-controller"
-				(path "/3b432fe7-d4c7-43d1-9eb2-554f75f608a8"
-					(page "8")
 				)
 			)
 		)

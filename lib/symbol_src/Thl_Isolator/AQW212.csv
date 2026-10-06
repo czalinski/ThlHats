@@ -1,0 +1,20 @@
+# name: AQW212
+# mpn: AQW212
+# manufacturer: Panasonic
+# reference: U
+# footprint: Package_DIP:DIP-8_W7.62mm
+# datasheet: https://industry.panasonic.com/global/en/products/control/relay/photomos/
+# description: PhotoMOS relay, 2 Form A (two independent channels), 60 V, 500 mA per channel, 2.5 R max on-resistance, LED operate about 0.9 mA, 1500 Vrms I/O isolation, DIP-8 through-hole. Pins: 1/2 LED1 anode/cathode, 3/4 LED2 anode/cathode, 7/8 output 1, 5/6 output 2 (AC/DC, either polarity).
+# keywords: PhotoMOS solid state relay SSR 2 Form A
+# fp_filters: DIP*W7.62mm*
+pin,name,type,side
+1,LED1_A,passive,left
+2,LED1_K,passive,left
+,,,left
+3,LED2_A,passive,left
+4,LED2_K,passive,left
+8,OUT1,passive,right
+7,OUT1,passive,right
+,,,right
+6,OUT2,passive,right
+5,OUT2,passive,right
