@@ -581,6 +581,42 @@
       {
         "netclass": "Power",
         "pattern": "VIN*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "GND_BUS"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V5_BUS*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V12*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V13*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*VBUS*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*AVDD*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V5_PI*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V12_IN*"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V12_F*"
       }
     ]
   },
