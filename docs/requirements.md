@@ -57,12 +57,13 @@ and safe to wire under a hectic test schedule.
 Decided 2026-10-04.
 
 ```
-Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► logic domain of our boards
-                                                           (MCU, ADC, isolator logic sides)
+Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► logic domain of header boards (serial-io)
+                                           └─► USB port VBUS ──► logic domain of can-controller
+                                                                 (MCU, ADC, isolator logic sides)
 
 12 V DIN supply (floating output) ──► CAN board 12 V terminal ──► 12 V domain
         │                                                       ├─► CAN cable supply (fused per bus)
-        │                                                       ├─► buck to 5 V ─► ISO1042 bus sides
+        │                                                       ├─► buck to 5 V ─► ISO1044 bus sides
         │                                                       └─► relay coils (via PhotoMOS)
         └── its 0 V is the CAN bus ground; never connected to logic ground
 ```
@@ -80,6 +81,11 @@ Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► lo
   The Orange Pi 6 Plus header 5 V is rated for about 4 A (reference found by
   the user, 2026-10-04).
 - MCC HATs also draw from the header 5 V and count against the same budget.
+- **can-controller is the exception** (decided 2026-10-06): it has no Pi
+  header and takes its logic power from **USB VBUS** (about 150 mA expected,
+  under the 500 mA USB 2.0 limit; the Pi 5 gives its USB ports 600 mA total
+  on a 3 A supply, 1.6 A on its 5 A supply), so it uses none of the header
+  budget.
 
 ### 3.2 12 V domain (CAN board)
 
@@ -98,8 +104,8 @@ Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► lo
 
 ### 3.3 Where the isolation is
 
-There are only two domains on the CAN board: **logic** (Pi ground, header
-5 V) and **12 V** (CAN bus ground). The isolation barrier is made by the
+There are only two domains on the CAN board: **logic** (USB ground and
+VBUS) and **12 V** (CAN bus ground). The isolation barrier is made by the
 parts that cross between them, and nothing else:
 
 | Crossing | Part |
@@ -128,21 +134,21 @@ Layout rules that follow:
 
 ## 4. Boards
 
-### 4.1 Primary controller: `can-controller` (on the header)
+### 4.1 Primary controller: `can-controller` (USB, no Pi header)
 
 | Item | Requirement |
 |------|-------------|
 | MCU | **PIC32MK1024MCM064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× DAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). **Corrected 2026-10-05:** the PIC32MK1024GPK064 chosen on 2026-10-04 has *no* CAN FD (DS60001519E Table 1: CAN FD column "—" for all GPK parts); only the motor-control MCM parts have the 4 CAN FD modules. Same 64-pin pinout. 12 MHz crystal; USB clock from the UPLL. |
-| Host link | USB to the host. Uses no header signal pins. |
+| Host link | USB to the host, which also powers the logic side. **No Pi header connector** (decided 2026-10-06): the header only ever carried 5 V and GND here, so dropping it removes the Samtec pass-through socket, the shared 5 V budget and the stack-position rule, and the board works with any USB host (Pi, PC, laptop). |
 | CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **isolated** (**ISO1044BD**, SOIC-8, replaces the ISO1042BQDWVRQ1; decided 2026-10-05). One bus is reserved for our remote nodes (can-ssr); the other three are for DUTs, so one HASS run can test several DUTs. All four keep the 4-pin connector and pinout; the +12 V cable supply fuse is **fitted on CAN1 only** and DNP on CAN2–4 (pin 4 dead unless fitted), decided 2026-10-05. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
-| Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
+| Power | Logic from USB VBUS (PTC, ESD, 3.3 V LDO); 12 V domain from an external DIN supply (section 3) |
 | GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
-| Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** relay (e.g. Panasonic AQV252G, DIP-6 / SMD-6; MPN to confirm, prefer a current-limiting type if one fits) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
+| Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × dual PhotoMOS** in DIP-8 (e.g. Panasonic AQW212, 2 Form A; MPN to confirm against coil current, on-resistance and isolation, and prefer a current-limiting type if one fits; floorplan rev 4) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
 | Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
 | Analog in | **2 channels** (reduced from 4 on 2026-10-06), **bipolar**, about ±116 V full scale, 10 MΩ input, on the **PIC32's internal 12-bit ADC** (decided 2026-10-06; replaces the MCP3428). Divider 10 MΩ / 130 kΩ referenced to **VMID ≈ 1.65 V**, buffered by one of the PIC32MK's internal op amps (an external SOT-23 op amp if the pin map won't allow it). VMID also goes to its own ADC channel and firmware subtracts it. ±1.49 V around VMID at ±116 V; about 57 mV per count. 0.1 µF across the 130 kΩ (fc ≈ 12 Hz; it also holds the charge for the ADC sample capacitor). Clamp to 3.3 V / GND. Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. Kept because MCC 118/128 stop at ±10 V. |
-| Mounting | Pi M2.5 holes plus M2.5 holes in the other three corners. No DIN clip holes on the board (removed 2026-10-05 for space): a 3D-printed adapter on the M2.5 holes carries the DIN clip, as on can-ssr. |
-| Stack position | **Top of the stack**: MCC HATs below, can-controller above them (user, 2026-10-05). Nothing sits above it, so top-entry connectors and connectors inside the HAT outline stay reachable. |
-| Size | **TBD at floorplan** (2026-10-06): the smallest outline that fits the terminals below, at most 100 × 100 mm. The rev 2/3 layouts at 100 × 100 mm are superseded. |
+| Mounting | **Pi M2.5 holes kept** (58 × 49 mm pattern, 3.5 mm from the top-left corner; decided 2026-10-06) so the board can sit on top of a Pi/MCC stack on standoffs, plus extra M2.5 holes where the outline extends past the pattern. No DIN clip holes on the board (removed 2026-10-05 for space): a 3D-printed adapter on the M2.5 holes carries the DIN clip, as on can-ssr. |
+| Stack position | None required (2026-10-06): no header connection. When it sits on a stack it goes on top on standoffs, so top-entry connectors stay reachable; it may also mount on its own (DIN adapter) or beside the rack. |
+| Size | **88 × 76 mm** (floorplan rev 4, 2026-10-06; was 100 × 100 mm). Height is set by the four CAN connectors on one edge; see the board README. |
 
 Scope (decided 2026-10-06). The board fills the gaps the MCC HATs leave:
 **4 × isolated CAN FD** (the main benefit) and **relay drive**, plus "a couple"
@@ -353,7 +359,8 @@ Connectors sit on board edges, and edge length is the binding size constraint.
 Budget each board's connectors before starting the schematic:
 
 - **Connectors go on three edges only: the bottom and the two sides. The edge
-  nearest the Pi header stays clear** (decided 2026-10-04).
+  nearest the Pi header stays clear** (decided 2026-10-04). Boards without a
+  header connection (can-controller, from 2026-10-06) may use all four edges.
 - The standoffs take the corners, so usable length is about the edge length
   minus 13 mm.
 - HAT (65 × 56.5 mm): about 52 mm (bottom) + 43 + 43 mm (sides) ≈ 138 mm.

@@ -5,10 +5,10 @@ relay drive (the gaps the MCC HATs leave), plus a couple of GPIO and
 high-voltage analog inputs so one card covers small jobs. Requirements:
 [`docs/requirements.md`](../../docs/requirements.md), section 4.1.
 
-- Board: size TBD at floorplan (at most 100 x 100 mm), 2 layers, rev A
+- Board: 88 x 76 mm, 2 layers, rev A
 - Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern
-- Pi header: Samtec REF-182665 pass-through socket on top (stacks with MCC HATs).
-  Uses no header signal pins; draws logic power from header 5 V.
+- No Pi header connector (2026-10-06): logic powered from USB VBUS. The Pi
+  hole pattern stays, so it can sit on top of a Pi/MCC stack on standoffs.
 - MCU: PIC32MK1024MCM064-I/PT
 - Host link: USB (gs_usb for CAN, plus a control interface)
 
@@ -40,14 +40,14 @@ routing below that line are superseded and will be redone; `gen_schematic.py`,
 |---|---|---|---|
 | MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, USB FS, ADC, op amps |
 | Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD; USB clock from the UPLL |
-| 3.3 V | MCP1826S-3302E/DB | SOT-223 | from header 5 V |
-| USB-C | GCT USB4085-GF-A | THT | 5.1k CC pull-downs, VBUS sensed only |
+| 3.3 V | MCP1826S-3302E/DB | SOT-223 | from USB VBUS |
+| USB-C | GCT USB4085-GF-A | THT | 5.1k CC pull-downs; VBUS powers the logic through a PTC (bus-powered device, about 150 mA) |
 | USB ESD | USBLC6-2SC6 | SOT-23-6 | |
 | CAN transceiver x4 | ISO1044BD | SOIC-8 | CAN FD, 3 kVrms basic isolation |
 | CAN TVS x4 | NUP2105L | SOT-23 | |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | |
 | CAN bus supply | PTC 1812, hold ~1.1 A | 1812 | fitted on CAN1 only (can-ssr bus); DNP on CAN2-4 |
-| Relay x4 | PhotoMOS, e.g. Panasonic AQV252G (60 V, DIP-6) | DIP-6 / SMD-6 | MPN to confirm: load current, on-resistance, isolation, current-limit option |
+| Relay x4 | 2 x dual PhotoMOS, e.g. Panasonic AQW212 (2 Form A) | DIP-8 | MPN to confirm: coil current, on-resistance, isolation, current-limit option |
 | Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
 | 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
@@ -59,9 +59,43 @@ routing below that line are superseded and will be redone; `gen_schematic.py`,
 | Connectors | MC 1,5/4-G-3,5 (CAN); SPTD double-level push-in (relay, GPIO, AI) | THT | |
 | LEDs | 1206 | | power, heartbeat, USB, CAN x4, relay x4, 12 V |
 
+## Floorplan (rev 4, 2026-10-06)
+
+![floorplan rev 4](hardware/floorplan_rev4.png)
+
+`hardware/floorplan_rev4.py OUT_DIR` draws it (real footprints for the edge
+connectors and large parts, Dwgs.User block areas, Cmts.User domain boundary)
+into a scratch board and renders the PNG; the placement script will reuse its
+coordinates. Board corner at (100, 100) mm; coordinates below are from the corner.
+
+| Edge | Connector | Position | Domain |
+|------|-----------|----------|--------|
+| Right | CAN1-CAN4 (J10-J13), MC 1,5/4-G-3,5 | y 4.5-74, full edge | 12 V |
+| Bottom | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | x 9-25.6 | 12 V |
+| Bottom | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | x 38-51 | 12 V |
+| Left | I/O (J40), SPTD 2x6: GPIO1-4, AI1-2 / GND | y 10-33.6, between MH1 and MH3 | logic |
+| Top | USB-C (J4), USB4085 | x 20-30 | logic |
+
+- 88 x 76 mm (6,690 mm2, a third less than rev 3). Height is set by the four
+  CAN connectors on the right edge (4 x 17.6 mm). Parts courtyard about
+  4,300 mm2, about 64 % coverage, with the logic side the sparser (room for
+  the MCU to fan out).
+- Holes: MH1-MH4 on the Pi pattern, all in the logic domain; MH5 at the
+  bottom-left corner. No hole at the top or bottom right: the CAN strip uses
+  the whole right edge.
+- 12 V domain: the strip x > 66 mm plus the bottom block y > 46 mm (x > 7.5 mm),
+  with a logic notch around MH4 (x 57-66, y 46-58). Crossings: the four
+  ISO1044s on x = 66 at y 10/22/34/46 (all above MH4; CAN4's bus traces run
+  down the strip), the two PhotoMOS and the TLP293 on y = 46.
+- MCU centred at (42, 25): CAN pins face the isolators, GPIO/AI pins face J40,
+  USB and the LDO above it. CAN activity LEDs on the logic side of the
+  isolators. ICSP header J2 below the MCU.
+- PhotoMOS LED pins on the logic side; flyback diodes, relay LEDs and the
+  relay PTC between the PhotoMOS and J30.
+
 ## Layout rules
 
-- Connectors on the bottom and both side edges only; the header edge stays clear.
+- Connectors on any edge (no Pi header since 2026-10-06).
 - Split copper between the logic and 12 V domains; only the isolators cross.
 
 ## Directories
