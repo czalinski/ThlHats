@@ -3,3 +3,4 @@
 # of failing) when they are absent, e.g. in a fresh clone.
 # Path relative to lib/3dmodels/   |  source (where to get it again)
 Sensor_Current.3dshapes/Allegro_CB_PFF.step  |  SamacSys / componentsearchengine.com "ACS770ECB-200U-PFF-T" zip, 3D/ACS770ECB-200U-PFF-T.stp (any ACS770/772 CB-PFF part); SamacSys license: no redistribution as a PCB library component
+Thl_Connector.3dshapes/PhoenixContact_MCDN_1,5_4-G1-3,5.step  |  Phoenix Contact product page 1953732 (MCDN 1,5/ 4-G1-3,5 P26 THR), CAD download (SamacSys package LIB_1953732.zip), 3D/1953732.stp; SamacSys license: no redistribution as a PCB library component

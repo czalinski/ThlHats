@@ -7,7 +7,7 @@ high-voltage analog inputs so one card covers small jobs. Requirements:
 
 - Board: 100 x 100 mm, 2 layers, rev A
 - Mounting: stack interface with can-ssr (requirements 4.4): 4 x M4 corner
-  holes on a 90 x 90 mm square; base of a stack of up to 4 can-ssr. No Pi holes
+  holes on a 91 x 91 mm square; base of a stack of up to 4 can-ssr. No Pi holes
 - Host link: **Ethernet** (WIZnet W6100, user-space TCP/UDP sockets, no
   drivers or sudo on the host); a switch is assumed in the rack
 - Power: one 12 V DIN supply; the logic runs from an isolated DC-DC
@@ -47,7 +47,8 @@ the "Superseded" sections are from the old scope and will be redone;
 | Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD |
 | Ethernet | WIZnet W6100 | LQFP-48 0.5 mm | IPv4/IPv6; not pin-compatible with the W5500 |
 | Ethernet crystal | 25 MHz | SMD | MPN TBD |
-| RJ45 | jack with integrated magnetics and LEDs | THT | **MPN TBD** (user's candidates); HanRun HR911105A as the floorplan placeholder |
+| RJ45 | JD0-0004NL, jack with integrated magnetics and LEDs | THT | user's choice; footprint to import (the floorplan still shows a HanRun HR911105A placeholder) |
+| Ethernet supply filter | HI1206P121R-10 ferrite bead | 1206 | between the analog and digital 3.3 V supplies of the Ethernet chip (user's earlier design) |
 | Logic supply | TRACO TDN 5-1211WI (5 W, 9-36 V in, 5 V out, 1.5 kV) | THT | MPN to confirm |
 | 3.3 V | MCP1826S-3302E/DB | SOT-223 | from the isolated 5 V |
 | CAN transceiver x4 | TI ISOW1044 | DFM-20 (SOIC-20W footprint) | 5 kVrms, integrated isolated DC-DC, CAN FD 5 Mbit/s |
@@ -76,15 +77,15 @@ coordinates below are from the corner.
 
 | Edge | Connector | Position | Domain |
 |------|-----------|----------|--------|
-| Left | CAN1 (J11) at the **stack CAN position**, under each can-ssr's CAN IN | y 11.0-27.6 | CAN1 |
+| Left | CAN1 (J11) at the **stack CAN position** (pin 1 at y 15.5), under each can-ssr's CAN IN/OUT | y 12.45-29.05 | CAN1 |
 | Left | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | y 33-49.6 | RACK |
 | Left | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | y 56-69 | RACK |
 | Right | CAN4, CAN3, CAN2 (J14-J12), 2 mm island gaps | y 22-75.8 | CANn |
 | Top | RJ45 (J4) | x 40-59 | LOGIC |
 | Bottom | I/O (J40), SPTD 2x6: GPIO1-4 / GND, AI1-2 + / - | x 45-68.6 | LOGIC |
 
-- 100 x 100 mm stack interface: M4 holes at the corners (5 mm in), 13 x 13 mm
-  standoff keep-outs drawn around them.
+- 100 x 100 mm stack interface: M4 standoff holes 4.5 mm in from each corner
+  (91 x 91 mm), `Thl_Mechanical:MountingHole_4.3mm_M4_Standoff7mm` (4.3 mm courtyard).
 - CAN1 island top-left (x < 24, y < 30): its ISOW1044 (rotated, logic side
   facing in) straddles x = 24; the POWERED jumpers straddle y = 30 into RACK.
 - RACK on the left below CAN1 (x < 33, y 30-90): the PhotoMOS pair and the

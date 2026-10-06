@@ -1,0 +1,239 @@
+(footprint "PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal"
+	(version 20241229)
+	(generator "phoenix_mcdn.py")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 5.25 -2 0)
+		(layer "F.SilkS")
+		(uuid "ede03c81-10fe-4af0-bcd5-778f17b54bd7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal"
+		(at 5.25 14.3 0)
+		(layer "F.Fab")
+		(uuid "90ba87ba-c003-406e-83fe-59d43ae1757b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6eac3f9b-0c44-4d6a-950f-ec855a93a3e0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(descr "Phoenix Contact MCDN 1,5/ 4-G1-3,5 P26 THR (1953732), double-level PCB header for MC 1,5 plugs, 3.5 mm pitch, 2x4, horizontal; pads 1-4 rear row, 5-8 front row (same columns)")
+	(tags "Phoenix MCDN double level header 3.5mm")
+	(attr through_hole)
+	(fp_line
+		(start -2.45 -0.5)
+		(end 12.95 -0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2ea63bfc-3286-4ed2-ac8a-7370f0348b49")
+	)
+	(fp_line
+		(start 12.95 -0.5)
+		(end 12.95 12.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "cb7ba0b0-05c2-4ff4-8a47-973dad99dded")
+	)
+	(fp_line
+		(start 12.95 12.8)
+		(end -2.45 12.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "9ddfabd8-9415-4bbe-855f-e9127971d17b")
+	)
+	(fp_line
+		(start -2.45 12.8)
+		(end -2.45 -0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3d9d7ef6-ce25-471f-945c-b827dc9a8b19")
+	)
+	(fp_line
+		(start -2.56 1.4)
+		(end -2.56 12.2)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d748be33-3d62-47fa-9b58-228300be2de6")
+	)
+	(fp_line
+		(start 13.06 1.4)
+		(end 13.06 12.2)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0d940108-032e-417e-9eb5-bc97f7768325")
+	)
+	(fp_line
+		(start -2.56 12.2)
+		(end -1.25 12.2)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f81fe8c9-8aef-4f9b-b874-2c6e97e92504")
+	)
+	(fp_line
+		(start -2.7 -0.75)
+		(end 13.2 -0.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "7dce42a4-a131-45e9-8e47-cc26c3fe7f30")
+	)
+	(fp_line
+		(start 13.2 -0.75)
+		(end 13.2 12.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "28800fdc-42d8-4aa1-b54c-2746293cd931")
+	)
+	(fp_line
+		(start 13.2 12.8)
+		(end -2.7 12.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b38cddf6-2cf8-460c-8547-601e03a535a7")
+	)
+	(fp_line
+		(start -2.7 12.8)
+		(end -2.7 -0.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "31300c45-5d1c-4bc6-923d-e86ea26903d9")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 5.25 6.15 0)
+		(layer "F.Fab")
+		(uuid "ce5dde23-3c9a-4157-9f1b-853d3320d35b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "50ed0783-902d-4012-8780-aeb446069a85")
+	)
+	(pad "2" thru_hole circle
+		(at 3.5 0)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "a15df305-dcdc-4c27-a771-ba2bd5b94f7f")
+	)
+	(pad "3" thru_hole circle
+		(at 7 0)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "2cc7d351-4620-4394-a4c8-b9855f4aac2d")
+	)
+	(pad "4" thru_hole circle
+		(at 10.5 0)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "9197e2e8-8f56-4e9e-9e77-2ab01526bbef")
+	)
+	(pad "5" thru_hole circle
+		(at 0 3.5)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7682c2c3-db2d-4a2f-b7c6-8732ac9fb1f2")
+	)
+	(pad "6" thru_hole circle
+		(at 3.5 3.5)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "e81e46fa-f537-4711-b4ab-8b59838a86b6")
+	)
+	(pad "7" thru_hole circle
+		(at 7 3.5)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5260665b-648b-44a0-81c9-d7866ce9426c")
+	)
+	(pad "8" thru_hole circle
+		(at 10.5 3.5)
+		(size 2.1 2.1)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "a44e2485-33e4-4301-a7c2-868717295b6e")
+	)
+	(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Connector.3dshapes/PhoenixContact_MCDN_1,5_4-G1-3,5.step"
+		(offset
+			(xyz 2.33 -19.82 -2.32)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 -90)
+		)
+	)
+	(embedded_fonts no)
+)

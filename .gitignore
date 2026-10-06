@@ -52,6 +52,7 @@ __pycache__/
 
 # ---- Library: vendor 3D models that may not be redistributed (see lib/3dmodels/LOCAL_ONLY.txt)
 lib/3dmodels/Sensor_Current.3dshapes/Allegro_CB_PFF.step
+lib/3dmodels/Thl_Connector.3dshapes/PhoenixContact_MCDN_1,5_4-G1-3,5.step
 
 # KiCad 10 local history (per-project git repo) and lock files
 .history/

@@ -47,3 +47,10 @@
 (rule "Only RET under the return bar"
 	(constraint disallow track via)
 	(condition "A.insideArea('RETBAR') && A.NetName != 'GND_LOAD'"))
+
+# Stack interface (docs/requirements.md 4.4): the top-right standoff hole MH2 sits
+# 4.45 mm from U40's pin-24 lead (a 7 mm A/F hex standoff reaches 4.04 mm). Only
+# U40's rectangular courtyard corner, which is empty, overlaps the standoff circle.
+(rule "Standoff MH2 beside U40"
+	(constraint courtyard_clearance (min -1.2mm))
+	(condition "A.Reference == 'MH2' && B.Reference == 'U40'"))

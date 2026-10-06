@@ -10,6 +10,338 @@
 		(rev "A")
 	)
 	(lib_symbols
+		(symbol "Connector_Generic:Conn_02x04_Top_Bottom"
+				(pin_names
+					(offset 1.016)
+					(hide yes)
+				)
+				(exclude_from_sim no)
+				(in_bom yes)
+				(on_board yes)
+				(in_pos_files yes)
+				(duplicate_pin_numbers_are_jumpers no)
+				(property "Reference" "J"
+					(at 1.27 5.08 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "Value" "Conn_02x04_Top_Bottom"
+					(at 1.27 -7.62 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "Footprint" ""
+					(at 0 0 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(hide yes)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "Datasheet" ""
+					(at 0 0 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(hide yes)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "Description" "Generic connector, double row, 02x04, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+					(at 0 0 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(hide yes)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "ki_keywords" "connector"
+					(at 0 0 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(hide yes)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(property "ki_fp_filters" "Connector*:*_2x??_*"
+					(at 0 0 0)
+					(show_name no)
+					(do_not_autoplace no)
+					(hide yes)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(symbol "Conn_02x04_Top_Bottom_1_1"
+					(rectangle
+						(start -1.27 3.81)
+						(end 3.81 -6.35)
+						(stroke
+							(width 0.254)
+							(type default)
+						)
+						(fill
+							(type background)
+						)
+					)
+					(rectangle
+						(start -1.27 2.667)
+						(end 0 2.413)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start -1.27 0.127)
+						(end 0 -0.127)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start -1.27 -2.413)
+						(end 0 -2.667)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start -1.27 -4.953)
+						(end 0 -5.207)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start 3.81 2.667)
+						(end 2.54 2.413)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start 3.81 0.127)
+						(end 2.54 -0.127)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start 3.81 -2.413)
+						(end 2.54 -2.667)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(rectangle
+						(start 3.81 -4.953)
+						(end 2.54 -5.207)
+						(stroke
+							(width 0.1524)
+							(type default)
+						)
+						(fill
+							(type none)
+						)
+					)
+					(pin passive line
+						(at -5.08 2.54 0)
+						(length 3.81)
+						(name "Pin_1"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "1"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at -5.08 0 0)
+						(length 3.81)
+						(name "Pin_2"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "2"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at -5.08 -2.54 0)
+						(length 3.81)
+						(name "Pin_3"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "3"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at -5.08 -5.08 0)
+						(length 3.81)
+						(name "Pin_4"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "4"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at 7.62 2.54 180)
+						(length 3.81)
+						(name "Pin_5"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "5"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at 7.62 0 180)
+						(length 3.81)
+						(name "Pin_6"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "6"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at 7.62 -2.54 180)
+						(length 3.81)
+						(name "Pin_7"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "7"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+					(pin passive line
+						(at 7.62 -5.08 180)
+						(length 3.81)
+						(name "Pin_8"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+						(number "8"
+							(effects
+								(font
+									(size 1.27 1.27)
+								)
+							)
+						)
+					)
+				)
+				(embedded_fonts no)
+			)
 		(symbol "Connector:Screw_Terminal_01x04"
 			(pin_names
 				(offset 1.016)
@@ -4358,7 +4690,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "CAN bus: 4-wire, daisy chain. Pin 1 CANH, 2 CANL, 3 GND (CAN bus ground), 4 +12 V.\nMating plug: Phoenix Contact 1840382 (MC 1,5/4-ST-3,5), two per board."
+	(text "CAN bus: 4-wire, daisy chain. Pin 1 CANH, 2 CANL, 3 GND (CAN bus ground), 4 +12 V.\nJ1 is a double-level header (MCDN 1,5/4-G1-3,5): one level CAN IN, the other CAN OUT, wired in\nparallel (pins n and n+4). Mating plug: Phoenix Contact 1840382 (MC 1,5/4-ST-3,5), two per board."
 		(exclude_from_sim no)
 		(at 25.4 30.48 0)
 		(effects
@@ -4370,7 +4702,7 @@
 		(uuid "8cae34cf-f094-42e9-864c-0f836b3bdf0e")
 	)
 	(symbol
-		(lib_id "Connector:Screw_Terminal_01x04")
+		(lib_id "Connector_Generic:Conn_02x04_Top_Bottom")
 		(at 38.1 50.8 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4386,7 +4718,7 @@
 				)
 			)
 		)
-		(property "Value" "CAN IN"
+		(property "Value" "CAN IN/OUT"
 			(at 38.1 58.42 0)
 			(effects
 				(font
@@ -4394,7 +4726,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Phoenix_MC:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal"
+		(property "Footprint" "Thl_Connector:PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal"
 			(at 38.1 50.8 0)
 			(hide yes)
 			(effects
@@ -4430,7 +4762,7 @@
 				)
 			)
 		)
-		(property "MPN" "1844236"
+		(property "MPN" "1953732"
 			(at 38.1 50.8 0)
 			(hide yes)
 			(effects
@@ -4450,6 +4782,18 @@
 		)
 		(pin "4"
 			(uuid "b0bf21a6-98c0-42b3-9dad-6b94a4b0c83b")
+		)
+		(pin "5"
+			(uuid "07683592-82d5-45a0-92a5-4874b2e47357")
+		)
+		(pin "6"
+			(uuid "5f3e224b-0502-41b3-9e55-805eccbea0ca")
+		)
+		(pin "7"
+			(uuid "e7251291-2eb4-40c1-a6d8-1672e19de4a7")
+		)
+		(pin "8"
+			(uuid "d96bf345-0835-4e24-8ffc-8f6d8224a94e")
 		)
 		(instances
 			(project "can-ssr"
@@ -4565,120 +4909,29 @@
 		)
 		(uuid "6a37549c-0ab6-4b1c-b5f8-d2ad10366432")
 	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x04")
-		(at 38.1 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e7c621cf-f90d-4aa3-82ee-1d8f1da6177b")
-		(property "Reference" "J2"
-			(at 38.1 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "CAN OUT"
-			(at 38.1 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_Phoenix_MC:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal"
-			(at 38.1 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 38.1 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 38.1 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Phoenix Contact"
-			(at 38.1 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "1844236"
-			(at 38.1 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "23eba7f4-e9a3-4a96-b55f-5e9a70c8ca4b")
-		)
-		(pin "2"
-			(uuid "2a68cfbb-65ba-4c99-88f7-0a5c2768df7a")
-		)
-		(pin "3"
-			(uuid "ece96957-d962-4aab-9db3-f9e6d7dc4bf5")
-		)
-		(pin "4"
-			(uuid "a7ae8a06-526c-4048-899d-fb809eb078d2")
-		)
-		(instances
-			(project "can-ssr"
-				(path "/09b96810-cbdb-496a-83a0-e49ecf8d36fe/c853aef6-a14e-49c9-8f13-7d5eddc0f3e9"
-					(reference "J2")
-					(unit 1)
-				)
-			)
-		)
-	)
 	(label "CANH"
-		(at 33.02 73.66 180)
+		(at 45.72 48.26 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "2d996d10-ca6d-43fc-ae05-b5f954b34668")
 	)
 	(label "CANL"
-		(at 33.02 76.2 180)
+		(at 45.72 50.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "f4dc6df4-65d6-4ba9-a555-374c70e678f5")
 	)
 	(wire
 		(pts
-			(xy 33.02 78.74) (xy 30.48 78.74)
+			(xy 45.72 53.34) (xy 48.26 53.34)
 		)
 		(stroke
 			(width 0)
@@ -4688,7 +4941,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 30.48 78.74 270)
+		(at 48.26 53.34 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4696,7 +4949,7 @@
 		(dnp no)
 		(uuid "a294818a-e9b0-484e-ace1-16f6bed61095")
 		(property "Reference" "#PWR02"
-			(at 30.48 76.2 0)
+			(at 48.26 50.8 0)
 			(hide yes)
 			(effects
 				(font
@@ -4705,7 +4958,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 22.86 78.74 270)
+			(at 52.07 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4713,7 +4966,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 30.48 78.74 0)
+			(at 48.26 53.34 0)
 			(hide yes)
 			(effects
 				(font
@@ -4722,7 +4975,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 30.48 78.74 0)
+			(at 48.26 53.34 0)
 			(hide yes)
 			(effects
 				(font
@@ -4731,7 +4984,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 30.48 78.74 0)
+			(at 48.26 53.34 0)
 			(hide yes)
 			(effects
 				(font
@@ -4752,12 +5005,12 @@
 		)
 	)
 	(label "V12_BUS"
-		(at 33.02 81.28 180)
+		(at 45.72 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "29a2f4d4-df8c-4f85-b059-e89f366c05e2")
 	)
@@ -5962,7 +6215,7 @@
 		)
 		(uuid "4b24594a-f4b7-47a8-98d8-f21d4e218d74")
 	)
-	(text "Node power from the CAN cable. Reverse-polarity diode and TVS on the tap;\nthe bus +12 V passes J1 -> J2 unswitched."
+	(text "Node power from the CAN cable. Reverse-polarity diode and TVS on the tap;\nthe bus +12 V passes between the two levels of J1 unswitched."
 		(exclude_from_sim no)
 		(at 25.4 106.68 0)
 		(effects

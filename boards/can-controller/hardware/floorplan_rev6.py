@@ -5,8 +5,8 @@ Domains: RACK (12 V DIN supply 0 V: 12 V input, relay outputs, CAN1 bus power),
 LOGIC (floating: MCU, W6100, GPIO, AI; fed by an isolated DC-DC from 12 V) and
 CAN1-CAN4 (each floating, ISOW1044 with its own isolated supply). Ethernet is
 isolated by the jack's magnetics. Stack interface (docs/requirements.md 4.4):
-4 x M4 holes on a 90 x 90 mm square, CAN1 at the stack CAN position on the
-left edge (y 11.0-27.6) under each can-ssr's CAN IN.
+4 x M4 holes on a 91 x 91 mm square, CAN1 at the stack CAN position on the
+left edge (pin 1 at y 15.5, 3.5 mm pitch) under each can-ssr's CAN IN/OUT header.
 
 Draws the outline, mounting holes, the edge connectors and the large parts at
 their planned positions, plus the domain boundaries and block areas, into a
@@ -29,7 +29,7 @@ STOCK = Path("/usr/share/kicad/footprints")   # only for parts not imported yet 
 
 W, H, R = 100.0, 100.0, 3.0        # stack interface outline, corner radius
 OX, OY = 100.0, 100.0
-CAN_POS = 11.0                     # stack CAN position: CAN1 courtyard top (left edge)
+CAN_POS = 12.45                    # stack CAN position: pin 1 at y 15.5 -> MC 4-pole courtyard top
 CAN_LEN = 16.6                     # MC 1,5/4-G-3,5 courtyard along the edge
 B_C1 = 24.0                        # CAN1 island | LOGIC (CAN1's ISOW1044 straddles it)
 B_C1Y = 30.0                       # CAN1 island | RACK (POWERED jumper straddles it)
@@ -38,7 +38,7 @@ B_RY = 90.0                        # RACK bottom (LOGIC below, to the J40 corner
 B_X = 75.0                         # LOGIC | CAN2-CAN4 islands (ISOW1044s straddle it)
 CAN_R_TOP = [22.0, 40.6, 59.2]     # CAN4, CAN3, CAN2 on the right edge, 2 mm island gaps
 
-HOLES = {"MH1": (5.0, 5.0), "MH2": (95.0, 5.0), "MH3": (5.0, 95.0), "MH4": (95.0, 95.0)}
+HOLES = {"MH1": (4.5, 4.5), "MH2": (95.5, 4.5), "MH3": (4.5, 95.5), "MH4": (95.5, 95.5)}  # 91 x 91
 
 mm = pcbnew.FromMM
 
@@ -123,8 +123,8 @@ def build(board):
     D, C = pcbnew.Dwgs_User, pcbnew.Cmts_User
     outline(board)
     for ref, (x, y) in HOLES.items():
-        put(board, "MountingHole", "MountingHole_4.3mm_M4", ref, x=x, y=y, stock=True)
-        rect(board, D, x - 6.5, y - 6.5, x + 6.5, y + 6.5, None, 0.08)   # standoff keep-out
+        put(board, "Thl_Mechanical", "MountingHole_4.3mm_M4_Standoff7mm", ref, x=x, y=y)
+        
 
     can = "PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal"
     soic20 = "SOIC-20W_7.5x12.8mm_P1.27mm"

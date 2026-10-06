@@ -7,8 +7,10 @@ Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 4.2, 4.2.1 (builds and switching) and 4.2.2 (block diagram).
 
 - Board: 100 x 100 mm, 2 layers, rev A (smaller welcome, not required)
-- Mounting: 4 x M3 to a separate DIN-rail mounting plate (no Pi holes, no DIN
-  clips on the board; see board.json). Load-side holes MH3/MH4 (by the S+ and L+ bolts) take nylon standoffs and screws; the plate is non-conductive.
+- Mounting: stack interface (docs/requirements.md 4.4): 4 x M4 holes on a
+  91 x 91 mm square, insulating (glass-filled nylon) 7 mm hex standoffs. Stacks
+  up to 4 high on a can-controller, or screws to a DIN base plate on its own.
+  No Pi holes, no DIN clips on the board (see board.json).
 - Off the Pi header; powered from the 4-wire CAN cable (12 V)
 - MCU: PIC18F47Q84-I/PT (TQFP-44), on the CAN/logic side
 
@@ -68,11 +70,11 @@ strip of mask-free top copper:
 
 | Bar | Width | Strip (board mm, x / y) | Next to |
 |-----|-------|------------------------|---------|
-| VIN | 1/2" | 101-113.5 / 184-199 | S+ bolt (H1); ends beside Q2's tab |
+| VIN | 1/2" | 111.65-124.35 / 186-199.2 | S+ bolt (H1, x 118); joins the VIN pour under Q1/Q2 |
 | Source node | 1/4" | 130-136 / 159-184 | between the Q1/Q2 and Q3/Q4 source pins |
 | VOUT_SW | 1/2" | 157-170 / 165-184 | right of the Q3/Q4 tabs; stops short of the ACS770 |
-| VOUT | 1/2" | 180-192 / 171-199 | ACS770 output to the L+ bolt (H3) |
-| Return | 1/2" | bottom side, H2 to H4 | **not soldered**: clamped by the S- and L- bolts |
+| VOUT | 1/2" | 175.65-188.35 / 171-199.2 | ACS770 output to the L+ bolt (H3, x 182) |
+| Return | 1/2" | bottom side, 129.5-169.5 / 186.65-199.35, H2 (x 136) to H4 (x 163) | **not soldered**: clamped by the S- and L- bolts |
 
 The bars sit beside the MOSFETs, not over them (D2PAK body 4.4 mm, bar
 3.2 mm). The D2PAK drain tab is the solder joint and is almost entirely under
@@ -100,8 +102,8 @@ D10-D13, Q5, R10-R15, R32-R47, U33, U34), and they would otherwise sit on the pl
 6. **ACS770 (U12)**: through-hole; solder last of the power parts with a large
    tip. Its leads sit on the VOUT_SW and VOUT copper.
 7. **Bolts and lugs**: M5 through bar, board and ring lug, all lugs on top.
-   S- and L- also clamp the bottom return bar. MH3/MH4 (by S+ and L+) take
-   **nylon** standoffs and screws only.
+   S- and L- also clamp the bottom return bar. All four M4 holes take
+   **insulating** standoffs only (MH3/MH4 sit in the load area).
 8. Check that the MOSFETs fitted in step 1 and the build resistor match the
    intended build (Builds table), and tick the build on the silkscreen.
 
@@ -110,19 +112,37 @@ D10-D13, Q5, R10-R15, R32-R47, U33, U34), and they would otherwise sit on the pl
 - `hardware/` KiCad project
 - `firmware/` firmware sources
 
-## Stack interface changes before ordering (2026-10-06)
+## Stack interface rework (2026-10-06)
 
-can-ssr now stacks on a can-controller (up to 4 high) or lies side by side in
-a 1U/2U shelf; see docs/requirements.md 4.2 and 4.4. Not ordered yet; the
-layout needs:
+can-ssr stacks on a can-controller (up to 4 high) or lies side by side in a
+1U/2U shelf; see docs/requirements.md 4.2 and 4.4. Done:
 
-- 4 x M4 (4.3 mm) holes at (5, 5), (95, 5), (5, 95), (95, 95) mm, replacing
-  MH1-MH4 (M3); no parts within 6.5 mm of a hole centre, no copper within
-  4 mm of the hole edge; insulating standoffs.
-- Load bolt row (H1-H4, now x 8-86 at y 93) moved inward, about x 18-82, clear
-  of the bottom corner holes; the busbars follow.
-- CAN IN (J1) at the stack CAN position: left edge, courtyard y 11.0-27.6,
-  pin 1 (CANH) at the top. CAN OUT (J2) on the same edge if it clears the
-  CAN/load barrier (y 42-48).
+- MH1-MH4: `Thl_Mechanical:MountingHole_4.3mm_M4_Standoff7mm` at 4.5 mm from
+  each corner. HOLE_KEEPOUT rule areas keep copper 4 mm from the load-side
+  holes. A DRC rule lets MH2's standoff circle overlap U40's (empty) courtyard
+  corner: U40's pin-24 lead is 4.45 mm from the hole centre, and the hex reaches 4.04 mm.
+- Load bolts moved inward: S+ 18, S- 36, L- 63, L+ 82 mm (lug pitch 18 / 27 / 19
+  mm, clear of the corner standoffs), with the bar strips, mask openings, the
+  return bar (RETBAR), the VIN / RET top / VOUT pours, the S-/L- via rings and
+  the labels. The BUILD tick boxes sit between S- and L-.
+- Top-right corner: R6/D4 and R7/D5 down 2 mm, R50 and C44 left 0.85/0.8 mm;
+  SEG_E, SEG_D, ISET, LED_STATUS, LED_FAULT, UART_RX, two +5V stubs and the
+  C44 ground rerouted locally.
+
+- CAN IN and CAN OUT share one double-level header, J1 = Phoenix MCDN 1,5/4-G1-3,5
+  P26 THR (1953732), at the stack CAN position: left edge, pin 1 (CANH) at
+  y 15.5 mm, pins down at 3.5 mm; pads n and n+4 are linked on the board (the
+  +12 V link is 1 mm wide: it carries the supply for the boards further down the
+  chain). Footprint `Thl_Connector:PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal`
+  from `lib/footprint_src/Thl_Connector/phoenix_mcdn.py`; its STEP is local-only
+  (SamacSys licence). Which pin row feeds which plug level was not verified; it
+  does not matter electrically, so the silkscreen just says CAN IN/OUT.
+- Around it: SW1 right 3.0 mm, D2 into the old J2 space, the pin legend under
+  J1; CANH, CANL, CAN_RX, V12_BUS, ADDR0-3, +5V and GND rejoined locally
+  (tools/miniroute.py). The scripts that made these changes are in
+  `hardware/stack_rework/` for reference (run once; do not rerun).
+
+Still to do:
+
 - Re-check the 12 V draw (estimate about 0.2 A at full display brightness):
   four boards share can-controller CAN1's PTC.

@@ -194,14 +194,14 @@ def can_logic():
 
     # --- CAN connectors (daisy chain) ---------------------------------
     s.text("CAN bus: 4-wire, daisy chain. Pin 1 CANH, 2 CANL, 3 GND (CAN bus ground), 4 +12 V.\n"
-           "Mating plug: Phoenix Contact 1840382 (MC 1,5/4-ST-3,5), two per board.", 25.4, 30.48)
-    term = "Connector_Phoenix_MC:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal"
-    s.part("Connector:Screw_Terminal_01x04", "J1", "CAN IN", 38.1, 50.8,
-           {"1": "CANH", "2": "CANL", "3": "GND", "4": "V12_BUS"}, 0, term, "Phoenix Contact", "1844236",
+           "J1 is a double-level header: CAN IN and CAN OUT in parallel. Mating plug: Phoenix Contact 1840382 (MC 1,5/4-ST-3,5), two per board.", 25.4, 30.48)
+    # 2026-10-06: CAN IN and CAN OUT share one double-level header (stack interface);
+    # the schematic was edited by hand to match (pins 5-8 on the right).
+    term = "Thl_Connector:PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal"
+    s.part("Connector_Generic:Conn_02x04_Top_Bottom", "J1", "CAN IN/OUT", 38.1, 50.8,
+           {"1": "CANH", "2": "CANL", "3": "GND", "4": "V12_BUS",
+            "5": "CANH", "6": "CANL", "7": "GND", "8": "V12_BUS"}, 0, term, "Phoenix Contact", "1953732",
            ref_at=(38.1, 44.45), value_at=(38.1, 58.42))
-    s.part("Connector:Screw_Terminal_01x04", "J2", "CAN OUT", 38.1, 76.2,
-           {"1": "CANH", "2": "CANL", "3": "GND", "4": "V12_BUS"}, 0, term, "Phoenix Contact", "1844236",
-           ref_at=(38.1, 69.85), value_at=(38.1, 83.82))
 
     # --- CAN transceiver, ESD, termination ----------------------------
     s.part("Interface_CAN_LIN:MCP2562-E-P", "U2", "MCP2562FD-E/P", 101.6, 60.96,
@@ -222,7 +222,7 @@ def can_logic():
 
     # --- 12 V tap and 5 V supply ---------------------------------------
     s.text("Node power from the CAN cable. Reverse-polarity diode and TVS on the tap;\n"
-           "the bus +12 V passes J1 -> J2 unswitched.", 25.4, 106.68)
+           "the bus +12 V passes between the two levels of J1 unswitched.", 25.4, 106.68)
     s.part("Device:D_Zener", "D2", "SMBJ15A", 38.1, 127.0, {"1": "V12_BUS", "2": "GND"}, 90,
            "Diode_SMD:D_SMB_Handsoldering", "Littelfuse", "SMBJ15A", ref_at=(43.18, 125.73), value_at=(43.18, 128.27),
            value_justify="left")

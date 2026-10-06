@@ -1,4 +1,4 @@
 {
   "rpi_mount": false,
-  "reason": "off-header CAN node; mounts with 4 x M3 to a separate DIN-rail plate (load-side holes MH3/MH4 by the bolts use nylon standoffs and screws)"
+  "reason": "off-header CAN node; stack interface with can-controller (docs/requirements.md 4.4): 4 x M4 on a 91 x 91 mm square, insulating standoffs (MH3/MH4 sit in the load area)"
 }

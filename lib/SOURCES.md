@@ -148,3 +148,6 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-05 | symbol | Connector_Generic | Conn_02x08_Top_Bottom | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | symbol | Connector_Generic | Conn_02x06_Top_Bottom | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-05 | symbol | Interface_Expansion | MCP23008-xSO | KiCad Interface_Expansion.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Thl_Mechanical | MountingHole_4.3mm_M4_Standoff7mm | hand-made from stock MountingHole_4.3mm_M4: courtyard 4.3 mm radius on F and B (7 mm A/F hex standoff), reference on F.Fab, board-only; stack interface (docs/requirements.md 4.4) | repo (MIT) |
+| 2026-10-06 | symbol | Connector_Generic | Conn_02x04_Top_Bottom | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-06 | footprint | Thl_Connector | PhoenixContact_MCDN_1,5_4-G1-3,5_2x04_P3.5mm_Horizontal | hand-made by lib/footprint_src/Thl_Connector/phoenix_mcdn.py from Phoenix Contact 1953732 dimensions (user's SamacSys CAD download LIB_1953732.zip, transfer/); STEP kept local (LOCAL_ONLY.txt, SamacSys licence) | repo (MIT) |
