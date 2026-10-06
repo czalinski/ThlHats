@@ -160,7 +160,7 @@ Layout rules that follow:
 | GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
 | Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × dual PhotoMOS** in DIP-8 (e.g. Panasonic AQW212, 2 Form A; MPN to confirm against coil current, on-resistance and isolation, and prefer a current-limiting type if one fits; floorplan rev 4) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
 | Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
-| Analog in | **2 channels** (reduced from 4 on 2026-10-06), **bipolar**, about ±116 V full scale, 10 MΩ input, on the **PIC32's internal 12-bit ADC** (decided 2026-10-06; replaces the MCP3428). Divider 10 MΩ / 130 kΩ referenced to **VMID ≈ 1.65 V**, buffered by one of the PIC32MK's internal op amps (an external SOT-23 op amp if the pin map won't allow it). VMID also goes to its own ADC channel and firmware subtracts it. ±1.49 V around VMID at ±116 V; about 57 mV per count. 0.1 µF across the 130 kΩ (fc ≈ 12 Hz; it also holds the charge for the ADC sample capacitor). Clamp to 3.3 V / GND. Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. Kept because MCC 118/128 stop at ±10 V. **Proposed 2026-10-06, TBD:** make each input differential (AIn+ and AIn−, each through its own 10 MΩ divider to VMID; firmware subtracts), so AI makes no assumption about the DUT ground either; same terminal count, two more ADC pins. |
+| Analog in | **2 differential channels** (decided 2026-10-06: no assumption about the DUT ground), about ±116 V full scale per input, 10 MΩ per input, on the **PIC32's internal 12-bit ADC**. Each of AIn+ and AIn− has its own 10 MΩ / 130 kΩ divider to **VMID ≈ 1.65 V** (PIC32MK OA5 as a follower; VMID also on AN25), 0.1 µF across each 130 kΩ (fc ≈ 12 Hz) and a BAT54S clamp; firmware reads both legs and subtracts, so VMID and the common mode cancel. Each leg must stay within about ±116 V of the LOGIC ground (which floats unless GPIO ties it to a DUT). Common-mode rejection is set by divider matching: with 1 % resistors a 50 V common mode can show up to about 0.5 V of error, so calibrate in firmware or use 0.1 % parts where it matters. About 57 mV per count. Uses 4 ADC pins + AN25. Terminal: lower level AIn+, upper level AIn−. Kept because MCC 118/128 stop at ±10 V. |
 | Mounting | **Pi M2.5 holes kept** (58 × 49 mm pattern, 3.5 mm from the top-left corner; decided 2026-10-06) so the board can sit on top of a Pi/MCC stack on standoffs, plus extra M2.5 holes where the outline extends past the pattern. No DIN clip holes on the board (removed 2026-10-05 for space): a 3D-printed adapter on the M2.5 holes carries the DIN clip, as on can-ssr. |
 | Stack position | None required (2026-10-06): no header connection. When it sits on a stack it goes on top on standoffs, so top-entry connectors stay reachable; it may also mount on its own (DIN adapter) or beside the rack. |
 | Size | **97 × 79 mm** (floorplan rev 5, 2026-10-06; was 100 × 100 mm). Height is set by the four CAN connectors (with 2 mm island gaps) on one edge; see the board README. |
@@ -175,7 +175,7 @@ analog out, the expander and 24 V-tolerant GPIO were cut.
 
 Terminal count: 4 × CAN on MC 3,5 4-pole (16 positions); field I/O on
 double-level push-in terminals, one level signal and one level return:
-relay 4 (OUTn / 0 V), GPIO 4 (IOn / GND), AI 2 (AIn / GND), so 10 positions.
+relay 4 (OUTn / 0 V), GPIO 4 (IOn / GND), AI 2 (AIn+ / AIn−), so 10 positions.
 About 26 positions plus the RJ45 and the 12 V input, against about 45 before.
 All resistors are discrete 1206 (too few repeated channels for resistor
 networks to pay off).
@@ -430,7 +430,7 @@ field-facing pin must survive the likely mistakes:
 |------|---------------|-------|
 | GPIO | 3.3 V logic, input or output | can-controller: ESD + series R only, not 24 V tolerant (2026-10-06) |
 | Relay drive | 12 V coils, sourced +12 V | PhotoMOS high-side; flyback diode per output; PTC on the feed |
-| AI | About ±116 V full scale, bipolar | 10 MΩ input; low accuracy OK |
+| AI | Differential, about ±116 V per input | 10 MΩ per input; low accuracy OK |
 
 ### 5.5 Part selection
 

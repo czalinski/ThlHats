@@ -37,7 +37,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | Logic supply | Isolated DC-DC 12 V to 5 V, 5 W (TRACO TDN 5-1211WI class), 3.3 V LDO | crosses RACK / LOGIC |
 | Relay drive x4 | 2 x dual PhotoMOS (LED from a PIC32 pin), sources +12 V to a 12 V coil; flyback diode, LED, shared PTC | crosses LOGIC / RACK |
 | GPIO x4 | PIC32 pins directly, 3.3 V, series R + ESD clamp, ground terminal per pin | LOGIC |
-| Analog in x2 | +-116 V bipolar, 10M / 130k dividers to VMID (PIC32 OA5 follower), PIC32 12-bit ADC; differential inputs proposed | LOGIC |
+| Analog in x2 | differential, +-116 V per input; a 10M / 130k divider to VMID on each of AIn+ and AIn- (PIC32 OA5 follower), PIC32 12-bit ADC, firmware subtracts | LOGIC |
 
 ## Parts (draft, 2026-10-06)
 
@@ -59,7 +59,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
 | 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
 | GPIO x4 | series R 1206 + ESD clamp | | 3.3 V only |
-| AI dividers x2 | 10M + 130k 1206, 0.1 uF, BAT54S clamp | | 10M needs a voltage-rated 1206 (or two in series) |
+| AI dividers x4 (2 per channel) | 10M + 130k 1206, 0.1 uF, BAT54S clamp per leg | | 10M needs a voltage-rated 1206 (or two in series); matching sets common-mode rejection |
 | VMID | 3.3 V divider + PIC32MK OA5 follower | | also sampled by the ADC (AN25) |
 | Connectors | MC 1,5/4-G-3,5 (CAN); SPTD double-level push-in (relay, GPIO, AI) | THT | |
 | LEDs | 1206 | | power, heartbeat, CAN x4, relay x4 (Ethernet LEDs in the jack) |
@@ -79,7 +79,7 @@ are from the corner.
 | Right | CAN4, CAN3, CAN2, CAN1 (J14-J11), MC 1,5/4-G-3,5, 2 mm island gaps | full edge | CANn |
 | Bottom | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | x 9-25.6 | RACK |
 | Bottom | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | x 30-43 | RACK |
-| Left | I/O (J40), SPTD 2x6: GPIO1-4, AI1-2 / GND | y 24-47.6, between MH1 and MH3 | LOGIC |
+| Left | I/O (J40), SPTD 2x6: GPIO1-4 / GND, AI1-2 + / - | y 24-47.6, between MH1 and MH3 | LOGIC |
 | Top | RJ45 (J4) | x 8-27 | LOGIC |
 
 - 97 x 79 mm (7,660 mm2, a quarter less than rev 3). Height: four CAN
