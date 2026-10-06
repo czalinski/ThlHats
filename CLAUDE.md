@@ -128,7 +128,9 @@ Free for our boards: BCM 4, 5, 6, 14, 15, 17, 18, 19, 22, 23, 24, 25, 27, plus I
 
 Hosts: **Raspberry Pi 5 and Orange Pi 6**. Pick header pins by physical position
 and check them on both; the Orange Pi 6 maps functions to pins differently and
-needs overlays. Prefer interfaces that use no header signal pins (e.g. USB).
+needs overlays. Prefer interfaces that use no header signal pins. For host links prefer
+Ethernet (user-space sockets: no kernel drivers, udev rules or sudo, which
+classified/ITAR test systems often forbid), then RS-485, RS-232, USB last.
 
 ## Firmware
 

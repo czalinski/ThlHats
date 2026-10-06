@@ -3,14 +3,15 @@
 Primary controller for the ThlHats HASS stack: four isolated CAN FD buses and
 relay drive (the gaps the MCC HATs leave), plus a couple of GPIO and
 high-voltage analog inputs so one card covers small jobs. Requirements:
-[`docs/requirements.md`](../../docs/requirements.md), section 4.1.
+[`docs/requirements.md`](../../docs/requirements.md), sections 3 and 4.1.
 
-- Board: 88 x 76 mm, 2 layers, rev A
-- Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern
-- No Pi header connector (2026-10-06): logic powered from USB VBUS. The Pi
-  hole pattern stays, so it can sit on top of a Pi/MCC stack on standoffs.
-- MCU: PIC32MK1024MCM064-I/PT
-- Host link: USB (gs_usb for CAN, plus a control interface)
+- Board: 97 x 79 mm, 2 layers, rev A
+- Mounting: M2.5 holes on the Raspberry Pi 58 x 49 mm pattern (no header
+  connector), so it can sit on top of a Pi/MCC stack on standoffs
+- Host link: **Ethernet** (WIZnet W6100, user-space TCP/UDP sockets, no
+  drivers or sudo on the host); a switch is assumed in the rack
+- Power: one 12 V DIN supply; the logic runs from an isolated DC-DC
+- MCU: PIC32MK1024MCM064-I/PT; firmware loads over the ICSP header
 
 ## Scope reduction (2026-10-06)
 
@@ -18,85 +19,87 @@ The rev 3 design (8 GPIO, 8 relays through ISO6740 isolators, a ULN2803A and
 an MCP23008 expander, 4 AI on an MCP3428, 2 x 0-10 V AO with DAC, reference,
 LM358B and a 13 V boost) had grown past the board's purpose. Cut: analog out
 (MCC 152 / can-ssr cover it), the expander, the isolators and ULN, 24 V-tolerant
-GPIO, and half of the GPIO, relay and AI channels. The schematic, placement and
-routing below that line are superseded and will be redone; `gen_schematic.py`,
-`place_board.py` and `place_rev3.py` describe the old scope.
+GPIO, and half of the GPIO, relay and AI channels. Later the same day: USB and
+the Pi header gave way to Ethernet, and every CAN bus got its own isolation
+(no assumptions about DUT grounds). The schematic, placement and routing in
+the "Superseded" sections are from the old scope and will be redone;
+`gen_schematic.py`, `place_board.py` and `place_rev3.py` describe it.
 
-## Functional blocks
+## Domains and functional blocks
 
 | Block | Baseline parts | Domain |
 |-------|----------------|--------|
-| MCU, USB | PIC32MK1024MCM064, USB-C receptacle (USB 2.0 FS device) | logic |
-| CAN x4 (FD) | ISO1044BD, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
-| 12 V input | Keyed terminal, reverse polarity, TVS, fuse; per-bus fuse; buck to 5 V for ISO1044 bus sides | 12 V |
-| 12 V status | Optocoupler from the 12 V rail to an MCU input (reports CAN bus power present) | crosses 12 V / logic |
-| GPIO x4 | PIC32 pins directly, 3.3 V, series R + ESD clamp, ground terminal per pin | logic |
-| Relay drive x4 | PhotoMOS per output (LED from a PIC32 pin), sources +12 V to a 12 V coil; flyback diode, LED, shared PTC | crosses logic / 12 V |
-| Analog in x2 | +-116 V bipolar, 10M / 130k dividers to VMID (PIC32 op amp follower), PIC32 12-bit ADC, ground terminal per input | logic |
+| MCU | PIC32MK1024MCM064, 12 MHz crystal, ICSP header | LOGIC |
+| Ethernet | W6100 + 25 MHz crystal, RJ45 with magnetics and LEDs (MPN TBD) | LOGIC (magnetics isolate the host) |
+| CAN x4 (FD) | ISOW1044 each (isolated data and power), TVS, termination jumper, ferrite beads, 4-pin terminal | crosses LOGIC / CANn; each CANn floats |
+| CAN1 power | POWERED jumpers: CAN1 ground to RACK 0 V, +12 V through a PTC to pin 4 | crosses RACK / CAN1 |
+| 12 V input | Keyed terminal, fuse, reverse-polarity P-FET, TVS | RACK |
+| Logic supply | Isolated DC-DC 12 V to 5 V, 5 W (TRACO TDN 5-1211WI class), 3.3 V LDO | crosses RACK / LOGIC |
+| Relay drive x4 | 2 x dual PhotoMOS (LED from a PIC32 pin), sources +12 V to a 12 V coil; flyback diode, LED, shared PTC | crosses LOGIC / RACK |
+| GPIO x4 | PIC32 pins directly, 3.3 V, series R + ESD clamp, ground terminal per pin | LOGIC |
+| Analog in x2 | +-116 V bipolar, 10M / 130k dividers to VMID (PIC32 OA5 follower), PIC32 12-bit ADC; differential inputs proposed | LOGIC |
 
 ## Parts (draft, 2026-10-06)
 
 | Function | Part | Package | Notes |
 |---|---|---|---|
-| MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, USB FS, ADC, op amps |
-| Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD; USB clock from the UPLL |
-| 3.3 V | MCP1826S-3302E/DB | SOT-223 | from USB VBUS |
-| USB-C | GCT USB4085-GF-A | THT | 5.1k CC pull-downs; VBUS powers the logic through a PTC (bus-powered device, about 150 mA) |
-| USB ESD | USBLC6-2SC6 | SOT-23-6 | |
-| CAN transceiver x4 | ISO1044BD | SOIC-8 | CAN FD, 3 kVrms basic isolation |
+| MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, ADC, op amps; OA5 on pins 33/46/49 for VMID |
+| Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD |
+| Ethernet | WIZnet W6100 | LQFP-48 0.5 mm | IPv4/IPv6; not pin-compatible with the W5500 |
+| Ethernet crystal | 25 MHz | SMD | MPN TBD |
+| RJ45 | jack with integrated magnetics and LEDs | THT | **MPN TBD** (user's candidates); HanRun HR911105A as the floorplan placeholder |
+| Logic supply | TRACO TDN 5-1211WI (5 W, 9-36 V in, 5 V out, 1.5 kV) | THT | MPN to confirm |
+| 3.3 V | MCP1826S-3302E/DB | SOT-223 | from the isolated 5 V |
+| CAN transceiver x4 | TI ISOW1044 | DFM-20 (SOIC-20W footprint) | 5 kVrms, integrated isolated DC-DC, CAN FD 5 Mbit/s |
 | CAN TVS x4 | NUP2105L | SOT-23 | |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | |
-| CAN bus supply | PTC 1812, hold ~1.1 A | 1812 | fitted on CAN1 only (can-ssr bus); DNP on CAN2-4 |
+| CAN1 power | PTC 1812, hold ~1.1 A, + POWERED jumpers | 1812, 2.54 mm | CAN2-4: pin 4 not connected |
 | Relay x4 | 2 x dual PhotoMOS, e.g. Panasonic AQW212 (2 Form A) | DIP-8 | MPN to confirm: coil current, on-resistance, isolation, current-limit option |
 | Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
 | 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
-| 12 V to 5 V | RECOM R-78E5.0-0.5 | SIP-3 | ISO1044 bus sides |
-| 12 V status | TLP293 | SO-4 | |
 | GPIO x4 | series R 1206 + ESD clamp | | 3.3 V only |
 | AI dividers x2 | 10M + 130k 1206, 0.1 uF, BAT54S clamp | | 10M needs a voltage-rated 1206 (or two in series) |
-| VMID | 3.3 V divider + PIC32MK op amp follower | | also sampled by the ADC |
+| VMID | 3.3 V divider + PIC32MK OA5 follower | | also sampled by the ADC (AN25) |
 | Connectors | MC 1,5/4-G-3,5 (CAN); SPTD double-level push-in (relay, GPIO, AI) | THT | |
-| LEDs | 1206 | | power, heartbeat, USB, CAN x4, relay x4, 12 V |
+| LEDs | 1206 | | power, heartbeat, CAN x4, relay x4 (Ethernet LEDs in the jack) |
 
-## Floorplan (rev 4, 2026-10-06)
+## Floorplan (rev 5, 2026-10-06)
 
-![floorplan rev 4](hardware/floorplan_rev4.png)
+![floorplan rev 5](hardware/floorplan_rev5.png)
 
-`hardware/floorplan_rev4.py OUT_DIR` draws it (real footprints for the edge
-connectors and large parts, Dwgs.User block areas, Cmts.User domain boundary)
-into a scratch board and renders the PNG; the placement script will reuse its
-coordinates. Board corner at (100, 100) mm; coordinates below are from the corner.
+`hardware/floorplan_rev5.py OUT_DIR` draws it (real footprints for the edge
+connectors and large parts, Dwgs.User block areas, Cmts.User domain
+boundaries) into a scratch board and renders the PNG; the placement script
+will reuse its coordinates. Board corner at (100, 100) mm; coordinates below
+are from the corner.
 
 | Edge | Connector | Position | Domain |
 |------|-----------|----------|--------|
-| Right | CAN1-CAN4 (J10-J13), MC 1,5/4-G-3,5 | y 4.5-74, full edge | 12 V |
-| Bottom | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | x 9-25.6 | 12 V |
-| Bottom | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | x 38-51 | 12 V |
-| Left | I/O (J40), SPTD 2x6: GPIO1-4, AI1-2 / GND | y 10-33.6, between MH1 and MH3 | logic |
-| Top | USB-C (J4), USB4085 | x 20-30 | logic |
+| Right | CAN4, CAN3, CAN2, CAN1 (J14-J11), MC 1,5/4-G-3,5, 2 mm island gaps | full edge | CANn |
+| Bottom | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | x 9-25.6 | RACK |
+| Bottom | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | x 30-43 | RACK |
+| Left | I/O (J40), SPTD 2x6: GPIO1-4, AI1-2 / GND | y 24-47.6, between MH1 and MH3 | LOGIC |
+| Top | RJ45 (J4) | x 8-27 | LOGIC |
 
-- 88 x 76 mm (6,690 mm2, a third less than rev 3). Height is set by the four
-  CAN connectors on the right edge (4 x 17.6 mm). Parts courtyard about
-  4,300 mm2, about 64 % coverage, with the logic side the sparser (room for
-  the MCU to fan out).
-- Holes: MH1-MH4 on the Pi pattern, all in the logic domain; MH5 at the
-  bottom-left corner. No hole at the top or bottom right: the CAN strip uses
-  the whole right edge.
-- 12 V domain: the strip x > 66 mm plus the bottom block y > 46 mm (x > 7.5 mm),
-  with a logic notch around MH4 (x 57-66, y 46-58). Crossings: the four
-  ISO1044s on x = 66 at y 10/22/34/46 (all above MH4; CAN4's bus traces run
-  down the strip), the two PhotoMOS and the TLP293 on y = 46.
-- MCU centred at (42, 25): CAN pins face the isolators, GPIO/AI pins face J40,
-  USB and the LDO above it. CAN activity LEDs on the logic side of the
-  isolators. ICSP header J2 below the MCU.
-- PhotoMOS LED pins on the logic side; flyback diodes, relay LEDs and the
-  relay PTC between the PhotoMOS and J30.
+- 97 x 79 mm (7,660 mm2, a quarter less than rev 3). Height: four CAN
+  connectors plus three 2 mm island gaps on the right edge.
+- Holes: MH1-MH4 on the Pi pattern, all in LOGIC; MH5 at the bottom-left corner.
+- LOGIC | CAN boundary at x = 71, clear of MH2/MH4. The four ISOW1044s
+  straddle it at y 11.2/26.7/42.2/57.7; each island steps out at x = 82.5 to
+  meet its connector (the isolators are spaced closer than the connectors).
+- RACK block below y = 50 (x > 7.5), with a LOGIC notch (x 56-71, y 50-65.5)
+  around MH4 and CAN1's isolator. The PhotoMOS pair and the DC-DC straddle
+  y = 50; CAN1's POWERED jumper straddles RACK | CAN1 at the bottom of x = 71.
+- MCU centred at (49, 28): CAN pins face the isolators, GPIO/AI pins face J40,
+  W6100 next to the RJ45. CAN activity LEDs in LOGIC beside the isolators.
+- CAN bus-side zones (TVS, termination, ferrite beads, ISOW1044 output caps)
+  are about 7 x 12 mm per channel: tight but enough.
 
 ## Layout rules
 
 - Connectors on any edge (no Pi header since 2026-10-06).
-- Split copper between the logic and 12 V domains; only the isolators cross.
+- Six copper domains (RACK, LOGIC, CAN1-CAN4); only the crossing parts bridge the gaps.
 
 ## Directories
 

@@ -48,81 +48,96 @@ and safe to wire under a hectic test schedule.
   Component height is not a hard limit: tall parts such as DB9s are handled
   with longer stacking headers/standoffs or by placing the board at the top
   of the stack.
-- **Software:** the Python test framework talks to every board through
-  standard Linux interfaces where possible: SocketCAN (`can0`, `can1`, …),
-  tty devices, and a common I/O protocol (section 6).
+- **Software:** the Python test framework talks to every board from user
+  space, with **no kernel drivers, udev rules or sudo** (IT/security policy on
+  classified and ITAR systems; decided 2026-10-06): TCP/UDP sockets to the
+  controller, standard tty devices for serial, and a common I/O protocol
+  (section 7). Preferred host links, in order: Ethernet, RS-485, RS-232,
+  USB/GPIB as a last resort.
 
 ## 3. Power architecture
 
-Decided 2026-10-04.
+Decided 2026-10-04; can-controller revised 2026-10-06 (Ethernet, no USB, every
+CAN bus isolated on its own).
 
 ```
 Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► logic domain of header boards (serial-io)
-                                           └─► USB port VBUS ──► logic domain of can-controller
-                                                                 (MCU, ADC, isolator logic sides)
+                            └─► Ethernet ──► rack switch ──► can-controller (isolated by the jack's magnetics)
 
-12 V DIN supply (floating output) ──► CAN board 12 V terminal ──► 12 V domain
-        │                                                       ├─► CAN cable supply (fused per bus)
-        │                                                       ├─► buck to 5 V ─► ISO1044 bus sides
-        │                                                       └─► relay coils (via PhotoMOS)
-        └── its 0 V is the CAN bus ground; never connected to logic ground
+12 V DIN supply (floating output) ──► can-controller 12 V terminal ──► RACK domain
+        │                                                            ├─► relay coils (via PhotoMOS)
+        │                                                            ├─► CAN1 cable supply (POWERED jumpers, fused)
+        │                                                            └─► isolated DC-DC ──► LOGIC domain (floating)
+        │                                                                                   ├─► MCU, W6100, GPIO, AI
+        │                                                                                   └─► ISOW1044 x4 ──► CAN1..CAN4 (each floating)
+        └── its 0 V is the RACK ground; it reaches a CAN bus only through that bus's POWERED jumper
 ```
 
-### 3.1 Host and logic domain
+### 3.1 Host and logic domain (header boards)
 
 - Hosts are powered by their native USB-C supplies: Raspberry Pi 5 from its
   5 V / 5 A supply, Orange Pi 6 Plus from 20 V / 100 W USB-C PD.
 - Our boards **never drive the header 5 V**. On the Orange Pi 6 the header
   5 V is an output of its own regulator, so back-feeding it would fight that
   regulator.
-- Our boards draw their logic power from the **header 5 V** (and make their
+- Header boards draw their logic power from the **header 5 V** (and make their
   own 3.3 V). Budget: **≤ 1 A for all of our boards together**. The Pi 5 is
   the limit: it leaves about 1 A worst case after itself and its USB ports.
   The Orange Pi 6 Plus header 5 V is rated for about 4 A (reference found by
   the user, 2026-10-04).
 - MCC HATs also draw from the header 5 V and count against the same budget.
-- **can-controller is the exception** (decided 2026-10-06): it has no Pi
-  header and takes its logic power from **USB VBUS** (about 150 mA expected,
-  under the 500 mA USB 2.0 limit; the Pi 5 gives its USB ports 600 mA total
-  on a 3 A supply, 1.6 A on its 5 A supply), so it uses none of the header
-  budget.
+- can-controller has no header connection and uses none of this budget.
 
-### 3.2 12 V domain (CAN board)
+### 3.2 can-controller power (decided 2026-10-06)
 
-- **One external 12 V DIN-rail supply** wired to a keyed power terminal on the
-  CAN board. It powers everything heavy: CAN cable supplies for remote nodes,
-  the CAN transceivers' bus sides, and the relay coils.
-- The supply's output must be **floating** (normal for DIN-rail supplies). Its
-  0 V becomes the CAN bus ground. This is what keeps the 12 V domain isolated
-  from the Pi: see 3.3.
-- Input protection: reverse polarity, TVS, and an eFuse or fuse.
-- Each CAN bus gets the 12 V on its cable through its own fuse or current
-  limit. Both CAN buses share the 12 V domain and its ground (isolated from
-  the Pi, not from each other).
-- A buck converter makes 5 V for the ISO1044 bus sides.
-- The 12 V domain needs no isolated DC-DC converter.
+- **One external 12 V DIN-rail supply** with a **floating** output (normal for
+  DIN-rail supplies) on a keyed power terminal. It powers the whole board.
+  Input protection: reverse polarity, TVS, fuse.
+- **RACK domain** (DIN supply 0 V): relay coil outputs and the CAN1 cable
+  supply. Relay coils are rack wiring, not DUT wiring.
+- **LOGIC domain**: an **isolated DC-DC** from 12 V (e.g. TRACO TDN 5-1211WI:
+  5 W, 9-36 V in, 5 V out, 1.5 kV; MPN to confirm) makes 5 V for the
+  ISOW1044s and a 3.3 V LDO for the MCU and W6100. Budget at 5 V: MCU + W6100
+  + LEDs about 0.3 A at 3.3 V; ISOW1044 about 80 mA each with traffic, up to
+  211 mA each with a bus held dominant (datasheet maximum); about 0.8 A in
+  normal use, so a 5 W converter rides through a stuck-dominant bus.
+- **CAN1-CAN4**: each bus side is powered by its own ISOW1044's integrated
+  isolated DC-DC. No bus-side buck.
 
 ### 3.3 Where the isolation is
 
-There are only two domains on the CAN board: **logic** (USB ground and
-VBUS) and **12 V** (CAN bus ground). The isolation barrier is made by the
-parts that cross between them, and nothing else:
+**Design rule: no assumptions about the DUT** (user, 2026-10-06). DUT grounds
+are probably common, but we neither control nor ask: every DUT-facing
+interface floats, so customers never need a grounding discussion.
+
+| Domain | Ground | Contents |
+|--------|--------|----------|
+| RACK | 12 V DIN supply 0 V | 12 V input, relay outputs (OUTn / 0 V), CAN1 cable supply |
+| LOGIC | floating | MCU, W6100, GPIO, AI (GPIO and AI share this ground, as on any DAQ card) |
+| CAN1 ... CAN4 | each floating, isolated from each other | bus side of one ISOW1044, TVS, termination, connector |
+| Host | — | Ethernet, isolated by the jack's magnetics |
 
 | Crossing | Part |
 |----------|------|
-| Mains to 12 V | The DIN supply itself (SELV, floating output) |
-| CAN data | ISO1044BD isolated CAN transceivers |
-| Relay control | PhotoMOS relays, LED on the logic side, contact switching +12 V to the coil (decided 2026-10-06; replaces the 2026-10-05 isolators + ULN2803A) |
-| 12 V status | An optocoupler, so the MCU can report whether 12 V (CAN bus power) is present (decided 2026-10-04) |
+| Mains to RACK | The DIN supply itself (SELV, floating output) |
+| RACK to LOGIC (power) | Isolated DC-DC module |
+| LOGIC to CANn (data and power) | **TI ISOW1044** isolated CAN FD transceiver with integrated isolated DC-DC (5 kVrms, SOIC-20 footprint DFM package); one per bus |
+| LOGIC to RACK (relays) | 2 × dual PhotoMOS, LED side in LOGIC, contacts switching +12 V to the coils |
+| LOGIC to host | Ethernet magnetics in the RJ45 jack |
+| RACK to CAN1 (optional) | **POWERED jumpers**: tie CAN1's bus ground to RACK 0 V and feed +12 V through a PTC to pin 4, for a bus of our own remote nodes (can-ssr). Off: CAN1 floats like the others. CAN2-4 have no cable supply (pin 4 not connected). |
+
+The 12 V-status optocoupler is gone: the board runs from the 12 V supply, so
+without it the board is simply off.
 
 Layout rules that follow:
 
-- Split the copper: no trace, pour, or component may connect 12 V ground to
-  logic ground. The isolators straddle the gap.
-- Keep creepage across the gap per the isolators' datasheets.
-- The relay supply comes from the 12 V domain: the PhotoMOS contacts, the
-  flyback diodes, the relay LEDs and the relay PTC sit on the 12 V side, and
-  the PhotoMOS packages straddle the gap.
+- Split the copper into the six domains; nothing but the crossing parts above
+  may bridge a gap. Island-to-island gaps between CAN buses at least 2 mm.
+- Keep creepage across LOGIC|CANn per the ISOW1044 datasheet (its DFM package
+  gives 8 mm under the body) and fit its ferrite beads per TI's layout guide.
+- The relay supply comes from the RACK domain: the PhotoMOS contacts, the
+  flyback diodes, the relay LEDs and the relay PTC sit in RACK, and the
+  PhotoMOS packages straddle LOGIC|RACK.
 
 ### 3.4 Serial board power
 
@@ -134,21 +149,21 @@ Layout rules that follow:
 
 ## 4. Boards
 
-### 4.1 Primary controller: `can-controller` (USB, no Pi header)
+### 4.1 Primary controller: `can-controller` (Ethernet, no Pi header)
 
 | Item | Requirement |
 |------|-------------|
-| MCU | **PIC32MK1024MCM064-I/PT** (4× CAN FD, USB FS OTG, 12-bit ADC, 3× DAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). **Corrected 2026-10-05:** the PIC32MK1024GPK064 chosen on 2026-10-04 has *no* CAN FD (DS60001519E Table 1: CAN FD column "—" for all GPK parts); only the motor-control MCM parts have the 4 CAN FD modules. Same 64-pin pinout. 12 MHz crystal; USB clock from the UPLL. |
-| Host link | USB to the host, which also powers the logic side. **No Pi header connector** (decided 2026-10-06): the header only ever carried 5 V and GND here, so dropping it removes the Samtec pass-through socket, the shared 5 V budget and the stack-position rule, and the board works with any USB host (Pi, PC, laptop). |
-| CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **isolated** (**ISO1044BD**, SOIC-8, replaces the ISO1042BQDWVRQ1; decided 2026-10-05). One bus is reserved for our remote nodes (can-ssr); the other three are for DUTs, so one HASS run can test several DUTs. All four keep the 4-pin connector and pinout; the +12 V cable supply fuse is **fitted on CAN1 only** and DNP on CAN2–4 (pin 4 dead unless fitted), decided 2026-10-05. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
-| Power | Logic from USB VBUS (PTC, ESD, 3.3 V LDO); 12 V domain from an external DIN supply (section 3) |
+| MCU | **PIC32MK1024MCM064-I/PT** (4× CAN FD, 12-bit ADC, 3× DAC, 4 op amps, 4× I2C, 1 MB flash, 256 KB RAM, TQFP-64). **Corrected 2026-10-05:** the PIC32MK1024GPK064 chosen on 2026-10-04 has *no* CAN FD (DS60001519E Table 1: CAN FD column "—" for all GPK parts); only the motor-control MCM parts have the 4 CAN FD modules. Same 64-pin pinout. 12 MHz crystal. Its USB is unused since 2026-10-06. |
+| Host link | **Ethernet** (decided 2026-10-06; replaces USB): **WIZnet W6100** (IPv4/IPv6 dual stack, hardware TCP/IP, 8 sockets, SPI to the PIC32, LQFP-48 0.5 mm) + 25 MHz crystal + **RJ45 jack with integrated magnetics and LEDs** (MPN: **TBD**, the user has candidates from an earlier design). Reason: plain TCP/UDP sockets need no kernel drivers, udev rules or sudo, which IT/security policy (classified and ITAR systems) often forbids. A switch is always assumed in the rack; bench users need one too. The W6100 is *not* pin-compatible with the W5500 (it matches the W5100S), so the choice is made at layout. **No USB and no Pi header connector** (2026-10-06). Firmware updates over the ICSP header; a network bootloader may come later. |
+| CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **each isolated on its own** (**TI ISOW1044**, decided 2026-10-06; replaces the ISO1044BD, whose bus sides shared one 12 V-domain ground and buck). One bus is reserved for our remote nodes (can-ssr, which always needs this controller: decided 2026-10-06); the other three are for DUTs, so one HASS run can test several DUTs. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Pin 3 is the bus's own isolated ground. **CAN1** (next to the RACK domain) has the **POWERED jumpers** (section 3.3) that tie its ground to RACK 0 V and feed fused +12 V to pin 4; on CAN2-4 pin 4 is not connected. Switchable 120 Ω termination. |
+| Power | Everything from one external 12 V DIN supply; LOGIC through an isolated DC-DC (section 3.2) |
 | GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
 | Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × dual PhotoMOS** in DIP-8 (e.g. Panasonic AQW212, 2 Form A; MPN to confirm against coil current, on-resistance and isolation, and prefer a current-limiting type if one fits; floorplan rev 4) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
 | Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
-| Analog in | **2 channels** (reduced from 4 on 2026-10-06), **bipolar**, about ±116 V full scale, 10 MΩ input, on the **PIC32's internal 12-bit ADC** (decided 2026-10-06; replaces the MCP3428). Divider 10 MΩ / 130 kΩ referenced to **VMID ≈ 1.65 V**, buffered by one of the PIC32MK's internal op amps (an external SOT-23 op amp if the pin map won't allow it). VMID also goes to its own ADC channel and firmware subtracts it. ±1.49 V around VMID at ±116 V; about 57 mV per count. 0.1 µF across the 130 kΩ (fc ≈ 12 Hz; it also holds the charge for the ADC sample capacitor). Clamp to 3.3 V / GND. Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. Kept because MCC 118/128 stop at ±10 V. |
+| Analog in | **2 channels** (reduced from 4 on 2026-10-06), **bipolar**, about ±116 V full scale, 10 MΩ input, on the **PIC32's internal 12-bit ADC** (decided 2026-10-06; replaces the MCP3428). Divider 10 MΩ / 130 kΩ referenced to **VMID ≈ 1.65 V**, buffered by one of the PIC32MK's internal op amps (an external SOT-23 op amp if the pin map won't allow it). VMID also goes to its own ADC channel and firmware subtracts it. ±1.49 V around VMID at ±116 V; about 57 mV per count. 0.1 µF across the 130 kΩ (fc ≈ 12 Hz; it also holds the charge for the ADC sample capacitor). Clamp to 3.3 V / GND. Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. Kept because MCC 118/128 stop at ±10 V. **Proposed 2026-10-06, TBD:** make each input differential (AIn+ and AIn−, each through its own 10 MΩ divider to VMID; firmware subtracts), so AI makes no assumption about the DUT ground either; same terminal count, two more ADC pins. |
 | Mounting | **Pi M2.5 holes kept** (58 × 49 mm pattern, 3.5 mm from the top-left corner; decided 2026-10-06) so the board can sit on top of a Pi/MCC stack on standoffs, plus extra M2.5 holes where the outline extends past the pattern. No DIN clip holes on the board (removed 2026-10-05 for space): a 3D-printed adapter on the M2.5 holes carries the DIN clip, as on can-ssr. |
 | Stack position | None required (2026-10-06): no header connection. When it sits on a stack it goes on top on standoffs, so top-entry connectors stay reachable; it may also mount on its own (DIN adapter) or beside the rack. |
-| Size | **88 × 76 mm** (floorplan rev 4, 2026-10-06; was 100 × 100 mm). Height is set by the four CAN connectors on one edge; see the board README. |
+| Size | **97 × 79 mm** (floorplan rev 5, 2026-10-06; was 100 × 100 mm). Height is set by the four CAN connectors (with 2 mm island gaps) on one edge; see the board README. |
 
 Scope (decided 2026-10-06). The board fills the gaps the MCC HATs leave:
 **4 × isolated CAN FD** (the main benefit) and **relay drive**, plus "a couple"
@@ -161,11 +176,9 @@ analog out, the expander and 24 V-tolerant GPIO were cut.
 Terminal count: 4 × CAN on MC 3,5 4-pole (16 positions); field I/O on
 double-level push-in terminals, one level signal and one level return:
 relay 4 (OUTn / 0 V), GPIO 4 (IOn / GND), AI 2 (AIn / GND), so 10 positions.
-About 26 positions plus USB and the 12 V input, against about 45 before.
+About 26 positions plus the RJ45 and the 12 V input, against about 45 before.
 All resistors are discrete 1206 (too few repeated channels for resistor
 networks to pay off).
-
-USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; VBUS sensed but not used for power), decided 2026-10-04. Where it sits on the board: **TBD** at layout.
 
 ### 4.2 Remote CAN node, SSR: `can-ssr` (off the header)
 
@@ -440,21 +453,14 @@ field-facing pin must survive the likely mistakes:
 - One **host protocol** shared by all boards, defined before the controller
   firmware: discovery and identification (board type, revision, serial
   number), I/O read/write, configuration, and the watchdog. **TBD**.
-- Controller over USB: a composite device. The CAN channels use the
-  **gs_usb** protocol (as used by candleLight adapters), so the mainline Linux
-  `gs_usb` driver gives native SocketCAN interfaces (`can0`, `can1`) with
-  classic and CAN FD support and no daemon. slcan was considered and rejected:
-  it cannot carry CAN FD frames. A further interface carries the control
-  protocol for local I/O.
-  - USB IDs: **our own VID:PID** (decided 2026-10-04), bound to `gs_usb` at
-    runtime: `echo <VID> <PID> > /sys/bus/usb/drivers/gs_usb/new_id`, made
-    persistent with a udev rule installed by the Python project's setup.
-    Source of the ID: **Microchip's free PID sublicensing** (VID 0x04D8, for
-    products built on Microchip MCUs), decided 2026-10-04. **TBD**: request
-    the PID before firmware release. Never use an unallocated ID.
+- Controller over **Ethernet** (decided 2026-10-06): the host uses plain TCP/UDP
+  sockets from user space, with no kernel driver, udev rule or sudo. The
+  protocol is the user's choice, simpler than SCPI: **TBD**. Discovery (e.g. a
+  UDP broadcast reply) and a static-IP default with DHCP: **TBD**. Superseded
+  (2026-10-04): USB composite device with gs_usb / SocketCAN and a Microchip
+  sublicensed VID:PID.
 - **Classic and FD per channel:** each channel is set to classic CAN 2.0 or
-  CAN FD (with its own arbitration and data bit rates) from the host, e.g.
-  `ip link set can0 type can bitrate 500000 [dbitrate 2000000 fd on]`. One
+  CAN FD (with its own arbitration and data bit rates) from the host. One
   board serves both legacy and FD devices under test.
 - **Bus mode rule:** a bus may only carry FD frames if every node on it is
   FD-capable. Run a bus in classic mode whenever a classic-only node (e.g. a
