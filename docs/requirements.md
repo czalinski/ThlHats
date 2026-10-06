@@ -58,12 +58,12 @@ Decided 2026-10-04.
 
 ```
 Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► logic domain of our boards
-                                                           (MCU, expanders, ADC, AO, isolator logic sides)
+                                                           (MCU, ADC, isolator logic sides)
 
 12 V DIN supply (floating output) ──► CAN board 12 V terminal ──► 12 V domain
         │                                                       ├─► CAN cable supply (fused per bus)
         │                                                       ├─► buck to 5 V ─► ISO1042 bus sides
-        │                                                       └─► relay coils (via isolated drivers)
+        │                                                       └─► relay coils (via PhotoMOS)
         └── its 0 V is the CAN bus ground; never connected to logic ground
 ```
 
@@ -93,7 +93,7 @@ Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► lo
 - Each CAN bus gets the 12 V on its cable through its own fuse or current
   limit. Both CAN buses share the 12 V domain and its ground (isolated from
   the Pi, not from each other).
-- A buck converter makes 5 V for the ISO1042 bus sides.
+- A buck converter makes 5 V for the ISO1044 bus sides.
 - The 12 V domain needs no isolated DC-DC converter.
 
 ### 3.3 Where the isolation is
@@ -106,7 +106,7 @@ parts that cross between them, and nothing else:
 |----------|------|
 | Mains to 12 V | The DIN supply itself (SELV, floating output) |
 | CAN data | ISO1044BD isolated CAN transceivers |
-| Relay control | Digital isolators (two 4-channel) driving the ULN2803A (decided 2026-10-05) |
+| Relay control | PhotoMOS relays, LED on the logic side, contact switching +12 V to the coil (decided 2026-10-06; replaces the 2026-10-05 isolators + ULN2803A) |
 | 12 V status | An optocoupler, so the MCU can report whether 12 V (CAN bus power) is present (decided 2026-10-04) |
 
 Layout rules that follow:
@@ -114,8 +114,9 @@ Layout rules that follow:
 - Split the copper: no trace, pour, or component may connect 12 V ground to
   logic ground. The isolators straddle the gap.
 - Keep creepage across the gap per the isolators' datasheets.
-- The relay supply comes from the 12 V domain, so the ULN2803A (or its
-  replacement) sits on the 12 V side, driven through the isolators.
+- The relay supply comes from the 12 V domain: the PhotoMOS contacts, the
+  flyback diodes, the relay LEDs and the relay PTC sit on the 12 V side, and
+  the PhotoMOS packages straddle the gap.
 
 ### 3.4 Serial board power
 
@@ -135,30 +136,28 @@ Layout rules that follow:
 | Host link | USB to the host. Uses no header signal pins. |
 | CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **isolated** (**ISO1044BD**, SOIC-8, replaces the ISO1042BQDWVRQ1; decided 2026-10-05). One bus is reserved for our remote nodes (can-ssr); the other three are for DUTs, so one HASS run can test several DUTs. All four keep the 4-pin connector and pinout; the +12 V cable supply fuse is **fitted on CAN1 only** and DNP on CAN2–4 (pin 4 dead unless fitted), decided 2026-10-05. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Switchable 120 Ω termination. |
 | Power | Logic from header 5 V; 12 V domain from an external DIN supply (section 3) |
-| GPIO | 8, each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly** (decided 2026-10-05: the PIC32 has enough I/O, so no MCP23017). Each GPIO has its own ground terminal. |
-| Relay drive | 8 outputs, ULN2803A on the 12 V domain, driven from PIC32 pins through **digital isolators** (two 4-channel, e.g. TI ISO6741; 12 V side powered by the 5 V buck that feeds the ISO1042s; decided 2026-10-05). Coils from the 12 V domain only; no external COM supply option (decided 2026-10-04). |
-| Analog out | 2 × 0–10 V. MCP4922 12-bit DAC with a precision 2.5 V reference into an **LM358B** (gain 4). Op-amp supply **13 V from a small boost on the logic side**, fed from the header 5 V (decided 2026-10-05: no third supply; analog outputs stay referenced to logic ground with AI and GPIO). Each output has its own ground terminal and survives a 24 V short. |
-| Analog in | 4 channels, about ±116 V full scale, 10 MΩ input. MCP3428 (16-bit, I2C 0x68) on the PIC32's own I2C. **Divider 10 MΩ / 130 kΩ referenced to VMID (≈1.65 V) with CHn− = VMID** (changed 2026-10-05: the MCP3428 cannot take inputs below VSS, so a divider to GND cannot measure negative voltages; VMID cancels in the differential reading). ±1.49 V at ±116 V on the ±2.048 V range; 0.1 µF across the 130 kΩ (fc ≈ 12 Hz). Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. |
+| GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
+| Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** relay (e.g. Panasonic AQV252G, DIP-6 / SMD-6; MPN to confirm, prefer a current-limiting type if one fits) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
+| Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
+| Analog in | **2 channels** (reduced from 4 on 2026-10-06), **bipolar**, about ±116 V full scale, 10 MΩ input, on the **PIC32's internal 12-bit ADC** (decided 2026-10-06; replaces the MCP3428). Divider 10 MΩ / 130 kΩ referenced to **VMID ≈ 1.65 V**, buffered by one of the PIC32MK's internal op amps (an external SOT-23 op amp if the pin map won't allow it). VMID also goes to its own ADC channel and firmware subtracts it. ±1.49 V around VMID at ±116 V; about 57 mV per count. 0.1 µF across the 130 kΩ (fc ≈ 12 Hz; it also holds the charge for the ADC sample capacitor). Clamp to 3.3 V / GND. Low accuracy is fine; calibrate in firmware. Each input has its own ground terminal. Kept because MCC 118/128 stop at ±10 V. |
 | Mounting | Pi M2.5 holes plus M2.5 holes in the other three corners. No DIN clip holes on the board (removed 2026-10-05 for space): a 3D-printed adapter on the M2.5 holes carries the DIN clip, as on can-ssr. |
 | Stack position | **Top of the stack**: MCC HATs below, can-controller above them (user, 2026-10-05). Nothing sits above it, so top-entry connectors and connectors inside the HAT outline stay reachable. |
-| Size | 100 × 100 mm (the maximum), to fit about 45 terminal positions (below) on three edges. Decided 2026-10-04. |
+| Size | **TBD at floorplan** (2026-10-06): the smallest outline that fits the terminals below, at most 100 × 100 mm. The rev 2/3 layouts at 100 × 100 mm are superseded. |
 
-Terminal count (3.5 mm pitch): 2 × CAN (8), 8 GPIO + 8 GND (16), 8 relay
-outputs + 12 V coil supply (9), 2 AO + 2 GND (4), 4 AI + 4 GND (8): about 45
-positions, about 160 mm of edge, plus USB and the 12 V input.
+Scope (decided 2026-10-06). The board fills the gaps the MCC HATs leave:
+**4 × isolated CAN FD** (the main benefit) and **relay drive**, plus "a couple"
+of GPIO and high-voltage AI so one card covers small jobs (the LabJack T7 idea,
+with less). Anyone who needs more channels, more precision, or analog out
+adds an MCC HAT. The rev 3 design had grown too complex (8 relays through
+isolators and an I2C expander, a DAC with a reference, op amp and boost);
+analog out, the expander and 24 V-tolerant GPIO were cut.
 
-Resistor networks (decided 2026-10-04): use them on this board's repeated,
-identical channels to cut hand-soldering work, in easy packages only: SOIC-16
-isolated networks (e.g. Bourns 4816P, 8 resistors) or through-hole SIP
-(e.g. Bourns 4600X). Candidates: the 8 GPIO series resistors, the 8 relay
-driver inputs, the low-voltage legs of the 4 AI dividers. Not for high-voltage
-parts (network elements are rated ~50 V), gate resistors (must sit at each
-gate) or decoupling capacitors (must sit at each IC). No chip arrays with
-0603-size elements. On can-controller the GPIO series resistors are discrete 1206 after all (decided 2026-10-05): the GPIO is split over two connectors 30 mm apart, each resistor should sit at its connector pin, and the solder joint count is the same as a SOIC-16 network.
-
-GPIO protection: a series resistor plus clamp on each pin to survive a short
-to 24 V. That limits output drive to a few mA, which is fine for logic inputs
-on the device under test; loads go on the relay outputs.
+Terminal count: 4 × CAN on MC 3,5 4-pole (16 positions); field I/O on
+double-level push-in terminals, one level signal and one level return:
+relay 4 (OUTn / 0 V), GPIO 4 (IOn / GND), AI 2 (AIn / GND), so 10 positions.
+About 26 positions plus USB and the 12 V input, against about 45 before.
+All resistors are discrete 1206 (too few repeated channels for resistor
+networks to pay off).
 
 USB: USB-C receptacle (USB 2.0 full speed, device only, 5.1 kΩ CC pull-downs; VBUS sensed but not used for power), decided 2026-10-04. Where it sits on the board: **TBD** at layout.
 
@@ -367,13 +366,13 @@ Budget each board's connectors before starting the schematic:
 Double-row terminals (decided 2026-10-05): field I/O uses double-row 3.5 mm
 terminals (e.g. Phoenix SPTD 1,5/..-H-3,5 push-in) with **one row always
 ground** and the other the signal, so every channel brings its own return and
-the test engineer never builds a separate ground harness. Exception: the relay
-outputs (ULN2803A, low-side) pair each OUTn with **+12 V** (coil supply), so
-both coil wires land on the board. CAN keeps the 4-pin MC 3.5 pinout shared
+the test engineer never builds a separate ground harness. The relay outputs
+(PhotoMOS, high-side, decided 2026-10-06) pair each OUTn with **12 V-domain
+0 V** (coil return), so both coil wires land on the board. CAN keeps the 4-pin MC 3.5 pinout shared
 with every board.
 
 Indicator LEDs (decided 2026-10-05, can-controller): one LED per relay, on the
-12 V side directly behind its terminal pair (LED + resistor from +12 V to OUTn,
+12 V side directly behind its terminal pair (LED + resistor from OUTn to 0 V,
 lit when the output is on). CAN activity LEDs on the logic side at the edge of
 the CAN strip, lined up with each CAN connector (the area right behind the
 connectors is the isolated side). No GPIO LEDs.
@@ -392,6 +391,7 @@ field-facing pin must survive the likely mistakes:
 - **ESD/TVS protection** on every external pin.
 - **Series resistance or PTC** on signal I/O. Inputs must survive a short to
   the highest voltage present on the rack: **24 V** (confirmed 2026-10-05).
+  Exception: can-controller GPIO is plain 3.3 V logic (2026-10-06).
 - **Reverse-polarity and overvoltage protection** on every supply input.
 - **Current limiting or fusing** on every supply output, including the CAN
   bus supply and any sensor supply.
@@ -408,10 +408,9 @@ field-facing pin must survive the likely mistakes:
 
 | Type | Range / level | Notes |
 |------|---------------|-------|
-| GPIO | 3.3 V logic, input or output | Survives a 24 V short; output drive a few mA |
-| Relay drive | 12 V coils | Flyback diodes in the ULN2803A |
-| AI | About ±116 V full scale | 10 MΩ input; low accuracy OK |
-| AO | 0–10 V | Short-circuit tolerant |
+| GPIO | 3.3 V logic, input or output | can-controller: ESD + series R only, not 24 V tolerant (2026-10-06) |
+| Relay drive | 12 V coils, sourced +12 V | PhotoMOS high-side; flyback diode per output; PTC on the feed |
+| AI | About ±116 V full scale, bipolar | 10 MΩ input; low accuracy OK |
 
 ### 5.5 Part selection
 

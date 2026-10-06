@@ -1,15 +1,26 @@
 # CAN Controller
 
-Primary controller for the ThlHats HASS stack: two isolated CAN FD buses plus
-local GPIO, relay drive, analog in and analog out. Requirements:
+Primary controller for the ThlHats HASS stack: four isolated CAN FD buses and
+relay drive (the gaps the MCC HATs leave), plus a couple of GPIO and
+high-voltage analog inputs so one card covers small jobs. Requirements:
 [`docs/requirements.md`](../../docs/requirements.md), section 4.1.
 
-- Board: 100 x 100 mm, 2 layers, rev A
+- Board: size TBD at floorplan (at most 100 x 100 mm), 2 layers, rev A
 - Mounting: 4x M2.5 on the Raspberry Pi 58 x 49 mm pattern
 - Pi header: Samtec REF-182665 pass-through socket on top (stacks with MCC HATs).
   Uses no header signal pins; draws logic power from header 5 V.
 - MCU: PIC32MK1024MCM064-I/PT
 - Host link: USB (gs_usb for CAN, plus a control interface)
+
+## Scope reduction (2026-10-06)
+
+The rev 3 design (8 GPIO, 8 relays through ISO6740 isolators, a ULN2803A and
+an MCP23008 expander, 4 AI on an MCP3428, 2 x 0-10 V AO with DAC, reference,
+LM358B and a 13 V boost) had grown past the board's purpose. Cut: analog out
+(MCC 152 / can-ssr cover it), the expander, the isolators and ULN, 24 V-tolerant
+GPIO, and half of the GPIO, relay and AI channels. The schematic, placement and
+routing below that line are superseded and will be redone; `gen_schematic.py`,
+`place_board.py` and `place_rev3.py` describe the old scope.
 
 ## Functional blocks
 
@@ -17,14 +28,48 @@ local GPIO, relay drive, analog in and analog out. Requirements:
 |-------|----------------|--------|
 | MCU, USB | PIC32MK1024MCM064, USB-C receptacle (USB 2.0 FS device) | logic |
 | CAN x4 (FD) | ISO1044BD, termination jumpers, 4-pin terminals (CANH, CANL, GND, +12 V) | crosses logic / 12 V |
-| 12 V input | Keyed terminal, reverse polarity, TVS, eFuse; per-bus fuse; buck to 5 V for ISO1042 bus sides | 12 V |
+| 12 V input | Keyed terminal, reverse polarity, TVS, fuse; per-bus fuse; buck to 5 V for ISO1044 bus sides | 12 V |
 | 12 V status | Optocoupler from the 12 V rail to an MCU input (reports CAN bus power present) | crosses 12 V / logic |
-| GPIO x8 | PIC32 pins directly, series R + clamp per pin (survives a 24 V short), ground terminal per pin | logic |
-| Relay drive x8 | ULN2803A driven through two 4-channel digital isolators (e.g. ISO6741), coils from 12 V only | 12 V |
-| Analog out x2 | MCP4922 + 2.5 V reference, LM358B (gain 4), 13 V boost from header 5 V, ground terminal per output | logic |
-| Analog in x4 | MCP3428, 10 MΩ / 180 kΩ dividers, 0.1 µF, ground terminal per input | logic |
+| GPIO x4 | PIC32 pins directly, 3.3 V, series R + ESD clamp, ground terminal per pin | logic |
+| Relay drive x4 | PhotoMOS per output (LED from a PIC32 pin), sources +12 V to a 12 V coil; flyback diode, LED, shared PTC | crosses logic / 12 V |
+| Analog in x2 | +-116 V bipolar, 10M / 130k dividers to VMID (PIC32 op amp follower), PIC32 12-bit ADC, ground terminal per input | logic |
 
-## Floorplan (rev 2, variant B, 2026-10-05)
+## Parts (draft, 2026-10-06)
+
+| Function | Part | Package | Notes |
+|---|---|---|---|
+| MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, USB FS, ADC, op amps |
+| Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD; USB clock from the UPLL |
+| 3.3 V | MCP1826S-3302E/DB | SOT-223 | from header 5 V |
+| USB-C | GCT USB4085-GF-A | THT | 5.1k CC pull-downs, VBUS sensed only |
+| USB ESD | USBLC6-2SC6 | SOT-23-6 | |
+| CAN transceiver x4 | ISO1044BD | SOIC-8 | CAN FD, 3 kVrms basic isolation |
+| CAN TVS x4 | NUP2105L | SOT-23 | |
+| CAN termination x4 | 120R 1206 + 2-pin jumper | | |
+| CAN bus supply | PTC 1812, hold ~1.1 A | 1812 | fitted on CAN1 only (can-ssr bus); DNP on CAN2-4 |
+| Relay x4 | PhotoMOS, e.g. Panasonic AQV252G (60 V, DIP-6) | DIP-6 / SMD-6 | MPN to confirm: load current, on-resistance, isolation, current-limit option |
+| Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
+| Relay feed | PTC | 1812 | shared by the 4 outputs |
+| 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
+| 12 V to 5 V | RECOM R-78E5.0-0.5 | SIP-3 | ISO1044 bus sides |
+| 12 V status | TLP293 | SO-4 | |
+| GPIO x4 | series R 1206 + ESD clamp | | 3.3 V only |
+| AI dividers x2 | 10M + 130k 1206, 0.1 uF, BAT54S clamp | | 10M needs a voltage-rated 1206 (or two in series) |
+| VMID | 3.3 V divider + PIC32MK op amp follower | | also sampled by the ADC |
+| Connectors | MC 1,5/4-G-3,5 (CAN); SPTD double-level push-in (relay, GPIO, AI) | THT | |
+| LEDs | 1206 | | power, heartbeat, USB, CAN x4, relay x4, 12 V |
+
+## Layout rules
+
+- Connectors on the bottom and both side edges only; the header edge stays clear.
+- Split copper between the logic and 12 V domains; only the isolators cross.
+
+## Directories
+
+- `hardware/` KiCad project
+- `firmware/` firmware sources
+
+## Superseded: floorplan (rev 2, variant B, 2026-10-05)
 
 Drawn on the `Dwgs.User` layer of the PCB. Board corner at (100, 100) mm. The
 board sits at the **top of the stack** (MCC HATs below), so top-entry
@@ -64,7 +109,7 @@ connectors and the area inside the HAT outline stay reachable.
 | 4 CAN (chosen) | ~3,580 mm2 | ~6,880 mm2 | ~52 % (less with ISO1044) |
 | can-ssr logic area, for reference | | 4,200 mm2 | 78 % top + 7 % bottom |
 
-## Parts (draft, 2026-10-05)
+## Superseded: parts (draft, 2026-10-05)
 
 Library status: **stock** = in KiCad's stock libraries (import with
 `tools/kilib.py`), **make** = symbol or footprint to build/import.
@@ -95,7 +140,7 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | Connectors | MC 1,5/4, /8, /9, /12-G-3,5; MSTBVA 2,5/2-G-5,08 | THT | stock | |
 | LEDs | 1206 | | stock | power, heartbeat, USB, CAN x4, relay x8, 12 V |
 
-## Schematic (generated 2026-10-05)
+## Superseded: schematic (generated 2026-10-05)
 
 `hardware/gen_schematic.py` wrote the root sheet and seven block sheets (MCU/USB/power,
 CAN x4, 12 V input, relay drive, GPIO, analog in, analog out). Like can-ssr's
@@ -113,7 +158,7 @@ MPNs to confirm before ordering: crystal (12 MHz, 5032, CL 18 pF: TBD);
 Phoenix MC 1,5/8, /9, /12-G-3,5 (1844278, 1844281, 1844317 entered from the
 series numbering); Littelfuse 1812L110/16DR; Bourns MF-NSMF075-2; TI LM4040A25IDBZR.
 
-## Placement (rev 2, 2026-10-05)
+## Superseded: placement (rev 2, 2026-10-05)
 
 First pass by `hardware/place_board.py` (run once; after hand edits in KiCad, don't rerun).
 
@@ -131,13 +176,3 @@ First pass by `hardware/place_board.py` (run once; after hand edits in KiCad, do
   spacing; confirm the drill spacing with PCBWay.
 
 DRC: clean apart from unrouted nets and silkscreen.
-
-## Layout rules
-
-- Connectors on the bottom and both side edges only; the header edge stays clear.
-- Split copper between the logic and 12 V domains; only the isolators cross.
-
-## Directories
-
-- `hardware/` KiCad project
-- `firmware/` firmware sources
