@@ -482,7 +482,7 @@ def relay_sheet():
     s = Sheet("relay.kicad_sch", "Relay drive", 6, "CAN controller: relay drive")
     s.text("Four relay outputs for standard 12 V coil relays. 2 x AQW212 PhotoMOS (2 Form A): the LED side is LOGIC,\n"
            "driven from MCU pins through 470R (~4.5 mA, operate <= 3 mA); the contact sources +12 V (V12_RLY, fused by F30)\n"
-           "to OUTn. Coil between OUTn and 0 V (GND_RACK) on the same terminal pair. D40-D43 catch the coil kick.\n"
+           "to OUTn. Coil between OUTn and 0 V (GND_RACK) on the same terminal pair. D40-D43 (1N4148W, 300 mA) catch the coil kick.\n"
            "Red LEDs D44-D47 on the rack side show the real output state.", 25.4, 25.4)
     s.part("Device:Polyfuse", "F30", "1.1A", 152.4, 60.96, {"1": "+12V", "2": "V12_RLY"}, 90, FP["PTC"],
            "Littelfuse", "1812L110/16DR", ref_at=(152.4, 57.15), value_at=(152.4, 64.77))
@@ -500,8 +500,8 @@ def relay_sheet():
     conn = {}
     for ch in range(1, 5):
         x = 190.5 + (ch - 1) * 25.4
-        s.part("Device:D", f"D{39 + ch}", "S1G", x, 129.54, {"1": f"RLYOUT{ch}", "2": "/GND_RACK"}, 90,
-               "Diode_SMD:D_SMA_Handsoldering", "Diodes Incorporated", "S1G-13-F",
+        s.part("Device:D", f"D{39 + ch}", "1N4148W", x, 129.54, {"1": f"RLYOUT{ch}", "2": "/GND_RACK"}, 90,
+               FP["SOD123"], "Diodes Incorporated", "1N4148W-7-F",
                ref_at=(x + 5.08, 128.27), value_at=(x + 5.08, 130.81), value_justify="left")
         s.led_chain(f"D{43 + ch}", f"R{54 + ch}", "red", "LTST-C150KRKT", x, 154.94, f"RLYOUT{ch}", rval="4.7k",
                     ground="/GND_RACK")

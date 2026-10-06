@@ -59,8 +59,7 @@ def build():
     s = f'(footprint "{NAME}"\n\t(version 20241229)\n\t(generator "pulse_jd0_0004nl.py")\n\t(layer "F.Cu")\n'
     s += text("Reference", "REF**", mid, Y0 - 2.5, "F.SilkS")
     s += text("Value", NAME, mid, Y1 + 1.5, "F.Fab")
-    s += text("Datasheet", "https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/JD0-0004NL-01/doc_part/JD0-0004NL.pdf",
-              0, 0, "F.Fab", True)
+    s += text("Datasheet", "", 0, 0, "F.Fab", True)   # datasheet URL is in the module docstring
     s += ('\t(descr "Pulse JD0-0004NL RJ45 with magnetics and LEDs, 10/100BASE-TX, side entry, shielded; '
           'land pattern from datasheet rev A sheet 4")\n')
     s += '\t(tags "RJ45 magjack Pulse JD0-0004NL")\n\t(attr through_hole)\n'
@@ -71,7 +70,7 @@ def build():
         s += line(x, Y0 - 0.11, x, 4.5, "F.SilkS", 0.12)
         s += line(x, 7.3, x, Y1 - 0.6, "F.SilkS", 0.12)
     s += line(-0.5, Y0 - 0.6, 0.5, Y0 - 0.6, "F.SilkS", 0.12)          # pin 1 mark behind pin 1
-    s += rect(X0 - 0.5, Y0 - 0.5, X1 + 0.5, Y1, "F.CrtYd", 0.05)       # front face = board edge
+    s += rect(-3.6, Y0 - 0.5, 15.05, Y1, "F.CrtYd", 0.05)            # encloses the shield pins; front = board edge
     s += (f'\t(fp_text user "${{REFERENCE}}"\n\t\t(at {mid:g} {(Y0 + Y1) / 2:g} 0)\n\t\t(layer "F.Fab")\n'
           f'\t\t(uuid "{u()}")\n\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 1 1)\n\t\t\t\t(thickness 0.15)\n\t\t\t)\n\t\t)\n\t)\n')
     for k in range(10):

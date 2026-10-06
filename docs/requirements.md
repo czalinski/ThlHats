@@ -154,6 +154,32 @@ Layout rules that follow:
 
 ## 4. Boards
 
+### 4.0 Development plan: proof-of-concept boards first (decided 2026-10-06)
+
+The full can-controller did not route on 100 x 100 mm, 2 layers, with six
+isolation domains. New plan:
+
+1. **Proof-of-concept (POC) boards**, each at most 100 x 100 mm (the cheap
+   PCBWay/JLCPCB class), one per subsystem: Ethernet, CAN, relays, GPIO/AI, ...
+   Each is built and tested on its own.
+2. **POC #1 is a PIC + power module** that plugs into every POC board, so the
+   TQFP-64 is hand-soldered once or twice, not on every board:
+   - PIC32MK1024MCM064, decoupling, AVDD filter, 12 MHz crystal, MCLR network,
+     ICSP header (1 x 6, 2.54 mm);
+   - the final board's power entry: 12 V input (fuse, reverse-polarity FET,
+     TVS), TRACO TDN 5-2411WI isolated DC-DC to LOGIC +5V, 3.3 V LDO;
+   - two **2 x 17, 2.0 mm** headers to the host board, **keyed by asymmetric
+     placement and a polarization pin**; they carry all 51 PIC signals
+     (47 GPIO, MCLR, USB D+/D-/VBUS), LOGIC +3V3/+5V/GND and RACK +12V/GND_RACK
+     (RACK pins grouped at one end, spaced from the logic pins).
+3. **The final board** follows once every subsystem works: **at most
+   115 x 170 mm** (user's tool limit), 2 layers. Above 100 x 100 mm both fabs
+   price by area (no second price break: PCBWay lists 100 x 100 mm at $5 and
+   150 x 100 mm at $41), which is acceptable for this board.
+
+The can-controller schematic (section 4.1, hardware/gen_schematic.py) stays the
+reference design the POC boards are cut from.
+
 ### 4.1 Primary controller: `can-controller` (Ethernet, no Pi header)
 
 | Item | Requirement |
@@ -168,7 +194,7 @@ Layout rules that follow:
 | Analog in | **2 differential channels** (decided 2026-10-06: no assumption about the DUT ground), about ±116 V full scale per input, 10 MΩ per input, on the **PIC32's internal 12-bit ADC**. Each of AIn+ and AIn− has its own 10 MΩ / 130 kΩ divider to **VMID ≈ 1.65 V** (PIC32MK OA5 as a follower; VMID also on AN25), 0.1 µF across each 130 kΩ (fc ≈ 12 Hz) and a BAT54S clamp; firmware reads both legs and subtracts, so VMID and the common mode cancel. Each leg must stay within about ±116 V of the LOGIC ground (which floats unless GPIO ties it to a DUT). Common-mode rejection is set by divider matching: with 1 % resistors a 50 V common mode can show up to about 0.5 V of error, so calibrate in firmware or use 0.1 % parts where it matters. About 57 mV per count. Uses 4 ADC pins + AN25. Terminal: lower level AIn+, upper level AIn−. Kept because MCC 118/128 stop at ±10 V. |
 | Mounting | **Stack interface** (section 4.4, decided 2026-10-06): 4 × M4 corner holes on a 91 × 91 mm square. **No Pi holes** (dropped 2026-10-06: the board has no header connection, and stacking with can-ssr matters more). Checker exemption in boards/can-controller/board.json. |
 | Stack position | **Base of a can-ssr stack** (section 4.4): on the DIN base plate, up to 4 can-ssr boards above it. CAN1 sits at the stack CAN position so a short jumper reaches the first SSR's CAN IN. |
-| Size | **100 × 100 mm** (decided 2026-10-06: the stack interface outline; eases routing at no PCB cost). |
+| Size | Final board **at most 115 × 170 mm** (decided 2026-10-06, after 100 × 100 mm proved unroutable; see 4.0). The 100 × 100 mm stack interface (4.4) will need revisiting for the larger final board. |
 
 Scope (decided 2026-10-06). The board fills the gaps the MCC HATs leave:
 **4 × isolated CAN FD** (the main benefit) and **relay drive**, plus "a couple"

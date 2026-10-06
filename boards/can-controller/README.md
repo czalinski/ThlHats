@@ -122,6 +122,25 @@ Still TBD in the schematic: both crystals (12 MHz CL 18 pF, 25 MHz CL 12 pF)
 and the W6100 load caps and 3.3 uF 1V2O capacitor MPNs; the ISOW1044 beads
 (BLM31KN102SN1L entered) to be checked against TI's layout guide.
 
+## Placement (first pass, floorplan rev 6, 2026-10-06)
+
+The rev 3 layout was cleared (footprints, tracks, zones, drawings); the board
+keeps its setup and net classes. New outline 100 x 100 mm with the four M4
+standoff holes, then `tools/sync_pcb.py` and `hardware/place_rev6.py` (run
+once; after hand edits in KiCad, don't rerun). Fixed parts at the floorplan
+positions; the rest placed near the pins they serve, each inside its domain
+(domain boundaries pulled back 1 mm, so every isolation gap is >= 2 mm).
+
+- Changes from the floorplan drawing: the LOGIC | CAN2-4 boundary moved from
+  x = 75 to x = 73 (the CAN3 island was too small for its parts); U10 up 1 mm
+  and J30 down 1.5 mm to fit the CAN1 POWERED jumpers; J40 at x 34-57.6 with
+  the AI dividers to its right; MCU rotated 90 degrees so pins 17-32 (CAN,
+  AI) face the right-hand isolators.
+- Relay flyback diodes are 1N4148W (SOD-123, 300 mA); coil currents are about
+  100 mA at most.
+- Checker: ERC clean, no courtyard overlaps or clearance errors, schematic
+  parity clean; 438 unrouted connections; silkscreen cleanup still to do.
+
 ## Layout rules
 
 - Connectors on any edge (no Pi header since 2026-10-06).

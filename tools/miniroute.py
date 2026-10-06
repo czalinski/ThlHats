@@ -19,7 +19,7 @@ CLR = 0.2                    # copper clearance
 NPTH_CLR = 0.3
 EDGE_CLR = 0.3
 VIA_D, VIA_DRILL = 0.6, 0.3
-MARGIN = 0.03
+MARGIN = 0.01
 VIA_COST = 25.0              # in cells (1.25 mm)
 B_FACTOR = 1.15              # mild preference for the top layer
 
@@ -347,17 +347,23 @@ def _free_ends(board, island):
     return out
 
 
-def complete_net(board, net, width, win, verbose=True, max_rounds=8):
-    """Join the islands of a net: route each smaller island to the largest one."""
+def complete_net(board, net, width, win, verbose=True, max_rounds=400):
+    """Join the islands of a net: route each smaller island to the largest one.
+    Islands that cannot be reached are skipped; returns True only if the net ends whole."""
     netinfo = board.GetNetInfo().GetNetItem(net)
     nc = netinfo.GetNetCode()
-    ok = True
+    skip = set()
     for _ in range(max_rounds):
         isl = _islands(board, nc)
         if len(isl) <= 1:
-            return ok
+            return True
         isl.sort(key=len)
-        src, dst = isl[0], isl[-1]
+        dst = isl[-1]
+        cands = [i for i in isl[:-1] if frozenset(x.m_Uuid.AsString() for x in i) not in skip]
+        if not cands:
+            return False
+        src = cands[0]
+        key = frozenset(x.m_Uuid.AsString() for x in src)
         hw = width / 2
         obst = obstacles(board, win, nc, CLR + hw + MARGIN)
         viaok = obstacles(board, win, nc, CLR + VIA_D / 2 + MARGIN)
@@ -376,7 +382,8 @@ def complete_net(board, net, width, win, verbose=True, max_rounds=8):
         if not starts or not goals:
             if verbose:
                 print("  island outside window", net)
-            return False
+            skip.add(key)
+            continue
         obst = {k: bytearray(v) for k, v in obst.items()}
         for (x, y, L) in (starts if s_free else []) + (goals if d_free else []):
             for ddx in range(-2, 3):           # a cut end may sit right next to foreign copper
@@ -394,7 +401,8 @@ def complete_net(board, net, width, win, verbose=True, max_rounds=8):
         if path is None:
             if verbose:
                 print("  NO ROUTE between islands of", net)
-            return False
+            skip.add(key)
+            continue
         runs = [(L, _pull(obst[L], win.W, pts)) for L, pts in _simplify(path)]
 
         def snap(pt, ends):
@@ -420,4 +428,4 @@ def complete_net(board, net, width, win, verbose=True, max_rounds=8):
                 board.Add(v)
         if verbose:
             print(f"  joined an island of {net}: {sum(len(p) - 1 for _, p in runs)} segments, {len(runs) - 1} vias")
-    return ok
+    return len(_islands(board, nc)) <= 1

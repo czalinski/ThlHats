@@ -265,15 +265,4 @@
 		(uuid "65420459-fe1e-41f6-acda-0897144259ca")
 	)
 	(embedded_fonts no)
-	(model "${KICAD10_3DMODEL_DIR}/Converter_DCDC.3dshapes/Converter_DCDC_TRACO_TDN_5-xxxxWI_THT.step"
-		(offset
-			(xyz 0 0 0)
-		)
-		(scale
-			(xyz 1 1 1)
-		)
-		(rotate
-			(xyz 0 0 0)
-		)
-	)
 )
