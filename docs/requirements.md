@@ -95,12 +95,17 @@ Host USB-C supply ──► Pi 5 / Orange Pi 6 ──► header 5 V ──► lo
   Input protection: reverse polarity, TVS, fuse.
 - **RACK domain** (DIN supply 0 V): relay coil outputs and the CAN1 cable
   supply. Relay coils are rack wiring, not DUT wiring.
-- **LOGIC domain**: an **isolated DC-DC** from 12 V (e.g. TRACO TDN 5-1211WI:
-  5 W, 9-36 V in, 5 V out, 1.5 kV; MPN to confirm) makes 5 V for the
-  ISOW1044s and a 3.3 V LDO for the MCU and W6100. Budget at 5 V: MCU + W6100
-  + LEDs about 0.3 A at 3.3 V; ISOW1044 about 80 mA each with traffic, up to
-  211 mA each with a bus held dominant (datasheet maximum); about 0.8 A in
-  normal use, so a 5 W converter rides through a stuck-dominant bus.
+- **LOGIC domain**: an **isolated DC-DC** from 12 V, **TRACO TDN 5-2411WI**
+  (checked 2026-10-06: 9-36 V input, 5 V at 1000 mA, 80 % typ., 50 V / 1 s
+  surge, 1600 VDC functional isolation, DIP-8; full load to 50 °C, so the
+  rack-side ambient is fine; avoid traces under it), makes 5 V for the ISOW1044s
+  and a 3.3 V LDO for the MCU and W6100. Budget at 5 V: W6100 98 mA typ. at
+  100 Mbit (265 mA max on a 10 Mbit link), MCU, LEDs: about 0.3 A at 3.3 V worst
+  case; ISOW1044 about 80 mA each with traffic, 124 mA typ. / 211 mA max each
+  with the bus held dominant. Typical about 0.65 A; all four buses held
+  dominant at typical current about 0.8 A; only the datasheet maximum on all
+  four at once (about 1.15 A) exceeds the converter, which then folds back
+  (short-circuit protected) rather than failing.
 - **CAN1-CAN4**: each bus side is powered by its own ISOW1044's integrated
   isolated DC-DC. No bus-side buck.
 
@@ -158,7 +163,7 @@ Layout rules that follow:
 | CAN | **4 channels** (decided 2026-10-05), **CAN FD**, **each isolated on its own** (**TI ISOW1044**, decided 2026-10-06; replaces the ISO1044BD, whose bus sides shared one 12 V-domain ground and buck). One bus is reserved for our remote nodes (can-ssr, which always needs this controller: decided 2026-10-06); the other three are for DUTs, so one HASS run can test several DUTs. Each is a 4-wire bus: CANH, CANL, GND, +12 V on a **3.5 mm 4-pole pluggable terminal** (Phoenix Contact MC 1,5/4-G-3,5, 1844236; plug 1840382), pin 1 CANH, 2 CANL, 3 GND, 4 +12 V, same on every board (decided 2026-10-04). Pin 3 is the bus's own isolated ground. **CAN1** (next to the RACK domain) has the **POWERED jumpers** (section 3.3) that tie its ground to RACK 0 V and feed fused +12 V to pin 4 (PTC **≥ 2 A hold**: up to 4 can-ssr at about 0.2 A each, estimated, plus derating in a warm stack); on CAN2-4 pin 4 is not connected. Switchable 120 Ω termination. |
 | Power | Everything from one external 12 V DIN supply; LOGIC through an isolated DC-DC (section 3.2) |
 | GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
-| Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × dual PhotoMOS** in DIP-8 (e.g. Panasonic AQW212, 2 Form A; MPN to confirm against coil current, on-resistance and isolation, and prefer a current-limiting type if one fits; floorplan rev 4) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
+| Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × Panasonic AQW212** (2 Form A, DIP-8 through-hole; checked 2026-10-06: 60 V, 500 mA per channel, 2.5 Ω max on-resistance, so a 12 V coil drawing 20-100 mA loses at most 0.25 V; LED operate current about 0.9 mA, drive about 5 mA; 1500 Vrms I/O isolation, functional only. No current limiting: the shared PTC protects the outputs) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
 | Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
 | Analog in | **2 differential channels** (decided 2026-10-06: no assumption about the DUT ground), about ±116 V full scale per input, 10 MΩ per input, on the **PIC32's internal 12-bit ADC**. Each of AIn+ and AIn− has its own 10 MΩ / 130 kΩ divider to **VMID ≈ 1.65 V** (PIC32MK OA5 as a follower; VMID also on AN25), 0.1 µF across each 130 kΩ (fc ≈ 12 Hz) and a BAT54S clamp; firmware reads both legs and subtracts, so VMID and the common mode cancel. Each leg must stay within about ±116 V of the LOGIC ground (which floats unless GPIO ties it to a DUT). Common-mode rejection is set by divider matching: with 1 % resistors a 50 V common mode can show up to about 0.5 V of error, so calibrate in firmware or use 0.1 % parts where it matters. About 57 mV per count. Uses 4 ADC pins + AN25. Terminal: lower level AIn+, upper level AIn−. Kept because MCC 118/128 stop at ±10 V. |
 | Mounting | **Stack interface** (section 4.4, decided 2026-10-06): 4 × M4 corner holes on a 91 × 91 mm square. **No Pi holes** (dropped 2026-10-06: the board has no header connection, and stacking with can-ssr matters more). Checker exemption in boards/can-controller/board.json. |

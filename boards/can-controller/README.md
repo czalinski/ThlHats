@@ -34,7 +34,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | CAN x4 (FD) | ISOW1044 each (isolated data and power), TVS, termination jumper, ferrite beads, 4-pin terminal | crosses LOGIC / CANn; each CANn floats |
 | CAN1 power | POWERED jumpers: CAN1 ground to RACK 0 V, +12 V through a PTC to pin 4 | crosses RACK / CAN1 |
 | 12 V input | Keyed terminal, fuse, reverse-polarity P-FET, TVS | RACK |
-| Logic supply | Isolated DC-DC 12 V to 5 V, 5 W (TRACO TDN 5-1211WI class), 3.3 V LDO | crosses RACK / LOGIC |
+| Logic supply | Isolated DC-DC 12 V to 5 V, 5 W (TRACO TDN 5-2411WI), 3.3 V LDO | crosses RACK / LOGIC |
 | Relay drive x4 | 2 x dual PhotoMOS (LED from a PIC32 pin), sources +12 V to a 12 V coil; flyback diode, LED, shared PTC | crosses LOGIC / RACK |
 | GPIO x4 | PIC32 pins directly, 3.3 V, series R + ESD clamp, ground terminal per pin | LOGIC |
 | Analog in x2 | differential, +-116 V per input; a 10M / 130k divider to VMID on each of AIn+ and AIn- (PIC32 OA5 follower), PIC32 12-bit ADC, firmware subtracts | LOGIC |
@@ -46,16 +46,17 @@ the "Superseded" sections are from the old scope and will be redone;
 | MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, ADC, op amps; OA5 on pins 33/46/49 for VMID |
 | Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD |
 | Ethernet | WIZnet W6100 | LQFP-48 0.5 mm | IPv4/IPv6; not pin-compatible with the W5500 |
-| Ethernet crystal | 25 MHz | SMD | MPN TBD |
+| Ethernet crystal | 25 MHz, CL 12 pF | SMD | MPN TBD; 8 pF load caps, 1 M across (WIZnet ref. V1.1) |
+| W6100 support | RSET_BG 12k + 300R 1 %; TX/RX 2 x 49.9R + 0.1 uF to GND per pair at the chip; jack CT (P4) to 3V3A with 0.1 uF + 1 uF; 1V2O 3.3 uF; beads 3V3D->3V3A and 1V2D->1V2A (HI1206P121R-10); MOD[3:0] 10k pull-downs (SPI); LNKn/ACTn -> jack LEDs via 330R; shield 1 nF/2 kV to GND | 1206/0805 | WIZnet W6100_Ref_Schematic_V110_use_mag |
 | RJ45 | Pulse JD0-0004NL, 1:1 magnetics, green/yellow LEDs, shielded | THT | `Thl_Connector:JD0-0004NL` / `RJ45_Pulse_JD0-0004NL_Horizontal` (from the datasheet). Pins 1/2 TX, 3/5 RX, 4 centre taps; 7-10 are PoE spare-pair pins, left unconnected; no 3D model (IGES only) |
 | Ethernet supply filter | HI1206P121R-10 ferrite bead | 1206 | between the analog and digital 3.3 V supplies of the Ethernet chip (user's earlier design) |
-| Logic supply | TRACO TDN 5-1211WI (5 W, 9-36 V in, 5 V out, 1.5 kV) | THT | MPN to confirm |
+| Logic supply | TRACO TDN 5-2411WI (5 W, 9-36 V in, 5 V 1 A, 1600 VDC) | DIP-8 | stock footprint Converter_DCDC_TRACO_TDN_5-xxxxWI_THT matches; Remote On/Off left open (on) |
 | 3.3 V | MCP1826S-3302E/DB | SOT-223 | from the isolated 5 V |
 | CAN transceiver x4 | TI ISOW1044 | DFM-20 (SOIC-20W footprint) | 5 kVrms, integrated isolated DC-DC, CAN FD 5 Mbit/s |
 | CAN TVS x4 | NUP2105L | SOT-23 | |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | |
 | CAN1 power | PTC, hold >= 2 A, + POWERED jumpers | 1812/2920, 2.54 mm | up to 4 can-ssr at ~0.2 A each (estimate); CAN2-4: pin 4 not connected |
-| Relay x4 | 2 x dual PhotoMOS, e.g. Panasonic AQW212 (2 Form A) | DIP-8 | MPN to confirm: coil current, on-resistance, isolation, current-limit option |
+| Relay x4 | 2 x Panasonic AQW212 (2 Form A) | DIP-8 THT | 60 V, 0.5 A/ch, 2.5 R max, 1.5 kVrms; drive the LED at about 5 mA |
 | Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
 | 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
