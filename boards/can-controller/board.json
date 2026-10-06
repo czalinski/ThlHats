@@ -1,0 +1,4 @@
+{
+  "rpi_mount": false,
+  "reason": "no Pi header connection (Ethernet, 12 V powered); 100 x 100 mm stack interface with can-ssr: 4 x M4 corner holes on a 90 x 90 mm square (docs/requirements.md 4.4)"
+}

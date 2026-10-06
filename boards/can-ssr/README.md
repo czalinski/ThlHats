@@ -109,3 +109,20 @@ D10-D13, Q5, R10-R15, R32-R47, U33, U34), and they would otherwise sit on the pl
 
 - `hardware/` KiCad project
 - `firmware/` firmware sources
+
+## Stack interface changes before ordering (2026-10-06)
+
+can-ssr now stacks on a can-controller (up to 4 high) or lies side by side in
+a 1U/2U shelf; see docs/requirements.md 4.2 and 4.4. Not ordered yet; the
+layout needs:
+
+- 4 x M4 (4.3 mm) holes at (5, 5), (95, 5), (5, 95), (95, 95) mm, replacing
+  MH1-MH4 (M3); no parts within 6.5 mm of a hole centre, no copper within
+  4 mm of the hole edge; insulating standoffs.
+- Load bolt row (H1-H4, now x 8-86 at y 93) moved inward, about x 18-82, clear
+  of the bottom corner holes; the busbars follow.
+- CAN IN (J1) at the stack CAN position: left edge, courtyard y 11.0-27.6,
+  pin 1 (CANH) at the top. CAN OUT (J2) on the same edge if it clears the
+  CAN/load barrier (y 42-48).
+- Re-check the 12 V draw (estimate about 0.2 A at full display brightness):
+  four boards share can-controller CAN1's PTC.

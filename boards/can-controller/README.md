@@ -5,9 +5,9 @@ relay drive (the gaps the MCC HATs leave), plus a couple of GPIO and
 high-voltage analog inputs so one card covers small jobs. Requirements:
 [`docs/requirements.md`](../../docs/requirements.md), sections 3 and 4.1.
 
-- Board: 97 x 79 mm, 2 layers, rev A
-- Mounting: M2.5 holes on the Raspberry Pi 58 x 49 mm pattern (no header
-  connector), so it can sit on top of a Pi/MCC stack on standoffs
+- Board: 100 x 100 mm, 2 layers, rev A
+- Mounting: stack interface with can-ssr (requirements 4.4): 4 x M4 corner
+  holes on a 90 x 90 mm square; base of a stack of up to 4 can-ssr. No Pi holes
 - Host link: **Ethernet** (WIZnet W6100, user-space TCP/UDP sockets, no
   drivers or sudo on the host); a switch is assumed in the rack
 - Power: one 12 V DIN supply; the logic runs from an isolated DC-DC
@@ -53,7 +53,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | CAN transceiver x4 | TI ISOW1044 | DFM-20 (SOIC-20W footprint) | 5 kVrms, integrated isolated DC-DC, CAN FD 5 Mbit/s |
 | CAN TVS x4 | NUP2105L | SOT-23 | |
 | CAN termination x4 | 120R 1206 + 2-pin jumper | | |
-| CAN1 power | PTC 1812, hold ~1.1 A, + POWERED jumpers | 1812, 2.54 mm | CAN2-4: pin 4 not connected |
+| CAN1 power | PTC, hold >= 2 A, + POWERED jumpers | 1812/2920, 2.54 mm | up to 4 can-ssr at ~0.2 A each (estimate); CAN2-4: pin 4 not connected |
 | Relay x4 | 2 x dual PhotoMOS, e.g. Panasonic AQW212 (2 Form A) | DIP-8 | MPN to confirm: coil current, on-resistance, isolation, current-limit option |
 | Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
@@ -64,37 +64,37 @@ the "Superseded" sections are from the old scope and will be redone;
 | Connectors | MC 1,5/4-G-3,5 (CAN); SPTD double-level push-in (relay, GPIO, AI) | THT | |
 | LEDs | 1206 | | power, heartbeat, CAN x4, relay x4 (Ethernet LEDs in the jack) |
 
-## Floorplan (rev 5, 2026-10-06)
+## Floorplan (rev 6, 2026-10-06)
 
-![floorplan rev 5](hardware/floorplan_rev5.png)
+![floorplan rev 6](hardware/floorplan_rev6.png)
 
-`hardware/floorplan_rev5.py OUT_DIR` draws it (real footprints for the edge
-connectors and large parts, Dwgs.User block areas, Cmts.User domain
-boundaries) into a scratch board and renders the PNG; the placement script
-will reuse its coordinates. Board corner at (100, 100) mm; coordinates below
-are from the corner.
+`hardware/floorplan_rev6.py OUT_DIR` draws it (real footprints for the edge
+connectors and large parts, Dwgs.User block areas and standoff keep-outs,
+Cmts.User domain boundaries) into a scratch board and renders the PNG; the
+placement script will reuse its coordinates. Board corner at (100, 100) mm;
+coordinates below are from the corner.
 
 | Edge | Connector | Position | Domain |
 |------|-----------|----------|--------|
-| Right | CAN4, CAN3, CAN2, CAN1 (J14-J11), MC 1,5/4-G-3,5, 2 mm island gaps | full edge | CANn |
-| Bottom | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | x 9-25.6 | RACK |
-| Bottom | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | x 30-43 | RACK |
-| Left | I/O (J40), SPTD 2x6: GPIO1-4 / GND, AI1-2 + / - | y 24-47.6, between MH1 and MH3 | LOGIC |
-| Top | RJ45 (J4) | x 8-27 | LOGIC |
+| Left | CAN1 (J11) at the **stack CAN position**, under each can-ssr's CAN IN | y 11.0-27.6 | CAN1 |
+| Left | RELAY (J30), SPTD 2x4: OUT1-4 / 0 V | y 33-49.6 | RACK |
+| Left | 12 V IN (J20), MSTBVA 2,5/2-G-5,08, top entry | y 56-69 | RACK |
+| Right | CAN4, CAN3, CAN2 (J14-J12), 2 mm island gaps | y 22-75.8 | CANn |
+| Top | RJ45 (J4) | x 40-59 | LOGIC |
+| Bottom | I/O (J40), SPTD 2x6: GPIO1-4 / GND, AI1-2 + / - | x 45-68.6 | LOGIC |
 
-- 97 x 79 mm (7,660 mm2, a quarter less than rev 3). Height: four CAN
-  connectors plus three 2 mm island gaps on the right edge.
-- Holes: MH1-MH4 on the Pi pattern, all in LOGIC; MH5 at the bottom-left corner.
-- LOGIC | CAN boundary at x = 71, clear of MH2/MH4. The four ISOW1044s
-  straddle it at y 11.2/26.7/42.2/57.7; each island steps out at x = 82.5 to
-  meet its connector (the isolators are spaced closer than the connectors).
-- RACK block below y = 50 (x > 7.5), with a LOGIC notch (x 56-71, y 50-65.5)
-  around MH4 and CAN1's isolator. The PhotoMOS pair and the DC-DC straddle
-  y = 50; CAN1's POWERED jumper straddles RACK | CAN1 at the bottom of x = 71.
-- MCU centred at (49, 28): CAN pins face the isolators, GPIO/AI pins face J40,
-  W6100 next to the RJ45. CAN activity LEDs in LOGIC beside the isolators.
-- CAN bus-side zones (TVS, termination, ferrite beads, ISOW1044 output caps)
-  are about 7 x 12 mm per channel: tight but enough.
+- 100 x 100 mm stack interface: M4 holes at the corners (5 mm in), 13 x 13 mm
+  standoff keep-outs drawn around them.
+- CAN1 island top-left (x < 24, y < 30): its ISOW1044 (rotated, logic side
+  facing in) straddles x = 24; the POWERED jumpers straddle y = 30 into RACK.
+- RACK on the left below CAN1 (x < 33, y 30-90): the PhotoMOS pair and the
+  TDN 5 DC-DC straddle x = 33.
+- CAN2-CAN4 islands on the right (x > 75): ISOW1044s straddle x = 75, centred
+  on their connectors (no stepping needed at this pitch).
+- LOGIC in the middle: W6100 under the RJ45, MCU at (55, 50), GPIO/AI parts
+  above J40, CAN LEDs beside the right-hand isolators, ICSP header top right.
+- Much more room than rev 5: logic routing and the CAN bus zones are no longer
+  tight.
 
 ## Layout rules
 
