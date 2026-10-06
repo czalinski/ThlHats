@@ -47,7 +47,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD |
 | Ethernet | WIZnet W6100 | LQFP-48 0.5 mm | IPv4/IPv6; not pin-compatible with the W5500 |
 | Ethernet crystal | 25 MHz | SMD | MPN TBD |
-| RJ45 | JD0-0004NL, jack with integrated magnetics and LEDs | THT | user's choice; footprint to import (the floorplan still shows a HanRun HR911105A placeholder) |
+| RJ45 | Pulse JD0-0004NL, 1:1 magnetics, green/yellow LEDs, shielded | THT | `Thl_Connector:JD0-0004NL` / `RJ45_Pulse_JD0-0004NL_Horizontal` (from the datasheet). Pins 1/2 TX, 3/5 RX, 4 centre taps; 7-10 are PoE spare-pair pins, left unconnected; no 3D model (IGES only) |
 | Ethernet supply filter | HI1206P121R-10 ferrite bead | 1206 | between the analog and digital 3.3 V supplies of the Ethernet chip (user's earlier design) |
 | Logic supply | TRACO TDN 5-1211WI (5 W, 9-36 V in, 5 V out, 1.5 kV) | THT | MPN to confirm |
 | 3.3 V | MCP1826S-3302E/DB | SOT-223 | from the isolated 5 V |

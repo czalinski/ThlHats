@@ -163,8 +163,7 @@ def build(board):
             seg(board, C, (B_X, top - 1.0), (W, top - 1.0), 0.4)
 
     # --- LOGIC ------------------------------------------------------------------------
-    put(board, "Connector_RJ", "RJ45_Hanrun_HR911105A_Horizontal", "J4", 180, left=40.0, top=0,
-        stock=True)
+    put(board, "Thl_Connector", "RJ45_Pulse_JD0-0004NL_Horizontal", "J4", 180, left=40.0, top=0)
     put(board, "Package_QFP", "LQFP-48_7x7mm_P0.5mm", "U3", 0, x=50.0, y=30.0, stock=True)
     text(board, D, 50.0, 36.5, "W6100, 25 MHz", 0.7)
     put(board, "Package_QFP", "TQFP-64_10x10mm_P0.5mm", "U1", 0, x=55.0, y=50.0)

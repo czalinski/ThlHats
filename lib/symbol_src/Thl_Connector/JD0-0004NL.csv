@@ -1,0 +1,26 @@
+# name: JD0-0004NL
+# mpn: JD0-0004NL
+# manufacturer: Pulse Electronics
+# reference: J
+# footprint: Thl_Connector:RJ45_Pulse_JD0-0004NL_Horizontal
+# datasheet: https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/JD0-0004NL-01/doc_part/JD0-0004NL.pdf
+# description: Pulse JD0-0004NL PulseJack RJ45 with integrated 1:1 magnetics (10/100BASE-TX), green and yellow LEDs, shielded, PoE-capable (spare-pair pins 7-10, terminated 75 R + 22 nF inside), 1500 VAC isolation. Pin functions from datasheet rev A sheet 2: 1/2 = TX pair (RJ45 1/2), 3/5 = RX pair (RJ45 3/6), 4 = PHY-side centre taps, shield through 1000 pF 2 kV.
+# keywords: RJ45 magjack ethernet 10/100 LED
+# fp_filters: RJ45*JD0-0004NL*
+pin,name,type,side
+1,TD+,passive,left
+2,TD-,passive,left
+4,CT,passive,left
+3,RD+,passive,left
+5,RD-,passive,left
+,,,left
+6,NC,no_connect,left
+7,POE_7,passive,left
+8,POE_8,passive,left
+9,POE_9,passive,left
+10,POE_10,passive,left
+12,LED_G+,passive,right
+11,LED_G-,passive,right
+14,LED_Y+,passive,right
+13,LED_Y-,passive,right
+SH,SHIELD,passive,bottom
