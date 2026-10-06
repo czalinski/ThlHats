@@ -206,22 +206,27 @@ MCU = "Thl_MCU:PIC32MK1024MCM064-IPT"
 # C1TX grp1 / C1RX grp3, C2TX grp4 / C2RX grp2, C3TX grp3 / C3RX grp1, C4TX grp2 / C4RX grp4,
 # U1TX grp1 / U1RX grp3, SDO1 grp1-2, SCK1 fixed RB7.
 MCU_NETS = {
-    # left side: GPIO (connectors on the left edge), I2C1, DAC chip select
-    "1": "/GPIO8", "2": "/GPIO7", "3": "/GPIO6", "4": "/GPIO5",
-    "5": "/I2C_SCL", "6": "/I2C_SDA", "7": "MCLR", "8": "/GPIO4",
-    "11": "/GPIO3", "12": "/GPIO2", "13": "/GPIO1", "14": "/DAC_CS", "15": "~", "16": "~",
-    # bottom: ICSP, CAN, relays
-    "17": "PGC1", "18": "PGD1", "21": "/C3RX", "22": "/RLY1", "23": "/RLY2", "24": "/RLY3",
-    "27": "/RLY4", "28": "/RLY5", "29": "/C3TX", "30": "/C2TX", "31": "/C2RX", "32": "/C1TX",
-    # right: CAN, USB, crystal, SPI clock, 12 V status
-    "33": "/C1RX", "34": "VBUS", "36": "USB_DN", "37": "USB_DP", "39": "OSC1", "40": "OSC2",
-    "42": "/RLY6", "43": "/C4TX", "44": "/RLY7", "45": "/C4RX", "46": "/DAC_SCK", "47": "/V12_OK", "48": "~",
-    # top: UART, SPI data, LEDs, relay 8
-    "49": "/RLY8", "50": "U1RX", "51": "U1TX", "52": "/DAC_SDI", "53": "/LED_CAN1", "54": "/LED_CAN2",
-    "55": "/LED_CAN3", "58": "/LED_CAN4", "59": "LED_HB", "60": "LED_USB", "61": "~", "62": "~", "63": "~", "64": "~",
-    # power
-    "10": "+3V3", "26": "+3V3", "38": "+3V3", "57": "+3V3", "19": "AVDD", "35": "+3V3",
-    "9": "GND", "25": "GND", "41": "GND", "56": "GND", "20": "GND",
+    # U1 sits rotated 90 deg on the PCB: pins 1-16 face down, 17-32 right, 33-48 up, 49-64 left.
+    # Each side carries the signals for the parts it faces, in the order the parts sit, so the
+    # escape routing never crosses (floorplan rev 3). PPS groups per DS60001519E Tables 13-1/13-2.
+    # bottom (left to right): DAC SPI4, I2C1 (ADC + relay expander), MCLR, CAN2
+    "1": "~", "2": "/DAC_SDI", "3": "/DAC_SCK", "4": "/DAC_CS",          # SDO4 RPB14, SCK4 RPB15, CS RG6
+    "5": "/I2C_SCL", "6": "/I2C_SDA", "7": "MCLR", "8": "~", "11": "~", "12": "~",
+    "13": "/LED_CAN2", "14": "/C2RX", "15": "/C2TX", "16": "/LED_CAN1",   # C2RX RPA1, C2TX RPB0
+    # right (bottom to top): CAN1, CAN3, CAN4 pairs, TX above RX like the ISO1044 pins; LED lines between
+    "17": "/C1RX", "18": "/C1TX", "21": "/C3RX", "22": "/C3TX",           # C1RX RPB2, C1TX RPB3, C3RX RPC0, C3TX RPC1
+    "23": "~", "24": "~", "27": "~", "28": "~", "29": "/LED_CAN3",
+    "30": "/C4RX", "31": "/C4TX", "32": "/LED_CAN4",                       # C4RX RPE15, C4TX RPA8
+    # top (right to left): 12 V status (opto at the top of the CAN strip), USB, crystal, ICSP on PGx2,
+    # heartbeat LED, UART1
+    "33": "/V12_OK", "34": "VBUS", "36": "USB_DN", "37": "USB_DP", "39": "OSC1", "40": "OSC2", "42": "~",
+    "43": "PGD2", "44": "PGC2", "45": "LED_HB", "46": "U1TX", "47": "U1RX", "48": "~",   # U1TX RPB7, U1RX RPC13
+    # left (top to bottom): GPIO1-8, USB LED
+    "49": "/GPIO1", "50": "/GPIO2", "51": "/GPIO3", "52": "/GPIO4", "53": "/GPIO5", "54": "/GPIO6",
+    "55": "/GPIO7", "58": "/GPIO8", "59": "LED_USB", "60": "~", "61": "~", "62": "~", "63": "~", "64": "~",
+    # power (AVDD straight to +3V3: it sits between two CAN pairs, and the PIC's own ADC is unused)
+    "10": "+3V3", "19": "+3V3", "26": "+3V3", "35": "+3V3", "38": "+3V3", "57": "+3V3",
+    "9": "GND", "20": "GND", "25": "GND", "41": "GND", "56": "GND",
 }
 
 
@@ -261,15 +266,12 @@ def mcu_sheet():
     mx, my = 254.0, 129.54
     s.part(MCU, "U1", "PIC32MK1024MCM064-I/PT", mx, my, MCU_NETS, 0, "Package_QFP:TQFP-64_10x10mm_P0.5mm",
            "Microchip Technology", "PIC32MK1024MCM064-I/PT", ref_at=(mx + 22.86, my - 50.8), value_at=(mx + 22.86, my + 50.8))
-    s.part("Device:FerriteBead_Small", "FB1", "600R@100MHz", 287.02, 40.64, {"1": "+3V3", "2": "AVDD"}, 90,
-           "Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder", "Murata", "BLM21PG601SN1D",
-           ref_at=(287.02, 36.83), value_at=(287.02, 44.45))
     for i, x in enumerate((172.72, 190.5, 208.28, 226.06)):
         s.C(f"C{3 + i}", "100nF 50V X7R", x, 45.72, "+3V3", "GND", decouple=True)
     s.C("C7", "10uF 25V X7R", 243.84, 45.72, "+3V3", "GND")
-    s.C("C8", "100nF 50V X7R", 314.96, 50.8, "AVDD", "GND", decouple=True)
+    s.C("C8", "100nF 50V X7R", 314.96, 50.8, "+3V3", "GND", decouple=True)
     s.C("C9", "100nF 50V X7R", 261.62, 45.72, "+3V3", "GND", decouple=True)
-    s.text("C3-C6 at the four VDD pins, C9 at VUSB3V3, C7 bulk; C8 + FB1 for AVDD.", 172.72, 33.02, 1.0)
+    s.text("C3-C6 at the four VDD pins, C9 at VUSB3V3, C8 at AVDD (tied to +3V3), C7 bulk.", 172.72, 33.02, 1.0)
 
     # crystal
     s.part("Device:Crystal", "Y1", "12MHz", 340.36, 116.84, {"1": "OSC1", "2": "OSC2"}, 0,
@@ -283,10 +285,10 @@ def mcu_sheet():
     s.R("R2", "10k", 106.68, 152.4, "+3V3", "MCLR")
     s.C("C12", "100nF 50V X7R", 119.38, 165.1, "MCLR", "GND", decouple=True)
     s.part("Connector_Generic:Conn_01x06", "J2", "ICSP", 76.2, 165.1,
-           {"1": "MCLR", "2": "+3V3", "3": "GND", "4": "PGD1", "5": "PGC1", "6": "~"}, 0,
+           {"1": "MCLR", "2": "+3V3", "3": "GND", "4": "PGD2", "5": "PGC2", "6": "~"}, 0,
            "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical", "Samtec", "TSW-106-07-G-S",
            ref_at=(76.2, 157.48), value_at=(76.2, 175.26))
-    s.text("ICSP (PICkit / ICD / Snap): 1 MCLR, 2 VDD, 3 VSS, 4 PGD1, 5 PGC1.", 55.88, 182.88, 1.0)
+    s.text("ICSP (PICkit / ICD / Snap): 1 MCLR, 2 VDD, 3 VSS, 4 PGD2, 5 PGC2.\nMCU pins 43/44 (PGx2): debugging needs ICESEL = PGx2.", 55.88, 182.88, 1.0)
 
     # debug UART
     s.part("Connector_Generic:Conn_01x03", "J3", "UART", 76.2, 205.74, {"1": "U1TX", "2": "U1RX", "3": "GND"}, 0,
@@ -311,7 +313,6 @@ def mcu_sheet():
     s.R("R5", "1k", 271.78, 213.36, "VBUS_C", "VBUS", rot=90)
     s.R("R6", "100k", 261.62, 226.06, "VBUS", "GND")
     s.flag(254.0, 205.74); s.llabel("VBUS", 254.0, 205.74, 180)
-    s.flag(302.26, 35.56); s.llabel("AVDD", 302.26, 35.56, 0)
     s.text("USB 2.0 full speed, device only. CC 5.1k pull-downs. VBUS is sensed (1k series,\n"
            "100k pull-down), never used for power: the board runs from the Pi header.\n"
            "USBLC6 pass-through: pins 1/6 D+, 3/4 D- (route straight through).", 254.0, 254.0, 1.0)
@@ -415,7 +416,7 @@ def power12_sheet():
 
 def relay_sheet():
     s = Sheet("relay.kicad_sch", "Relay drive", 5, "CAN controller: relay drive")
-    s.text("Eight relay outputs: MCU -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only (COM).\n"
+    s.text("Eight relay outputs: MCU -> I2C -> MCP23008 -> ISO6740 (x2) -> ULN2803A (12 V domain). Coils from +12 V only.\n"
            "Each output has its own +12 V terminal and a 12 V-side LED right behind it.", 25.4, 25.4)
     for k in range(2):
         y = 63.5 + k * 71.12
@@ -423,9 +424,11 @@ def relay_sheet():
         outs = {"14": "OUTA", "13": "OUTB", "12": "OUTC", "11": "OUTD"}
         nets = {"1": "+3V3", "2": "GND", "8": "GND", "7": "~", "9": "/GND_BUS", "15": "/GND_BUS", "16": "/V5_BUS",
                 "10": "/V5_BUS"}
+        # The isolators sit rotated on the PCB, inputs up, outputs down, U30 left of U31; left to right
+        # their pins run IND..INA, so channel D carries the lowest relay number.
         for j, (pi, po) in enumerate(zip(ins, outs)):
-            ch = 4 * k + j + 1
-            nets[pi] = f"/RLY{ch}"
+            ch = 4 * k + 4 - j
+            nets[pi] = f"RLY{ch}"
             nets[po] = f"RLYD{ch}"
         s.part("Isolator:ISO6740", f"U{30 + k}", "ISO6740", 101.6, y, nets, 0, "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
                "Texas Instruments", "ISO6740DWR", ref_at=(101.6, y - 17.78), value_at=(101.6, y + 17.78))
@@ -433,10 +436,23 @@ def relay_sheet():
         s.C(f"C{41 + 2 * k}", "100nF 50V X7R", 132.08, y - 15.24, "/V5_BUS", "/GND_BUS", decouple=True)
     s.text("EN2 tied high: outputs always enabled. Default output state with VCC1 off: low (relays off).",
            76.2, 210.82, 1.0)
-    uln = {str(i): f"RLYD{i}" for i in range(1, 9)}
+    # MCP23008 next to the isolators: the MCU drives the relays over I2C1, not 8 long traces.
+    # It sits rotated above the isolators, outputs down, GP0..GP7 left to right: RLY1 = GP0 ... RLY8 = GP7.
+    exp = {"1": "/I2C_SCL", "2": "/I2C_SDA", "3": "GND", "4": "GND", "5": "GND", "6": "+3V3", "7": "~", "8": "~",
+           "9": "GND", "18": "+3V3"}
+    exp.update({str(9 + n): f"RLY{n}" for n in range(1, 9)})
+    s.part("Interface_Expansion:MCP23008-xSO", "U33", "MCP23008-E/SO", 50.8, 99.06, exp, 0,
+           "Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm", "Microchip Technology", "MCP23008-E/SO",
+           ref_at=(50.8, 76.2), value_at=(50.8, 121.92))
+    s.C("C45", "100nF 50V X7R", 50.8, 139.7, "+3V3", "GND", decouple=True)
+    s.text("U33 MCP23008 on I2C1 at 0x20 (A2-A0 low), RESET tied high (power-on reset).\n"
+           "RLY1 = GP0 ... RLY8 = GP7. Outputs are inputs (high-Z) after reset: relays off.", 25.4, 162.56, 1.0)
+    # ULN2803A rotated with inputs up: its channels run 8..1 left to right, the relay terminal 1..8,
+    # so relay n uses channel 9 - n (input pin 9 - n, output pin 10 + n).
+    uln = {str(9 - n): f"RLYD{n}" for n in range(1, 9)}
     uln.update({"9": "/GND_BUS", "10": "V12_RLY"})
-    for i in range(1, 9):
-        uln[str(19 - i)] = f"RLYO{i}"
+    for n in range(1, 9):
+        uln[str(10 + n)] = f"RLYO{n}"
     s.part("Transistor_Array:ULN2803A", "U32", "ULN2803A", 190.5, 99.06, uln, 0, "Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm",
            "Texas Instruments", "ULN2803ADWR", ref_at=(190.5, 81.28), value_at=(190.5, 116.84))
     s.part("Device:Polyfuse", "F30", "1.1A", 213.36, 63.5, {"1": "+12V", "2": "V12_RLY"}, 90, FP["PTC"],
@@ -564,11 +580,13 @@ def aout_sheet():
     s.flag(175.26, 205.74); s.llabel("V13", 175.26, 205.74, 0)
 
     # analog connector: AI1-4 + GND, AO1-2 + GND
-    conn = {"1": "/AI1_EXT", "2": "/AI2_EXT", "3": "/AI3_EXT", "4": "/AI4_EXT", "5": "AO1_EXT", "6": "AO2_EXT"}
+    # AO on the top two pins: the outputs leave the terminal toward the op amp without crossing the
+    # input dividers, which sit at their own pins below.
+    conn = {"1": "AO1_EXT", "2": "AO2_EXT", "3": "/AI1_EXT", "4": "/AI2_EXT", "5": "/AI3_EXT", "6": "/AI4_EXT"}
     conn.update({str(6 + k): "GND" for k in range(1, 7)})
     s.part("Connector_Generic:Conn_02x06_Top_Bottom", "J50", "ANALOG", 304.8, 101.6, conn, 0, FP["SPTD"].format(n=6),
            "Phoenix Contact", "1841539", ref_at=(304.8, 88.9), value_at=(304.8, 116.84))
-    s.text("J50 SPTD double-level push-in: lower level 1-4 AI1-AI4, 5 AO1, 6 AO2;\nupper level 7-12 GND.",
+    s.text("J50 SPTD double-level push-in: lower level 1 AO1, 2 AO2, 3-6 AI1-AI4;\nupper level 7-12 GND.",
            276.86, 134.62, 1.0)
     return s
 

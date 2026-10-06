@@ -20,7 +20,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8c56a33d-8099-43e9-8b1f-654cd02ad427")
+		(uuid "de6975f3-501f-4ba5-8394-f1c4c9258213")
 	)
 	(text "Requirements: docs/requirements.md 4.1. Floorplan and parts: boards/can-controller/README.md.\nTwo domains: LOGIC (Pi ground, header 5 V, 3.3 V) and 12 V (CAN bus ground GND_BUS, from the DIN supply).\nOnly the isolators cross: ISO1044 (CAN), ISO6740 (relay drive), TLP293 (12 V status)."
 		(exclude_from_sim no)
@@ -31,7 +31,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a2396ec4-cf12-47c5-bb25-bac9b94ce70b")
+		(uuid "22c0a1d3-1dea-4e61-ba9a-de13f35f7a2c")
 	)
 	(sheet
 		(at 30.48 60.96)
@@ -48,7 +48,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "cd3dd669-53fd-4101-be3e-9563c32e2a46")
+		(uuid "ccb96422-0d23-44fc-97d0-b3f7b7151943")
 		(property "Sheetname" "MCU, USB, power"
 			(at 30.48 60.26 0)
 			(effects
@@ -90,7 +90,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "bdcc1143-f2be-4dad-94f2-4c0cc79b7ec3")
+		(uuid "f3593490-3edc-4f16-97b5-56f2a2482ab6")
 		(property "Sheetname" "CAN x4"
 			(at 91.44 60.26 0)
 			(effects
@@ -132,7 +132,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "15859dd2-cfef-43d6-b0de-08552ce4c107")
+		(uuid "a3186a92-9588-4388-a883-382b3bdd8e73")
 		(property "Sheetname" "12 V input"
 			(at 152.4 60.26 0)
 			(effects
@@ -174,7 +174,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "bfe5148e-ed33-4b6a-ae4e-a7beb55344dd")
+		(uuid "3f6319c5-0140-4f12-8095-3e9e14390366")
 		(property "Sheetname" "Relay drive"
 			(at 213.36 60.26 0)
 			(effects
@@ -216,7 +216,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "b2c07d13-f2bc-42d7-91be-608316c7474f")
+		(uuid "b52e34ef-f7a6-49d2-add1-0bfbb78926ca")
 		(property "Sheetname" "GPIO"
 			(at 30.48 100.9 0)
 			(effects
@@ -258,7 +258,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "2a0a08d5-0d7a-442a-94cb-6b6bcc6945ad")
+		(uuid "7abcfab2-6e11-482a-a3bc-d2d45dfc03cc")
 		(property "Sheetname" "Analog in"
 			(at 91.44 100.9 0)
 			(effects
@@ -300,7 +300,7 @@
 		(fill
 			(color 0 0 0 0.0000)
 		)
-		(uuid "11972789-a311-4c97-845f-a2ef987dcd9a")
+		(uuid "e0b6d1ea-0648-422f-a1eb-d4ae6d21c56a")
 		(property "Sheetname" "Analog out"
 			(at 152.4 100.9 0)
 			(effects

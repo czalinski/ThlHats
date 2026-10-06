@@ -12,6 +12,7 @@
 	(lib (name "Display_Character") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Display_Character.kicad_sym") (options "") (descr ""))
 	(lib (name "Driver_LED") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Driver_LED.kicad_sym") (options "") (descr ""))
 	(lib (name "Interface_CAN_LIN") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Interface_CAN_LIN.kicad_sym") (options "") (descr ""))
+	(lib (name "Interface_Expansion") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Interface_Expansion.kicad_sym") (options "") (descr ""))
 	(lib (name "Isolator") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Isolator.kicad_sym") (options "") (descr ""))
 	(lib (name "Jumper") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Jumper.kicad_sym") (options "") (descr ""))
 	(lib (name "Mechanical") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Mechanical.kicad_sym") (options "") (descr ""))
