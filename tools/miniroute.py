@@ -595,3 +595,62 @@ def stitch_pads(board, net, win, width=0.3, verbose=True):
         if not done:
             left.append(name)
     return left
+
+
+def pin_escape(board, ref, pin, win, inward=True, width=0.2, verbose=True):
+    """Escape one QFP pin to a via: a stub straight along the pin's normal
+    (inward under the package, or outward), optionally ending in a 45-degree
+    jog sideways, and a via there. Candidates are checked against all other
+    copper (tracks, pads, vias, keep-outs) on both layers. Returns the via
+    position (board-local mm) or None."""
+    import math
+    f = board.FindFootprintByReference(ref)
+    p = [q for q in f.Pads() if q.GetNumber() == str(pin)][0]
+    nc = p.GetNetCode()
+    fx, fy = TM(f.GetPosition().x) - ORIGIN, TM(f.GetPosition().y) - ORIGIN
+    px, py = TM(p.GetPosition().x) - ORIGIN, TM(p.GetPosition().y) - ORIGIN
+    dx, dy = px - fx, py - fy
+    nx, ny = ((1.0 if dx > 0 else -1.0), 0.0) if abs(dx) > abs(dy) else (0.0, (1.0 if dy > 0 else -1.0))
+    if inward:
+        nx, ny = -nx, -ny
+    tx, ty = -ny, nx                                   # along the pad row
+    half = max(TM(p.GetSize().x), TM(p.GetSize().y)) / 2
+    viaok = obstacles(board, win, nc, CLR + VIA_D / 2 + MARGIN)
+    trk = obstacles(board, win, nc, CLR + width / 2 + MARGIN)
+    tip = (px + nx * half, py + ny * half)
+    for d in (1.3, 1.6, 2.0, 2.4, 2.8):
+        for lat in (0.0, 0.8, -0.8, 1.2, -1.2):
+            bend = (px + nx * (d - abs(lat)), py + ny * (d - abs(lat)))
+            via = (bend[0] + nx * abs(lat) + tx * lat, bend[1] + ny * abs(lat) + ty * lat)
+            cx, cy = win.cell(*via)
+            if not (0 <= cx < win.W and 0 <= cy < win.H):
+                continue
+            i = cy * win.W + cx
+            if viaok["F"][i] or viaok["B"][i]:
+                continue
+            pts = [tip, bend, via] if lat else [tip, via]
+            if not all(_free_line(trk["F"], win.W, win.cell(*a), win.cell(*c)) for a, c in zip(pts, pts[1:])):
+                continue
+            chain = [(px, py)] + pts[1:]
+            for a, c in zip(chain, chain[1:]):
+                if math.hypot(c[0] - a[0], c[1] - a[1]) < 1e-6:
+                    continue
+                t = pcbnew.PCB_TRACK(board)
+                t.SetStart(pcbnew.VECTOR2I(FM(ORIGIN + a[0]), FM(ORIGIN + a[1])))
+                t.SetEnd(pcbnew.VECTOR2I(FM(ORIGIN + c[0]), FM(ORIGIN + c[1])))
+                t.SetWidth(FM(width))
+                t.SetLayer(pcbnew.F_Cu)
+                t.SetNet(p.GetNet())
+                board.Add(t)
+            v = pcbnew.PCB_VIA(board)
+            v.SetPosition(pcbnew.VECTOR2I(FM(ORIGIN + via[0]), FM(ORIGIN + via[1])))
+            v.SetWidth(FM(VIA_D))
+            v.SetDrill(FM(VIA_DRILL))
+            v.SetNet(p.GetNet())
+            board.Add(v)
+            if verbose:
+                print(f"  {ref}.{pin} ({p.GetNetname()}): via at ({via[0]:.2f}, {via[1]:.2f})")
+            return via
+    if verbose:
+        print(f"  {ref}.{pin} ({p.GetNetname()}): no escape found")
+    return None

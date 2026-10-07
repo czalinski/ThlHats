@@ -77,7 +77,10 @@ class Sheet(nb.Sch):
         pins = nb.pin_positions(lib_id)
         fields = {"Manufacturer": mfr, "MPN": mpn} if mpn else {}
         fields.update(kw.pop("fields", {}) or {})
+        dnp = kw.pop("dnp", False)
         self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(pins), fields=fields, **kw)
+        if dnp:
+            self.items[-1] = self.items[-1].replace("(dnp no)", "(dnp yes)", 1)
         for num, n in nets.items():
             px, py, out = self.pin_end(lib_id, x, y, rot, num)
             self.net(n, px, py, out)
@@ -108,3 +111,66 @@ class Sheet(nb.Sch):
 
     def render(self):
         return super().render().replace('(paper "A4")', '(paper "A3")')
+
+
+class SubSheet(Sheet):
+    """One sub-sheet of a hierarchical schematic (A3). Nets named "/X" become
+    global labels "X" (shared between sheets); others stay local labels."""
+
+    def __init__(self, project, root_uuid, file, name, page, title, rev, power=("+3V3", "+5V", "GND"), mpn=None):
+        super().__init__(project, title, rev, power, mpn)
+        self.root_uuid = root_uuid
+        self.file, self.name, self.page = file, name, page
+        self.sheet_uuid = uid()
+        self.own_uuid = uid()
+        self.pwr = self.flg = 100 * page      # #PWR/#FLG references unique across sheets
+
+    def symbol(self, lib_id, ref, value, x, y, rot=0, footprint="", **kw):
+        root = self.root
+        self.root = self.root_uuid + "/" + self.sheet_uuid
+        u = super().symbol(lib_id, ref, value, x, y, rot, footprint, **kw)
+        self.root = root
+        return u
+
+    def glabel(self, name, x, y, out, shape="bidirectional"):
+        rot = {0: 0, 90: 90, 180: 180, 270: 270}[out]
+        just = "left" if out in (0, 90) else "right"
+        self.items.append(
+            f"\t(global_label {q(name)}\n\t\t(shape {shape})\n\t\t(at {x:g} {y:g} {rot})\n"
+            f"\t\t(fields_autoplaced yes)\n\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 1.27 1.27)\n\t\t\t)\n"
+            f"\t\t\t(justify {just})\n\t\t)\n\t\t(uuid {q(uid())})\n"
+            f"\t\t(property \"Intersheetrefs\" \"${{INTERSHEET_REFS}}\"\n\t\t\t(at {x:g} {y:g} 0)\n"
+            f"\t\t\t(effects\n\t\t\t\t(font\n\t\t\t\t\t(size 1.27 1.27)\n\t\t\t\t)\n\t\t\t\t(hide yes)\n\t\t\t)\n\t\t)\n\t)\n")
+
+    def net(self, name, x, y, out):
+        if name.startswith("/") and name not in self.power_nets:
+            self.glabel(name[1:], x, y, out)
+        else:
+            super().net(name, x, y, out)
+
+    def render(self):
+        text = super().render()
+        text = text.replace(f'(uuid {q(self.root)})', f'(uuid {q(self.own_uuid)})', 1)
+        return re.sub(r'\t\(sheet_instances.*?\n\t\)\n', '', text, flags=re.S)
+
+
+def root_sheet(project, root_uuid, sheets, title, rev, notes=""):
+    """Root schematic text: title, notes and one sheet symbol per SubSheet."""
+    sch = nb.Sch(project, title, rev)
+    sch.root = root_uuid
+    sch.text(title, 25.4, 30.48, 2.54)
+    if notes:
+        sch.text(notes, 25.4, 38.1)
+    blocks = []
+    for i, sh in enumerate(sheets):
+        x, y, w, h = 30.48 + (i % 4) * 60.96, 60.96 + (i // 4) * 40.64, 50.8, 25.4
+        blocks.append(
+            f"\t(sheet\n\t\t(at {x:g} {y:g})\n\t\t(size {w:g} {h:g})\n\t\t(exclude_from_sim no)\n\t\t(in_bom yes)\n"
+            f"\t\t(on_board yes)\n\t\t(dnp no)\n\t\t(fields_autoplaced yes)\n"
+            f"\t\t(stroke\n\t\t\t(width 0.1524)\n\t\t\t(type solid)\n\t\t)\n\t\t(fill\n\t\t\t(color 0 0 0 0.0000)\n\t\t)\n"
+            f"\t\t(uuid {q(sh.sheet_uuid)})\n"
+            f"\t\t(property \"Sheetname\" {q(sh.name)}\n\t\t\t(at {x:g} {y - 0.7:g} 0)\n\t\t\t(effects\n\t\t\t\t(font\n\t\t\t\t\t(size 1.27 1.27)\n\t\t\t\t)\n\t\t\t\t(justify left bottom)\n\t\t\t)\n\t\t)\n"
+            f"\t\t(property \"Sheetfile\" {q(sh.file)}\n\t\t\t(at {x:g} {y + h + 0.6:g} 0)\n\t\t\t(effects\n\t\t\t\t(font\n\t\t\t\t\t(size 1.27 1.27)\n\t\t\t\t)\n\t\t\t\t(justify left top)\n\t\t\t)\n\t\t)\n"
+            f"\t\t(instances\n\t\t\t(project {q(project)}\n\t\t\t\t(path {q('/' + root_uuid)}\n\t\t\t\t\t(page {q(str(sh.page))})\n\t\t\t\t)\n\t\t\t)\n\t\t)\n\t)\n")
+    sch.items.extend(blocks)
+    return sch.render()

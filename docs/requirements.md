@@ -154,36 +154,39 @@ Layout rules that follow:
 
 ## 4. Boards
 
-### 4.0 Development plan: proof-of-concept boards first (decided 2026-10-06)
+### 4.0 Development plan: core board + daughter cards (decided 2026-10-06)
 
 The full can-controller did not route on 100 x 100 mm, 2 layers, with six
-isolation domains. New plan:
+isolation domains. First plan (same day): proof-of-concept boards per
+subsystem plus a plug-in PIC + power module (`boards/pic-module`, committed
+as a reference, not to be built). Revised plan (user, 2026-10-06):
 
-1. **Proof-of-concept (POC) boards**, each at most 100 x 100 mm (the cheap
-   PCBWay/JLCPCB class), one per subsystem: Ethernet, CAN, relays, GPIO/AI, ...
-   Each is built and tested on its own.
-2. **POC #1 is a PIC + power module** that plugs into every POC board, so the
-   TQFP-64 is hand-soldered once or twice, not on every board:
-   - PIC32MK1024MCM064, decoupling, AVDD filter, 12 MHz crystal, MCLR network,
-     ICSP header (1 x 6, 2.54 mm);
-   - the final board's power entry: 12 V input (fuse, reverse-polarity FET,
-     TVS), TRACO TDN 5-2411WI isolated DC-DC to LOGIC +5V, 3.3 V LDO;
-   - two **2 x 20, 2.54 mm** connectors to the host board (changed 2026-10-06
-     from 2.00 mm: the user stocks 2.54 mm headers): sockets on the module's
-     bottom, pin headers on the host, **keyed by asymmetric placement (half a
-     pitch off when turned 180 degrees) and a blocked position (J3.9)**; they
-     carry all 51 PIC signals (47 GPIO, MCLR, USB D+/D-/VBUS), LOGIC
-     +3V3/+5V/GND and RACK +12V/GND_RACK (J3.1-8, spaced from the logic pins
-     by the empty row J3.9/10). Module 56 x 74 mm (up to 100 x 100 mm allowed).
-   - 12 MHz crystal: Abracon ABM3-12.000MHZ-B2-T (CL 18 pF, ESR 60 ohm max,
-     -20 to 70 C), 27 pF C0G load caps; also the final board's crystal.
-3. **The final board** follows once every subsystem works: **at most
-   115 x 170 mm** (user's tool limit), 2 layers. Above 100 x 100 mm both fabs
-   price by area (no second price break: PCBWay lists 100 x 100 mm at $5 and
-   150 x 100 mm at $41), which is acceptable for this board.
+1. **Core board** (100 x 100 mm, the cheap PCBWay/JLCPCB class): PIC32MK, the
+   12 V power entry and isolated logic supply, and **Ethernet** (W6100 +
+   JD0-0004NL), i.e. everything every configuration needs. Circuits from the
+   can-controller schematic (4.1) and the pic-module (crystal: Abracon
+   ABM3-12.000MHZ-B2-T, CL 18 pF, 27 pF C0G load caps; supply island under the
+   QFP). The only board with an MCU: the TQFP is hand-soldered once per core.
+2. **Daughter cards** (100 x 100 mm each) on a common daughter interface (TBD:
+   stacking vs side-by-side, connector, pin budget), in this order:
+   - **CAN card**: the 4 isolated CAN FD channels of 4.1 (ISOW1044, CAN1
+     POWERED jumpers).
+   - **"LabJack light" card**: the small I/O of 4.1 (relay drive, GPIO,
+     differential AI) so a user does not buy a whole MCC HAT for two digital
+     outputs and another for one analog input.
+   - **Serial card**: a couple of RS-232 and a couple of RS-485 ports. May be
+     skipped if a serial Pi HAT coexists with the MCC stack (the user saw pin
+     contention earlier). Note: a Pi serial HAT needs a device-tree overlay and
+     kernel driver (e.g. sc16is7xx), against the no-driver/no-sudo preference
+     (2); a serial card behind the core's Ethernet needs neither.
+3. If the cards work, the **final product may stay modular** (core + cards,
+   all 100 x 100 mm, can-ssr's stack outline) instead of one board of at most
+   115 x 170 mm (user's tool limit; above 100 x 100 mm both fabs price by
+   area: PCBWay lists 100 x 100 mm at $5 and 150 x 100 mm at $41). Decide
+   after the POC cards.
 
 The can-controller schematic (section 4.1, hardware/gen_schematic.py) stays the
-reference design the POC boards are cut from.
+reference design the core and cards are cut from.
 
 ### 4.1 Primary controller: `can-controller` (Ethernet, no Pi header)
 
@@ -418,6 +421,25 @@ can-ssr always works with a can-controller, so the two stack. Two installations:
 | Assembly | **Wire as you stack**, bottom up: the board above blocks tool access to can-ssr's load bolts. Service means unstacking. |
 | CAN position | Left edge (component side up, holes at the top), horizontal header with its mating face at the edge, **pin 1 (CANH) at y = 15.5 mm** from the top edge, then CANL, GND, +12 V at 3.5 mm pitch downward (decided 2026-10-06). can-controller CAN1 is an MC 1,5/4-G-3,5 there (courtyard about y 12.45–29.05); each can-ssr has a **Phoenix MCDN 1,5/4-G1-3,5 P26 THR** double-level header (CAN IN and CAN OUT, wired in parallel) with the same pin positions, so short jumpers (MC plug at both ends) run straight between levels. |
 | Stack depth | Controller plus 4 can-ssr at 35–40 mm pitch: about 180–200 mm |
+
+### 4.5 Daughter-card stack bus (decided 2026-10-06)
+
+Boards: **`core`** (PIC32MK, 12 V entry + isolated logic supply, Ethernet),
+**`can-card`**, **`io-card`** ("LabJack light"), **`serial-card`**. All
+100 x 100 mm with the 4.4 stack holes (4 x M4, 91 x 91 mm), stacked on the
+core. Definition in code: `tools/stack_bus.py` (pinout and the core's MCU pin
+map); board generators import it.
+
+| Item | Decision |
+|------|----------|
+| Stack order | **Core on top** (decided 2026-10-06): RJ45, 12 V input, ICSP and LEDs stay reachable, nothing above the core's tall parts (RJ45 about 13.5 mm). The core has 2 x 20 / 2 x 3 **pin headers on its underside**; each card has ESQ stacking sockets on top with tails through to the card below. Card parts must stay below the stacking height. |
+| Floorplan (all boards) | Bus J10 along the left edge, rack power J11 at the right edge inside a RACK strip about 25 mm wide (relay outputs, CAN1 bus power on cards; 12 V entry and U20 on the core). Exact pin positions in `tools/stack_bus.py`. Core: RJ45 on the bottom edge, right-angle ICSP and debug UART on the top edge, 12 V input J20 horizontal-entry at the right edge. |
+| Logic bus | 2 x 20, 2.54 mm, Samtec **ESQ-120** stacking sockets (long tails through each card; plain 2 x 20 headers for prototypes). 33 signals + 7 supply pins (+5V x2, +3V3, GND x4). LOGIC domain only. |
+| Rack power | Separate 2 x 3, 2.54 mm **ESQ-103** at the opposite edge: +12V x3 (after the core's input protection) and GND_RACK x3. Distance between the two connectors is the RACK/LOGIC isolation; each card keeps its rack-side parts (relay outputs, CAN1 bus power) near it. |
+| Card blocks | can-card: C1-C4 TX/RX (8). io-card: RLY1-4, GPIO1-4, AI1+/-, AI2+/- on the PIC's ADC, VMID (13). serial-card: U2-U5 TX/RX + DE1/DE2 (10). Shared: I2C1 (SCL/SDA, pull-ups on the core). One card of each type per stack, any height. |
+| Status LEDs | CAN activity LEDs on the can-card, driven from the TX/RX lines (no MCU pins). |
+| Core keeps | SPI3 + CS/INT/RST to the W6100, **debug UART1** (header on the core), heartbeat LED, ICSP, VMID reference (OA5 follower). One MCU pin spare (RB13). |
+| RS-485 (serial-card) | Half duplex is the default (full duplex is uncommon); full duplex only if nearly free, e.g. a full-duplex transceiver with driver enable and A-Y / B-Z jumpers. Ports on **DB9**. |
 
 ## 5. Requirements common to all boards
 
