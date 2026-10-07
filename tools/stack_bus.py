@@ -76,6 +76,14 @@ def underside(k):
     return k + 1 if k % 2 else k - 1
 
 
+def socket_pin(k):
+    """Bus pin served by pad k of a KiCad PinSocket footprint on a card's top
+    side. A socket's pad 2 sits at -x in the footprint, so placed with pad 1
+    on the even column (rotation 0) its columns are swapped exactly like the
+    core's underside headers: same map as underside()."""
+    return underside(k)
+
+
 def bus_pos(n):
     return pin_pos(BUS_PIN1, n)
 

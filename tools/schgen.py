@@ -29,6 +29,7 @@ FP = {
     "LED": "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder",
     "FB": "Inductor_SMD:L_1206_3216Metric_Pad1.22x1.90mm_HandSolder",
     "SOD123": "Diode_SMD:D_SOD-123",
+    "SOT23": "Package_TO_SOT_SMD:SOT-23",
 }
 
 
