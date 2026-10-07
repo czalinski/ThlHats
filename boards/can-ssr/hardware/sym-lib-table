@@ -28,6 +28,7 @@
 	(lib (name "Thl_Interface") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Thl_Interface.kicad_sym") (options "") (descr ""))
 	(lib (name "Thl_Isolator") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Thl_Isolator.kicad_sym") (options "") (descr ""))
 	(lib (name "Thl_MCU") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Thl_MCU.kicad_sym") (options "") (descr ""))
+	(lib (name "Thl_Module") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Thl_Module.kicad_sym") (options "") (descr ""))
 	(lib (name "Transistor_Array") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Transistor_Array.kicad_sym") (options "") (descr ""))
 	(lib (name "Transistor_BJT") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Transistor_BJT.kicad_sym") (options "") (descr ""))
 	(lib (name "Transistor_FET") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/symbols/Transistor_FET.kicad_sym") (options "") (descr ""))

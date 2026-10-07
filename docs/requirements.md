@@ -168,10 +168,15 @@ isolation domains. New plan:
      ICSP header (1 x 6, 2.54 mm);
    - the final board's power entry: 12 V input (fuse, reverse-polarity FET,
      TVS), TRACO TDN 5-2411WI isolated DC-DC to LOGIC +5V, 3.3 V LDO;
-   - two **2 x 17, 2.0 mm** headers to the host board, **keyed by asymmetric
-     placement and a polarization pin**; they carry all 51 PIC signals
-     (47 GPIO, MCLR, USB D+/D-/VBUS), LOGIC +3V3/+5V/GND and RACK +12V/GND_RACK
-     (RACK pins grouped at one end, spaced from the logic pins).
+   - two **2 x 20, 2.54 mm** connectors to the host board (changed 2026-10-06
+     from 2.00 mm: the user stocks 2.54 mm headers): sockets on the module's
+     bottom, pin headers on the host, **keyed by asymmetric placement (half a
+     pitch off when turned 180 degrees) and a blocked position (J3.9)**; they
+     carry all 51 PIC signals (47 GPIO, MCLR, USB D+/D-/VBUS), LOGIC
+     +3V3/+5V/GND and RACK +12V/GND_RACK (J3.1-8, spaced from the logic pins
+     by the empty row J3.9/10). Module 56 x 74 mm (up to 100 x 100 mm allowed).
+   - 12 MHz crystal: Abracon ABM3-12.000MHZ-B2-T (CL 18 pF, ESR 60 ohm max,
+     -20 to 70 C), 27 pF C0G load caps; also the final board's crystal.
 3. **The final board** follows once every subsystem works: **at most
    115 x 170 mm** (user's tool limit), 2 layers. Above 100 x 100 mm both fabs
    price by area (no second price break: PCBWay lists 100 x 100 mm at $5 and

@@ -1,0 +1,4 @@
+{
+  "rpi_mount": false,
+  "reason": "plug-in module (POC #1, docs/requirements.md 4.0): sits on a POC host board through two 2 x 20, 2.54 mm connectors, no Pi header or standoffs"
+}

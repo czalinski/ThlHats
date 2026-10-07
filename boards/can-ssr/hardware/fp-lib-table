@@ -24,5 +24,6 @@
 	(lib (name "Sensor_Current") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Sensor_Current.pretty") (options "") (descr ""))
 	(lib (name "Thl_Connector") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Connector.pretty") (options "") (descr ""))
 	(lib (name "Thl_Mechanical") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Mechanical.pretty") (options "") (descr ""))
+	(lib (name "Thl_Module") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Module.pretty") (options "") (descr ""))
 	(lib (name "Thl_Package") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Package.pretty") (options "") (descr ""))
 )

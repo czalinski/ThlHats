@@ -44,7 +44,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | Function | Part | Package | Notes |
 |---|---|---|---|
 | MCU | PIC32MK1024MCM064-I/PT | TQFP-64 0.5 mm | 4 x CAN FD, ADC, op amps; OA5 on pins 33/46/49 for VMID |
-| Crystal | 12 MHz, CL 18 pF | 5032 SMD | MPN TBD |
+| Crystal | 12 MHz, CL 18 pF | 5032 SMD | Abracon ABM3-12.000MHZ-B2-T (chosen 2026-10-06 on the PIC module) |
 | Ethernet | WIZnet W6100 | LQFP-48 0.5 mm | IPv4/IPv6; not pin-compatible with the W5500 |
 | Ethernet crystal | 25 MHz, CL 12 pF | SMD | MPN TBD; 8 pF load caps, 1 M across (WIZnet ref. V1.1) |
 | W6100 support | RSET_BG 12k + 300R 1 %; TX/RX 2 x 49.9R + 0.1 uF to GND per pair at the chip; jack CT (P4) to 3V3A with 0.1 uF + 1 uF; 1V2O 3.3 uF; beads 3V3D->3V3A and 1V2D->1V2A (HI1206P121R-10); MOD[3:0] 10k pull-downs (SPI); LNKn/ACTn -> jack LEDs via 330R; shield 1 nF/2 kV to GND | 1206/0805 | WIZnet W6100_Ref_Schematic_V110_use_mag |
@@ -118,7 +118,8 @@ drives RB14, RB15, RG6, RG7 (2-5); CAN LEDs RG8, RG9, RA12, RA11 (6, 8, 11,
 12); heartbeat RD8 (42); ICSP PGx2 (43/44). USB unused: VUSB3V3 to VDD, VBUS to
 VSS, D+/D- 10k to VSS. Firmware: disable JTAG, ICESEL = PGx2, drive unused pins low.
 
-Still TBD in the schematic: both crystals (12 MHz CL 18 pF, 25 MHz CL 12 pF)
+Still TBD in the schematic: the 25 MHz crystal (CL 12 pF; the 12 MHz is
+Abracon ABM3-12.000MHZ-B2-T, to enter on the next schematic edit)
 and the W6100 load caps and 3.3 uF 1V2O capacitor MPNs; the ISOW1044 beads
 (BLM31KN102SN1L entered) to be checked against TI's layout guide.
 
@@ -236,7 +237,7 @@ the left side, I2C1 RG7/RG8, CAN1 RB4/RA4, CAN2 RE15/RA8, CAN3 RE14/RC0, CAN4
 RB5/RC10, relays RC1, RC2, RC11, RE12, RE13, RD8, RB6, RB9, DAC SPI SCK1 RB7 /
 SDO1 RC8 / CS RA1, UART1 RC7/RC6, V12_OK RC13, ICSP PGC1/PGD1.
 
-MPNs to confirm before ordering: crystal (12 MHz, 5032, CL 18 pF: TBD);
+MPNs to confirm before ordering: crystal (12 MHz: ABM3-12.000MHZ-B2-T);
 Phoenix MC 1,5/8, /9, /12-G-3,5 (1844278, 1844281, 1844317 entered from the
 series numbering); Littelfuse 1812L110/16DR; Bourns MF-NSMF075-2; TI LM4040A25IDBZR.
 

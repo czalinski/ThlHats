@@ -89,6 +89,12 @@ def obstacles(board, win, netcode, infl):
                 ps = pcbnew.SHAPE_POLY_SET()
                 p.TransformShapeToPolygon(ps, lid, e, FM(0.005), pcbnew.ERROR_OUTSIDE)
                 _draw_poly(dr, win, ps)
+        # rule areas that forbid tracks (isolation gaps, keep-outs under modules)
+        for z in board.Zones():
+            if z.GetIsRuleArea() and z.GetDoNotAllowTracks() and z.IsOnLayer(lid):
+                ps = pcbnew.SHAPE_POLY_SET(z.Outline())
+                ps.Inflate(FM(infl - CLR), pcbnew.CORNER_STRATEGY_ROUND_ALL_CORNERS, FM(0.005))
+                _draw_poly(dr, win, ps)
         # board edge
         m = (EDGE_CLR - CLR + infl) / G
         x0, y0 = (0 - win.x0) / G, (0 - win.y0) / G
@@ -429,3 +435,163 @@ def complete_net(board, net, width, win, verbose=True, max_rounds=400):
         if verbose:
             print(f"  joined an island of {net}: {sum(len(p) - 1 for _, p in runs)} segments, {len(runs) - 1} vias")
     return len(_islands(board, nc)) <= 1
+
+
+def ground_fanout(board, nets, win, verbose=True, qfp_inward=False):
+    """Give every SMD pad on `nets` a short F.Cu stub to a via inside that net's
+    B.Cu pour (the pours must exist and be filled). QFP pads escape straight
+    out along their side with a 0.2 mm stub (with qfp_inward, first straight in,
+    under the package); other pads try 17 directions with a 0.5 mm stub. Not rerun-safe: a second call adds a second set of vias.
+    Returns the number of pads left without a via."""
+    import math
+    zones = {z.GetNetname(): z for z in board.Zones() if not z.GetIsRuleArea() and z.GetLayer() == pcbnew.B_Cu}
+    added = missed = 0
+    for net in nets:
+        ni = board.GetNetInfo().GetNetItem(net)
+        zone = zones.get(net)
+        if ni is None or ni.GetNetCode() <= 0 or zone is None:
+            continue
+        nc = ni.GetNetCode()
+        viaok = obstacles(board, win, nc, CLR + VIA_D / 2 + MARGIN)
+        trk_wide = obstacles(board, win, nc, CLR + 0.25 + MARGIN)
+        trk_thin = obstacles(board, win, nc, CLR + 0.1 + 0.01)
+        placed = [(TM(t.GetPosition().x) - ORIGIN, TM(t.GetPosition().y) - ORIGIN) for t in board.GetTracks()
+                  if t.GetClass() == "PCB_VIA" and t.GetNetCode() == nc]
+        for f in board.GetFootprints():
+            fx, fy = TM(f.GetPosition().x) - ORIGIN, TM(f.GetPosition().y) - ORIGIN
+            layer = pcbnew.B_Cu if f.IsFlipped() else pcbnew.F_Cu
+            for p in f.Pads():
+                if p.GetNetCode() != nc or p.GetAttribute() != pcbnew.PAD_ATTRIB_SMD:
+                    continue
+                px, py = TM(p.GetPosition().x) - ORIGIN, TM(p.GetPosition().y) - ORIGIN
+                half = max(TM(p.GetSize().x), TM(p.GetSize().y)) / 2
+                away = math.atan2(py - fy, px - fx) if (px, py) != (fx, fy) else 0.0
+                qfp = "QFP" in f.GetFPIDAsString()
+                if qfp:
+                    dx, dy = px - fx, py - fy
+                    away = (0.0 if dx > 0 else math.pi) if abs(dx) > abs(dy) else \
+                        (math.pi / 2 if dy > 0 else -math.pi / 2)
+                stub = 0.2 if qfp else 0.5
+                trk = trk_thin if qfp else trk_wide
+                tip = (px + half * math.cos(away), py + half * math.sin(away)) if qfp else (px, py)
+                done = False
+                dists = (half + 1.0, half + 1.5, half + 2.0, half + 2.6, half + 3.2) if qfp else \
+                    (half + 0.55, half + 0.9, half + 1.3, half + 1.8)
+                for d in dists:
+                    angles = ([away + math.pi, away] if qfp_inward else [away]) if qfp else \
+                        [away] + [away + sgn * j * math.pi / 8 for j in range(1, 9) for sgn in (1, -1)]
+                    for a in angles:
+                        if qfp:
+                            tip = (px + half * math.cos(a), py + half * math.sin(a))
+                        vx, vy = px + d * math.cos(a), py + d * math.sin(a)
+                        cx, cy = win.cell(vx, vy)
+                        if not (0 <= cx < win.W and 0 <= cy < win.H):
+                            continue
+                        i = cy * win.W + cx
+                        if viaok["F"][i] or viaok["B"][i]:
+                            continue
+                        if any(math.hypot(vx - qx, vy - qy) < 1.0 for qx, qy in placed):
+                            continue
+                        if not zone.HitTestFilledArea(pcbnew.B_Cu, pcbnew.VECTOR2I(FM(ORIGIN + vx), FM(ORIGIN + vy)), 0):
+                            continue
+                        side = "B" if layer == pcbnew.B_Cu else "F"
+                        if not _free_line(trk[side], win.W, win.cell(*tip), (cx, cy)):
+                            continue
+                        t = pcbnew.PCB_TRACK(board)
+                        t.SetStart(p.GetPosition())
+                        t.SetEnd(pcbnew.VECTOR2I(FM(ORIGIN + vx), FM(ORIGIN + vy)))
+                        t.SetWidth(FM(stub))
+                        t.SetLayer(layer)
+                        t.SetNet(ni)
+                        board.Add(t)
+                        v = pcbnew.PCB_VIA(board)
+                        v.SetPosition(pcbnew.VECTOR2I(FM(ORIGIN + vx), FM(ORIGIN + vy)))
+                        v.SetWidth(FM(VIA_D))
+                        v.SetDrill(FM(VIA_DRILL))
+                        v.SetNet(ni)
+                        board.Add(v)
+                        placed.append((vx, vy))
+                        added += 1
+                        done = True
+                        break
+                    if done:
+                        break
+                if not done:
+                    missed += 1
+                    if verbose:
+                        print(f"  no fanout via for {f.GetReference()}.{p.GetNumber()} ({net})")
+    if verbose:
+        print(f"fanout: {added} vias, {missed} pads without one")
+    return missed
+
+
+def stitch_pads(board, net, win, width=0.3, verbose=True):
+    """Join pads of `net` that are not in its main cluster (the connectivity
+    island holding the most pour area) with a short straight stub: 16
+    directions, 0.8-3 mm, either layer, ending inside any fill of the net.
+    Each candidate is kept only if, after a refill, the pad has joined the
+    main cluster. Returns the pads left unjoined."""
+    import math
+    ni = board.FindNet(net)
+    nc = ni.GetNetCode()
+    filler = pcbnew.ZONE_FILLER(board)
+
+    def main_ids():
+        isl = _islands(board, nc)
+        main = max(isl, key=lambda cl: sum(abs(x.GetFilledArea()) for x in cl if x.GetClass() == "ZONE"))
+        return {x.m_Uuid.AsString() for x in main}
+
+    def in_fill(lay, pt):
+        for z in board.Zones():
+            if not z.GetIsRuleArea() and z.GetNetCode() == nc and z.GetLayer() == lay:
+                if z.GetFilledPolysList(lay).Contains(pt):
+                    return True
+        return False
+
+    filler.Fill(board.Zones())
+    ids = main_ids()
+    todo = [p for f in board.GetFootprints() for p in f.Pads()
+            if p.GetNetCode() == nc and p.m_Uuid.AsString() not in ids]
+    left = []
+    for p in todo:
+        name = f"{p.GetParentFootprint().GetReference()}.{p.GetNumber()}"
+        if p.m_Uuid.AsString() in main_ids():
+            continue
+        obst = obstacles(board, win, nc, CLR + width / 2 + MARGIN)
+        layers = [l for l in (pcbnew.F_Cu, pcbnew.B_Cu) if p.IsOnLayer(l)]
+        px, py = TM(p.GetPosition().x) - ORIGIN, TM(p.GetPosition().y) - ORIGIN
+        done = False
+        for d in (0.8, 1.2, 1.6, 2.0, 2.5, 3.0):
+            for k in range(16):
+                a = k * math.pi / 8
+                ex, ey = px + d * math.cos(a), py + d * math.sin(a)
+                end = pcbnew.VECTOR2I(FM(ORIGIN + ex), FM(ORIGIN + ey))
+                for lay in layers:
+                    side = "F" if lay == pcbnew.F_Cu else "B"
+                    cx, cy = win.cell(ex, ey)
+                    if not (0 <= cx < win.W and 0 <= cy < win.H) or obst[side][cy * win.W + cx]:
+                        continue
+                    if not in_fill(lay, end) or not _free_line(obst[side], win.W, win.cell(px, py), (cx, cy)):
+                        continue
+                    t = pcbnew.PCB_TRACK(board)
+                    t.SetStart(p.GetPosition())
+                    t.SetEnd(end)
+                    t.SetWidth(FM(width))
+                    t.SetLayer(lay)
+                    t.SetNet(ni)
+                    board.Add(t)
+                    filler.Fill(board.Zones())
+                    if p.m_Uuid.AsString() in main_ids():
+                        done = True
+                        break
+                    board.Delete(t)
+                    filler.Fill(board.Zones())
+                if done:
+                    break
+            if done:
+                break
+        if verbose:
+            print(f"  {name}: {'stub' if done else 'NOT joined'}")
+        if not done:
+            left.append(name)
+    return left
