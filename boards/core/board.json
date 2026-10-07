@@ -1,4 +1,4 @@
 {
   "rpi_mount": false,
-  "reason": "base of the daughter-card stack (docs/requirements.md 4.5): Ethernet, 12 V powered, no Pi header; stack interface 4 x M4 on a 91 x 91 mm square (4.4)"
+  "reason": "top of the daughter-card stack (docs/requirements.md 4.5): Ethernet, 12 V powered, no Pi header; stack interface 4 x M4 on a 91 x 91 mm square (4.4)"
 }

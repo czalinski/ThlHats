@@ -28,14 +28,19 @@ Top board of the daughter-card stack (docs/requirements.md 4.0, 4.5).
 
 ## Status (2026-10-07)
 
-Routed except for 5 connections, to finish by hand in KiCad:
+Fully routed (last five connections by hand in KiCad), `tools/check_board.py`
+clean: ERC, DRC and schematic parity without errors. Remaining warnings:
 
-- GND: U1 pins 20 and 25 (left side, beside the AVDD escape and a VDD stub).
-- GND: U1 pin 9 (its via under the chip is pocketed on B.Cu).
-- /Ethernet/TXP: U3.3 to R17 / J4.1 (route with TXN, short and parallel).
-- SCL: U1.5 to the SCL track toward R7.
-- /Ethernet/LNKn: U3.17 to J4.11 (B.Cu under the jack body is free).
+- no STEP models for U20 (TRACO TDN 5WI), F20 (NANO2) and J4 (Pulse
+  JD0-0004NL: IGES only);
+- silkscreen clipped by the board edge: J2/J5 (right-angle headers) and J20
+  overhang the edge on purpose.
 
-Plus DRC: two +3V3 vias 0.48 mm apart near (145.7, 154.0) canvas, and a
-narrow neck in the B.Cu GND pour. Silkscreen not tidied yet
-(`tools/silk_tidy.py`).
+Clean-up after the hand routing: two +3V3 vias 0.48 mm apart merged, a
+dangling +5V stub removed, a B.Cu GND sliver between J10 pins suppressed
+(rule area GAP_SLIVER_J10 in place.py), mounting holes re-linked to
+Thl_Mechanical, references tidied (`tools/silk_tidy.py`; 12 small parts keep
+their reference on the Fab layer only, U1/U3/Y2 labelled on the body).
+
+Open before ordering: 25 MHz crystal and 8 pF load cap MPNs, 3.3 uF (C29)
+MPN, mated stack height check against the cards.

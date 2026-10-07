@@ -176,6 +176,7 @@ def holes(b):
             b.Delete(f)
     for i, (x, y) in enumerate(sb.HOLES, 1):
         f = pcbnew.FootprintLoad(str(LIB / "Thl_Mechanical.pretty"), "MountingHole_4.3mm_M4_Standoff7mm")
+        f.SetFPID(pcbnew.LIB_ID("Thl_Mechanical", "MountingHole_4.3mm_M4_Standoff7mm"))
         f.SetReference(f"MH{i}")
         f.SetPosition(pcbnew.VECTOR2I(FM(O + x), FM(O + y)))
         b.Add(f)
@@ -253,6 +254,18 @@ def main():
     zone(b, "D_1V2D_CORE", "/Ethernet/1V2D", pcbnew.F_Cu, rect(ux - CORE3, uy - CORE3, ux + CORE3, uy + CORE3),
          prio=2, full=True, clr=0.25)
     rule_area(b, "GAP_RACK", rect(lo, 0, hi, H))
+    # B.Cu GND sliver between J10 pins (hung on a 0.035 mm neck after routing)
+    sliver = pcbnew.ZONE(b)
+    sliver.SetIsRuleArea(True)
+    sliver.SetZoneName("GAP_SLIVER_J10")
+    sliver.SetLayer(pcbnew.B_Cu)
+    sliver.SetDoNotAllowTracks(False)
+    sliver.SetDoNotAllowVias(False)
+    sliver.SetDoNotAllowZoneFills(True)
+    sliver.SetDoNotAllowPads(False)
+    sliver.SetDoNotAllowFootprints(False)
+    poly(sliver, rect(8.0, 55.0, 8.9, 56.2))
+    b.Add(sliver)
 
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
     b.Save(PCB)
