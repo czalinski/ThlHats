@@ -6,7 +6,7 @@
 #include "settings.h"
 
 #define MAGIC       0x54484C53u     /* "SLHT" */
-#define VERSION     1u
+#define VERSION     2u
 #define PAGE_KVA    0x9D0FF000u     /* last page of the 1 MB program flash */
 #define PAGE_SIZE   4096u
 #define PAGE_KVA1   (0xA0000000u | (PAGE_KVA & 0x1FFFFFFFu))   /* uncached: no stale cache lines after a write */

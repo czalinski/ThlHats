@@ -25,7 +25,7 @@
 #define CANCLK_HZ       40000000u   /* REFCLK4 */
 #define CORETIMER_HZ    (SYSCLK_HZ / 2u)
 
-#define FW_VERSION      "0.3"
+#define FW_VERSION      "0.4"
 
 /* LED and W6100 control lines */
 #define LED_HB_TOGGLE() (LATDINV = 1u << 8)

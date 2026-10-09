@@ -1,7 +1,8 @@
 /* ThlHats core firmware: PIC32MK1024MCM064 on the core board.
  *
  * Host protocol over Ethernet (PROTOCOL.md): ASCII commands on TCP 5000,
- * serial-card ports on TCP 5001-5004, SSR measurements streamed over UDP.
+ * serial-card ports on TCP 5001-5004, SSR measurements streamed over UDP,
+ * io-card relays / GPIO / analog inputs.
  * Everything is polled from this loop except the UART rings. */
 #include <xc.h>
 #include <sys/attribs.h>
@@ -12,6 +13,7 @@
 #include "net.h"
 #include "ssr.h"
 #include "serial.h"
+#include "io.h"
 #include "server.h"
 #include "cmd.h"
 #include "console.h"
@@ -32,6 +34,7 @@ int main(void)
     can_init();
     net_init();
     ser_init();
+    io_init();
     console_init();
 
     uint32_t hb = millis();

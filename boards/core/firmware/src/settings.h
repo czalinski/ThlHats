@@ -1,4 +1,4 @@
-/* Power-up settings, stored in the last 4 KB page of program flash
+/* Power-up settings (NET, SER, io-card AI zero), stored in the last 4 KB page of program flash
  * (0x9D0FF000). Written only by the SAVE command; checked by a CRC, so an
  * erased or corrupt page gives the defaults. */
 #ifndef SETTINGS_H
@@ -22,6 +22,7 @@ typedef struct {
     uint32_t version;
     uint8_t ip[4], mask[4], gw[4];
     ser_settings ser[SER_PORTS];
+    int16_t ai_zero[2];                 /* io-card AI offsets, ADC counts summed over 64 samples */
     uint32_t crc;           /* CRC-32 of everything before it */
 } settings_t;
 

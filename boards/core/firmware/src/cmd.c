@@ -11,6 +11,7 @@
 #include "settings.h"
 #include "server.h"
 #include "ssr.h"
+#include "io.h"
 #include "cmd.h"
 
 #define MAX_ARGS        10
@@ -341,11 +342,20 @@ static void cmd_help(session *s)
         "SSR <node> [SET v=<V> i=<A> hot=0|1 noreg=0|1 timeout=<ms> | OFF | CLEAR | INFO]",
         "SSR ALL OFF",
         "STREAM [ON [ip=a.b.c.d] [batch=1-10] [fmt=bin|text] | OFF]",
+        "IO SCAN",
+        "RLY [1-4|all=on|off ...]",
+        "GPIO [<1-4> [mode=in|out] [pull=none|up|down] [out=0|1]]",
+        "AI [<1-2> [ZERO]]",
     };
     for (unsigned k = 0; k < sizeof lines / sizeof lines[0]; k++)
         out(s, "* %s", lines[k]);
     OK(s);
 }
+
+static void line_io(session *s, const char *prefix);
+static void line_rly(session *s, const char *prefix);
+static void line_gpio(session *s, const char *prefix, uint8_t n);
+static void line_ai(session *s, const char *prefix, uint8_t n);
 
 static void cmd_status(session *s)
 {
@@ -358,6 +368,14 @@ static void cmd_status(session *s)
     for (uint8_t p = 1; p <= SER_PORTS; p++)
         line_ser(s, "* ", p);
     line_stream(s, "* ");
+    line_io(s, "* ");
+    if (io_present()) {
+        line_rly(s, "* ");
+        for (uint8_t k = 1; k <= IO_GPIOS; k++)
+            line_gpio(s, "* ", k);
+        for (uint8_t k = 1; k <= IO_AIS; k++)
+            line_ai(s, "* ", k);
+    }
     OK(s);
 }
 
@@ -674,6 +692,176 @@ static void cmd_stream(session *s, const args_t *a)
     OK(s, " STREAM on ip=%s batch=%u fmt=%s", ipstr(c.ip, ip), c.batch, c.text ? "text" : "bin");
 }
 
+/* ------------------------------------------------------------------ io-card */
+
+static const char *const pull_name[] = { [PULL_NONE] = "none", [PULL_UP] = "up", [PULL_DOWN] = "down" };
+
+static bool io_ready(session *s)
+{
+    if (!io_present()) {
+        ERR(s, 404, "io-card not detected (IO SCAN)");
+        return false;
+    }
+    return true;
+}
+
+static void mv_str(int32_t mv, char *buf)
+{
+    sprintf(buf, "%s%ld.%03ld", mv < 0 ? "-" : "", (long)((mv < 0 ? -mv : mv) / 1000),
+            (long)((mv < 0 ? -mv : mv) % 1000));
+}
+
+static void line_rly(session *s, const char *prefix)
+{
+    out(s, "%sRLY 1=%s 2=%s 3=%s 4=%s", prefix, io_relay_get(1) ? "on" : "off", io_relay_get(2) ? "on" : "off",
+        io_relay_get(3) ? "on" : "off", io_relay_get(4) ? "on" : "off");
+}
+
+static void line_gpio(session *s, const char *prefix, uint8_t n)
+{
+    gpio_mode m;
+    gpio_pull pl;
+    bool o, lv;
+    io_gpio_get(n, &m, &pl, &o, &lv);
+    out(s, "%sGPIO %u mode=%s pull=%s out=%u level=%u", prefix, n, m == GPIO_OUT ? "out" : "in",
+        pull_name[pl], o, lv);
+}
+
+static void line_ai(session *s, const char *prefix, uint8_t n)
+{
+    ai_reading r;
+    char d[16], p[16], q[16];
+    io_ai_read(n, &r);
+    mv_str(r.diff_mv, d);
+    mv_str(r.p_mv, p);
+    mv_str(r.n_mv, q);
+    out(s, "%sAI %u v=%s p=%s n=%s over=%u", prefix, n, d, p, q, r.over);
+}
+
+static void line_io(session *s, const char *prefix)
+{
+    uint16_t v = io_vmid_mv();
+    out(s, "%sIO present=%u vmid=%u.%03u", prefix, io_present(), v / 1000u, v % 1000u);
+}
+
+static void cmd_io(session *s, const args_t *a)
+{
+    if (a->argc == 2 && ieq(a->argv[1], "SCAN")) {
+        io_detect();
+        line_io(s, "OK ");
+    } else if (a->argc == 1) {
+        line_io(s, "OK ");
+    } else {
+        ERR(s, 400, "usage: IO [SCAN]");
+    }
+}
+
+static bool parse_onoff(const char *v, bool *on)
+{
+    if (ieq(v, "on") || ieq(v, "1")) { *on = true; return true; }
+    if (ieq(v, "off") || ieq(v, "0")) { *on = false; return true; }
+    return false;
+}
+
+/* RLY [1=on|off] [2=..] [3=..] [4=..] [all=on|off]: given outputs change, all are reported */
+static void cmd_rly(session *s, const args_t *a)
+{
+    static const char *const keys[] = { "1", "2", "3", "4", "all", NULL };
+    bool set[IO_RELAYS], on[IO_RELAYS], all_on = false;
+    const char *v;
+    if (!io_ready(s) || !only_keys(s, a, 1, keys))
+        return;
+    bool all = false;
+    if ((v = kv(a, 1, "all"))) {
+        if (!parse_onoff(v, &all_on)) { ERR(s, 400, "all must be on or off"); return; }
+        all = true;
+    }
+    for (uint8_t n = 1; n <= IO_RELAYS; n++) {
+        char key[2] = { (char)('0' + n), 0 };
+        set[n - 1u] = all;
+        on[n - 1u] = all_on;
+        if ((v = kv(a, 1, key))) {
+            if (!parse_onoff(v, &on[n - 1u])) { ERR(s, 400, "relay %u must be on or off", n); return; }
+            set[n - 1u] = true;
+        }
+    }
+    for (uint8_t n = 1; n <= IO_RELAYS; n++)
+        if (set[n - 1u])
+            io_relay_set(n, on[n - 1u]);
+    line_rly(s, "OK ");
+}
+
+static void cmd_gpio(session *s, const args_t *a)
+{
+    uint32_t n;
+    if (!io_ready(s))
+        return;
+    if (a->argc == 1) {
+        for (uint8_t k = 1; k <= IO_GPIOS; k++)
+            line_gpio(s, "* ", k);
+        OK(s);
+        return;
+    }
+    if (!parse_uint(a->argv[1], 1, IO_GPIOS, &n)) {
+        ERR(s, 400, "usage: GPIO [<1-4> [mode=in|out] [pull=none|up|down] [out=0|1]]");
+        return;
+    }
+    static const char *const keys[] = { "mode", "pull", "out", NULL };
+    if (!only_keys(s, a, 2, keys))
+        return;
+    gpio_mode m;
+    gpio_pull pl;
+    bool o, lv;
+    uint32_t ov;
+    const char *v;
+    io_gpio_get((uint8_t)n, &m, &pl, &o, &lv);
+    if ((v = kv(a, 2, "mode"))) {
+        if (ieq(v, "in")) m = GPIO_IN;
+        else if (ieq(v, "out")) m = GPIO_OUT;
+        else { ERR(s, 400, "mode must be in or out"); return; }
+    }
+    if ((v = kv(a, 2, "pull"))) {
+        if (ieq(v, "none")) pl = PULL_NONE;
+        else if (ieq(v, "up")) pl = PULL_UP;
+        else if (ieq(v, "down")) pl = PULL_DOWN;
+        else { ERR(s, 400, "pull must be none, up or down"); return; }
+    }
+    if ((v = kv(a, 2, "out"))) {
+        if (!parse_uint(v, 0, 1, &ov)) { ERR(s, 400, "out must be 0 or 1"); return; }
+        o = ov;
+    }
+    io_gpio_config((uint8_t)n, m, pl, o);
+    delay_us(5);                        /* let the pin settle before reading the level */
+    line_gpio(s, "OK ", (uint8_t)n);
+}
+
+static void cmd_ai(session *s, const args_t *a)
+{
+    uint32_t n;
+    if (!io_ready(s))
+        return;
+    if (a->argc == 1) {
+        for (uint8_t k = 1; k <= IO_AIS; k++)
+            line_ai(s, "* ", k);
+        OK(s);
+        return;
+    }
+    if (!parse_uint(a->argv[1], 1, IO_AIS, &n)) {
+        ERR(s, 400, "usage: AI [<1-2> [ZERO]]");
+        return;
+    }
+    if (a->argc == 2) {
+        line_ai(s, "OK ", (uint8_t)n);
+    } else if (a->argc == 3 && ieq(a->argv[2], "ZERO")) {
+        int16_t z = io_ai_zero((uint8_t)n);
+        char d[16];
+        mv_str((int32_t)((int64_t)z * 3300 * 10130 / ((int64_t)4096 * 64 * 130)), d);
+        OK(s, " AI %lu zero=%s (SAVE to keep)", (unsigned long)n, d);
+    } else {
+        ERR(s, 400, "usage: AI [<1-2> [ZERO]]");
+    }
+}
+
 void cmd_execute(session *s, char *line)
 {
     args_t a = { 0 };
@@ -702,6 +890,10 @@ void cmd_execute(session *s, char *line)
     else if (ieq(c, "CAN"))                     cmd_can(s, &a);
     else if (ieq(c, "SSR"))                     cmd_ssr(s, &a);
     else if (ieq(c, "STREAM"))                  cmd_stream(s, &a);
+    else if (ieq(c, "IO"))                      cmd_io(s, &a);
+    else if (ieq(c, "RLY"))                     cmd_rly(s, &a);
+    else if (ieq(c, "GPIO"))                    cmd_gpio(s, &a);
+    else if (ieq(c, "AI"))                      cmd_ai(s, &a);
     else                                        ERR(s, 400, "unknown command '%s' (HELP)", c);
 }
 

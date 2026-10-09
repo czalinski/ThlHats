@@ -2,7 +2,8 @@
 
 Firmware for the core board. It runs the host protocol over Ethernet
 (**[PROTOCOL.md](PROTOCOL.md)**) and drives the can-card's four CAN FD
-channels, the SSRs on CAN1 and the serial-card ports.
+channels, the SSRs on CAN1, the serial-card ports and the io-card's relay
+outputs, GPIO and analog inputs.
 
 ## Build
 
@@ -41,6 +42,7 @@ nc 192.168.1.50 5000                        # type commands by hand
 | `server.c` | TCP command sessions. A session reads the next command only once the previous response has been handed to the W6100 |
 | `ssr.c` | can-ssr nodes on CAN1: status cache, SET/CLEAR/INFO (SET carries the host's failsafe timeout), HOST_HB presence frame, batched UDP stream |
 | `serial.c` | UART2-5 ↔ TCP 5001-5004 through interrupt rings; RS-485 DE timing; 7-bit framing done in firmware |
+| `io.c` | io-card: card detection, relay outputs, GPIO (mode, pull, level), differential AI on the shared ADC7 (single conversions; errata 2.3.1 rules out scan mode), OA5 VMID follower (low-power unity gain) |
 | `settings.c` | `NET`/`SER` power-up settings in the last flash page, CRC-checked |
 | `console.c` | Debug UART: the same commands plus `MON ON/OFF` (candump-style CAN frame printing) |
 
@@ -75,6 +77,16 @@ A channel whose bus is stuck dominant reads as absent.
 6. `SAVE` survives a power cycle: check with `NET` after reboot. Flash
    writes are not verified on hardware yet.
 7. Measure the 25 MHz crystal drive level (Y2, ABM3 rated 100 µW).
+8. io-card fitted: `IO` shows `present=1 vmid=1.650`. Then check:
+   - `RLY 1=on` lights the card's red LED 1 and puts V_RLY on J30.1.
+   - `GPIO 1 mode=out out=1` gives 3.3 V on J40.1.
+   - `AI 1` reads a known voltage. Short the inputs and run `AI 1 ZERO`,
+     then `SAVE`.
+   - Without the card, `IO SCAN` shows `present=0`.
+9. **VMID stability.** OA5 is specified for at most 32 pF of load
+   (DS60001519D 27.6). VMID runs through the stack connector to the io-card,
+   so scope it for oscillation with the card fitted. If it rings, add about
+   1k in series plus 100 nF to GND on the io-card's VMID input.
 
 ## Not done yet
 
@@ -83,4 +95,4 @@ A channel whose bus is stuck dominant reads as absent.
 - Serial-card hardware. The RS-232/RS-485 port split and the DE pins
   follow the plan in `serial.h` and must be checked against the card once
   it is drawn.
-- io-card (relays, GPIO, analog in).
+- A failsafe timeout for the io-card relay outputs, if one is wanted.

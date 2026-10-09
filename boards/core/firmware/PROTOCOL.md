@@ -1,4 +1,4 @@
-# Core host protocol (draft, firmware 0.3)
+# Core host protocol (draft, firmware 0.4)
 
 The host talks to the core over Ethernet. Plain sockets only: no drivers, no
 special privileges.
@@ -38,17 +38,17 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 
 | Command | Response |
 |---|---|
-| `ID` | `OK ThlHats core fw=0.3 sn=<serial> mac=<mac>` |
+| `ID` | `OK ThlHats core fw=0.4 sn=<serial> mac=<mac>` |
 | `HELP` | `* ` one line per command, then `OK` |
 | `STATUS` | every device, one `* ` line each, then `OK` (below) |
 | `NET [ip=a.b.c.d] [mask=a.b.c.d] [gw=a.b.c.d]` | `OK NET ip=… mask=… gw=… (active ip=…)`. New values take effect after `SAVE` and `REBOOT`. |
-| `SAVE` | stores the NET settings and the current SER settings in flash as power-up defaults: `OK saved` |
+| `SAVE` | stores the NET settings, the current SER settings and the AI zero offsets in flash as power-up defaults: `OK saved` |
 | `REBOOT` | `OK rebooting`, then a reset 100 ms later |
 
 `STATUS` example:
 
 ```
-* CORE fw=0.3 up=81234 ip=192.168.1.50 link=100M-full clients=1
+* CORE fw=0.4 up=81234 ip=192.168.1.50 link=100M-full clients=1
 * CAN 1 present=1 mode=fd nominal=500000 data=2000000 state=active tec=0 rec=0 rx=81234 tx=325
 * CAN 2 present=1 state=stopped
 * CAN 3 present=0
@@ -56,6 +56,12 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 * SSR 3 port=5103 state=on build=STD vset=24.00 ilimit=10.00 vin=24.01 vout=23.98 iavg=1.23 ipeak=1.50 faults=0x0000 warnings=0x00 v12=12.1 timeout=1000 fw=0.2 age=4
 * SER 1 type=rs232 baud=9600 data=8 parity=N stop=1 client=192.168.1.10 rx=0 tx=12
 * STREAM off
+* IO present=1 vmid=1.650
+* RLY 1=off 2=on 3=off 4=off
+* GPIO 1 mode=in pull=down out=0 level=0
+* ...
+* AI 1 v=12.034 p=6.020 n=-6.014 over=0
+* AI 2 v=0.000 p=0.000 n=0.000 over=0
 OK
 ```
 
@@ -143,6 +149,42 @@ switch.
   250 ms on CAN1) only lights the SSR's "host present" LED.
 - This needs can-ssr firmware 0.2. Firmware 0.1 ignores the timeout and
   uses a fixed 1 s, which also HOST_HB refreshes.
+
+### io-card
+
+The io-card is detected at boot from its analog inputs: each leg sits on
+100 nF and 130k to VMID, so a short pull-up and pull-down barely move it.
+Re-detect with `IO SCAN`. While no card is detected, `RLY`, `GPIO` and `AI`
+return `ERR 404`.
+
+| Command | Response |
+|---|---|
+| `IO` / `IO SCAN` | `OK IO present=0\|1 vmid=<V>`. VMID is the 1.65 V reference from the core's OA5. |
+| `RLY [1=on\|off] [2=…] [3=…] [4=…] [all=on\|off]` | `OK RLY 1=… 2=… 3=… 4=…` |
+| `GPIO` | one `* GPIO n …` line per pin, then `OK` |
+| `GPIO <1-4> [mode=in\|out] [pull=none\|up\|down] [out=0\|1]` | `OK GPIO <n> mode=… pull=… out=… level=…` |
+| `AI` | `* AI 1 …` and `* AI 2 …`, then `OK` |
+| `AI <1-2>` | `OK AI <n> v=<V> p=<V> n=<V> over=0\|1` |
+| `AI <1-2> ZERO` | with the inputs shorted: stores the offset, `OK AI <n> zero=<V> (SAVE to keep)` |
+
+- **RLY** drives the four relay outputs, which feed **external** relay
+  coils (rack 12 V, or an external supply up to 24 V chosen by the jumper on
+  the card). Any mix of outputs may be given, `all=` first and then the
+  numbered ones. The response always shows all four. All outputs are off
+  at power-up. There is no failsafe timeout on these outputs.
+- **GPIO** settings are partial like `SER`: keys left out keep their value.
+  `out` is the level driven in `mode=out`, and `level` is the pin as read
+  back. The default at power-up is `mode=in pull=down`. The pins are 3.3 V
+  and **not 24 V tolerant**. Pull-ups and pull-downs are the PIC32's weak
+  internal ones, enough for a dry contact to GND or +3.3 V.
+- **AI**:
+  - `v` is AIn+ minus AIn-, in volts, after the `ZERO` offset.
+  - `p` and `n` are the two legs against the LOGIC ground. Each must stay
+    within about ±116 V, and `over=1` means a leg hit the ADC limit.
+  - The resolution is 63 mV per count. Each reading averages 64
+    conversions per leg and takes about 1 ms.
+  - Common-mode error depends on the 1 % divider match. `ZERO` removes the
+    offset, and `SAVE` keeps it.
 
 ### UDP measurement stream
 
