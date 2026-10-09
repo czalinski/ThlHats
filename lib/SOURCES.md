@@ -173,3 +173,7 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-06 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x06_P2.54mm_Horizontal | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-06 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x03_P2.54mm_Horizontal | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-06 | footprint | Connector_PinHeader_2.54mm | PinHeader_2x03_P2.54mm_Vertical | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Jumper | Jumper_3_Open | KiCad Jumper.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Connector_Generic | Conn_02x05_Top_Bottom | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | footprint | Connector_Phoenix_MC | PhoenixContact_MC_1,5_10-G-3.5_1x10_P3.50mm_Horizontal | KiCad Connector_Phoenix_MC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Connector | Screw_Terminal_01x10 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |

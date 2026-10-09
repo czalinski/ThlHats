@@ -212,6 +212,13 @@ adds an MCC HAT. The rev 3 design had grown too complex (8 relays through
 isolators and an I2C expander, a DAC with a reference, op amp and boost);
 analog out, the expander and 24 V-tolerant GPIO were cut.
 
+**io-card update (2026-10-09):** the double-level SPTD terminals (24.2 mm tall)
+do not fit under the next card in the stack (about 11 mm, ESQ-120-14), so the
+io-card uses pluggable single-level **MC 1,5 G-3,5** headers (7.7 mm, FMC
+push-in plugs), each signal next to its return: J30 relays 10 positions, J40
+I/O 12. The relay outputs drive **external** relay coils; JP1 selects the coil
+supply: rack +12 V or an external supply up to 24 V on J30 (F30 rated 33 V).
+
 Terminal count: 4 × CAN on MC 3,5 4-pole (16 positions); field I/O on
 double-level push-in terminals, one level signal and one level return:
 relay 4 (OUTn / 0 V), GPIO 4 (IOn / GND), AI 2 (AIn+ / AIn−), so 10 positions.

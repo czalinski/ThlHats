@@ -43,3 +43,16 @@
 (rule "USB4085 drill spacing"
 	(constraint hole_to_hole (min 0.45mm))
 	(condition "A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085') && B.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))
+
+# Analog inputs (requirements 4.1): up to +-116 V per input between the J40
+# terminal and the 10M resistors. IPC-2221B B4 (external, uncoated, 101-150 V)
+# asks 0.6 mm; use 0.8 mm to every other net.
+(rule "AI high voltage"
+	(constraint clearance (min 0.8mm))
+	(condition "A.NetName == '/AIN1P' || A.NetName == '/AIN1N' || A.NetName == '/AIN2P' || A.NetName == '/AIN2N'"))
+
+# Stack connectors (J10/J11): through-hole ground pins are fed by the B.Cu
+# plane; on F.Cu the pin rows leave room for one spoke only.
+(rule "Stack connector spokes"
+	(constraint min_resolved_spokes 1)
+	(condition "A.memberOfFootprint('J1?')"))
