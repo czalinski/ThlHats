@@ -54,7 +54,7 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 * CAN 3 present=0
 * CAN 4 present=0
 * SSR 3 port=5103 state=on build=STD vset=24.00 ilimit=10.00 vin=24.01 vout=23.98 iavg=1.23 ipeak=1.50 faults=0x0000 warnings=0x00 v12=12.1 timeout=1000 fw=0.2 age=4
-* SER 1 type=rs232 baud=115200 data=8 parity=N stop=1 client=192.168.1.10 rx=0 tx=12
+* SER 1 type=rs232 baud=9600 data=8 parity=N stop=1 client=192.168.1.10 rx=0 tx=12
 * STREAM off
 OK
 ```
@@ -68,6 +68,8 @@ number of ms since its last frame.
 |---|---|
 | `SER <1-4> [baud=<300-1000000>] [data=<7\|8>] [parity=<N\|E\|O>] [stop=<1\|2>]` | `OK SER <n> type=… baud=… data=… parity=… stop=…` |
 
+- Power-up default for every port: 9600 baud, 8N1, the most common
+  instrument setting. `SAVE` stores other defaults.
 - Any mix of settings may be given, including none. A setting that is left
   out keeps its current value.
 - The response always gives the full set of settings in effect after the
