@@ -2373,7 +2373,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "W6100 in SPI mode (MOD[3:0] = 0000) on SPI3. Support circuit per WIZnet W6100_Ref_Schematic_V110_use_mag:\n2 x 49.9R + 0.1 uF per pair at the MDI pins, jack centre taps to 3V3A, beads 3V3D->3V3A and 1V2D->1V2A,\nRSET_BG 12k + 300R (12.3k 1 %), 25 MHz crystal with 8 pF and 1M. The jack's magnetics isolate the host."
+	(text "W6100 in SPI mode (MOD[3:0] = 0000) on SPI3. Support circuit per WIZnet W6100_Ref_Schematic_V110_use_mag:\n2 x 49.9R + 0.1 uF per pair at the MDI pins, jack centre taps to 3V3A, beads 3V3D->3V3A and 1V2D->1V2A,\nRSET_BG 12k + 300R (12.3k 1 %), 25 MHz crystal (CL 18 pF) with 27 pF and 1M. The jack's magnetics isolate the host."
 		(exclude_from_sim no)
 		(at 25.4 25.4 0)
 		(effects
@@ -6623,7 +6623,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TBD"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 241.3 55.88 0)
 			(hide yes)
 			(effects
@@ -6632,7 +6632,7 @@
 				)
 			)
 		)
-		(property "MPN" "TBD (3.3 uF 25 V X7R 1206)"
+		(property "MPN" "CL31B335KAHVPNE"
 			(at 241.3 55.88 0)
 			(hide yes)
 			(effects
@@ -7081,7 +7081,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TBD"
+		(property "Manufacturer" "Abracon"
 			(at 254 190.5 0)
 			(hide yes)
 			(effects
@@ -7090,7 +7090,7 @@
 				)
 			)
 		)
-		(property "MPN" "TBD (25 MHz, 5032, CL 12 pF)"
+		(property "MPN" "ABM3-25.000MHZ-D2Y-T"
 			(at 254 190.5 0)
 			(hide yes)
 			(effects
@@ -7256,7 +7256,7 @@
 				)
 			)
 		)
-		(property "Value" "8pF 50V C0G"
+		(property "Value" "27pF 50V C0G"
 			(at 246.38 214.63 0)
 			(effects
 				(font
@@ -7292,7 +7292,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TBD"
+		(property "Manufacturer" "Murata"
 			(at 243.84 213.36 0)
 			(hide yes)
 			(effects
@@ -7301,7 +7301,7 @@
 				)
 			)
 		)
-		(property "MPN" "TBD (8 pF 50 V C0G 0805, to suit the 25 MHz crystal)"
+		(property "MPN" "GRM2165C1H270JA01D"
 			(at 243.84 213.36 0)
 			(hide yes)
 			(effects
@@ -7427,7 +7427,7 @@
 				)
 			)
 		)
-		(property "Value" "8pF 50V C0G"
+		(property "Value" "27pF 50V C0G"
 			(at 266.7 214.63 0)
 			(effects
 				(font
@@ -7463,7 +7463,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TBD"
+		(property "Manufacturer" "Murata"
 			(at 264.16 213.36 0)
 			(hide yes)
 			(effects
@@ -7472,7 +7472,7 @@
 				)
 			)
 		)
-		(property "MPN" "TBD (8 pF 50 V C0G 0805, to suit the 25 MHz crystal)"
+		(property "MPN" "GRM2165C1H270JA01D"
 			(at 264.16 213.36 0)
 			(hide yes)
 			(effects

@@ -38,8 +38,7 @@ MPN = {
     "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
     "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
     "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
-    "8pF 50V C0G": ("TBD", "TBD (8 pF 50 V C0G 0805, to suit the 25 MHz crystal)"),
-    "3.3uF 25V X7R": ("TBD", "TBD (3.3 uF 25 V X7R 1206)"),
+    "3.3uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B335KAHVPNE"),
     "1nF 2kV X7R": ("KEMET", "C1206C102KGRACTU"),
 }
 
@@ -184,7 +183,7 @@ def eth_sheet():
     s = sheet("ethernet.kicad_sch", "Ethernet", 4, "Core: Ethernet (W6100)")
     s.text("W6100 in SPI mode (MOD[3:0] = 0000) on SPI3. Support circuit per WIZnet W6100_Ref_Schematic_V110_use_mag:\n"
            "2 x 49.9R + 0.1 uF per pair at the MDI pins, jack centre taps to 3V3A, beads 3V3D->3V3A and 1V2D->1V2A,\n"
-           "RSET_BG 12k + 300R (12.3k 1 %), 25 MHz crystal with 8 pF and 1M. The jack's magnetics isolate the host.",
+           "RSET_BG 12k + 300R (12.3k 1 %), 25 MHz crystal (CL 18 pF) with 27 pF and 1M. The jack's magnetics isolate the host.",
            25.4, 25.4)
     w = {"29": "/ETH_CS", "30": "/ETH_SCK", "32": "/ETH_MOSI", "33": "/ETH_MISO", "47": "/ETH_INT", "48": "/ETH_RST",
          "25": "MOD", "26": "MOD", "27": "MOD", "28": "MOD", "34": "+3V3", "35": "+3V3",
@@ -219,11 +218,11 @@ def eth_sheet():
     s.R("R14", "12k", 228.6, 157.48, "RSET", "RSET2")
     s.R("R15", "300R", 228.6, 175.26, "RSET2", "GND")
     s.part("Device:Crystal", "Y2", "25MHz", 254.0, 190.5, {"1": "XSCI", "2": "XSCO"}, 0,
-           "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering", "TBD", "TBD (25 MHz, 5032, CL 12 pF)",
+           "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering", "Abracon", "ABM3-25.000MHZ-D2Y-T",
            ref_at=(254.0, 186.69), value_at=(254.0, 195.58))
     s.R("R16", "1M", 254.0, 205.74, "XSCI", "XSCO", rot=90)
-    s.C("C30", "8pF 50V C0G", 243.84, 213.36, "XSCI", "GND")
-    s.C("C31", "8pF 50V C0G", 264.16, 213.36, "XSCO", "GND")
+    s.C("C30", "27pF 50V C0G", 243.84, 213.36, "XSCI", "GND")
+    s.C("C31", "27pF 50V C0G", 264.16, 213.36, "XSCO", "GND")
     s.R("R17", "49.9R", 279.4, 116.84, "TXP", "TXCT")
     s.R("R18", "49.9R", 279.4, 134.62, "TXCT", "TXN")
     s.C("C32", "100nF 50V X7R", 294.64, 129.54, "TXCT", "GND", decouple=True)
