@@ -25,7 +25,7 @@
 #define CANCLK_HZ       40000000u   /* REFCLK4 */
 #define CORETIMER_HZ    (SYSCLK_HZ / 2u)
 
-#define FW_VERSION      "0.1"
+#define FW_VERSION      "0.2"
 
 /* LED and W6100 control lines */
 #define LED_HB_TOGGLE() (LATDINV = 1u << 8)
@@ -37,9 +37,11 @@
 void board_init(void);
 void pps_unlock(void);
 void pps_lock(void);
+void board_reset(void);                 /* software reset, does not return */
 
 /* core-timer time base (wraps every 71 s; compare differences only) */
 uint32_t ticks(void);
+uint32_t millis(void);                  /* ms since reset; call at least every 71 s */
 uint32_t ms_since(uint32_t t0);
 void delay_us(uint32_t us);
 void delay_ms(uint32_t ms);

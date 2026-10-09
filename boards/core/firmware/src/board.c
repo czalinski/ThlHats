@@ -130,6 +130,15 @@ static void ports_init(void)
     pps_lock();
 }
 
+void board_reset(void)
+{
+    __builtin_disable_interrupts();
+    sys_unlock();
+    RSWRSTSET = 1;
+    (void)RSWRST;                       /* the read triggers the reset */
+    for (;;) { }
+}
+
 void board_init(void)
 {
     CFGCONbits.JTAGEN = 0;
@@ -140,6 +149,17 @@ void board_init(void)
 uint32_t ticks(void)
 {
     return _CP0_GET_COUNT();
+}
+
+uint32_t millis(void)
+{
+    static uint32_t last, ms, frac;
+    uint32_t now = ticks();
+    uint32_t d = now - last + frac;
+    last = now;
+    ms += d / (CORETIMER_HZ / 1000u);
+    frac = d % (CORETIMER_HZ / 1000u);
+    return ms;
 }
 
 uint32_t ms_since(uint32_t t0)
