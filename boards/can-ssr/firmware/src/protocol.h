@@ -17,13 +17,13 @@
 
 /* host -> all nodes (node field 0) */
 #define F_ALL_OFF       0x00    /* 0 bytes: every node switches off now */
-#define F_HOST_HB       0x01    /* 0-8 bytes: host heartbeat, refreshes every node's timeout */
+#define F_HOST_HB       0x01    /* 0-8 bytes: host present (status LED only; does not feed the failsafe) */
 
 /* node -> host */
 #define F_FAULT         0x08    /* on a new fault, then every FAULT_REPEAT_MS while active */
 
 /* host -> node */
-#define F_SET           0x10    /* u16 Vset (0 = off), u16 Ilimit, u8 flags, u8 seq */
+#define F_SET           0x10    /* u16 Vset (0 = off), u16 Ilimit, u8 flags, u8 seq[, u16 failsafe timeout ms] */
 #define F_CLEAR         0x11    /* 0 bytes: clear latched faults (resets the trip latch) */
 #define F_CAPT_READ     0x13    /* u16 index, u8 which (0 = current, 1 = voltages) */
 #define F_INFO_REQ      0x14    /* 0 bytes: reply with INFO */

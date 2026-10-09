@@ -18,8 +18,8 @@ typedef struct {
     uint32_t status_ms;                 /* when STATUS last arrived */
     uint8_t state, build, warnings, v12;
     uint16_t faults, vset;
-    /* last SET we sent and the SSR accepted */
-    uint16_t ilimit;
+    /* last SET the SSR accepted */
+    uint16_t ilimit, timeout_ms;
     /* MEAS (10 mV / 10 mA) */
     uint16_t vin, vout, iavg, ipeak;
     /* INFO */
@@ -31,18 +31,18 @@ typedef struct {
 } ssr_t;
 
 void ssr_frame(const can_frame *f);     /* every frame received on SSR_CAN */
-void ssr_poll(bool host_alive);         /* heartbeat, stream */
+void ssr_poll(void);                    /* HOST_HB (status LED only), stream */
 bool ssr_connected(uint8_t node);
 const ssr_t *ssr_get(uint8_t node);
 const char *ssr_build_name(uint8_t build);
 const char *ssr_state_name(uint8_t state);
 int ssr_format(uint8_t node, char *buf, uint32_t n);    /* status line, no prefix */
 
-bool ssr_send_set(uint8_t node, uint16_t vset, uint16_t ilimit, uint8_t flags, uint8_t *seq);
+bool ssr_send_set(uint8_t node, uint16_t vset, uint16_t ilimit, uint8_t flags, uint16_t timeout_ms, uint8_t *seq);
 bool ssr_send_clear(uint8_t node);
 bool ssr_send_info_req(uint8_t node);
 bool ssr_send_all_off(void);
-void ssr_note_set(uint8_t node, uint16_t ilimit);   /* remember an accepted current limit */
+void ssr_note_set(uint8_t node, uint16_t ilimit, uint16_t timeout_ms);   /* remember an accepted SET */
 
 /* UDP stream */
 typedef struct {

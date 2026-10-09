@@ -5,14 +5,18 @@
 #include <stdint.h>
 
 #define FW_VERSION_MAJOR        0
-#define FW_VERSION_MINOR        1
+#define FW_VERSION_MINOR        2
 #define BOARD_TYPE_CAN_SSR      0x01    /* ThlHats board type code */
 
 #define FOSC_HZ                 64000000UL
 
-/* Failsafe: outputs off when no host frame (SET, HEARTBEAT, CLEAR) arrives
- * for this long. Fixed for now; a CONFIG message can make it settable. */
-#define HOST_TIMEOUT_MS         1000u
+/* Failsafe: while the output is requested on, it switches off when no SET for
+ * this node arrives within the timeout carried by the last SET (bytes 6-7).
+ * A SET without them (6-byte frame) uses the default. */
+#define HOST_TIMEOUT_MS         1000u   /* default */
+#define HOST_TIMEOUT_MIN_MS     100u
+#define HOST_TIMEOUT_MAX_MS     60000u
+#define HOST_LINK_MS            1000u   /* status LED: host seen (any host frame, HOST_HB) */
 
 #define MEAS_PERIOD_MS          10u     /* 100 Hz MEAS frames */
 #define STATUS_PERIOD_MS        1000u   /* STATUS frame */

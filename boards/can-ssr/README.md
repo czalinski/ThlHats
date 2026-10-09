@@ -2,7 +2,7 @@
 
 Remote CAN FD node that turns a Mean Well adjustable supply into a simple
 automatable DUT supply: high-side switch with reverse blocking, V and I
-readback, remote voltage/current programming, auto-off on lost heartbeat.
+readback, remote voltage/current programming, auto-off when the host stops repeating its SET (failsafe timeout set by the host in each SET).
 Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 4.2, 4.2.1 (builds and switching) and 4.2.2 (block diagram).
 

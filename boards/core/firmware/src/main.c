@@ -47,7 +47,7 @@ int main(void)
                     console_print_frame(ch, &f);
             }
 
-        ssr_poll(cmd_host_alive());
+        ssr_poll();
         server_poll();
         ser_poll();
         console_poll();

@@ -1,4 +1,4 @@
-# can-ssr CAN protocol (draft, firmware 0.1)
+# can-ssr CAN protocol (draft, firmware 0.2)
 
 Bus: 500 kbit/s nominal. The node runs its controller in CAN FD mode but sends
 **classic frames of at most 8 bytes**, so it works on a classic CAN 2.0 bus and
@@ -12,9 +12,9 @@ switch (0-15, read once at boot). Lower IDs win arbitration.
 | Function | ID | Direction | Bytes | Content |
 |---|---|---|---|---|
 | `0x00` ALL_OFF | `0x000` | host → all | 0 | every node switches off now (not a fault) |
-| `0x01` HOST_HB | `0x010` | host → all | 0-8 | heartbeat: refreshes every node's timeout |
+| `0x01` HOST_HB | `0x010` | host → all | 0-8 | host present: status LED only (does not feed the failsafe) |
 | `0x08` FAULT | `0x08n` | node → host | 8 | on a new fault, then every 1 s while any fault is latched |
-| `0x10` SET | `0x10n` | host → node | 6 | `u16 Vset`, `u16 Ilimit`, `u8 flags`, `u8 seq` |
+| `0x10` SET | `0x10n` | host → node | 6 or 8 | `u16 Vset`, `u16 Ilimit`, `u8 flags`, `u8 seq`, optional `u16 timeout` (ms) |
 | `0x11` CLEAR | `0x11n` | host → node | 0 | clear latched faults (also resets the hardware trip latch) |
 | `0x13` CAPT_READ | `0x13n` | host → node | 2 | `u16 req` = sample index (bits 13-0) + buffer (bits 15-14) |
 | `0x14` INFO_REQ | `0x14n` | host → node | 0 | reply with INFO |
@@ -47,10 +47,17 @@ A node that receives a node → host frame carrying its own node number latches
 
 ### Failsafe
 
-Any host frame (SET, CLEAR, HOST_HB, CAPT_READ, INFO_REQ, ALL_OFF) refreshes
-the timeout. While the output is requested on, **1000 ms** without a host frame
-switches off and latches `HOST_TIMEOUT` (fixed in `src/config.h`). The host
-should send SET or HOST_HB at least every 250-500 ms.
+Firmware 0.2: the host sets the failsafe timeout in each SET (bytes 6-7, ms,
+clamped to 100-60000; a 6-byte SET means 1000 ms). The value of an accepted
+SET applies. While the output is requested on, **only a SET to this node**
+restarts the timer. If the timeout passes without one, the node switches off
+and latches `HOST_TIMEOUT`. The host repeats its SET (same values: no
+re-sequencing, only Vset/Ilimit updates) well inside the timeout, typically
+every timeout / 4.
+
+HOST_HB and the other host frames only light the "host present" status LED
+(1 s). They no longer keep an output on, so a broadcast cannot hide a host that
+has stopped controlling one particular node.
 
 ### FAULT
 

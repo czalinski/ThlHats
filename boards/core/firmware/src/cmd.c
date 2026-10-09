@@ -18,12 +18,9 @@
 #define INFO_MS         500u
 #define CLEAR_MS        1500u           /* wait for the next STATUS (sent every 1 s) */
 #define REBOOT_MS       200u
-#define UART_ALIVE_MS   30000u
+#define OFF_TIMEOUT_MS  1000u           /* failsafe timeout sent with SSR OFF (irrelevant while off) */
 
 enum { P_NONE, P_SET, P_CLEAR, P_INFO, P_REBOOT };
-
-static uint32_t wdog_ms;
-static uint32_t last_cmd_ms, last_uart_cmd_ms;
 
 /* ------------------------------------------------------------------ output */
 
@@ -270,9 +267,8 @@ static void line_core(session *s, const char *prefix)
     const char *link = !net_ok() ? "no-chip" : !(phy & 1u) ? "down"
                      : (phy & 2u) ? ((phy & 4u) ? "10M-half" : "10M-full")
                                   : ((phy & 4u) ? "100M-half" : "100M-full");
-    out(s, "%sCORE fw=%s up=%lu ip=%s link=%s clients=%u wdog=%lu host=%s",
-        prefix, FW_VERSION, (unsigned long)millis(), ipstr(a, ip), link, server_clients(),
-        (unsigned long)wdog_ms, cmd_host_alive() ? "alive" : "lost");
+    out(s, "%sCORE fw=%s up=%lu ip=%s link=%s clients=%u",
+        prefix, FW_VERSION, (unsigned long)millis(), ipstr(a, ip), link, server_clients());
 }
 
 static void line_can(session *s, const char *prefix, uint8_t ch)
@@ -338,12 +334,11 @@ static void cmd_help(session *s)
         "NET [ip=a.b.c.d] [mask=a.b.c.d] [gw=a.b.c.d]   (SAVE + REBOOT to apply)",
         "SAVE",
         "REBOOT",
-        "WDOG [ms=<n>]",
         "SER <1-4> [baud=<n>] [data=7|8] [parity=N|E|O] [stop=1|2]",
         "CAN SCAN",
         "CAN <1-4> START [mode=fd|classic|listen] [nominal=<bit/s>] [data=<bit/s>]",
         "CAN <1-4> STOP | TX <id>#<data> | TX <id>##<f><data> | TEST",
-        "SSR <node> [SET v=<V> i=<A> hot=0|1 noreg=0|1 | OFF | CLEAR | INFO]",
+        "SSR <node> [SET v=<V> i=<A> hot=0|1 noreg=0|1 timeout=<ms> | OFF | CLEAR | INFO]",
         "SSR ALL OFF",
         "STREAM [ON [ip=a.b.c.d] [batch=1-10] [fmt=bin|text] | OFF]",
     };
@@ -405,23 +400,6 @@ static void cmd_save(session *s)
         OK(s, " saved");
     else
         ERR(s, 503, "flash write failed");
-}
-
-static void cmd_wdog(session *s, const args_t *a)
-{
-    static const char *const keys[] = { "ms", NULL };
-    uint32_t ms;
-    if (!only_keys(s, a, 1, keys))
-        return;
-    const char *v = kv(a, 1, "ms");
-    if (v) {
-        if (!parse_uint(v, 0, 600000u, &ms)) {
-            ERR(s, 400, "ms must be 0-600000");
-            return;
-        }
-        wdog_ms = ms;
-    }
-    OK(s, " WDOG ms=%lu", (unsigned long)wdog_ms);
 }
 
 static void cmd_ser(session *s, const args_t *a)
@@ -558,12 +536,12 @@ static bool ssr_ready(session *s, uint8_t node)
     return true;
 }
 
-static void start_set(session *s, uint8_t node, uint16_t v, uint16_t i, uint8_t flags)
+static void start_set(session *s, uint8_t node, uint16_t v, uint16_t i, uint8_t flags, uint16_t timeout)
 {
     uint8_t seq;
     if (!ssr_ready(s, node))
         return;
-    if (!ssr_send_set(node, v, i, flags, &seq)) {
+    if (!ssr_send_set(node, v, i, flags, timeout, &seq)) {
         ERR(s, 503, "CAN %u TX FIFO full", SSR_CAN);
         return;
     }
@@ -574,6 +552,7 @@ static void start_set(session *s, uint8_t node, uint16_t v, uint16_t i, uint8_t 
     s->pend_v = v;
     s->pend_i = i;
     s->pend_flags = flags;
+    s->pend_timeout = timeout;
 }
 
 static void cmd_ssr(session *s, const args_t *a)
@@ -606,23 +585,25 @@ static void cmd_ssr(session *s, const args_t *a)
     }
     const char *op = a->argv[2];
     if (ieq(op, "SET")) {
-        static const char *const keys[] = { "v", "i", "hot", "noreg", NULL };
+        static const char *const keys[] = { "v", "i", "hot", "noreg", "timeout", NULL };
         uint16_t v, i;
-        uint32_t hot, noreg;
+        uint32_t hot, noreg, timeout;
         if (!only_keys(s, a, 3, keys))
             return;
         const char *sv = kv(a, 3, "v"), *si = kv(a, 3, "i"), *sh = kv(a, 3, "hot"), *sn = kv(a, 3, "noreg");
-        if (!sv || !si || !sh || !sn) {
-            ERR(s, 400, "SET needs all of v= i= hot= noreg=");
+        const char *st = kv(a, 3, "timeout");
+        if (!sv || !si || !sh || !sn || !st) {
+            ERR(s, 400, "SET needs all of v= i= hot= noreg= timeout=");
             return;
         }
         if (!parse_centi(sv, 65535u, &v)) { ERR(s, 400, "v must be 0-655.35"); return; }
         if (!parse_centi(si, 65535u, &i)) { ERR(s, 400, "i must be 0-655.35"); return; }
         if (!parse_uint(sh, 0, 1, &hot)) { ERR(s, 400, "hot must be 0 or 1"); return; }
         if (!parse_uint(sn, 0, 1, &noreg)) { ERR(s, 400, "noreg must be 0 or 1"); return; }
-        start_set(s, n, v, i, (uint8_t)(hot | (noreg << 1)));
+        if (!parse_uint(st, 100, 60000u, &timeout)) { ERR(s, 400, "timeout must be 100-60000 ms"); return; }
+        start_set(s, n, v, i, (uint8_t)(hot | (noreg << 1)), (uint16_t)timeout);
     } else if (ieq(op, "OFF") && a->argc == 3) {
-        start_set(s, n, 0, 0, 0);
+        start_set(s, n, 0, 0, 0, OFF_TIMEOUT_MS);
     } else if (ieq(op, "CLEAR") && a->argc == 3) {
         if (!ssr_ready(s, n))
             return;
@@ -644,7 +625,7 @@ static void cmd_ssr(session *s, const args_t *a)
         s->pend_t0 = millis();
         s->pend_node = n;
     } else {
-        ERR(s, 400, "usage: SSR <node> [SET v= i= hot= noreg= | OFF | CLEAR | INFO]");
+        ERR(s, 400, "usage: SSR <node> [SET v= i= hot= noreg= timeout= | OFF | CLEAR | INFO]");
     }
 }
 
@@ -706,10 +687,6 @@ void cmd_execute(session *s, char *line)
     if (!a.argc)
         return;                         /* empty line: no response */
 
-    last_cmd_ms = millis();
-    if (s->is_uart)
-        last_uart_cmd_ms = last_cmd_ms ? last_cmd_ms : 1u;
-
     const char *c = a.argv[0];
     if (ieq(c, "ID") && a.argc == 1)            cmd_id(s);
     else if (ieq(c, "HELP") || ieq(c, "?"))     cmd_help(s);
@@ -721,7 +698,6 @@ void cmd_execute(session *s, char *line)
         s->pend = P_REBOOT;
         s->pend_t0 = millis();
     }
-    else if (ieq(c, "WDOG"))                    cmd_wdog(s, &a);
     else if (ieq(c, "SER"))                     cmd_ser(s, &a);
     else if (ieq(c, "CAN"))                     cmd_can(s, &a);
     else if (ieq(c, "SSR"))                     cmd_ssr(s, &a);
@@ -752,10 +728,10 @@ void cmd_poll(session *s)
         if (r->ack_ms && r->ack_seq == s->pend_seq) {
             s->pend = P_NONE;
             if (r->ack_result == 0) {
-                ssr_note_set(s->pend_node, s->pend_i);
-                out(s, "OK SSR %u v=%u.%02u i=%u.%02u hot=%u noreg=%u", s->pend_node,
+                ssr_note_set(s->pend_node, s->pend_i, s->pend_timeout);
+                out(s, "OK SSR %u v=%u.%02u i=%u.%02u hot=%u noreg=%u timeout=%u", s->pend_node,
                     s->pend_v / 100u, s->pend_v % 100u, s->pend_i / 100u, s->pend_i % 100u,
-                    s->pend_flags & 1u, (s->pend_flags >> 1) & 1u);
+                    s->pend_flags & 1u, (s->pend_flags >> 1) & 1u, s->pend_timeout);
             } else {
                 ERR(s, 409, "SSR %u: %s", s->pend_node, ack_reason(r->ack_result));
             }
@@ -796,12 +772,4 @@ void cmd_poll(session *s)
 bool cmd_busy(const session *s)
 {
     return s->pend != P_NONE;
-}
-
-bool cmd_host_alive(void)
-{
-    uint32_t now = millis();
-    if (wdog_ms)
-        return last_cmd_ms && now - last_cmd_ms < wdog_ms;
-    return server_clients() > 0 || (last_uart_cmd_ms && now - last_uart_cmd_ms < UART_ALIVE_MS);
 }

@@ -57,7 +57,7 @@ Behaviour:
   (red) is on while a fault is latched and blinks for warnings.
 - **Watchdog:** about 256 ms, cleared by the main loop.
 
-## Memory (XC8 v4.00, -O2, firmware 0.1)
+## Memory (XC8 v4.00, -O2, firmware 0.2)
 
 | | Used | Of | |
 |---|---|---|---|

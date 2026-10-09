@@ -24,7 +24,7 @@ reference client and a test tool:
 
 ```sh
 host/thlcore.py 192.168.1.50 STATUS
-host/thlcore.py 192.168.1.50 SSR 3 SET v=24 i=5 hot=0 noreg=0
+host/thlcore.py 192.168.1.50 SSR 3 SET v=24 i=5 hot=0 noreg=0 timeout=1000
 host/thlcore.py 192.168.1.50 --stream       # decoded SSR samples, one line each
 host/thlcore.py 192.168.1.50 --serial 1     # dump serial port 1
 nc 192.168.1.50 5000                        # type commands by hand
@@ -39,7 +39,7 @@ nc 192.168.1.50 5000                        # type commands by hand
 | `w6100.c`, `net.c` | SPI3 driver and sockets: TCP servers on 5000 (×2) and 5001-5004, UDP stream socket. Keep-alive 5 s |
 | `cmd.c` | The ASCII command set, shared by TCP and the debug UART |
 | `server.c` | TCP command sessions. A session reads the next command only once the previous response has been handed to the W6100 |
-| `ssr.c` | can-ssr nodes on CAN1: status cache, SET/CLEAR/INFO, HOST_HB failsafe heartbeat, batched UDP stream |
+| `ssr.c` | can-ssr nodes on CAN1: status cache, SET/CLEAR/INFO (SET carries the host's failsafe timeout), HOST_HB presence frame, batched UDP stream |
 | `serial.c` | UART2-5 ↔ TCP 5001-5004 through interrupt rings; RS-485 DE timing; 7-bit framing done in firmware |
 | `settings.c` | `NET`/`SER` power-up settings in the last flash page, CRC-checked |
 | `console.c` | Debug UART: the same commands plus `MON ON/OFF` (candump-style CAN frame printing) |
@@ -68,17 +68,16 @@ A channel whose bus is stuck dominant reads as absent.
    `nc <ip> 5000` answers `ID`. Out of the box the address is
    192.168.1.50/24. Set your own with `NET ip=… mask=… gw=…`, then `SAVE`
    and `REBOOT`.
-5. With an SSR on CAN1, it shows up in `STATUS`. `SSR <n> SET v=… i=… hot=0
-   noreg=0` switches it on. `thlcore.py --stream` shows samples every
-   10 ms. Closing the TCP connection should switch the SSR off within
-   about 1 s (HOST_TIMEOUT).
+5. With an SSR on CAN1 (can-ssr firmware 0.2), it shows up in `STATUS`.
+   `SSR <n> SET v=… i=… hot=0 noreg=0 timeout=1000` switches it on, and
+   `thlcore.py --stream` shows samples every 10 ms. If the SET is not
+   repeated, the output switches off after 1 s with `HOST_TIMEOUT`.
 6. `SAVE` survives a power cycle: check with `NET` after reboot. Flash
    writes are not verified on hardware yet.
 7. Measure the 25 MHz crystal drive level (Y2, ABM3 rated 100 µW).
 
 ## Not done yet
 
-- DHCP, and a UDP discovery broadcast.
 - Raw CAN traffic for non-SSR devices over the network. Today it is only
   `CAN n TX` and `MON` on the debug UART.
 - Serial-card hardware. The RS-232/RS-485 port split and the DE pins

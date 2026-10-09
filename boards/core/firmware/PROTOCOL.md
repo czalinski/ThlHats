@@ -1,4 +1,4 @@
-# Core host protocol (draft, firmware 0.2)
+# Core host protocol (draft, firmware 0.3)
 
 The host talks to the core over Ethernet. Plain sockets only: no drivers, no
 special privileges.
@@ -38,23 +38,22 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 
 | Command | Response |
 |---|---|
-| `ID` | `OK ThlHats core fw=0.2 sn=<serial> mac=<mac>` |
+| `ID` | `OK ThlHats core fw=0.3 sn=<serial> mac=<mac>` |
 | `HELP` | `* ` one line per command, then `OK` |
 | `STATUS` | every device, one `* ` line each, then `OK` (below) |
 | `NET [ip=a.b.c.d] [mask=a.b.c.d] [gw=a.b.c.d]` | `OK NET ip=… mask=… gw=… (active ip=…)`. New values take effect after `SAVE` and `REBOOT`. |
 | `SAVE` | stores the NET settings and the current SER settings in flash as power-up defaults: `OK saved` |
 | `REBOOT` | `OK rebooting`, then a reset 100 ms later |
-| `WDOG [ms=<n>]` | host watchdog (see SSR failsafe), `OK WDOG ms=<n>` |
 
 `STATUS` example:
 
 ```
-* CORE fw=0.2 up=81234 ip=192.168.1.50 link=100M-full clients=1 wdog=0 host=alive
+* CORE fw=0.3 up=81234 ip=192.168.1.50 link=100M-full clients=1
 * CAN 1 present=1 mode=fd nominal=500000 data=2000000 state=active tec=0 rec=0 rx=81234 tx=325
 * CAN 2 present=1 state=stopped
 * CAN 3 present=0
 * CAN 4 present=0
-* SSR 3 port=5103 state=on build=STD vset=24.00 ilimit=10.00 vin=24.01 vout=23.98 iavg=1.23 ipeak=1.50 faults=0x0000 warnings=0x00 v12=12.1 fw=0.1 age=4
+* SSR 3 port=5103 state=on build=STD vset=24.00 ilimit=10.00 vin=24.01 vout=23.98 iavg=1.23 ipeak=1.50 faults=0x0000 warnings=0x00 v12=12.1 timeout=1000 fw=0.2 age=4
 * SER 1 type=rs232 baud=115200 data=8 parity=N stop=1 client=192.168.1.10 rx=0 tx=12
 * STREAM off
 OK
@@ -80,6 +79,9 @@ number of ms since its last frame.
   bit sent until the last stop bit has left.
 - `data=7` is done in firmware on an 8-bit UART frame: the parity bit (or
   the second stop bit for 7N2) is generated on send and removed on receive.
+  This covers 7E1, the usual 7-bit setting (older instruments, scales,
+  Modbus ASCII), and 7O1, 7E2, 7O2 and 7N2. 7N1 is refused: its 9-bit frame
+  does not fit.
 - Data goes through TCP port 5000 + n untouched, in both directions. The
   settings stay in place across connections.
 
@@ -105,13 +107,13 @@ switch.
 | Command | Response |
 |---|---|
 | `SSR <node>` | that node's status line (as in `STATUS`) without the `* `: `OK SSR 3 port=5103 state=…` |
-| `SSR <node> SET v=<volts> i=<amps> hot=<0\|1> noreg=<0\|1>` | `OK SSR <node> v=… i=… hot=… noreg=…`: the values the SSR accepted |
-| `SSR <node> OFF` | same as `SET v=0 i=0 hot=0 noreg=0` |
+| `SSR <node> SET v=<volts> i=<amps> hot=<0\|1> noreg=<0\|1> timeout=<ms>` | `OK SSR <node> v=… i=… hot=… noreg=… timeout=…`: the values the SSR accepted |
+| `SSR <node> OFF` | same as `SET v=0 i=0 hot=0 noreg=0 timeout=1000` |
 | `SSR ALL OFF` | broadcast ALL_OFF to every node: `OK` |
 | `SSR <node> CLEAR` | clears latched faults: `OK SSR <node> faults=0x…`, taken from the node's next STATUS (≤ 1.5 s); non-zero means a cause is still present |
-| `SSR <node> INFO` | asks the node for INFO: `OK SSR <node> type=can-ssr fw=0.1 build=STD` |
+| `SSR <node> INFO` | asks the node for INFO: `OK SSR <node> type=can-ssr fw=0.2 build=STD` |
 
-- **`SET` is all or nothing.** All four values are required, and a `SET`
+- **`SET` is all or nothing.** All five values are required, and a `SET`
   with any of them missing or out of range returns `ERR 400` without
   sending anything.
 - `v` is the output voltage (0 switches off). `i` is the current limit
@@ -125,14 +127,20 @@ switch.
   (`fault latched`, `voltage above build limit`, `current above build
   limit`, `hot switching refused`). With no answer it is `ERR 504`, and with
   the node not seen in the last 2 s it is `ERR 404`.
-- **Failsafe.** An SSR switches off by itself if it hears nothing from the
-  host for 1 s. The core sends HOST_HB on CAN1 every 250 ms, but only while
-  the host is alive. With `WDOG ms=0` (the default), the host counts as
-  alive while at least one TCP client is connected to port 5000, or for
-  30 s after a command on the debug UART. The W6100 keep-alive detects a
-  dead peer within about 20 s, and a client that closes its socket counts
-  as gone at once. With `WDOG ms=<n>`, the host
-  must also send a command at least every `n` ms; `ID` is the cheapest.
+- **Failsafe: the host owns the timeout.** `timeout` (100-60000 ms) goes to
+  the SSR inside its SET frame, and the SSR enforces it. While its output
+  is on, the SSR must receive another SET within `timeout`. Otherwise it
+  switches off and latches `HOST_TIMEOUT`, which `SSR <node> CLEAR` clears.
+  The host keeps an output on by repeating the same `SET`. A repeated SET
+  with the same values does not restart the turn-on sequence; changed `v`
+  or `i` values are applied in place. Pick `timeout` at about 4× the
+  repeat interval, e.g. repeat every 250 ms with `timeout=1000`.
+- The check is end to end: a hung host program, a dropped TCP connection, a
+  rebooted core and a broken CAN cable all end the repeated SETs. The core
+  never sends anything that keeps an output on. Its HOST_HB frame (every
+  250 ms on CAN1) only lights the SSR's "host present" LED.
+- This needs can-ssr firmware 0.2. Firmware 0.1 ignores the timeout and
+  uses a fixed 1 s, which also HOST_HB refreshes.
 
 ### UDP measurement stream
 
@@ -178,6 +186,8 @@ decimals. You can watch it with `nc -ul 5103`.
   Change it with `NET` + `SAVE` + `REBOOT`, over TCP or the debug UART.
 - The MAC address is locally administered, 02:54:48:xx:xx:xx, and is made
   from the PIC32 serial number.
-- IPv4 only for now. DHCP and a discovery broadcast are planned.
+- IPv4 only, static addresses. No DHCP: a rack always gets a fixed
+  address saved in flash. Set it up on a direct cable at the default
+  address, or over the debug UART.
 - Reprogramming the PIC with a chip erase also erases the saved settings.
   They then go back to the defaults.

@@ -16,13 +16,12 @@ struct session {
     uint8_t pend;
     uint32_t pend_t0;
     uint8_t pend_node, pend_seq, pend_flags;
-    uint16_t pend_v, pend_i;
+    uint16_t pend_v, pend_i, pend_timeout;
 };
 
 void cmd_execute(session *s, char *line);
 void cmd_poll(session *s);
 bool cmd_busy(const session *s);
-bool cmd_host_alive(void);              /* SSR heartbeat condition (PROTOCOL.md, failsafe) */
 bool str_ieq(const char *a, const char *b);                 /* case-insensitive compare */
 bool str_ieq_n(const char *a, const char *b, uint32_t n);
 

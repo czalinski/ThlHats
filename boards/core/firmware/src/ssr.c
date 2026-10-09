@@ -180,12 +180,14 @@ static bool send(uint8_t fn, uint8_t node, const uint8_t *data, uint8_t len)
     return can_send(SSR_CAN, &f);
 }
 
-void ssr_poll(bool host_alive)
+void ssr_poll(void)
 {
     uint32_t now = millis();
     can_status cs;
     can_get_status(SSR_CAN, &cs);
-    if (host_alive && cs.running && cs.mode != CAN_MODE_LISTEN && now - hb_ms >= HB_MS) {
+    /* HOST_HB only tells the nodes a host is present (their status LED); the
+     * failsafe is fed by the host's own repeated SETs */
+    if (cs.running && cs.mode != CAN_MODE_LISTEN && now - hb_ms >= HB_MS) {
         hb_ms = now;
         send(F_HOST_HB, 0, NULL, 0);
     }
@@ -223,12 +225,12 @@ int ssr_format(uint8_t node, char *buf, uint32_t n)
     const ssr_t *s = &node_state[node & 15u];
     int k = snprintf(buf, n, "SSR %u port=%u state=%s build=%s vset=%u.%02u ilimit=%u.%02u "
                      "vin=%u.%02u vout=%u.%02u iavg=%u.%02u ipeak=%u.%02u faults=0x%04X warnings=0x%02X "
-                     "v12=%u.%u",
+                     "v12=%u.%u timeout=%u",
                      node, (unsigned)SSR_PORT(node), ssr_state_name(s->state), ssr_build_name(s->build),
                      s->vset / 100u, s->vset % 100u, s->ilimit / 100u, s->ilimit % 100u,
                      s->vin / 100u, s->vin % 100u, s->vout / 100u, s->vout % 100u,
                      s->iavg / 100u, s->iavg % 100u, s->ipeak / 100u, s->ipeak % 100u,
-                     s->faults, s->warnings, s->v12 / 10u, s->v12 % 10u);
+                     s->faults, s->warnings, s->v12 / 10u, s->v12 % 10u, s->timeout_ms);
     if (s->info_ms && k > 0 && (uint32_t)k < n)
         k += snprintf(buf + k, n - (uint32_t)k, " fw=%u.%u", s->fw_major, s->fw_minor);
     if (k > 0 && (uint32_t)k < n)
@@ -236,21 +238,23 @@ int ssr_format(uint8_t node, char *buf, uint32_t n)
     return k;
 }
 
-bool ssr_send_set(uint8_t node, uint16_t vset, uint16_t ilimit, uint8_t flags, uint8_t *seq)
+bool ssr_send_set(uint8_t node, uint16_t vset, uint16_t ilimit, uint8_t flags, uint16_t timeout_ms, uint8_t *seq)
 {
-    uint8_t d[6];
+    uint8_t d[8];
     put16(d, vset);
     put16(d + 2, ilimit);
     d[4] = flags;
     d[5] = ++set_seq;
+    put16(d + 6, timeout_ms);           /* can-ssr firmware 0.2: failsafe timeout */
     *seq = set_seq;
     node_state[node & 15u].ack_ms = 0;
-    return send(F_SET, node & 15u, d, 6);
+    return send(F_SET, node & 15u, d, 8);
 }
 
-void ssr_note_set(uint8_t node, uint16_t ilimit)
+void ssr_note_set(uint8_t node, uint16_t ilimit, uint16_t timeout_ms)
 {
     node_state[node & 15u].ilimit = ilimit;
+    node_state[node & 15u].timeout_ms = timeout_ms;
 }
 
 bool ssr_send_clear(uint8_t node)

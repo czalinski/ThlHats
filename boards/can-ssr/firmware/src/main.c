@@ -14,8 +14,9 @@
 #include "sampling.h"
 
 static uint8_t node;
-static uint32_t t_host, t_meas, t_status, t_fault, t_disp, t_led;
+static uint32_t t_host, t_link, t_meas, t_status, t_fault, t_disp, t_led;
 static uint8_t host_seen;
+static uint16_t host_timeout_ms = HOST_TIMEOUT_MS;   /* from the last SET */
 static uint16_t last_iavg;
 static uint16_t faults_sent;
 
@@ -77,30 +78,37 @@ static void handle_frame(const can_frame_t *f, uint32_t now)
     uint8_t fn = CAN_FUNC(f->id), nd = CAN_NODE(f->id);
 
     if (fn == F_ALL_OFF && nd == 0) { control_set(0, 0, 0); control_off(); return; }
-    if (fn == F_HOST_HB && nd == 0) { t_host = now; host_seen = 1; return; }
+    if (fn == F_HOST_HB && nd == 0) { t_link = now; host_seen = 1; return; }
     if (nd != node) return;
 
     switch (fn) {
     case F_SET:
         if (f->len >= 5) {
             uint8_t ack[2];
+            uint16_t to = HOST_TIMEOUT_MS;
+            if (f->len >= 8) {
+                to = get16(&f->data[6]);
+                if (to < HOST_TIMEOUT_MIN_MS) to = HOST_TIMEOUT_MIN_MS;
+                if (to > HOST_TIMEOUT_MAX_MS) to = HOST_TIMEOUT_MAX_MS;
+            }
             ack[0] = f->len >= 6 ? f->data[5] : 0;
             ack[1] = control_set(get16(&f->data[0]), get16(&f->data[2]), f->data[4]);
+            if (ack[1] == SET_OK) host_timeout_ms = to;
             can_send(CAN_ID(F_SET_ACK, node), ack, 2);
         }
-        t_host = now; host_seen = 1;
+        t_host = t_link = now; host_seen = 1;   /* only SET feeds the failsafe */
         break;
     case F_CLEAR:
         control_clear();
-        t_host = now; host_seen = 1;
+        t_link = now; host_seen = 1;
         break;
     case F_CAPT_READ:
         if (f->len >= 2) send_capture(get16(&f->data[0]));
-        t_host = now;
+        t_link = now;
         break;
     case F_INFO_REQ:
         send_info();
-        t_host = now;
+        t_link = now;
         break;
     case F_FAULT: case F_MEAS: case F_STATUS: case F_INFO: case F_CAPT_DATA: case F_SET_ACK:
         fault_raise(FLT_ADDR_CONFLICT);         /* another node sends with our number */
@@ -123,7 +131,7 @@ static void update_display(uint32_t now)
 
 static void update_leds(uint32_t now)
 {
-    uint8_t link = host_seen && (now - t_host < HOST_TIMEOUT_MS);
+    uint8_t link = host_seen && (now - t_link < HOST_LINK_MS);
     if (g_state == ST_ON) PIN_LED_STATUS = 1;
     else if (link) PIN_LED_STATUS = (now % 1000u) < 500u;      /* slow blink: idle, host present */
     else PIN_LED_STATUS = (now % 2000u) < 50u;                  /* short flash: no host */
@@ -155,7 +163,7 @@ void main(void)
     send_info();
 
     uint32_t now = millis();
-    t_host = t_meas = t_status = t_fault = t_led = now;
+    t_host = t_link = t_meas = t_status = t_fault = t_led = now;
     t_disp = now + 1500u;                       /* keep the boot screen up */
 
     for (;;) {
@@ -166,7 +174,7 @@ void main(void)
         while (can_receive(&f)) handle_frame(&f, now);
 
         /* failsafe: only armed while the output is requested on */
-        if ((g_set_v || g_state != ST_OFF) && now - t_host >= HOST_TIMEOUT_MS) {
+        if ((g_set_v || g_state != ST_OFF) && now - t_host >= host_timeout_ms) {
             fault_raise(FLT_HOST_TIMEOUT);
             g_set_v = 0;
         }

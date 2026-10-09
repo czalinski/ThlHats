@@ -4,7 +4,7 @@
 Python 3 standard library only: plain sockets, no drivers, no privileges.
 
   thlcore.py 192.168.1.50 STATUS
-  thlcore.py 192.168.1.50 SSR 3 SET v=24 i=5 hot=0 noreg=0
+  thlcore.py 192.168.1.50 SSR 3 SET v=24 i=5 hot=0 noreg=0 timeout=1000
   thlcore.py 192.168.1.50 --stream          # STREAM ON, print decoded samples
   thlcore.py 192.168.1.50 --serial 1        # raw bytes of serial port 1 to stdout
 
@@ -108,7 +108,6 @@ def run_stream(host, batch):
                     last_seq[node] = seq
                     for t, vin, vout, iavg, ipeak in samples:
                         print(f"{node} {t} {vin:.2f} {vout:.2f} {iavg:.2f} {ipeak:.2f} state={state} faults=0x{faults:04X}")
-                c.cmd("ID")             # keeps the host watchdog fed if WDOG is set
         except KeyboardInterrupt:
             print(c.cmd("STREAM OFF"), file=sys.stderr)
 
