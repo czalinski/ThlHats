@@ -43,3 +43,17 @@
 (rule "USB4085 drill spacing"
 	(constraint hole_to_hole (min 0.45mm))
 	(condition "A.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085') && B.memberOfFootprint('Connector_USB:USB_C_Receptacle_GCT_USB4085')"))
+
+# TI ISOW1432 (SLLSF86D 9.4.1 item 5): no traces or pour within 4 mm of the
+# power converter output pins VISOOUT (12) and GND2 (11). The port's own
+# supply nets are exempt; the GND_485 pour is kept out by the KO_ISO rule
+# areas (place.py).
+(rule "ISOW1432 VISOOUT/GND2 keep-out"
+	(constraint clearance (min 4mm))
+	(condition "A.Type == 'Pad' && A.memberOfFootprint('U1?') && (A.Pad_Number == '11' || A.Pad_Number == '12') && (B.Type == 'Track' || B.Type == 'Via') && !(B.NetName == '/VISO*' || B.NetName == '/GND2_*' || B.NetName == '/V485_*' || B.NetName == '/GND_485_*')"))
+
+# Stack connectors (J10/J11): through-hole ground pins are fed by the B.Cu
+# plane; on F.Cu the pin rows leave room for one spoke only.
+(rule "Stack connector spokes"
+	(constraint min_resolved_spokes 1)
+	(condition "A.memberOfFootprint('J1?')"))
