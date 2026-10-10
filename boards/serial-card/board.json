@@ -1,0 +1,4 @@
+{
+  "rpi_mount": false,
+  "reason": "daughter card in the core's stack (docs/requirements.md 4.5): stack interface 4 x M4 on a 91 x 91 mm square (4.4), no Pi header"
+}

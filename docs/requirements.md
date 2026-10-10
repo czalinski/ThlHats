@@ -446,7 +446,7 @@ map); board generators import it.
 | Card blocks | can-card: C1-C4 TX/RX (8). io-card: RLY1-4, GPIO1-4, AI1+/-, AI2+/- on the PIC's ADC, VMID (13). serial-card: U2-U5 TX/RX + DE1/DE2 (10). Shared: I2C1 (SCL/SDA, pull-ups on the core). One card of each type per stack, any height. |
 | Status LEDs | CAN activity LEDs on the can-card, driven from the TX/RX lines (no MCU pins). |
 | Core keeps | SPI3 + CS/INT/RST to the W6100, **debug UART1** (header on the core), heartbeat LED, ICSP, VMID reference (OA5 follower). One MCU pin spare (RB13). |
-| RS-485 (serial-card) | Half duplex is the default (full duplex is uncommon); full duplex only if nearly free, e.g. a full-duplex transceiver with driver enable and A-Y / B-Z jumpers. Ports on **DB9**. |
+| RS-485 (serial-card) | Half duplex is the default (full duplex is uncommon); full duplex only if nearly free, e.g. a full-duplex transceiver with driver enable and A-Y / B-Z jumpers. Ports on **DB9**. **Decided 2026-10-09:** half duplex only, no jumpers (ISOW1432 with Y-A / Z-B tied on the PCB). RS-485 isolated (ISOW1432 integrated DC-DC), RS-232 not isolated (ST3232B). DB9s do not fit in the stack (~12.5 mm against ~11 mm), so the ports use right-angle shrouded 2x5 box headers in IDC10-to-DB9 order: a standard ribbon DB9 cable or a small adapter PCB gives the DB9. |
 
 ## 5. Requirements common to all boards
 

@@ -177,3 +177,9 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-09 | symbol | Connector_Generic | Conn_02x05_Top_Bottom | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-09 | footprint | Connector_Phoenix_MC | PhoenixContact_MC_1,5_10-G-3.5_1x10_P3.50mm_Horizontal | KiCad Connector_Phoenix_MC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-09 | symbol | Connector | Screw_Terminal_01x10 | KiCad Connector.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Thl_Interface | ISOW1432 | generated from lib/symbol_src/Thl_Interface/ISOW1432.csv | repo (MIT) |
+| 2026-10-09 | symbol | Diode | SM712_SOT23 | KiCad Diode.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Interface_UART | MAX232 | KiCad Interface_UART.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | symbol | Interface_UART | MAX3232 | KiCad Interface_UART.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | footprint | Connector_IDC | IDC-Header_2x05_P2.54mm_Horizontal | KiCad Connector_IDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-09 | footprint | Package_SO | SOIC-16_3.9x9.9mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |

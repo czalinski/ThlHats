@@ -1,0 +1,37 @@
+# name: ISOW1432
+# mpn: ISOW1432DFMR
+# manufacturer: Texas Instruments
+# reference: U
+# footprint: Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm
+# datasheet: https://www.ti.com/lit/ds/symlink/isow1412.pdf
+# description: Reinforced isolated RS-485/RS-422 transceiver with integrated DC-DC (ISOW14x2, SLLSF86D), full duplex (half duplex by tying Y-A, Z-B on the PCB), 12 Mbps, VDD/VIO 3-5.5 V, MODE = VISOOUT for 5 V bus side, 5 kVrms, SOIC-20W (DFM). ISOW1412 = 500 kbps, same pinout.
+# keywords: RS-485 RS-422 isolated transceiver isoPower integrated DC-DC
+# fp_filters: SOIC*7.5x12.8mm*P1.27mm*
+# aliases: ISOW1412=ISOW1412DFMR
+pin,name,type,side
+1,VIO,power_in,left
+9,VDD,power_in,left
+,,,left
+2,D,input,left
+3,DE,input,left
+5,~{RE},input,left
+4,R,tri_state,left
+,,,left
+8,EN/~{FLT},input,left
+7,OUT,output,left
+,,,left
+6,GNDIO,power_in,left
+10,GND1,power_in,left
+12,VISOOUT,power_out,right
+16,VISOIN,power_in,right
+,,,right
+20,A,input,right
+19,B,input,right
+17,Y,output,right
+18,Z,output,right
+,,,right
+13,MODE,input,right
+14,IN,input,right
+,,,right
+11,GND2,passive,right
+15,GISOIN,power_in,right

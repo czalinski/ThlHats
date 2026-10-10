@@ -93,6 +93,3 @@ A channel whose bus is stuck dominant reads as absent.
 
 - Raw CAN traffic for non-SSR devices over the network. Today it is only
   `CAN n TX` and `MON` on the debug UART.
-- Serial-card hardware. The RS-232/RS-485 port split and the DE pins
-  follow the plan in `serial.h` and must be checked against the card once
-  it is drawn.
