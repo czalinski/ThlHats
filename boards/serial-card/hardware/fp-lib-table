@@ -27,4 +27,5 @@
 	(lib (name "Thl_Mechanical") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Mechanical.pretty") (options "") (descr ""))
 	(lib (name "Thl_Module") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Module.pretty") (options "") (descr ""))
 	(lib (name "Thl_Package") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_Package.pretty") (options "") (descr ""))
+	(lib (name "Thl_TestPoint") (type "KiCad") (uri "${KIPRJMOD}/../../../lib/footprints/Thl_TestPoint.pretty") (options "") (descr ""))
 )

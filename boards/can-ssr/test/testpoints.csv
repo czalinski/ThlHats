@@ -1,0 +1,99 @@
+ref,net,side,x,y,kind,ground,near
+TP1,VOM_LED_A,F,11.01,3.51,track,GND,U2
+TP2,/Display/DIG0,F,79.42,9.86,track,GND,D40
+TP3,/Display/SEG_F,F,79.97,2.54,track,GND,C44
+TP4,/Display/SEG_B,F,80.17,4.77,track,GND,C44
+TP5,/Display/SEG_E,F,88.90,1.42,track,GND,R50
+TP6,/Display/SEG_D,F,91.00,6.80,track,GND,R50
+TP7,"/CAN, power, MCU/CANL",F,16.62,16.26,track,GND,J1
+TP8,/Display/SEG_DP,F,75.77,10.88,track,GND,Q20
+TP9,/Display/DIG2,F,81.21,14.43,track,GND,D41
+TP10,"/CAN, power, MCU/V12_BUS",F,12.23,29.92,track,GND,SW1
+TP11,GND,F,25.53,23.47,track,GND,D3
+TP12,"/CAN, power, MCU/UART_RX",F,27.99,23.72,track,GND,Q23
+TP13,"/CAN, power, MCU/CAN_STBY",F,33.94,25.73,track,GND,R31
+TP14,I2C_SDA,F,45.27,23.97,track,GND,R30
+TP15,"/CAN, power, MCU/LED_STATUS",F,48.97,22.82,track,GND,C8
+TP16,"/CAN, power, MCU/UART_TX",F,56.21,25.95,track,GND,C9
+TP17,"/CAN, power, MCU/MCLR",F,57.69,29.00,track,GND,C1
+TP18,/Power path/LED_MID,F,2.36,39.68,track,GND,U10
+TP19,"/CAN, power, MCU/CANH",F,15.50,35.40,track,GND,JP1
+TP20,"/CAN, power, MCU/ADDR1",F,25.15,31.60,track,GND,C7
+TP21,"/CAN, power, MCU/V12_MON",F,43.20,39.62,track,GND,U3
+TP22,I2C_SCL,F,48.62,36.70,track,GND,Y1
+TP23,+12V,F,58.41,34.92,track,GND,C34
+TP24,+5V,F,76.51,31.07,track,GND,C2
+TP25,MW_REMOTE,F,85.27,34.62,track,GND,C30
+TP26,VOM_LED_K,F,9.42,40.91,track,GND,U10
+TP27,/Load-side sense and supply control/PV_FB,F,44.69,48.88,track,GND_LOAD,U33
+TP28,/Power path/VOM_MID,F,7.10,51.47,track,GND_LOAD,D11
+TP29,/Power path/SRC,F,12.55,55.46,track,GND_LOAD,Q5
+TP30,VIN,F,19.00,58.46,track,GND_LOAD,R34
+TP31,/Load-side sense and supply control/SDA_ISO,F,37.33,51.13,track,GND_LOAD,C37
+TP32,/Load-side sense and supply control/VIN_DIV,F,39.88,50.45,track,GND_LOAD,U33
+TP33,GND_LOAD,F,41.74,58.05,track,GND_LOAD,R42
+TP34,/Load-side sense and supply control/SCL_ISO,F,48.98,50.45,track,GND_LOAD,U34
+TP35,/Load-side sense and supply control/V5_ISO,F,60.44,51.81,track,GND_LOAD,R33
+TP36,/Power path/VOUT_SW,F,61.60,59.10,pour,GND_LOAD,R33
+TP37,/Load-side sense and supply control/MW_PV,F,80.00,54.58,track,GND_LOAD,C33
+TP38,/Load-side sense and supply control/MW_RC_B,F,95.16,51.34,track,GND_LOAD,U30
+TP39,/Load-side sense and supply control/MW_RC_A,F,97.70,51.28,track,GND_LOAD,U35
+TP40,/Power path/G2,F,27.90,80.94,track,GND_LOAD,R11
+TP41,GND_LOAD,F,26.50,98.50,pour,GND_LOAD,H1
+TP42,GND_LOAD,F,73.00,98.50,pour,GND_LOAD,H3
+TP43,GND,B,98.50,8.50,pour,GND,D4
+TP44,/Display/ISET,B,92.45,8.50,track,GND,R6
+TP45,"/Overcurrent trip, gate drive/VTH",B,63.60,6.49,track,GND,C23
+TP46,GATE_EN,B,31.37,7.01,track,GND,R29
+TP47,/Display/SEG_C,B,86.13,16.82,track,GND,U40
+TP48,/Display/SEG_A,B,82.58,17.62,track,GND,C43
+TP49,DISP_DIN,B,49.26,17.21,track,GND,U41
+TP50,"/Overcurrent trip, gate drive/RST_INH",B,31.01,17.73,track,GND,Q24
+TP51,/Display/DIG1,B,74.57,20.56,track,GND,R24
+TP52,ACS_ADC,B,70.61,20.05,track,GND,R24
+TP53,ACS_OUT,B,63.74,20.96,track,GND,C22
+TP54,BUILD_REF,B,61.44,20.28,track,GND,R26
+TP55,"/CAN, power, MCU/LED_FAULT",B,61.30,24.15,track,GND,U1
+TP56,DISP_SCK,B,53.34,24.32,track,GND,C9
+TP57,"/CAN, power, MCU/OSC2",B,51.70,28.07,track,GND,C9
+TP58,"/CAN, power, MCU/OSC1",B,48.08,25.99,track,GND,C8
+TP59,TRIP_RST,B,44.61,21.17,track,GND,U41
+TP60,DISP_LOAD,B,39.75,24.84,track,GND,R30
+TP61,"/CAN, power, MCU/CAN_TX",B,35.48,28.80,track,GND,U3
+TP62,"/CAN, power, MCU/ICSPDAT",B,66.85,38.15,track,GND,D1
+TP63,"/CAN, power, MCU/ICSPCLK",B,63.71,39.72,track,GND,D1
+TP64,"/CAN, power, MCU/CAN_RX",B,28.22,34.61,track,GND,C7
+TP65,GND,B,22.92,34.52,track,GND,R1
+TP66,GND_LOAD,B,92.38,49.65,via,GND_LOAD,U30
+TP67,/Power path/VOM_P,B,6.37,50.94,track,GND_LOAD,D11
+TP68,/Load-side sense and supply control/MW_PC,B,88.60,65.40,track,GND_LOAD,J30
+TP69,VOUT,B,75.05,69.16,track,GND_LOAD,R38
+TP70,/Power path/G3,B,42.63,63.42,track,GND_LOAD,R12
+TP71,/Power path/G1,B,24.95,66.85,track,GND_LOAD,R10
+TP72,/Load-side sense and supply control/VOUT_DIV,B,52.46,71.01,track,GND_LOAD,R41
+TP73,/Power path/GATE,B,33.05,73.44,track,GND_LOAD,R14
+TP74,GND_LOAD,B,1.50,89.00,pour,GND_LOAD,H1
+TP75,GND_LOAD,B,59.50,98.50,pour,GND_LOAD,H4
+U3.2,"/CAN, power, MCU/ADDR0",F,34.00,28.61,pad,GND,U3
+U3.4,"/CAN, power, MCU/ADDR2",F,33.96,30.29,pad,GND,U3
+U3.5,"/CAN, power, MCU/ADDR3",F,33.95,31.15,pad,GND,U3
+R5.1,"/CAN, power, MCU/TERM_A",F,18.93,40.50,pad,GND,R5
+U40.7,/Display/DIG3,F,82.68,16.23,pad,GND,U40
+D41.1,/Display/DIG4,F,75.99,13.00,pad,GND,D41
+U40.17,/Display/SEG_G,F,93.27,17.66,pad,GND,U40
+R43.1,/Load-side sense and supply control/PC_DAC,B,45.92,57.50,pad,GND_LOAD,R43
+R46.2,/Load-side sense and supply control/PC_FB,B,70.00,48.92,pad,GND_LOAD,R46
+R42.1,/Load-side sense and supply control/PV_DAC,B,39.42,57.50,pad,GND_LOAD,R42
+R48.2,/Load-side sense and supply control/RLY_A,F,94.50,34.42,pad,GND,R48
+C21.1,"/Overcurrent trip, gate drive/CMP_IN",B,69.39,15.00,pad,GND,C21
+Q22.3,"/Overcurrent trip, gate drive/EN_MID",B,28.32,13.00,pad,GND,Q22
+Q22.2,"/Overcurrent trip, gate drive/EN_MID2",B,25.79,11.77,pad,GND,Q22
+R13.2,/Power path/G4,B,41.58,78.00,pad,GND_LOAD,R13
+D12.1,/Power path/SLEW,B,12.60,64.00,pad,GND_LOAD,D12
+D4.2,Net-(D4-A),F,98.00,9.99,pad,GND,D4
+D5.2,Net-(D5-A),F,98.00,15.99,pad,GND,D5
+R34.2,Net-(R34-Pad2),B,22.07,55.00,pad,GND_LOAD,R34
+R36.1,Net-(R35-Pad2),B,28.92,55.00,pad,GND_LOAD,R36
+R39.1,Net-(R38-Pad2),B,66.58,70.00,pad,GND_LOAD,R39
+R39.2,Net-(R39-Pad2),B,62.42,70.00,pad,GND_LOAD,R39
+R25.2,TRIP_OK,B,75.08,4.50,pad,GND,R25

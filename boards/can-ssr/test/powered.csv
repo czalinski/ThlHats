@@ -1,0 +1,8 @@
+net,expect_V,side,ref,x,y,gnd_ref,gnd_net
++12V,12,F,TP23,58.41,34.92,TP11,GND
++5V,5,F,TP24,76.51,31.07,TP11,GND
+"/CAN, power, MCU/V12_BUS",12,F,TP10,12.23,29.92,TP11,GND
+"/CAN, power, MCU/V12_MON",12,F,TP21,43.20,39.62,TP11,GND
+/Load-side sense and supply control/V5_ISO,5,F,TP35,60.44,51.81,TP33,GND_LOAD
+/Load-side sense and supply control/VIN_DIV,,F,TP32,39.88,50.45,TP33,GND_LOAD
+VIN,,F,TP30,19.00,58.46,TP33,GND_LOAD

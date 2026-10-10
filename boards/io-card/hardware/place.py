@@ -113,6 +113,24 @@ for _i in range(4):
     PLACE[f"D{55 + _i}"] = (bx + 7.0, 31.0, 0)
 
 
+def ao_refs(b):
+    """AO channel rows touch courtyard to courtyard: their references go in the
+    1.75 mm gaps between the pad rows at 0.8 mm (board.json silk_keep, so
+    tools/silk_tidy.py leaves them): 10k and 47R below their row, 1 nF and 15k
+    above it."""
+    for n in range(1, 5):
+        yr = 36.5 - 7.0 * (n - 1)
+        for ref, x, y in ((f"R{91 + n}", 75.5, yr + 1.75), (f"R{99 + n}", 81.0, yr + 1.75),
+                          (f"C{95 + n}", 75.5, yr - 1.75), (f"R{95 + n}", 81.0, yr - 1.75)):
+            t = b.FindFootprintByReference(ref).Reference()
+            t.SetVisible(True)
+            t.SetLayer(pcbnew.F_SilkS)
+            t.SetTextSize(pcbnew.VECTOR2I(FM(0.8), FM(0.8)))
+            t.SetTextThickness(FM(0.15))
+            t.SetTextAngleDegrees(0)
+            t.SetPosition(pcbnew.VECTOR2I(FM(O + x), FM(O + y)))
+
+
 def rect(x0, y0, x1, y1):
     return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
 
@@ -217,8 +235,9 @@ def main():
         for p in b.FindFootprintByReference(ref).Pads():
             if p.GetNumber() in ("2", "4"):
                 p.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
+    ao_refs(b)
     missing = [f.GetReference() for f in b.GetFootprints()
-               if f.GetReference() not in PLACE and not f.GetReference().startswith("MH")]
+               if f.GetReference() not in PLACE and not f.GetReference().startswith(("MH", "TP"))]
     if missing:
         print("not placed:", missing)
     for ref, pos in (("J10", sb.bus_pos), ("J11", sb.pwr12_pos)):

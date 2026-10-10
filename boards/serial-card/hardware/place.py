@@ -195,7 +195,7 @@ def main():
         f.SetOrientationDegrees(rot)
         f.SetPosition(pcbnew.VECTOR2I(FM(O + x), FM(O + y)))
     missing = [f.GetReference() for f in b.GetFootprints()
-               if f.GetReference() not in PLACE and not f.GetReference().startswith("MH")]
+               if f.GetReference() not in PLACE and not f.GetReference().startswith(("MH", "TP"))]
     if missing:
         print("not placed:", missing)
     for ref, pos in (("J10", sb.bus_pos), ("J11", sb.pwr12_pos)):

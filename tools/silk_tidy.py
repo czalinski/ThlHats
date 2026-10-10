@@ -8,11 +8,15 @@ or via (incl. 0.15 mm), another footprint's silkscreen or reference, or comes
 within 0.3 mm of the board edge, tries positions around its courtyard (above,
 below, left, right, then the corners; horizontal, then vertical for
 left/right) and takes the first clear one. References that find no spot are
-hidden on silkscreen (they stay on the Fab layer) and listed.
+hidden on silkscreen (they stay on the Fab layer) and listed. References listed
+under "silk_keep" in boards/<name>/board.json were placed on purpose (e.g. by
+the board's place.py, in gaps this bounding-box test is too coarse for) and are
+left alone.
 
 Bounding boxes only: good enough for small chip parts; check the render.
 """
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -36,8 +40,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("board")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--only", nargs="+", metavar="REF", help="tidy just these references (e.g. the ones a new "
+                    "part landed on) and leave the rest as reviewed")
     a = ap.parse_args()
     pcb = str(next((Path(a.board) / "hardware").glob("*.kicad_pcb")))
+    cfg = Path(a.board) / "board.json"
+    keep = set(json.loads(cfg.read_text()).get("silk_keep", [])) if cfg.exists() else set()
     b = pcbnew.LoadBoard(pcb)
     edge = box(b.GetBoardEdgesBoundingBox(), -EDGE_CLR)
     fps = list(b.GetFootprints())
@@ -88,7 +96,9 @@ def main():
     for f in fps:
         r = f.Reference()
         sl = silk_layer(f)
-        if r.GetLayer() != sl or not r.IsVisible():
+        if r.GetLayer() != sl or not r.IsVisible() or f.GetReference() in keep:
+            continue
+        if a.only and f.GetReference() not in a.only:
             continue
         if clear(f, box(r.GetBoundingBox()), sl):
             continue

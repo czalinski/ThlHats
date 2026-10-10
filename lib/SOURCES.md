@@ -189,3 +189,4 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-10 | symbol | Isolator | ISO1540 | KiCad Isolator.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-10 | symbol | Analog_DAC | MCP4728 | KiCad Analog_DAC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-10 | footprint | Package_SO | MSOP-10_3x3mm_P0.5mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | footprint | Thl_TestPoint | TP_Probe_D1.0mm | hand-made (bare-copper probe pad, board-only) | repo (MIT) |

@@ -1,4 +1,22 @@
 {
   "rpi_mount": false,
-  "reason": "daughter card in the core's stack (docs/requirements.md 4.5): stack interface 4 x M4 on a 91 x 91 mm square (4.4), no Pi header"
+  "reason": "daughter card in the core's stack (docs/requirements.md 4.5): stack interface 4 x M4 on a 91 x 91 mm square (4.4), no Pi header",
+  "silk_keep": [
+    "R92",
+    "R93",
+    "R94",
+    "R95",
+    "R100",
+    "R101",
+    "R102",
+    "R103",
+    "C96",
+    "C97",
+    "C98",
+    "C99",
+    "R96",
+    "R97",
+    "R98",
+    "R99"
+  ]
 }

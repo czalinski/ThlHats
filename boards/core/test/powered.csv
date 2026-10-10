@@ -1,0 +1,6 @@
+net,expect_V,side,ref,x,y,gnd_ref,gnd_net
++12V,12,F,TP33,81.30,45.14,TP46,GND_RACK
++3V3,3.3,F,TP6,30.41,15.87,TP2,GND
++5V,5,F,TP24,63.60,33.56,TP23,GND
+"/12 V input, logic supply/V12_F",12,F,TP15,88.00,23.98,TP46,GND_RACK
+"/12 V input, logic supply/V12_IN",12,F,F20.1,81.00,21.68,TP46,GND_RACK
