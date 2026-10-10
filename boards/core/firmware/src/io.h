@@ -6,6 +6,8 @@
  *   AI1P/N   AN12 (RE12) / AN13 (RE13)
  *   AI2P/N   AN11 (RC11) / AN8 (RC2)
  *   VMID     OA5 unity-gain follower of VMID_REF (RA4); output RB7 = AN25
+ *   AO1-4    I2C1 -> ISO1540 -> MCP4728 (0x60) -> OPA4171 x 2.5: 0-10 V
+ *            (cards from 2026-10-10; older ones do not answer at 0x60)
  *
  * Each AI leg is 10M / 130k to VMID on the card: Vpin = VMID + Vleg / 77.92.
  * The firmware reads both legs on the shared ADC7 (single conversions:
@@ -19,6 +21,8 @@
 #define IO_GPIOS    4u
 #define IO_RELAYS   4u
 #define IO_AIS      2u
+#define IO_AOS      4u
+#define AO_MAX_MV   10000u
 
 typedef enum { GPIO_IN, GPIO_OUT } gpio_mode;
 typedef enum { PULL_NONE, PULL_UP, PULL_DOWN } gpio_pull;
@@ -29,9 +33,10 @@ typedef struct {
     bool over;                          /* a leg is at the ADC rail */
 } ai_reading;
 
-void io_init(void);                     /* ADC, OA5, relay/GPIO pins; detects the card */
-bool io_detect(void);
+void io_init(void);                     /* ADC, OA5, relay/GPIO pins, I2C; detects the card */
+bool io_detect(void);                   /* also probes the analog-out DAC */
 bool io_present(void);
+bool io_ao_present(void);               /* DAC answered (needs rack +12 V on the card) */
 uint16_t io_vmid_mv(void);
 
 /* Relay failsafe: an output set on with timeout_ms > 0 switches off by itself
@@ -41,12 +46,21 @@ void io_relay_set(uint8_t n, bool on, uint32_t timeout_ms);    /* n = 1-4; clear
 bool io_relay_get(uint8_t n);
 uint32_t io_relay_timeout(uint8_t n);
 bool io_relay_expired(uint8_t n);       /* switched off by its failsafe */
-void io_poll(void);                     /* failsafe timers */
+void io_poll(void);                     /* relay and analog-out failsafe timers */
 
 void io_gpio_config(uint8_t n, gpio_mode mode, gpio_pull pull, bool out);
 void io_gpio_get(uint8_t n, gpio_mode *mode, gpio_pull *pull, bool *out, bool *level);
 
 void io_ai_read(uint8_t n, ai_reading *r);      /* about 1 ms (64 samples per leg) */
 int16_t io_ai_zero(uint8_t n);                  /* measure and store the offset (inputs shorted) */
+
+/* Analog out n = 1-4, 0-10000 mV in 2.5 mV steps (nominal: DAC reference and
+ * resistor tolerances, about +-1.5 %, are not calibrated out). Failsafe as for
+ * the relays: with timeout_ms > 0 the output returns to 0 V unless set again
+ * within timeout_ms. false: the DAC did not answer (output unknown). */
+bool io_ao_set(uint8_t n, uint32_t mv, uint32_t timeout_ms);
+uint32_t io_ao_get(uint8_t n);                  /* mV actually set (code x 2.5 mV) */
+uint32_t io_ao_timeout(uint8_t n);
+bool io_ao_expired(uint8_t n);
 
 #endif

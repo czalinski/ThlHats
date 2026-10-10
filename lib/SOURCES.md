@@ -183,3 +183,9 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-09 | symbol | Interface_UART | MAX3232 | KiCad Interface_UART.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-09 | footprint | Connector_IDC | IDC-Header_2x05_P2.54mm_Horizontal | KiCad Connector_IDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-09 | footprint | Package_SO | SOIC-16_3.9x9.9mm_P1.27mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | symbol | Amplifier_Operational | LM2902 | KiCad Amplifier_Operational.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | symbol | Regulator_Linear | MC78L05_SOT89 | KiCad Regulator_Linear.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | footprint | Package_TO_SOT_SMD | SOT-89-3 | KiCad Package_TO_SOT_SMD.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | symbol | Isolator | ISO1540 | KiCad Isolator.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | symbol | Analog_DAC | MCP4728 | KiCad Analog_DAC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-10 | footprint | Package_SO | MSOP-10_3x3mm_P0.5mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |

@@ -185,8 +185,11 @@ as a reference, not to be built). Revised plan (user, 2026-10-06):
    area: PCBWay lists 100 x 100 mm at $5 and 150 x 100 mm at $41). Decide
    after the POC cards.
 
+**Decided 2026-10-10 (user): core + cards is the final product.** The single
+can-controller board is no longer planned.
+
 The can-controller schematic (section 4.1, hardware/gen_schematic.py) stays the
-reference design the core and cards are cut from.
+reference design the core and cards were cut from.
 
 ### 4.1 Primary controller: `can-controller` (Ethernet, no Pi header)
 
@@ -198,7 +201,7 @@ reference design the core and cards are cut from.
 | Power | Everything from one external 12 V DIN supply; LOGIC through an isolated DC-DC (section 3.2) |
 | GPIO | **4** (reduced from 8 on 2026-10-06), each software-configurable as input or output, **3.3 V** logic, **on PIC32 pins directly**. **Not 24 V tolerant** (decided 2026-10-06): series resistor + ESD clamp only, to survive ESD and a brief 5 V short. Each GPIO has its own ground terminal. |
 | Relay drive | **4 outputs** (reduced from 8 on 2026-10-06) for **standard 12 V coil relays**. Each output is a **PhotoMOS** channel: **2 × Panasonic AQW212** (2 Form A, DIP-8 through-hole; checked 2026-10-06: 60 V, 500 mA per channel, 2.5 Ω max on-resistance, so a 12 V coil drawing 20-100 mA loses at most 0.25 V; LED operate current about 0.9 mA, drive about 5 mA; 1500 Vrms I/O isolation, functional only. No current limiting: the shared PTC protects the outputs) that **sources +12 V** from the 12 V domain to the coil; the coil's other end returns to 12 V-domain 0 V on the same terminal pair. The PhotoMOS is the isolation barrier: its LED is driven from a PIC32 pin through a resistor (about 4 mA), so there are **no digital isolators, no ULN2803A and no GPIO expander** (decided 2026-10-06; supersedes the 2026-10-05 ISO6740 + ULN2803A + MCP23008 design). Per output: a flyback diode from OUTn to 0 V and an indicator LED. The shared relay feed is fused (PTC). Coils from the 12 V domain only. |
-| Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. |
+| Analog out | **Dropped** (2026-10-06). MCC 152 covers 0–5 V; can-ssr covers Mean Well PV/PC programming. **Back on the io-card (2026-10-10)**, see 4.5. |
 | Analog in | **2 differential channels** (decided 2026-10-06: no assumption about the DUT ground), about ±116 V full scale per input, 10 MΩ per input, on the **PIC32's internal 12-bit ADC**. Each of AIn+ and AIn− has its own 10 MΩ / 130 kΩ divider to **VMID ≈ 1.65 V** (PIC32MK OA5 as a follower; VMID also on AN25), 0.1 µF across each 130 kΩ (fc ≈ 12 Hz) and a BAT54S clamp; firmware reads both legs and subtracts, so VMID and the common mode cancel. Each leg must stay within about ±116 V of the LOGIC ground (which floats unless GPIO ties it to a DUT). Common-mode rejection is set by divider matching: with 1 % resistors a 50 V common mode can show up to about 0.5 V of error, so calibrate in firmware or use 0.1 % parts where it matters. About 57 mV per count. Uses 4 ADC pins + AN25. Terminal: lower level AIn+, upper level AIn−. Kept because MCC 118/128 stop at ±10 V. |
 | Mounting | **Stack interface** (section 4.4, decided 2026-10-06): 4 × M4 corner holes on a 91 × 91 mm square. **No Pi holes** (dropped 2026-10-06: the board has no header connection, and stacking with can-ssr matters more). Checker exemption in boards/can-controller/board.json. |
 | Stack position | **Base of a can-ssr stack** (section 4.4): on the DIN base plate, up to 4 can-ssr boards above it. CAN1 sits at the stack CAN position so a short jumper reaches the first SSR's CAN IN. |
@@ -218,6 +221,17 @@ io-card uses pluggable single-level **MC 1,5 G-3,5** headers (7.7 mm, FMC
 push-in plugs), each signal next to its return: J30 relays 10 positions, J40
 I/O 12. The relay outputs drive **external** relay coils; JP1 selects the coil
 supply: rack +12 V or an external supply up to 24 V on J30 (F30 rated 33 V).
+
+**io-card analog out (2026-10-10, user):** with the I/O on its own card there
+is room again. **4 outputs, 0–10 V, 10 mA**, powered from the rack +12 V (no
+new DC-DC) and referenced to **GND_RACK**, shared by all four outputs and the
+relay returns (the user accepts the common ground; this relaxes "no
+assumption about DUT grounds" for analog out only; per-channel isolation can
+be added later with an isolated DC-DC and isolator per channel, and the card
+has room). Data from the core over the shared I2C1 through an ISO1540;
+MCP4728 quad 12-bit DAC (internal 2.048 V reference x 2), OPA4171 x 2.5 with
+47 Ω inside the loop and a 1 nF feedback capacitor, BAT54S clamps. Terminal
+J50 (MC 1,5/8) on the right edge: AOn / 0 V pairs. Core firmware 0.5: `AO`.
 
 Terminal count: 4 × CAN on MC 3,5 4-pole (16 positions); field I/O on
 double-level push-in terminals, one level signal and one level return:
@@ -443,7 +457,7 @@ map); board generators import it.
 | Floorplan (all boards) | Bus J10 along the left edge, rack power J11 at the right edge inside a RACK strip about 25 mm wide (relay outputs, CAN1 bus power on cards; 12 V entry and U20 on the core). Exact pin positions in `tools/stack_bus.py`. Core: RJ45 on the bottom edge, right-angle ICSP and debug UART on the top edge, 12 V input J20 horizontal-entry at the right edge. |
 | Logic bus | 2 x 20, 2.54 mm, Samtec **ESQ-120** stacking sockets (long tails through each card; plain 2 x 20 headers for prototypes). 33 signals + 7 supply pins (+5V x2, +3V3, GND x4). LOGIC domain only. |
 | Rack power | Separate 2 x 3, 2.54 mm **ESQ-103** at the opposite edge: +12V x3 (after the core's input protection) and GND_RACK x3. Distance between the two connectors is the RACK/LOGIC isolation; each card keeps its rack-side parts (relay outputs, CAN1 bus power) near it. |
-| Card blocks | can-card: C1-C4 TX/RX (8). io-card: RLY1-4, GPIO1-4, AI1+/-, AI2+/- on the PIC's ADC, VMID (13). serial-card: U2-U5 TX/RX + DE1/DE2 (10). Shared: I2C1 (SCL/SDA, pull-ups on the core). One card of each type per stack, any height. |
+| Card blocks | can-card: C1-C4 TX/RX (8). io-card: RLY1-4, GPIO1-4, AI1+/-, AI2+/- on the PIC's ADC, VMID (13); its analog outputs use the shared I2C1 (MCP4728 at 0x60). serial-card: U2-U5 TX/RX + DE1/DE2 (10). Shared: I2C1 (SCL/SDA, pull-ups on the core). One card of each type per stack, any height. |
 | Status LEDs | CAN activity LEDs on the can-card, driven from the TX/RX lines (no MCU pins). |
 | Core keeps | SPI3 + CS/INT/RST to the W6100, **debug UART1** (header on the core), heartbeat LED, ICSP, VMID reference (OA5 follower). One MCU pin spare (RB13). |
 | RS-485 (serial-card) | Half duplex is the default (full duplex is uncommon); full duplex only if nearly free, e.g. a full-duplex transceiver with driver enable and A-Y / B-Z jumpers. Ports on **DB9**. **Decided 2026-10-09:** half duplex only, no jumpers (ISOW1432 with Y-A / Z-B tied on the PCB). RS-485 isolated (ISOW1432 integrated DC-DC), RS-232 not isolated (ST3232B). DB9s do not fit in the stack (~12.5 mm against ~11 mm), so the ports use right-angle shrouded 2x5 box headers in IDC10-to-DB9 order: a standard ribbon DB9 cable or a small adapter PCB gives the DB9. |

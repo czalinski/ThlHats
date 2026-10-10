@@ -1,8 +1,9 @@
-# IO card: relays, GPIO, differential AI
+# IO card: relays, GPIO, differential AI, analog out
 
 The "LabJack light" daughter card in the core's stack (docs/requirements.md
 4.1 and 4.5). It has no MCU: the core's PIC32MK drives RLY1-4 and GPIO1-4 and
-reads the analog legs on its ADC through the stack bus.
+reads the analog legs on its ADC through the stack bus, and sets the analog
+outputs over the bus's I2C1.
 
 - Board: 100 x 100 mm, 2 layers, rev A.
 - Mounting: 4x M4 stack holes (tools/stack_bus.py), no Pi header
@@ -15,6 +16,7 @@ reads the analog legs on its ADC through the stack bus.
 |---|---|---|
 | Relay drivers 1-4 | Drive **external** relay coils. 2 × Panasonic AQW212 PhotoMOS. The LED side runs on LOGIC: RLYn → 470R → LED. The contacts source V_RLY to OUTn, and the coil returns to 0 V next to it. Coil supply on JP1: 1-2 = rack +12 V (J11), 2-3 = external supply up to 24 V on J30 9/10. Both go through F30 (1.1 A, 33 V). Each output has a 1N4148W flyback diode and a red LED. The failsafe timeout is set by the host per `RLY` command and enforced by the core firmware. | **J30** bottom edge, MC 1,5/10-G-3,5: 1/2 OUT1 / 0 V … 7/8 OUT4 / 0 V, 9/10 external coil supply + / 0 V |
 | GPIO 1-4 | 3.3 V straight from core pins, with 330R in series and a BAT54S clamp. Not 24 V tolerant. | **J40** top edge, MC 1,5/12-G-3,5: 1/2 IO1 / GND … 7/8 IO4 / GND |
+| AO 1-4 (2026-10-10) | 0-10 V, 10 mA each, in the RACK domain: powered from rack +12 V, 0 V = GND_RACK (shared by all four and the relay returns). I2C1 from the bus crosses U90 (ISO1540) to U92 (MCP4728 quad 12-bit DAC at 0x60, internal 2.048 V reference x 2), then U93 (OPA4171) x 2.5 = 10.24 V full scale. 47R inside the loop (feedback from the terminal side) + 1 nF from the amplifier output for cable capacitance; BAT54S clamp to +12V / GND_RACK. U91 (MC78L05) makes 5 V for the DAC and the isolator's rack side. Needs the rack supply at 11 V or more for 10 V at 10 mA. | **J50** right edge, MC 1,5/8-G-3,5: 1/2 AO1 / 0 V … 7/8 AO4 / 0 V |
 | AI 1-2 | Differential, ±116 V per input, 10 MΩ per input. Each leg is 10M / 130k to VMID_F, with 100 nF across the 130k and a BAT54S clamp. The core subtracts the two legs. VMID from the core arrives through R88 1k + C85 100 nF (VMID_F), because the core's OA5 is rated for only 32 pF of load. | J40 9/10 AI1+ / AI1-, 11/12 AI2+ / AI2- |
 
 Plugs: Phoenix FMC 1,5/10-ST-3,5 and FMC 1,5/12-ST-3,5 (push-in, 7.8 mm).
@@ -27,21 +29,41 @@ first schematic are 24.2 mm tall and do not fit in the stack.
   (J10, decoupling, relay LED resistors).
 - RACK: the lower-right block (J11, JP1, F30, C70/C71, flyback diodes, LEDs,
   J30).
-- K1/K2 straddle a 2 mm copper-free gap on both layers. They are the only
-  LOGIC | RACK crossing (1500 Vrms, functional isolation).
+- RACK also takes the top-right corner (x > 61.5 mm) for the analog outputs:
+  the isolator, U91-U93, each channel's parts in a row beside its J50 pair.
+- K1/K2 and U90 straddle a 2 mm copper-free gap on both layers. They are
+  the only LOGIC | RACK crossings (1500 Vrms and 2500 Vrms, functional
+  isolation).
 - Ground pours on both layers in each domain.
 - The AI terminal nets (`/AIN*`) are in net class HV, with a 0.8 mm
   clearance (IPC-2221B B4 needs 0.6 mm for 101-150 V).
+- The MCP4728's nets are in net class Fine (0.2 mm tracks, 0.15 mm
+  clearance) and a DRC rule allows its 0.15 mm pad gaps (MSOP-10, 0.5 mm
+  pitch). Its pins and the four DAC-to-amplifier connections are routed by
+  `route.py` (`dac_fanout`); Freerouting did not get through the pitch
+  reliably.
 
 ## Build files
 
-- `hardware/gen_schematic.py`: generates the schematic. Stop using it once
-  the schematic is edited in KiCad.
+- `hardware/gen_schematic.py`: generates the schematic (A2 sheet: the
+  analog outputs are in the band below the original A3 area). Stop using it
+  once the schematic is edited in KiCad.
 - `hardware/place.py`: outline, holes, placement, pours and the isolation
   gap. It can be rerun and leaves tracks alone.
 - `hardware/route.py pre|auto|finish|all`: ground fan-out, Freerouting, then
   finishing. **Do not rerun `pre` or `all` on a hand-edited board**: they
-  start over.
+  start over. `route.py ao` routed the analog outputs onto the routed board:
+  it locks the existing tracks, fans out the new ground pads, pre-routes the
+  DAC, runs Freerouting, removes the fragments Freerouting leaves on
+  already-routed nets, and unlocks. Freerouting is not deterministic; check
+  DRC after each run.
+
+## Status (2026-10-10)
+
+Analog outputs added: schematic, placement and routing. `tools/check_board.py`
+is clean (ERC, DRC with schematic parity). The original routing is
+unchanged, track for track. Core firmware 0.5 has the `AO` command
+(boards/core/firmware/PROTOCOL.md); not yet tested on hardware.
 
 ## Status (2026-10-09)
 

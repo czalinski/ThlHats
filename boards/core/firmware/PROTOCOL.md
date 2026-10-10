@@ -1,4 +1,4 @@
-# Core host protocol (draft, firmware 0.4)
+# Core host protocol (draft, firmware 0.5)
 
 The host talks to the core over Ethernet. Plain sockets only: no drivers, no
 special privileges.
@@ -38,7 +38,7 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 
 | Command | Response |
 |---|---|
-| `ID` | `OK ThlHats core fw=0.4 sn=<serial> mac=<mac>` |
+| `ID` | `OK ThlHats core fw=0.5 sn=<serial> mac=<mac>` |
 | `HELP` | `* ` one line per command, then `OK` |
 | `STATUS` | every device, one `* ` line each, then `OK` (below) |
 | `NET [ip=a.b.c.d] [mask=a.b.c.d] [gw=a.b.c.d]` | `OK NET ip=… mask=… gw=… (active ip=…)`. New values take effect after `SAVE` and `REBOOT`. |
@@ -48,7 +48,7 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 `STATUS` example:
 
 ```
-* CORE fw=0.4 up=81234 ip=192.168.1.50 link=100M-full clients=1
+* CORE fw=0.5 up=81234 ip=192.168.1.50 link=100M-full clients=1
 * CAN 1 present=1 mode=fd nominal=500000 data=2000000 state=active tec=0 rec=0 rx=81234 tx=325
 * CAN 2 present=1 state=stopped
 * CAN 3 present=0
@@ -56,12 +56,13 @@ be set up and tested from a terminal or with `nc <ip> 5000`.
 * SSR 3 port=5103 state=on build=STD vset=24.00 ilimit=10.00 vin=24.01 vout=23.98 iavg=1.23 ipeak=1.50 faults=0x0000 warnings=0x00 v12=12.1 timeout=1000 fw=0.2 age=4
 * SER 1 type=rs232 baud=9600 data=8 parity=N stop=1 client=192.168.1.10 rx=0 tx=12
 * STREAM off
-* IO present=1 vmid=1.650
+* IO present=1 ao=1 vmid=1.650
 * RLY 1=off 2=on 3=off 4=off
 * GPIO 1 mode=in pull=down out=0 level=0
 * ...
 * AI 1 v=12.034 p=6.020 n=-6.014 over=0
 * AI 2 v=0.000 p=0.000 n=0.000 over=0
+* AO 1=5.000 2=0.000 3=0.000 4=0.000 timeout=0,0,0,0 expired=none
 OK
 ```
 
@@ -154,18 +155,21 @@ switch.
 
 The io-card is detected at boot from its analog inputs: each leg sits on
 100 nF and 130k to VMID, so a short pull-up and pull-down barely move it.
-Re-detect with `IO SCAN`. While no card is detected, `RLY`, `GPIO` and `AI`
-return `ERR 404`.
+Re-detect with `IO SCAN`. While no card is detected, `RLY`, `GPIO`, `AI`
+and `AO` return `ERR 404`. `ao=1` means the analog-out DAC answered on I2C:
+it needs the rack +12 V on the card, and io-cards from before 2026-10-10
+have no analog out.
 
 | Command | Response |
 |---|---|
-| `IO` / `IO SCAN` | `OK IO present=0\|1 vmid=<V>`. VMID is the 1.65 V reference from the core's OA5. |
+| `IO` / `IO SCAN` | `OK IO present=0\|1 ao=0\|1 vmid=<V>`. VMID is the 1.65 V reference from the core's OA5. |
 | `RLY [1=on\|off] [2=…] [3=…] [4=…] [all=on\|off] [timeout=<ms>]` | `OK RLY 1=… 2=… 3=… 4=… timeout=<t1>,<t2>,<t3>,<t4> expired=none\|<list>` |
 | `GPIO` | one `* GPIO n …` line per pin, then `OK` |
 | `GPIO <1-4> [mode=in\|out] [pull=none\|up\|down] [out=0\|1]` | `OK GPIO <n> mode=… pull=… out=… level=…` |
 | `AI` | `* AI 1 …` and `* AI 2 …`, then `OK` |
 | `AI <1-2>` | `OK AI <n> v=<V> p=<V> n=<V> over=0\|1` |
 | `AI <1-2> ZERO` | with the inputs shorted: stores the offset, `OK AI <n> zero=<V> (SAVE to keep)` |
+| `AO [1=<V>] [2=…] [3=…] [4=…] [all=<V>] [timeout=<ms>]` | `OK AO 1=<V> 2=… 3=… 4=… timeout=<t1>,<t2>,<t3>,<t4> expired=none\|<list>` |
 
 - **RLY** drives the four relay outputs, which feed **external** relay
   coils (rack 12 V, or an external supply up to 24 V chosen by the jumper on
@@ -201,6 +205,19 @@ return `ERR 404`.
     VMID.
   - Common-mode error depends on the 1 % divider match. `ZERO` removes the
     offset, and `SAVE` keeps it.
+- **AO** sets the four analog outputs, 0-10 V (up to 3 decimals), 10 mA
+  each. They share one 0 V, the rack ground (GND_RACK, the relay 0 V); they
+  are isolated from the LOGIC side but not from each other.
+  - Same rules as `RLY`: any mix of outputs, `all=` first; the response
+    always shows all four, as actually set (2.5 mV steps). All outputs are
+    0 V at power-up and after a core reset.
+  - The values are nominal (DAC reference and resistor tolerances, about
+    ±1.5 %). For an exact voltage, measure it (e.g. on an `AI`) and adjust.
+  - **Failsafe:** `timeout` (100-3600000 ms) applies to the outputs named in
+    that command, as for `RLY`: unless another `AO` naming the output arrives
+    in time, it returns to 0 V and is listed in `expired`. Without `timeout`
+    the output stays as set.
+  - `ERR 504` if the DAC stops answering (rack +12 V lost on the card).
 
 ### UDP measurement stream
 

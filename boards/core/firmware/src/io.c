@@ -1,6 +1,7 @@
 #include <xc.h>
 #include "board.h"
 #include "settings.h"
+#include "i2c.h"
 #include "io.h"
 
 #define CLR 1u
@@ -19,6 +20,7 @@ static const pin_t gpio_pin[IO_GPIOS] = { PIN(A, 11), PIN(A, 0), PIN(B, 11), PIN
 static const pin_t ai_pin[4] = { PIN(E, 12), PIN(E, 13), PIN(C, 11), PIN(C, 2) };
 static const uint8_t ai_an[4] = { 12, 13, 11, 8 };
 #define AN_VMID     25u
+#define DAC_ADDR    0x60u               /* MCP4728, address bits 000 */
 
 #define AVDD_MV     3300
 #define OVER_LO     16                  /* counts from either rail = over range */
@@ -28,7 +30,10 @@ static const uint8_t ai_an[4] = { 12, 13, 11, 8 };
 #define DIV_NUM     10130
 #define DIV_DEN     130
 
-static bool present;
+static bool present, ao_present;
+static uint16_t ao_code[IO_AOS];
+static uint32_t ao_timeout[IO_AOS], ao_t0[IO_AOS];
+static bool ao_expired[IO_AOS];
 static uint32_t rly_timeout[IO_RELAYS], rly_t0[IO_RELAYS];
 static bool rly_expired[IO_RELAYS];
 static gpio_mode g_mode[IO_GPIOS];
@@ -125,12 +130,18 @@ bool io_detect(void)
             held++;
     }
     present = held >= 3;
+    ao_present = i2c_probe(DAC_ADDR);
     return present;
 }
 
 bool io_present(void)
 {
     return present;
+}
+
+bool io_ao_present(void)
+{
+    return ao_present;
 }
 
 /* ------------------------------------------------------------------ relays, GPIO */
@@ -163,6 +174,8 @@ bool io_relay_expired(uint8_t n)
     return rly_expired[n - 1u];
 }
 
+static bool ao_out(uint8_t i, uint16_t code);
+
 void io_poll(void)
 {
     uint32_t now = millis();
@@ -171,6 +184,13 @@ void io_poll(void)
             relay_out(i, false);
             rly_timeout[i] = 0;
             rly_expired[i] = true;
+        }
+    for (uint8_t i = 0; i < IO_AOS; i++)
+        if (ao_timeout[i] && now - ao_t0[i] >= ao_timeout[i]) {
+            if (!ao_out(i, 0))
+                ao_present = false;     /* shows as ao=0; IO SCAN probes again */
+            ao_timeout[i] = 0;
+            ao_expired[i] = true;
         }
 }
 
@@ -259,6 +279,49 @@ int16_t io_ai_zero(uint8_t n)
     return (int16_t)z;
 }
 
+/* ------------------------------------------------------------------ analog out */
+
+/* MCP4728 Multi-Write (DS22187E 5.6.2): 0 1 0 0 0 DAC1 DAC0 UDAC, then
+ * VREF PD1 PD0 Gx D11-D8, D7-D0. Internal 2.048 V reference x 2 = 4.096 V
+ * full scale (1 mV per code), then x 2.5 on the card: 2.5 mV per code.
+ * UDAC = 0 (and ~LDAC tied low): the output follows at the end of the write.
+ * Input registers only; the EEPROM keeps its factory 0 V power-up state. */
+static bool ao_out(uint8_t i, uint16_t code)
+{
+    uint8_t b[3] = { (uint8_t)(0x40u | (i << 1)), (uint8_t)(0x90u | (code >> 8)), (uint8_t)code };
+    if (!i2c_write(DAC_ADDR, b, 3))
+        return false;
+    ao_code[i] = code;
+    return true;
+}
+
+bool io_ao_set(uint8_t n, uint32_t mv, uint32_t timeout_ms)
+{
+    uint8_t i = n - 1u;
+    uint16_t code = (uint16_t)((mv * 2u + 2u) / 5u);   /* mV / 2.5, rounded */
+    if (!ao_out(i, code))
+        return false;
+    ao_timeout[i] = code ? timeout_ms : 0;
+    ao_t0[i] = millis();
+    ao_expired[i] = false;
+    return true;
+}
+
+uint32_t io_ao_get(uint8_t n)
+{
+    return ao_code[n - 1u] * 5u / 2u;
+}
+
+uint32_t io_ao_timeout(uint8_t n)
+{
+    return ao_timeout[n - 1u];
+}
+
+bool io_ao_expired(uint8_t n)
+{
+    return ao_expired[n - 1u];
+}
+
 /* ------------------------------------------------------------------ init */
 
 void io_init(void)
@@ -273,6 +336,9 @@ void io_init(void)
         io_gpio_config(n, GPIO_IN, PULL_DOWN, false);
     vmid_init();
     adc_init();
+    i2c_init();
     delay_ms(2);
     io_detect();
+    for (uint8_t i = 0; i < IO_AOS; i++)
+        ao_out(i, 0);                   /* a core reset leaves the outputs at 0 V */
 }

@@ -14,16 +14,21 @@ AI1P/AI1N/AI2P/AI2N on its ADC against VMID (the core's OA5 follower).
   GPIO     4 x 3.3 V, 330R series + BAT54S clamp (not 24 V tolerant).
   AI       2 differential, +-116 V per input: 10M / 130k to VMID per leg,
            100 nF across 130k, BAT54S clamp.
+  AO       4 x 0-10 V, 10 mA, RACK domain (rack +12 V, 0 V = GND_RACK): I2C1
+           from the bus through an ISO1540, MCP4728 quad DAC (0x60, 4.096 V
+           internal reference), OPA4171 x 2.5 with 47R inside the loop.
   Stack    J10 logic bus, J11 rack power: Samtec ESQ stacking sockets on top.
 
 Domains: LOGIC (+3V3/+5V/GND from the core, floating) and RACK (+12V /
-GND_RACK at J11): they meet only inside K1/K2 (1500 Vrms, functional).
+GND_RACK at J11): they meet only inside K1/K2 (1500 Vrms, functional) and
+U90 (ISO1540, 2500 Vrms).
 
 Writes io-card.kicad_sch from scratch: once the schematic is edited in KiCad,
 stop using this script.
 
   python3 boards/io-card/hardware/gen_schematic.py
 """
+import re
 import sys
 from pathlib import Path
 
@@ -44,9 +49,12 @@ MPN = {
     "100nF 50V X7R 1206": ("Murata", "GRM319R71H104KA01D"),     # 1206, AI filters
     "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
     "4.7uF 50V X7R": ("Murata", "GRM31CR71H475KA12L"),
+    "47R": ("Yageo", "RC1206FR-0747RL"),
+    "10k 0.1%": ("Yageo", "RT1206BRD0710KL"), "15k 0.1%": ("Yageo", "RT1206BRD0715KL"),
+    "1nF 50V C0G": ("Murata", "GRM3195C1H102JA01D"),
 }
 USED = {f"RLY{n}" for n in range(1, 5)} | {f"GPIO{n}" for n in range(1, 5)} \
-    | {"VMID", "AI1P", "AI1N", "AI2P", "AI2N"} | sb.SUPPLIES
+    | {"VMID", "AI1P", "AI1N", "AI2P", "AI2N", "SCL", "SDA"} | sb.SUPPLIES
 
 
 def bus_nets():
@@ -151,6 +159,92 @@ def analog(s, conn):
            "5/6 IO3 / GND, 7/8 IO4 / GND, 9/10 AI1+ / AI1-, 11/12 AI2+ / AI2-.", 96.52, 276.86, 1.0)
 
 
+def hpart(s, lib_id, ref, value, x, y, n1, n2, fp):
+    """Horizontal two-pin part (pin 1 left), fields above and below, upright text."""
+    mfr, mpn = s.mpn[value]
+    s.part(lib_id, ref, value.replace(" 1206", ""), x, y, {"1": n1, "2": n2}, 90, fp, mfr, mpn,
+           ref_at=(x, y - 2.54), value_at=(x, y + 2.54))
+    s.items[-1] = re.sub(r'(\(property "(?:Reference|Value)" "[^"]*"\n\t\t\t\(at [-\d.]+ [-\d.]+ )0\)', r"\g<1>90)",
+                         s.items[-1])
+
+
+def ao_channel(s, n, pins, x, y):
+    """One output stage drawn with wires: amplifier at (x, y), feedback below it."""
+    pp, pm, po = pins
+    s.part("Amplifier_Operational:LM2902", "U93", "OPA4171", x, y, {pp: f"DAC{n}", pm: "", po: ""}, 0,
+           "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm", "Texas Instruments", "OPA4171AIDR", unit=n,
+           ref_at=(x + 2.54, y - 6.35), value_at=(x, y + 5.08), hide_value=True)
+    fb, a, o = x - 10.16, x + 10.16, x + 21.59         # feedback node, amplifier output, terminal side of Rs
+    yc, yf = y + 10.16, y + 17.78                       # Cf and Rf rows
+    s.wire(x - 7.62, y + 2.54, fb, y + 2.54); s.wire(fb, y + 2.54, fb, yf)
+    s.wire(x + 7.62, y, x + 11.43, y)
+    hpart(s, "Device:R", f"R{99 + n}", "47R", x + 15.24, y, "", "", FP["R"])
+    s.wire(x + 19.05, y, x + 43.18, y)
+    s.llabel(f"AO{n}", x + 43.18, y, 0)
+    s.wire(a, y, a, yc)
+    hpart(s, "Device:C", f"C{95 + n}", "1nF 50V C0G", x + 6.35, yc, "", "", FP["C"])
+    s.wire(fb, yc, x + 2.54, yc)
+    s.wire(o, y, o, yf)
+    hpart(s, "Device:R", f"R{95 + n}", "15k 0.1%", x + 6.35, yf, "", "", FP["R"])
+    s.wire(fb, yf, x + 2.54, yf); s.wire(x + 10.16, yf, o, yf)
+    s.R(f"R{91 + n}", "10k 0.1%", fb, yf + 3.81, "", "GND_RACK")
+    for jx, jy in ((fb, yc), (fb, yf), (a, y), (o, y)):
+        s.junction(jx, jy)
+    # clamp under the output line: common pin up to it, +12V left, GND_RACK right
+    s.part("Diode:BAT54S", f"D{89 + n}", "BAT54S", x + 35.56, y + 5.08, {"1": "GND_RACK", "2": "+12V", "3": ""},
+           180, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(x + 35.56, y + 8.89), value_at=(x + 35.56, y + 11.43))
+    s.junction(x + 35.56, y)
+
+
+def analog_out(s):
+    """Bottom band of the (A2) sheet, below the A3-sized original."""
+    s.text("ANALOG OUT: four 0-10 V outputs, 10 mA each, in the RACK domain: powered from rack +12V, 0 V = GND_RACK\n"
+           "(the relay 0 V; all outputs share it). I2C1 from the stack bus crosses through U90 (ISO1540, 2500 Vrms,\n"
+           "the core's 4.7k pull-ups on side 1; its side-1 low is up to 0.8 V, so no other ISO15xx side 1 on the bus).\n"
+           "U92 MCP4728 at 0x60 (address bits 000), internal 2.048 V reference x 2 = 4.096 V, ~LDAC low: outputs\n"
+           "update on each write. U93 OPA4171 (36 V, rail-to-rail out, +25 mA short-circuit limit, continuous to\n"
+           "GND for one channel) x (1 + 15k/10k) = 2.5: 10.24 V full scale. Feedback from the terminal side of the\n"
+           "47R (no load error); the 1 nF from the amplifier output keeps it stable into cable capacitance.\n"
+           "BAT54S clamps to +12V / GND_RACK: ESD only. Needs rack +12 V >= 11 V for 10 V at 10 mA.",
+           25.4, 299.72)
+    s.part("Isolator:ISO1540", "U90", "ISO1540", 50.8, 345.44,
+           {"1": "+3V3", "2": "SDA", "3": "SCL", "4": "GND",
+            "8": "V5_AO", "7": "AO_SDA", "6": "AO_SCL", "5": "GND_RACK"}, 0,
+           "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "Texas Instruments", "ISO1540DR",
+           ref_at=(50.8, 337.82), value_at=(50.8, 353.06))
+    s.R("R90", "4.7k", 76.2, 345.44, "V5_AO", "AO_SDA")
+    s.R("R91", "4.7k", 88.9, 345.44, "V5_AO", "AO_SCL")
+    s.C("C90", "100nF 50V X7R", 33.02, 365.76, "+3V3", "GND", decouple=True)
+    s.C("C91", "100nF 50V X7R", 63.5, 365.76, "V5_AO", "GND_RACK", decouple=True)
+    s.part("Regulator_Linear:MC78L05_SOT89", "U91", "MC78L05", 50.8, 388.62,
+           {"3": "+12V", "1": "V5_AO", "2": "GND_RACK"}, 0, "Package_TO_SOT_SMD:SOT-89-3",
+           "onsemi", "MC78L05ACHT1G", ref_at=(50.8, 383.54), value_at=(53.34, 394.97), value_justify="left")
+    s.C("C92", "100nF 50V X7R", 33.02, 391.16, "+12V", "GND_RACK", decouple=True)
+    s.C("C93", "10uF 25V X7R", 66.04, 391.16, "V5_AO", "GND_RACK")
+    s.part("Analog_DAC:MCP4728", "U92", "MCP4728", 129.54, 350.52,
+           {"1": "V5_AO", "2": "AO_SCL", "3": "AO_SDA", "4": "GND_RACK", "5": "~",
+            "6": "DAC1", "7": "DAC2", "8": "DAC3", "9": "DAC4", "10": "GND_RACK"}, 0,
+           "Package_SO:MSOP-10_3x3mm_P0.5mm", "Microchip", "MCP4728-E/UN",
+           ref_at=(132.08, 340.36), value_at=(132.08, 364.49), value_justify="left")
+    s.C("C94", "100nF 50V X7R", 104.14, 375.92, "V5_AO", "GND_RACK", decouple=True)
+    amp = "Amplifier_Operational:LM2902"
+    so14 = "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+    s.part(amp, "U93", "OPA4171", 129.54, 391.16, {"4": "+12V", "11": "GND_RACK"}, 0, so14,
+           "Texas Instruments", "OPA4171AIDR", unit=5, ref_at=(132.08, 389.89), value_at=(132.08, 392.43),
+           value_justify="left")
+    s.C("C95", "100nF 50V X7R", 152.4, 391.16, "+12V", "GND_RACK", decouple=True)
+    for n, pins in enumerate((("3", "2", "1"), ("5", "6", "7"), ("10", "9", "8"), ("12", "13", "14")), 1):
+        ao_channel(s, n, pins, 203.2 + 76.2 * ((n - 1) % 2), 322.58 + 40.64 * ((n - 1) // 2))
+    conn = {}
+    for n in range(1, 5):
+        conn[str(2 * n - 1)] = f"AO{n}"
+        conn[str(2 * n)] = "GND_RACK"
+    s.part("Connector:Screw_Terminal_01x08", "J50", "ANALOG OUT", 360.68, 365.76, conn, 0, FP_MC.format(n=8),
+           "Phoenix Contact", "1844278", ref_at=(360.68, 350.52), value_at=(360.68, 381.0))
+    s.text("J50 (MC 1,5/8-G-3,5, plug FMC 1,5/8-ST-3,5):\n1/2 AO1 / 0 V, 3/4 AO2 / 0 V,\n"
+           "5/6 AO3 / 0 V, 7/8 AO4 / 0 V (0 V = GND_RACK).", 340.36, 388.62, 1.0)
+
+
 def stack(s):
     s.part("Connector_Generic:Conn_02x20_Odd_Even", "J10", "STACK BUS", 368.3, 101.6, bus_nets(), 0,
            "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical", "Samtec", "ESQ-120-14-G-D",
@@ -174,15 +268,17 @@ def stack(s):
 
 
 def build():
-    s = schgen.Sheet("io-card", "IO card: relays, GPIO, differential AI", "A", power=POWER, mpn=MPN)
+    s = schgen.Sheet("io-card", "IO card: relays, GPIO, differential AI, analog out", "A", power=POWER, mpn=MPN)
     relays(s)
     analog(s, gpio(s))
+    analog_out(s)
     stack(s)
     return s
 
 
 def main():
-    (HW / "io-card.kicad_sch").write_text(build().render())
+    # A2: the A3-sized original plus the analog-out band below it
+    (HW / "io-card.kicad_sch").write_text(build().render().replace('(paper "A3")', '(paper "A2")'))
     print("wrote io-card.kicad_sch")
 
 

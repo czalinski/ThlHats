@@ -127,8 +127,8 @@ static bool parse_uint(const char *v, uint32_t lo, uint32_t hi, uint32_t *out_v)
     return true;
 }
 
-/* "12", "12.3", "12.345" -> hundredths, rounded half up */
-static bool parse_centi(const char *v, uint32_t max, uint16_t *out_v)
+/* "12", "12.3", "12.345" -> thousandths (digits past the third are ignored) */
+static bool parse_milli(const char *v, uint32_t max, uint32_t *out_v)
 {
     uint32_t whole = 0, frac = 0, digits = 0;
     const char *p = v;
@@ -155,10 +155,20 @@ static bool parse_centi(const char *v, uint32_t max, uint16_t *out_v)
         frac *= 10u;
         digits++;
     }
-    uint32_t c = whole * 100u + (frac + 5u) / 10u;
-    if (c > max)
+    uint32_t m = whole * 1000u + frac;
+    if (m > max)
         return false;
-    *out_v = (uint16_t)c;
+    *out_v = m;
+    return true;
+}
+
+/* "12", "12.3", "12.345" -> hundredths, rounded half up */
+static bool parse_centi(const char *v, uint32_t max, uint16_t *out_v)
+{
+    uint32_t m;
+    if (!parse_milli(v, 100000000u, &m) || (m + 5u) / 10u > max)
+        return false;
+    *out_v = (uint16_t)((m + 5u) / 10u);
     return true;
 }
 
@@ -346,6 +356,7 @@ static void cmd_help(session *s)
         "RLY [1-4|all=on|off ...] [timeout=<ms>]",
         "GPIO [<1-4> [mode=in|out] [pull=none|up|down] [out=0|1]]",
         "AI [<1-2> [ZERO]]",
+        "AO [1-4|all=<0-10 V> ...] [timeout=<ms>]",
     };
     for (unsigned k = 0; k < sizeof lines / sizeof lines[0]; k++)
         out(s, "* %s", lines[k]);
@@ -356,6 +367,7 @@ static void line_io(session *s, const char *prefix);
 static void line_rly(session *s, const char *prefix);
 static void line_gpio(session *s, const char *prefix, uint8_t n);
 static void line_ai(session *s, const char *prefix, uint8_t n);
+static void line_ao(session *s, const char *prefix);
 
 static void cmd_status(session *s)
 {
@@ -375,6 +387,8 @@ static void cmd_status(session *s)
             line_gpio(s, "* ", k);
         for (uint8_t k = 1; k <= IO_AIS; k++)
             line_ai(s, "* ", k);
+        if (io_ao_present())
+            line_ao(s, "* ");
     }
     OK(s);
 }
@@ -748,7 +762,7 @@ static void line_ai(session *s, const char *prefix, uint8_t n)
 static void line_io(session *s, const char *prefix)
 {
     uint16_t v = io_vmid_mv();
-    out(s, "%sIO present=%u vmid=%u.%03u", prefix, io_present(), v / 1000u, v % 1000u);
+    out(s, "%sIO present=%u ao=%u vmid=%u.%03u", prefix, io_present(), io_ao_present(), v / 1000u, v % 1000u);
 }
 
 static void cmd_io(session *s, const args_t *a)
@@ -808,6 +822,65 @@ static void cmd_rly(session *s, const args_t *a)
         if (set[n - 1u])
             io_relay_set(n, on[n - 1u], timeout);
     line_rly(s, "OK ");
+}
+
+static void line_ao(session *s, const char *prefix)
+{
+    char exp[16] = "", v[IO_AOS][16];
+    for (uint8_t n = 1; n <= IO_AOS; n++) {
+        mv_str((int32_t)io_ao_get(n), v[n - 1u]);
+        if (io_ao_expired(n))
+            sprintf(exp + strlen(exp), "%s%u", exp[0] ? "," : "", n);
+    }
+    out(s, "%sAO 1=%s 2=%s 3=%s 4=%s timeout=%lu,%lu,%lu,%lu expired=%s", prefix, v[0], v[1], v[2], v[3],
+        (unsigned long)io_ao_timeout(1), (unsigned long)io_ao_timeout(2),
+        (unsigned long)io_ao_timeout(3), (unsigned long)io_ao_timeout(4), exp[0] ? exp : "none");
+}
+
+/* AO [1=<V>] [2=..] [3=..] [4=..] [all=<V>] [timeout=<ms>]: like RLY. The named
+ * outputs change (all= first) and get the failsafe timeout (back to 0 V); no
+ * timeout = no failsafe. The response gives the voltages actually set. */
+static void cmd_ao(session *s, const args_t *a)
+{
+    static const char *const keys[] = { "1", "2", "3", "4", "all", "timeout", NULL };
+    bool set[IO_AOS], any = false;
+    uint32_t mv[IO_AOS], all_mv = 0, timeout = 0;
+    const char *v;
+    if (!io_ready(s) || !only_keys(s, a, 1, keys))
+        return;
+    if (!io_ao_present()) {
+        ERR(s, 404, "analog out not answering (rack 12 V on the io-card? IO SCAN)");
+        return;
+    }
+    if ((v = kv(a, 1, "timeout")) && !parse_uint(v, 100, 3600000u, &timeout)) {
+        ERR(s, 400, "timeout must be 100-3600000 ms");
+        return;
+    }
+    bool all = false;
+    if ((v = kv(a, 1, "all"))) {
+        if (!parse_milli(v, AO_MAX_MV, &all_mv)) { ERR(s, 400, "all must be 0-10 V"); return; }
+        all = true;
+    }
+    for (uint8_t n = 1; n <= IO_AOS; n++) {
+        char key[2] = { (char)('0' + n), 0 };
+        set[n - 1u] = all;
+        mv[n - 1u] = all_mv;
+        if ((v = kv(a, 1, key))) {
+            if (!parse_milli(v, AO_MAX_MV, &mv[n - 1u])) { ERR(s, 400, "output %u must be 0-10 V", n); return; }
+            set[n - 1u] = true;
+        }
+        any |= set[n - 1u];
+    }
+    if (!any && a->argc > 1) {
+        ERR(s, 400, "no output given (1= .. 4= or all=)");
+        return;
+    }
+    for (uint8_t n = 1; n <= IO_AOS; n++)
+        if (set[n - 1u] && !io_ao_set(n, mv[n - 1u], timeout)) {
+            ERR(s, 504, "analog out did not answer (output %u)", n);
+            return;
+        }
+    line_ao(s, "OK ");
 }
 
 static void cmd_gpio(session *s, const args_t *a)
@@ -913,6 +986,7 @@ void cmd_execute(session *s, char *line)
     else if (ieq(c, "RLY"))                     cmd_rly(s, &a);
     else if (ieq(c, "GPIO"))                    cmd_gpio(s, &a);
     else if (ieq(c, "AI"))                      cmd_ai(s, &a);
+    else if (ieq(c, "AO"))                      cmd_ao(s, &a);
     else                                        ERR(s, 400, "unknown command '%s' (HELP)", c);
 }
 

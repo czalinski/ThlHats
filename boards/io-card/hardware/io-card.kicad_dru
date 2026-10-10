@@ -51,6 +51,12 @@
 	(constraint clearance (min 0.8mm))
 	(condition "A.NetName == '/AIN1P' || A.NetName == '/AIN1N' || A.NetName == '/AIN2P' || A.NetName == '/AIN2N'"))
 
+# MCP4728 (U92, MSOP-10, 0.5 mm pitch): KiCad's land pattern leaves 0.15 mm
+# between adjacent pads, the house track/space minimum.
+(rule "MSOP-10 pad spacing"
+	(constraint clearance (min 0.15mm))
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.memberOfFootprint('Package_SO:MSOP-10_3x3mm_P0.5mm') && B.memberOfFootprint('Package_SO:MSOP-10_3x3mm_P0.5mm')"))
+
 # Stack connectors (J10/J11): through-hole ground pins are fed by the B.Cu
 # plane; on F.Cu the pin rows leave room for one spoke only.
 (rule "Stack connector spokes"

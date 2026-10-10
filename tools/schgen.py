@@ -52,6 +52,10 @@ class Sheet(nb.Sch):
         out = (ang + rot + 180) % 360
         return rnd(x + rx), rnd(y - ry), out
 
+    def junction(self, x, y):
+        self.items.append(f"\t(junction\n\t\t(at {x:g} {y:g})\n\t\t(diameter 0)\n\t\t(color 0 0 0 0)\n"
+                          f"\t\t(uuid \"{nb.uid()}\")\n\t)\n")
+
     def llabel(self, name, x, y, out):
         rot = {0: 0, 90: 90, 180: 180, 270: 270}[out]
         self.label(name, x, y, rot, "left" if out in (0, 90) else "right")
@@ -74,12 +78,17 @@ class Sheet(nb.Sch):
         else:
             self.llabel(name, x, y, out)
 
-    def part(self, lib_id, ref, value, x, y, nets, rot=0, footprint="", mfr=None, mpn=None, **kw):
+    def part(self, lib_id, ref, value, x, y, nets, rot=0, footprint="", mfr=None, mpn=None, unit=1, **kw):
+        """unit > 1 (or multi=True): one unit of a multi-unit symbol; nets lists that unit's pins only."""
         pins = nb.pin_positions(lib_id)
         fields = {"Manufacturer": mfr, "MPN": mpn} if mpn else {}
         fields.update(kw.pop("fields", {}) or {})
         dnp = kw.pop("dnp", False)
-        self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(pins), fields=fields, **kw)
+        multi = kw.pop("multi", False) or unit != 1
+        self.symbol(lib_id, ref, value, x, y, rot, footprint, pins=list(nets) if multi else list(pins),
+                    fields=fields, **kw)
+        if unit != 1:
+            self.items[-1] = self.items[-1].replace("(unit 1)", f"(unit {unit})")
         if dnp:
             self.items[-1] = self.items[-1].replace("(dnp no)", "(dnp yes)", 1)
         for num, n in nets.items():

@@ -16,6 +16,11 @@ Floorplan (docs/requirements.md 4.5), stack parts below the next card (about
     column behind its terminal pair.
   - K1/K2 (AQW212) straddle the vertical gap: LED pins 1-4 LOGIC, contact
     pins 5-8 RACK. The 2 mm gap is copper-free on both layers.
+  - Analog out (2026-10-10): the top-right corner (x > AO_X) is RACK too,
+    joined to the lower-right block. U90 (ISO1540) straddles the gap at
+    AO_X; J50 (MC 1,5/8, AO1-4) on the RIGHT edge, each channel's 47R, 15k,
+    1 nF, 10k and BAT54S in a row beside its terminal pair, U93 (OPA4171),
+    U92 (DAC), U91 (5 V LDO) to their left.
 J30 does not fit on the right edge: between J11 and the corner standoff it
 is 0.2 mm too long.
 
@@ -41,7 +46,8 @@ W, H = sb.BOARD
 R = 3.0
 E = 0.6                      # pour inset from the board edge
 G = 1.0                      # half gap width
-GAP_X, GAP_Y = 46.0, 41.0    # RACK = x > GAP_X and y > GAP_Y
+GAP_X, GAP_Y = 46.0, 41.0    # RACK = x > GAP_X and y > GAP_Y, plus x > AO_X above GAP_Y
+AO_X = 61.5                  # analog-out corner: RACK for x > AO_X
 EDGE_PIN = 8.8               # MC header pin row from the board edge (body front at the edge)
 
 KX = GAP_X - 3.81            # AQW212 pin-1 column: the gap runs between the pin columns
@@ -67,6 +73,13 @@ PLACE = {
     "C1": (12.5, 44.0, 90), "C2": (15.5, 44.0, 90),
     # VMID isolation (OA5 load <= 32 pF): bus pin 36 -> R88 1k -> VMID_F, C85 to GND
     "R88": (13.5, 69.18, 0), "C85": (13.5, 73.5, 0),
+    # analog out: isolator on the gap, then pull-ups, DAC, quad op amp, 5 V LDO at the top
+    "U90": (AO_X, 37.5, 0), "C90": (56.0, 37.5, 90), "C91": (66.2, 37.5, 90),
+    "R90": (69.8, 34.8, 0), "R91": (69.8, 38.0, 0),
+    "U92": (68.5, 28.8, 90), "C94": (65.0, 28.8, 90),     # DAC outputs (pins 6-9) up to U93
+    "U93": (68.5, 18.5, 0), "C95": (68.5, 11.8, 0),
+    "U91": (70.0, 5.5, 0), "C92": (65.5, 5.5, 90), "C93": (75.0, 5.5, 90),
+    "J50": (W - EDGE_PIN, 36.5, 90),            # pad 1 (AO1) at the bottom, pads upwards
 }
 
 for _n in range(1, 5):
@@ -78,6 +91,16 @@ for _n in range(1, 5):
     xio = J40_X1 - 7.0 * (_n - 1)
     PLACE[f"R{70 + _n}"] = (xio, 15.0, 90)       # pad 2 (IOn) up to the terminal
     PLACE[f"D{50 + _n}"] = (xio - 1.5, 21.0, 0)
+
+# AO n: row at its J50 signal pad (7 mm pitch, upwards): 47R and clamp on the row,
+# 15k above the 47R, 10k and 1 nF to the left
+for _n in range(1, 5):
+    yr = 36.5 - 7.0 * (_n - 1)
+    PLACE[f"D{89 + _n}"] = (86.0, yr, 0)
+    PLACE[f"R{99 + _n}"] = (81.0, yr, 0)
+    PLACE[f"R{95 + _n}"] = (81.0, yr - 3.5, 0)
+    PLACE[f"C{95 + _n}"] = (75.5, yr - 3.5, 0)
+    PLACE[f"R{91 + _n}"] = (75.5, yr, 0)
 
 # AI: 10M at the terminal (pads 9-12, staggered for the high-voltage spacing), then
 # per leg 130k + 100 nF to VMID and the BAT54S clamp in a row behind the GPIO block
@@ -209,13 +232,15 @@ def main():
         if z.GetZoneName().startswith(("D_", "GAP_")):
             b.Delete(z)
     gx0, gx1, gy0, gy1 = GAP_X - G, GAP_X + G, GAP_Y - G, GAP_Y + G
-    logic = [(E, E), (W - E, E), (W - E, gy0), (gx0, gy0), (gx0, H - E), (E, H - E)]
-    rack = rect(gx1, gy1, W - E, H - E)
+    ax0, ax1 = AO_X - G, AO_X + G
+    logic = [(E, E), (ax0, E), (ax0, gy0), (gx0, gy0), (gx0, H - E), (E, H - E)]
+    rack = [(ax1, E), (W - E, E), (W - E, H - E), (gx1, H - E), (gx1, gy1), (ax1, gy1)]
     for lay, tag in ((pcbnew.B_Cu, ""), (pcbnew.F_Cu, "_F")):
         zone(b, "D_GND" + tag, "GND", lay, logic)
         zone(b, "D_GND_RACK" + tag, "/GND_RACK", lay, rack)
     rule_area(b, "GAP_V", rect(gx0, gy0, gx1, H))
-    rule_area(b, "GAP_H", rect(gx0, gy0, W, gy1))
+    rule_area(b, "GAP_H", rect(gx0, gy0, ax1, gy1))
+    rule_area(b, "GAP_AO", rect(ax0, 0, ax1, gy1))
 
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
     b.Save(PCB)

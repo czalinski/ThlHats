@@ -437,11 +437,12 @@ def complete_net(board, net, width, win, verbose=True, max_rounds=400):
     return len(_islands(board, nc)) <= 1
 
 
-def ground_fanout(board, nets, win, verbose=True, qfp_inward=False):
+def ground_fanout(board, nets, win, verbose=True, qfp_inward=False, refs=None):
     """Give every SMD pad on `nets` a short F.Cu stub to a via inside that net's
     B.Cu pour (the pours must exist and be filled). QFP pads escape straight
     out along their side with a 0.2 mm stub (with qfp_inward, first straight in,
     under the package); other pads try 17 directions with a 0.5 mm stub. Not rerun-safe: a second call adds a second set of vias.
+    refs: only these footprints (for parts added to a routed board).
     Returns the number of pads left without a via."""
     import math
     zones = {z.GetNetname(): z for z in board.Zones() if not z.GetIsRuleArea() and z.GetLayer() == pcbnew.B_Cu}
@@ -458,6 +459,8 @@ def ground_fanout(board, nets, win, verbose=True, qfp_inward=False):
         placed = [(TM(t.GetPosition().x) - ORIGIN, TM(t.GetPosition().y) - ORIGIN) for t in board.GetTracks()
                   if t.GetClass() == "PCB_VIA" and t.GetNetCode() == nc]
         for f in board.GetFootprints():
+            if refs is not None and f.GetReference() not in refs:
+                continue
             fx, fy = TM(f.GetPosition().x) - ORIGIN, TM(f.GetPosition().y) - ORIGIN
             layer = pcbnew.B_Cu if f.IsFlipped() else pcbnew.F_Cu
             for p in f.Pads():

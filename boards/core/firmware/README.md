@@ -42,7 +42,8 @@ nc 192.168.1.50 5000                        # type commands by hand
 | `server.c` | TCP command sessions. A session reads the next command only once the previous response has been handed to the W6100 |
 | `ssr.c` | can-ssr nodes on CAN1: status cache, SET/CLEAR/INFO (SET carries the host's failsafe timeout), HOST_HB presence frame, batched UDP stream |
 | `serial.c` | UART2-5 ↔ TCP 5001-5004 through interrupt rings; RS-485 DE timing; 7-bit framing done in firmware |
-| `io.c` | io-card: card detection, relay outputs, GPIO (mode, pull, level), differential AI on the shared ADC7 (single conversions; errata 2.3.1 rules out scan mode), OA5 VMID follower (low-power unity gain) |
+| `io.c` | io-card: card detection, relay outputs, GPIO (mode, pull, level), differential AI on the shared ADC7 (single conversions; errata 2.3.1 rules out scan mode), OA5 VMID follower (low-power unity gain), analog out (MCP4728 over I2C1) |
+| `i2c.c` | I2C1 master on the stack bus (SCL1 RG7, SDA1 RG8), 100 kHz, polled with per-step timeouts, SCL bus recovery at start-up |
 | `settings.c` | `NET`/`SER` power-up settings in the last flash page, CRC-checked |
 | `console.c` | Debug UART: the same commands plus `MON ON/OFF` (candump-style CAN frame printing) |
 
