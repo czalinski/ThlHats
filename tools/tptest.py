@@ -31,18 +31,23 @@ run   walks the plan. --golden records a known good board (run it on two or
 Measurement input (--port): the probe helper (to be built: Pi HAT or ESP32)
 streams one line per measurement, about 10 per second, at 115200 baud:
 
-    R=<ohm> C=<farad> L=<henry>
+    R=<ohm> C=<farad> L=<henry> D+=<volt> D-=<volt>
 
 Any subset of keys, each a float or "inf" (open) or "-" (no reading), e.g.
-"R=330.2 C=1.2e-10 L=-". The excitation must stay below ~0.2 V so that
-in-circuit diodes and IC ESD structures do not conduct: the readings are then
-those of the passives and the copper. A reading is taken automatically once it
-has been stable (within 2 %) for 0.5 s after the probes touched.
+"R=330.2 C=1.2e-10 L=- D+=0.612 D-=inf". R, C and L use an excitation below
+~0.2 V so that in-circuit diodes and IC ESD structures do not conduct: they
+are the passives and the copper. D+ and D- are the diode mode: the voltage at
+about 1 mA with the red probe (the step's first point) positive (D+) or
+negative (D-), as positive magnitudes, "inf" at the 2 V compliance limit. On a
+net-gnd step they show the ESD diodes of every IC pin on the net, so an open
+pin changes them. Probe A (red) always goes on the step's first point.
+A reading is taken automatically once it has been stable (within 2 %) for
+0.5 s after the probes touched.
 --manual: type the readings instead (SI suffixes: 4.7k 100n 2.2u; "-" none).
 
 Comparison (boards/<name>/test/tolerances.json may override per step: {"12":
 {"R": 0.2}} = 20 % on step 12): R within 10 % or 0.5 ohm, C within 10 % or
-20 pF, L within 20 % or 0.5 uH, plus 3 x the spread seen between golden
+20 pF, L within 20 % or 0.5 uH, D+/D- within 50 mV, plus 3 x the spread seen between golden
 boards. "open" (R above 10 Mohm) only matches open.
 """
 import argparse
@@ -61,7 +66,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 GROUND = re.compile(r"(^|/)(GND|VSS)", re.I)
 R_OPEN = 10e6
-TOL = {"R": (0.10, 0.5), "C": (0.10, 20e-12), "L": (0.20, 0.5e-6)}
+QTY = ("R", "C", "L", "D+", "D-")
+UNIT = {"R": "Ω", "C": "F", "L": "H", "D+": "V", "D-": "V"}
+TOL = {"R": (0.10, 0.5), "C": (0.10, 20e-12), "L": (0.20, 0.5e-6), "D+": (0.0, 0.05), "D-": (0.0, 0.05)}
 STABLE_S, STABLE_REL = 0.5, 0.02
 SI = {"p": 1e-12, "n": 1e-9, "u": 1e-6, "µ": 1e-6, "m": 1e-3, "k": 1e3, "K": 1e3, "M": 1e6, "G": 1e9}
 
@@ -214,9 +221,9 @@ def parse_value(v):
 
 
 def parse_line(line):
-    """'R=330 C=1e-10 L=-' -> {'R': 330.0, 'C': 1e-10}"""
+    """'R=330 C=1e-10 L=- D+=0.61 D-=inf' -> {'R': 330.0, 'C': 1e-10, 'D+': 0.61, 'D-': inf}"""
     out = {}
-    for k, v in re.findall(r"\b([RCL])=(\S+)", line):
+    for k, v in re.findall(r"(?<!\S)(R|C|L|D\+|D-)=(\S+)", line):
         try:
             x = parse_value(v)
         except ValueError:
@@ -231,21 +238,24 @@ def fmt(q, x):
         return "-"
     if math.isinf(x):
         return "open"
-    unit = {"R": "Ω", "C": "F", "L": "H"}[q]
+    if UNIT[q] == "V":
+        return f"{x:.3f}V"
+    unit = UNIT[q]
     for s, f in (("G", 1e9), ("M", 1e6), ("k", 1e3), ("", 1), ("m", 1e-3), ("u", 1e-6), ("n", 1e-9), ("p", 1e-12)):
         if abs(x) >= f or s == "p":
             return f"{x / f:.3g}{s}{unit}"
     return f"{x:g}{unit}"
 
 
-def is_open(r):
-    return r is not None and r >= R_OPEN
+def is_open(q, v):
+    """R above 10 Mohm, or a diode reading that hit the compliance limit."""
+    return v is not None and (math.isinf(v) or (q == "R" and v >= R_OPEN))
 
 
 def stable(hist):
     if len(hist) < 2 or hist[-1][0] - hist[0][0] < STABLE_S:
         return False
-    for q in ("R", "C"):
+    for q in ("R", "C", "D+", "D-"):
         vals = [h[1].get(q) for h in hist]
         if any(v is None for v in vals) or any(math.isinf(v) for v in vals):
             if not all(v is None or math.isinf(v) for v in vals):
@@ -258,8 +268,10 @@ def stable(hist):
 
 
 def touching(m, idle):
-    """Probes on the board: anything finite on R, or C clearly above the open-air value."""
+    """Probes on the board: a finite R or diode reading, or C clearly above the open-air value."""
     if "R" in m and not math.isinf(m["R"]) and m["R"] < R_OPEN:
+        return True
+    if any(q in m and not math.isinf(m[q]) for q in ("D+", "D-")):
         return True
     return "C" in m and m["C"] > idle.get("C", 0.0) + 10e-12
 
@@ -315,16 +327,16 @@ def measure_serial(meter, idle, show):
 
 def measure_manual(prompt):
     while True:
-        s = input(prompt + "  R C L (e.g. '330 120p -', Enter = open, s/b/q): ").strip()
+        s = input(prompt + "  R C L D+ D- (e.g. '330 120p - 0.61 0.58', Enter = open, s/b/q): ").strip()
         if s in ("s", "b", "q"):
             return None, s
-        parts = (s.split() + ["-", "-", "-"])[:3] if s else ["open", "-", "-"]
+        parts = (s.split() + ["-"] * 5)[:5] if s else ["open", "-", "-", "-", "-"]
         try:
             vals = [parse_value(v) for v in parts]
         except ValueError:
             print("  could not read that")
             continue
-        return {q: v for q, v in zip("RCL", vals) if v is not None}, None
+        return {q: v for q, v in zip(QTY, vals) if v is not None}, None
 
 
 # ---------------------------------------------------------------- compare
@@ -332,14 +344,14 @@ def measure_manual(prompt):
 def judge(m, gold, tol):
     """(ok, notes) for reading m against golden {q: [values]}."""
     ok, notes = True, []
-    for q in ("R", "C", "L"):
+    for q in QTY:
         g = [v for v in gold.get(q, []) if v is not None]
         if not g or q not in m:
             continue
-        if q == "R" and (any(is_open(v) for v in g) or is_open(m[q])):
-            if all(is_open(v) for v in g) != is_open(m[q]):
+        if any(is_open(q, v) for v in g) or is_open(q, m[q]):
+            if all(is_open(q, v) for v in g) != is_open(q, m[q]):
                 ok = False
-                notes.append(f"R {fmt('R', m[q])} vs {fmt('R', g[0])}")
+                notes.append(f"{q} {fmt(q, m[q])} vs {fmt(q, g[0])}")
             continue
         mean = sum(g) / len(g)
         spread = (max(g) - min(g)) / 2 if len(g) > 1 else 0.0
@@ -452,11 +464,11 @@ def run(board_dir, golden, sn, port, baud, manual, start):
     rpath = rdir / f"{sn}-{datetime.now():%Y%m%d-%H%M%S}.csv"
     with open(rpath, "w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["step", "a_ref", "a_net", "b_ref", "b_net", "R", "C", "L", "result", "notes"])
+        w.writerow(["step", "a_ref", "a_net", "b_ref", "b_net", *QTY, "result", "notes"])
         for s, (st, m, ok, notes) in sorted(results.items(), key=lambda kv: int(kv[0])):
             m = m or {}
             w.writerow([s, st["a_ref"], st["a_net"], st["b_ref"], st["b_net"],
-                        *(m.get(q, "") for q in "RCL"), "PASS" if ok else ("SKIP" if notes == ["skipped"] else "FAIL"),
+                        *(m.get(q, "") for q in QTY), "PASS" if ok else ("SKIP" if notes == ["skipped"] else "FAIL"),
                         "; ".join(notes)])
     fails = [r for r in results.values() if not r[2] and r[3] != ["skipped"]]
     print(f"\n{len(results)} steps, {len(fails)} FAIL -> {rpath}")
