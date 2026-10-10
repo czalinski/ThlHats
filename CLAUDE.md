@@ -51,6 +51,7 @@ tools/check_board.py boards/<name> | --all # house rules + ERC + DRC (with schem
 tools/fab.py boards/<name>                 # gerbers/drill zip, PCBWay BOM + centroid, PDF, STEP -> hardware/fab/rev<X>/
 tools/testpoints.py boards/<name>          # 1 mm probe pads on every net, on existing copper -> test/testpoints.csv + maps
 tools/tptest.py plan|run boards/<name>     # probe pairs; golden-board R/C/L compare (docs/probe-test.md)
+tools/probe_ads1263.py stream|cal|selftest # probe meter: Pi + Waveshare AD HAT (docs/probe-helper-pi.md)
 ```
 
 Stock KiCad libraries are at `/usr/share/kicad/{symbols,footprints,3dmodels}`.

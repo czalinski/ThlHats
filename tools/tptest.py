@@ -4,6 +4,7 @@
   tools/tptest.py plan boards/<name>
   tools/tptest.py run  boards/<name> --golden [--port /dev/ttyUSB0 | --manual]
   tools/tptest.py run  boards/<name> --sn <serial> [--port ... | --manual] [--from N]
+  tools/tptest.py run  boards/<name> ... --meter ads1263     # on the Pi with the AD HAT
 
 plan  reads boards/<name>/test/testpoints.csv (tools/testpoints.py) and the PCB
       and writes boards/<name>/test/plan.csv, the probe pairs in test order:
@@ -28,8 +29,11 @@ run   walks the plan. --golden records a known good board (run it on two or
       Keys: Enter = take the reading now (needed for pairs that read open),
       s = skip, b = back one step, q = quit (results so far are saved).
 
-Measurement input (--port): the probe helper (to be built: Pi HAT or ESP32)
-streams one line per measurement, about 10 per second, at 115200 baud:
+Measurement input: --meter ads1263 runs on a Raspberry Pi with the Waveshare
+High-Precision AD HAT and measures directly (tools/probe_ads1263.py,
+docs/probe-helper-pi.md). --meter serial (default, --port) reads a helper that
+streams one line per measurement, about 10 per second, at 115200 baud
+(tools/probe_ads1263.py stream prints the same lines):
 
     R=<ohm> C=<farad> L=<henry> D+=<volt> D-=<volt>
 
@@ -276,6 +280,19 @@ def touching(m, idle):
     return "C" in m and m["C"] > idle.get("C", 0.0) + 10e-12
 
 
+class PiMeter:
+    """The Raspberry Pi + ADS1263 helper in this process (tools/probe_ads1263.py):
+    one full measurement cycle per poll."""
+
+    def __init__(self, sim=None):
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import probe_ads1263
+        self.p = probe_ads1263.make_probe(sim)
+
+    def poll(self):
+        return [(time.monotonic(), self.p.measure())]
+
+
 class Meter:
     """Latest readings from the helper's serial stream."""
 
@@ -315,7 +332,9 @@ def measure_serial(meter, idle, show):
                 continue
             if lifted:
                 hist.append((t, m))
-                hist = [h for h in hist if t - h[0] <= STABLE_S + 0.2]
+                # the last STABLE_S (+ margin), but always the last two: a slow meter
+                # (the ADS1263 helper takes up to ~1.5 s per cycle) gives one reading at a time
+                hist = [h for k, h in enumerate(hist) if t - h[0] <= STABLE_S + 0.2 or k >= len(hist) - 2]
         show(last)
         if k in ("\n", "\r"):
             return last, None
@@ -390,7 +409,7 @@ def current_png(board_dir, step, px_mm=12, m=4):
     tmp.replace(board_dir / "test" / "current.png")
 
 
-def run(board_dir, golden, sn, port, baud, manual, start):
+def run(board_dir, golden, sn, port, baud, manual, start, meter_kind="serial", sim=None):
     with open(board_dir / "test" / "plan.csv") as fh:
         steps = list(csv.DictReader(fh))
     gpath = board_dir / "test" / "golden.json"
@@ -399,7 +418,7 @@ def run(board_dir, golden, sn, port, baud, manual, start):
     tols = json.loads(tpath.read_text()) if tpath.exists() else {}
     if not golden and not gold["steps"]:
         sys.exit("no golden readings yet: run with --golden on a known good board first")
-    meter = None if manual else Meter(port, baud)
+    meter = None if manual else (PiMeter(sim) if meter_kind == "ads1263" else Meter(port, baud))
     results, new_gold = {}, {}
     old = termios.tcgetattr(sys.stdin) if not manual else None
     idle = {}
@@ -488,13 +507,17 @@ def main():
     r.add_argument("--port", default="/dev/ttyUSB0")
     r.add_argument("--baud", type=int, default=115200)
     r.add_argument("--manual", action="store_true", help="type the readings in")
+    r.add_argument("--meter", choices=["serial", "ads1263"], default="serial",
+                   help="serial: a helper streaming lines on --port; ads1263: this Pi's "
+                        "Waveshare High-Precision AD HAT (tools/probe_ads1263.py)")
+    r.add_argument("--sim", help="with --meter ads1263: simulate a board (R,C,diode-Vf), no hardware")
     r.add_argument("--from", dest="start", type=int, default=1, help="start at this step")
     a = ap.parse_args()
     bd = Path(a.board).resolve()
     if a.cmd == "plan":
         plan(bd)
     else:
-        run(bd, a.golden, a.sn, a.port, a.baud, a.manual, a.start)
+        run(bd, a.golden, a.sn, a.port, a.baud, a.manual, a.start, a.meter, a.sim)
 
 
 if __name__ == "__main__":

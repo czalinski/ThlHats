@@ -44,13 +44,19 @@ tools/tptest.py run  boards/<name> --sn 0042 --port /dev/ttyUSB0  # board under 
   Per-step overrides go in `test/tolerances.json`.
 - `test/current.png` shows the two points of the current step. Keys: Enter =
   take the reading now (pairs that read open), `s` skip, `b` back, `q` quit.
+- `--meter ads1263` measures with the Pi helper directly; `--meter serial
+  --port /dev/ttyUSB0` reads a streaming helper.
 - `--manual` takes typed readings (`R C L D+ D-`, e.g. `330 120p - 0.61 0.58`;
   `-` for none) until the helper exists.
 
-## Probe helper (to be built)
+## Probe helper
 
-A Pi HAT or an ESP32 with an RCL front end and a diode-test source,
-connected to the PC over USB serial. Two probes: **A (red)** goes on the
+**Built from a Raspberry Pi and the Waveshare High-Precision AD HAT:
+docs/probe-helper-pi.md** (`--meter ads1263`; the test runs on the Pi). The
+rest of this section is the interface any helper must meet. Another helper
+(e.g. an ESP32) can stream the same lines over USB serial (`--meter serial`).
+
+Two probes: **A (red)** goes on the
 step's first point, **B (black)** on the second (`test/current.png` circles
 them in red and black). Requirements from `tools/tptest.py`:
 
