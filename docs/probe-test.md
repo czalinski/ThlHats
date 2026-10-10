@@ -44,7 +44,8 @@ tools/tptest.py run  boards/<name> --sn 0042 --port /dev/ttyUSB0  # board under 
   Per-step overrides go in `test/tolerances.json`.
 - `test/current.png` shows the two points of the current step. Keys: Enter =
   take the reading now (pairs that read open), `s` skip, `b` back, `q` quit.
-- `--manual` takes typed readings (`330 120p -`) until the helper exists.
+- `--manual` takes typed readings (`R C L D+ D-`, e.g. `330 120p - 0.61 0.58`;
+  `-` for none) until the helper exists.
 
 ## Probe helper (to be built)
 
