@@ -343,7 +343,7 @@ static void cmd_help(session *s)
         "SSR ALL OFF",
         "STREAM [ON [ip=a.b.c.d] [batch=1-10] [fmt=bin|text] | OFF]",
         "IO SCAN",
-        "RLY [1-4|all=on|off ...]",
+        "RLY [1-4|all=on|off ...] [timeout=<ms>]",
         "GPIO [<1-4> [mode=in|out] [pull=none|up|down] [out=0|1]]",
         "AI [<1-2> [ZERO]]",
     };
@@ -713,8 +713,15 @@ static void mv_str(int32_t mv, char *buf)
 
 static void line_rly(session *s, const char *prefix)
 {
-    out(s, "%sRLY 1=%s 2=%s 3=%s 4=%s", prefix, io_relay_get(1) ? "on" : "off", io_relay_get(2) ? "on" : "off",
-        io_relay_get(3) ? "on" : "off", io_relay_get(4) ? "on" : "off");
+    char exp[16] = "";
+    for (uint8_t n = 1; n <= IO_RELAYS; n++)
+        if (io_relay_expired(n))
+            sprintf(exp + strlen(exp), "%s%u", exp[0] ? "," : "", n);
+    out(s, "%sRLY 1=%s 2=%s 3=%s 4=%s timeout=%lu,%lu,%lu,%lu expired=%s", prefix,
+        io_relay_get(1) ? "on" : "off", io_relay_get(2) ? "on" : "off",
+        io_relay_get(3) ? "on" : "off", io_relay_get(4) ? "on" : "off",
+        (unsigned long)io_relay_timeout(1), (unsigned long)io_relay_timeout(2),
+        (unsigned long)io_relay_timeout(3), (unsigned long)io_relay_timeout(4), exp[0] ? exp : "none");
 }
 
 static void line_gpio(session *s, const char *prefix, uint8_t n)
@@ -763,14 +770,21 @@ static bool parse_onoff(const char *v, bool *on)
     return false;
 }
 
-/* RLY [1=on|off] [2=..] [3=..] [4=..] [all=on|off]: given outputs change, all are reported */
+/* RLY [1=on|off] [2=..] [3=..] [4=..] [all=on|off] [timeout=<ms>]: the named outputs
+ * change (all= first, then the numbered ones) and get the failsafe timeout; no
+ * timeout = no failsafe. A bare RLY reports without touching the timers. */
 static void cmd_rly(session *s, const args_t *a)
 {
-    static const char *const keys[] = { "1", "2", "3", "4", "all", NULL };
-    bool set[IO_RELAYS], on[IO_RELAYS], all_on = false;
+    static const char *const keys[] = { "1", "2", "3", "4", "all", "timeout", NULL };
+    bool set[IO_RELAYS], on[IO_RELAYS], all_on = false, any = false;
+    uint32_t timeout = 0;
     const char *v;
     if (!io_ready(s) || !only_keys(s, a, 1, keys))
         return;
+    if ((v = kv(a, 1, "timeout")) && !parse_uint(v, 100, 3600000u, &timeout)) {
+        ERR(s, 400, "timeout must be 100-3600000 ms");
+        return;
+    }
     bool all = false;
     if ((v = kv(a, 1, "all"))) {
         if (!parse_onoff(v, &all_on)) { ERR(s, 400, "all must be on or off"); return; }
@@ -784,10 +798,15 @@ static void cmd_rly(session *s, const args_t *a)
             if (!parse_onoff(v, &on[n - 1u])) { ERR(s, 400, "relay %u must be on or off", n); return; }
             set[n - 1u] = true;
         }
+        any |= set[n - 1u];
+    }
+    if (!any && a->argc > 1) {
+        ERR(s, 400, "no relay given (1= .. 4= or all=)");
+        return;
     }
     for (uint8_t n = 1; n <= IO_RELAYS; n++)
         if (set[n - 1u])
-            io_relay_set(n, on[n - 1u]);
+            io_relay_set(n, on[n - 1u], timeout);
     line_rly(s, "OK ");
 }
 

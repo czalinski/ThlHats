@@ -39,7 +39,7 @@ POWER = {"+3V3", "+5V", "+12V", "GND"}
 MPN = {
     "470R": ("Yageo", "RC1206FR-07470RL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
     "330R": ("Yageo", "RC1206FR-07330RL"), "10M": ("Yageo", "RC1206FR-0710ML"),
-    "130k": ("Yageo", "RC1206FR-07130KL"),
+    "130k": ("Yageo", "RC1206FR-07130KL"), "1k": ("Yageo", "RC1206FR-071KL"),
     "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),          # 0805, decoupling
     "100nF 50V X7R 1206": ("Murata", "GRM319R71H104KA01D"),     # 1206, AI filters
     "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
@@ -128,14 +128,19 @@ def analog(s, conn):
            "Each leg: 10M / 130k to VMID (1.65 V, the core's OA5 follower on bus pin 36), 100 nF across 130k\n"
            "(fc ~ 12 Hz), BAT54S clamp. The core reads both legs and subtracts: VMID and the common mode cancel.\n"
            "CMRR is set by divider matching (1 %: up to ~0.5 V error at 50 V common mode; calibrate or fit 0.1 %).\n"
-           "R80-R83: RC1206 working voltage 200 V; keep the legs within the +-116 V range.",
-           162.56, 190.5)
+           "R80-R83: RC1206 working voltage 200 V; keep the legs within the +-116 V range.\n"
+           "VMID arrives through R88 1k + C85 100 nF (VMID_F): the core's OA5 is rated for 32 pF of load\n"
+           "(DS60001519D 27.6); R88 isolates it from the stack wiring and the dividers. Both legs see the same\n"
+           "VMID_F, so the drop on R88 (<= 46 uA x 1k) cancels in the difference.",
+           162.56, 187.96)
+    s.R("R88", "1k", 320.04, 220.98, "VMID", "VMID_F", rot=90)
+    s.C("C85", "100nF 50V X7R", 335.28, 231.14, "VMID_F", "GND", decouple=True)
     legs = (("AI1P", "AIN1P"), ("AI1N", "AIN1N"), ("AI2P", "AIN2P"), ("AI2N", "AIN2N"))
     for i, (bus, ext) in enumerate(legs):
         x = 165.1 + i * 35.56
         s.R(f"R{80 + i}", "10M", x, 220.98, ext, bus, rot=90)
-        s.R(f"R{84 + i}", "130k", x + 5.08, 236.22, bus, "VMID")
-        s.C(f"C{80 + i}", "100nF 50V X7R 1206", x + 20.32, 236.22, bus, "VMID")
+        s.R(f"R{84 + i}", "130k", x + 5.08, 236.22, bus, "VMID_F")
+        s.C(f"C{80 + i}", "100nF 50V X7R 1206", x + 20.32, 236.22, bus, "VMID_F")
         s.part("Diode:BAT54S", f"D{55 + i}", "BAT54S", x + 12.7, 254.0, {"1": "GND", "2": "+3V3", "3": bus},
                90, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(x + 17.78, 251.46), value_at=(x + 17.78, 256.54),
                value_justify="left")

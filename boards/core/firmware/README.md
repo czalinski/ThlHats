@@ -84,9 +84,10 @@ A channel whose bus is stuck dominant reads as absent.
      then `SAVE`.
    - Without the card, `IO SCAN` shows `present=0`.
 9. **VMID stability.** OA5 is specified for at most 32 pF of load
-   (DS60001519D 27.6). VMID runs through the stack connector to the io-card,
-   so scope it for oscillation with the card fitted. If it rings, add about
-   1k in series plus 100 nF to GND on the io-card's VMID input.
+   (DS60001519D 27.6). The io-card isolates it with R88 1k and C85 100 nF;
+   scope VMID on the core side with the card fitted.
+10. `RLY 1=on timeout=1000` switches output 1 on. With nothing repeating it,
+    the output switches off after 1 s and the reply shows `expired=1`.
 
 ## Not done yet
 
@@ -95,4 +96,3 @@ A channel whose bus is stuck dominant reads as absent.
 - Serial-card hardware. The RS-232/RS-485 port split and the DE pins
   follow the plan in `serial.h` and must be checked against the card once
   it is drawn.
-- A failsafe timeout for the io-card relay outputs, if one is wanted.

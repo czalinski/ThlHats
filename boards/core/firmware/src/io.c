@@ -29,6 +29,8 @@ static const uint8_t ai_an[4] = { 12, 13, 11, 8 };
 #define DIV_DEN     130
 
 static bool present;
+static uint32_t rly_timeout[IO_RELAYS], rly_t0[IO_RELAYS];
+static bool rly_expired[IO_RELAYS];
 static gpio_mode g_mode[IO_GPIOS];
 static gpio_pull g_pull[IO_GPIOS];
 
@@ -133,13 +135,43 @@ bool io_present(void)
 
 /* ------------------------------------------------------------------ relays, GPIO */
 
-void io_relay_set(uint8_t n, bool on)
+static void relay_out(uint8_t i, bool on)
 {
-    const pin_t *p = &rly_pin[n - 1u];
+    const pin_t *p = &rly_pin[i];
     if (on)
         p->lat[SET] = p->mask;
     else
         p->lat[CLR] = p->mask;
+}
+
+void io_relay_set(uint8_t n, bool on, uint32_t timeout_ms)
+{
+    uint8_t i = n - 1u;
+    rly_timeout[i] = on ? timeout_ms : 0;
+    rly_t0[i] = millis();
+    rly_expired[i] = false;
+    relay_out(i, on);
+}
+
+uint32_t io_relay_timeout(uint8_t n)
+{
+    return rly_timeout[n - 1u];
+}
+
+bool io_relay_expired(uint8_t n)
+{
+    return rly_expired[n - 1u];
+}
+
+void io_poll(void)
+{
+    uint32_t now = millis();
+    for (uint8_t i = 0; i < IO_RELAYS; i++)
+        if (rly_timeout[i] && now - rly_t0[i] >= rly_timeout[i]) {
+            relay_out(i, false);
+            rly_timeout[i] = 0;
+            rly_expired[i] = true;
+        }
 }
 
 bool io_relay_get(uint8_t n)

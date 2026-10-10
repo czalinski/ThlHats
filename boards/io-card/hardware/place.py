@@ -65,6 +65,8 @@ PLACE = {
     "C70": (64.0, 48.54, 0),
     # logic decoupling at J10's +3V3 pin
     "C1": (12.5, 44.0, 90), "C2": (15.5, 44.0, 90),
+    # VMID isolation (OA5 load <= 32 pF): bus pin 36 -> R88 1k -> VMID_F, C85 to GND
+    "R88": (13.5, 69.18, 0), "C85": (13.5, 73.5, 0),
 }
 
 for _n in range(1, 5):
@@ -186,6 +188,12 @@ def main():
             f.Flip(f.GetPosition(), pcbnew.FLIP_DIRECTION_TOP_BOTTOM)
         f.SetOrientationDegrees(rot)
         f.SetPosition(pcbnew.VECTOR2I(FM(O + x), FM(O + y)))
+    # AQW212 LED cathodes (pins 2, 4 = GND) sit between signal pins: solid to the pours,
+    # the thermal spokes can land on cut-off F.Cu islands
+    for ref in ("K1", "K2"):
+        for p in b.FindFootprintByReference(ref).Pads():
+            if p.GetNumber() in ("2", "4"):
+                p.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
     missing = [f.GetReference() for f in b.GetFootprints()
                if f.GetReference() not in PLACE and not f.GetReference().startswith("MH")]
     if missing:

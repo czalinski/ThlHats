@@ -13,9 +13,9 @@ reads the analog legs on its ADC through the stack bus.
 
 | Block | Circuit | Terminal |
 |---|---|---|
-| Relay drivers 1-4 | Drive **external** relay coils. 2 × Panasonic AQW212 PhotoMOS. The LED side runs on LOGIC: RLYn → 470R → LED. The contacts source V_RLY to OUTn, and the coil returns to 0 V next to it. Coil supply on JP1: 1-2 = rack +12 V (J11), 2-3 = external supply up to 24 V on J30 9/10. Both go through F30 (1.1 A, 33 V). Each output has a 1N4148W flyback diode and a red LED. | **J30** bottom edge, MC 1,5/10-G-3,5: 1/2 OUT1 / 0 V … 7/8 OUT4 / 0 V, 9/10 external coil supply + / 0 V |
+| Relay drivers 1-4 | Drive **external** relay coils. 2 × Panasonic AQW212 PhotoMOS. The LED side runs on LOGIC: RLYn → 470R → LED. The contacts source V_RLY to OUTn, and the coil returns to 0 V next to it. Coil supply on JP1: 1-2 = rack +12 V (J11), 2-3 = external supply up to 24 V on J30 9/10. Both go through F30 (1.1 A, 33 V). Each output has a 1N4148W flyback diode and a red LED. The failsafe timeout is set by the host per `RLY` command and enforced by the core firmware. | **J30** bottom edge, MC 1,5/10-G-3,5: 1/2 OUT1 / 0 V … 7/8 OUT4 / 0 V, 9/10 external coil supply + / 0 V |
 | GPIO 1-4 | 3.3 V straight from core pins, with 330R in series and a BAT54S clamp. Not 24 V tolerant. | **J40** top edge, MC 1,5/12-G-3,5: 1/2 IO1 / GND … 7/8 IO4 / GND |
-| AI 1-2 | Differential, ±116 V per input, 10 MΩ per input. Each leg is 10M / 130k to VMID, with 100 nF across the 130k and a BAT54S clamp. The core subtracts the two legs. | J40 9/10 AI1+ / AI1-, 11/12 AI2+ / AI2- |
+| AI 1-2 | Differential, ±116 V per input, 10 MΩ per input. Each leg is 10M / 130k to VMID_F, with 100 nF across the 130k and a BAT54S clamp. The core subtracts the two legs. VMID from the core arrives through R88 1k + C85 100 nF (VMID_F), because the core's OA5 is rated for only 32 pF of load. | J40 9/10 AI1+ / AI1-, 11/12 AI2+ / AI2- |
 
 Plugs: Phoenix FMC 1,5/10-ST-3,5 and FMC 1,5/12-ST-3,5 (push-in, 7.8 mm).
 The MC headers are 7.7 mm tall. The double-level SPTD terminals from the
@@ -46,7 +46,7 @@ first schematic are 24.2 mm tall and do not fit in the stack.
 ## Status (2026-10-09)
 
 Placed and routed. `tools/check_board.py` is clean: ERC, DRC and schematic
-parity, with no warnings. References were tidied with `tools/silk_tidy.py`.
+parity, with no warnings. References were tidied with `tools/silk_tidy.py`; D57's appears on the Fab layer only, because there was no clear silkscreen spot.
 Next: io-card commands in the core firmware (RLY, GPIO, AI, and OA5 for
 VMID).
 

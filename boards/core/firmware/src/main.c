@@ -51,6 +51,7 @@ int main(void)
             }
 
         ssr_poll();
+        io_poll();
         server_poll();
         ser_poll();
         console_poll();

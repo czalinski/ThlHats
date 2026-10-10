@@ -160,7 +160,7 @@ return `ERR 404`.
 | Command | Response |
 |---|---|
 | `IO` / `IO SCAN` | `OK IO present=0\|1 vmid=<V>`. VMID is the 1.65 V reference from the core's OA5. |
-| `RLY [1=on\|off] [2=…] [3=…] [4=…] [all=on\|off]` | `OK RLY 1=… 2=… 3=… 4=…` |
+| `RLY [1=on\|off] [2=…] [3=…] [4=…] [all=on\|off] [timeout=<ms>]` | `OK RLY 1=… 2=… 3=… 4=… timeout=<t1>,<t2>,<t3>,<t4> expired=none\|<list>` |
 | `GPIO` | one `* GPIO n …` line per pin, then `OK` |
 | `GPIO <1-4> [mode=in\|out] [pull=none\|up\|down] [out=0\|1]` | `OK GPIO <n> mode=… pull=… out=… level=…` |
 | `AI` | `* AI 1 …` and `* AI 2 …`, then `OK` |
@@ -171,7 +171,19 @@ return `ERR 404`.
   coils (rack 12 V, or an external supply up to 24 V chosen by the jumper on
   the card). Any mix of outputs may be given, `all=` first and then the
   numbered ones. The response always shows all four. All outputs are off
-  at power-up. There is no failsafe timeout on these outputs.
+  at power-up.
+- **Relay failsafe:** `timeout` (100-3600000 ms) applies to the outputs
+  named in that command.
+  - An output switched on with a timeout switches off by itself unless
+    another `RLY` naming it arrives within `timeout`. The host keeps it on
+    by repeating the command, about every timeout / 4, as with the SSRs.
+  - Without `timeout`, those outputs have no failsafe and stay as set.
+  - A plain `RLY` only reports and does not restart any timer.
+  - The response lists each output's timeout (0 = none). `expired` lists
+    the outputs the failsafe switched off; an output leaves the list when
+    it is next commanded.
+  - The failsafe is enforced on the core, so a core reset also leaves all
+    outputs off.
 - **GPIO** settings are partial like `SER`: keys left out keep their value.
   `out` is the level driven in `mode=out`, and `level` is the pin as read
   back. The default at power-up is `mode=in pull=down`. The pins are 3.3 V
@@ -183,6 +195,10 @@ return `ERR 404`.
     within about ±116 V, and `over=1` means a leg hit the ADC limit.
   - The resolution is 63 mV per count. Each reading averages 64
     conversions per leg and takes about 1 ms.
+  - The core measures VMID ahead of the card's 1k isolation resistor. With
+    all four legs near ±116 V, `p` and `n` can therefore be off by up to
+    about 3.6 V. `v` is not affected, because both legs see the same
+    VMID.
   - Common-mode error depends on the 1 % divider match. `ZERO` removes the
     offset, and `SAVE` keeps it.
 

@@ -34,8 +34,14 @@ bool io_detect(void);
 bool io_present(void);
 uint16_t io_vmid_mv(void);
 
-void io_relay_set(uint8_t n, bool on);  /* n = 1-4 */
+/* Relay failsafe: an output set on with timeout_ms > 0 switches off by itself
+ * unless io_relay_set() is called for it again within timeout_ms (the host
+ * repeats its RLY command). timeout_ms = 0: no failsafe. */
+void io_relay_set(uint8_t n, bool on, uint32_t timeout_ms);    /* n = 1-4; clears 'expired' */
 bool io_relay_get(uint8_t n);
+uint32_t io_relay_timeout(uint8_t n);
+bool io_relay_expired(uint8_t n);       /* switched off by its failsafe */
+void io_poll(void);                     /* failsafe timers */
 
 void io_gpio_config(uint8_t n, gpio_mode mode, gpio_pull pull, bool out);
 void io_gpio_get(uint8_t n, gpio_mode *mode, gpio_pull *pull, bool *out, bool *level);
