@@ -17,10 +17,10 @@ How it measures (ADS1263 with the PGA bypassed: +-2.5 V on 32 bits):
   R   One of three low-voltage sources drives A through its reference
       resistor while B returns to ground through GPIO_GND_B. A source is two
       GPIOs with a divider between them (top GPIO high, bottom GPIO low: about
-      0.19 V open circuit; both as inputs: the source floats, no load). The
+      0.12 V open circuit, 3.3 V x 47/1247; both as inputs: the source floats, no load). The
       ADC reads V(N)-V(A) across the reference (current) and V(A)-V(B) (the
       board): R = V(A-B) / I - lead resistance. 100 ohm, 100 kohm, 10 Mohm
-      references, lowest first. The board never sees more than ~0.2 V.
+      references, lowest first. The board never sees more than ~0.15 V.
   C   The same source switched on while the ADC samples V(A-B) at ~7 kSPS:
       the rise time constant tau, with the source resistance Rs and the
       board's parallel resistance Rp from the R step: C = tau (1/Rs + 1/Rp).
@@ -42,18 +42,23 @@ from pathlib import Path
 
 # Waveshare High-Precision AD HAT: SPI0 plus these (its demo code's config.py)
 PIN_RST, PIN_CS, PIN_DRDY = 18, 22, 17
-# Ours (docs/probe-helper-pi.md). Range: (top GPIO, bottom GPIO, AIN of its
-# node N, reference ohm, source resistance seen by the board for C).
+# Ours: the probe-helper board (boards/probe-helper, docs/probe-helper-pi.md);
+# its ribbon brings Pi pins 31-40. Range: (top GPIO, bottom GPIO, AIN of its
+# node N, reference ohm). The HAT puts 100 nF across each AIN pair (0/1, 2/3,
+# 4/5, 6/7, 8/9): each node N pairs with an unused input (5, 7, 9).
 RANGES = {
-    "lo": (23, 5, 2, 100.0),
-    "mid": (24, 6, 3, 100e3),
-    "hi": (25, 12, 4, 10e6),
+    "lo": (13, 19, 4, 100.0),
+    "mid": (16, 26, 6, 100e3),
+    "hi": (20, 21, 8, 10e6),
 }
+V_SRC = 3.3 * 47 / 1247  # source node open-circuit volts (sim only; real runs measure it)
 R_DIV = 45.0            # 1.2k || 47R divider + GPIO output resistance (about)
-GND_A, GND_B = 26, 27   # probe ground switches, each through 470R
+GND_A, GND_B = 12, 6    # probe ground switches, each through 470R
 R_GNDSW = 470.0 + 30.0
-AIN_A, AIN_B = 0, 1     # sense (1k each, no current)
-AIN_IA, AIN_IB = 8, 9   # IDAC outputs (1k each to the probe nodes)
+# sense (1k each, no current) and IDAC (1k each) leads: a probe's two leads
+# share an AIN pair, so the HAT's 100 nF across the pair sees no signal
+AIN_A, AIN_IA = 2, 3
+AIN_B, AIN_IB = 0, 1
 AINCOM = 10
 
 CAL_FILE = Path.home() / ".config" / "thlhats" / "probe-cal.json"
@@ -222,7 +227,7 @@ class SimHw:
         """(open-circuit volts, source resistance) driving the board, or None."""
         for name, (top, bot, ain, rref) in RANGES.items():
             if self.pins.get(top) == 1 and self.pins.get(bot) == 0:
-                return 0.194, R_DIV + rref + 44 + (R_GNDSW if self.pins.get(GND_B) == 0 else 1e12), name
+                return V_SRC, R_DIV + rref + 44 + (R_GNDSW if self.pins.get(GND_B) == 0 else 1e12), name
             if self.pins.get(top) == 0 and self.pins.get(bot) == 0:
                 return 0.0, R_DIV + rref + 44 + R_GNDSW, name
         if self.pins.get(GND_A) == 0 and self.pins.get(GND_B) == 0:
@@ -513,7 +518,7 @@ def main():
             for name, (top, bot, ain, rref) in RANGES.items():
                 p.source(name)
                 time.sleep(0.01)
-                print(f"source {name}: node N = {p.hw.conv(ain, AINCOM) * 1000:.1f} mV (expect 120-200)")
+                print(f"source {name}: node N = {p.hw.conv(ain, AINCOM) * 1000:.1f} mV (expect 100-150)")
                 p.source(name, False)
             print("probes as they are now:", line(p.measure()))
         elif a.cmd == "cal":

@@ -190,3 +190,10 @@ Provenance of every part in `lib/`. Appended by `tools/kilib.py`.
 | 2026-10-10 | symbol | Analog_DAC | MCP4728 | KiCad Analog_DAC.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-10 | footprint | Package_SO | MSOP-10_3x3mm_P0.5mm | KiCad Package_SO.pretty | CC-BY-SA-4.0 w/ KiCad exception |
 | 2026-10-10 | footprint | Thl_TestPoint | TP_Probe_D1.0mm | hand-made (bare-copper probe pad, board-only) | repo (MIT) |
+| 2026-10-11 | footprint | Resistor_THT | R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal | KiCad Resistor_THT.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | footprint | Diode_THT | D_DO-35_SOD27_P7.62mm_Horizontal | KiCad Diode_THT.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | footprint | Connector_IDC | IDC-Header_2x05_P2.54mm_Vertical | KiCad Connector_IDC.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | footprint | TerminalBlock_Phoenix | TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal | KiCad TerminalBlock_Phoenix.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | footprint | Connector_PinHeader_2.54mm | PinHeader_1x01_P2.54mm_Horizontal | KiCad Connector_PinHeader_2.54mm.pretty | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | symbol | Connector_Generic | Conn_01x13 | KiCad Connector_Generic.kicad_sym | CC-BY-SA-4.0 w/ KiCad exception |
+| 2026-10-11 | footprint | Thl_Connector | PinHeader_1x13_P3.50mm_Horizontal | hand-made: lib/footprint_src/Thl_Connector/pinheader_p3_50_horizontal.py (single right-angle pins at 3.5 mm into a 3.5 mm screw terminal); 3D model: stock PinHeader_1x01_P2.54mm_Horizontal (x13) | repo (MIT) |

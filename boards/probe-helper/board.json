@@ -1,0 +1,9 @@
+{
+  "rpi_mount": false,
+  "reason": "adapter beside the Waveshare High-Precision AD HAT (docs/probe-helper-pi.md): plugs into its screw terminal, tabs bolt to the HAT's terminal-side holes (Pi y 26.5) and two holes land on the Pi's far holes (Pi y 52.5); no Pi header",
+  "silk_keep": [
+    "J1",
+    "J2",
+    "J3"
+  ]
+}
