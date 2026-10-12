@@ -40,7 +40,7 @@ CODE = {"core": "CO", "can-card": "CC", "io-card": "IO", "serial-card": "SE",
         "can-ssr": "SS", "probe-helper": "PH"}
 
 # Mouser lists these MPNs under another spelling.
-MOUSER_MPN = {"W6100-L": "W6100L"}
+MOUSER_MPN = {"W6100-L": "W6100L", "IPB107N20N3GATMA1": "IPB107N20N3 G"}
 # Not stocked by Mouser: bought from DigiKey.
 MOUSER_SKIP = {"T821110A1R100CEU"}
 
