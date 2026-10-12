@@ -19,6 +19,9 @@ Mouser: `mouser-revA.xlsx` (upload to the BOM tool; `mouser-revA.csv` has
 the same rows for review). Columns follow Mouser's BOM template
 (`MouserBomTemplate.xls`): Mfr Part Number, Mouser Part Number,
 Manufacturer Name, Description, Quantity 1 and Order Quantity are filled.
+`mouser-revA-simple.xlsx` has the same lines in five columns only (Mouser
+Part Number, Manufacturer Part Number, Manufacturer, Quantity, Description)
+for an easier column mapping on upload.
 Mouser part numbers come from `tools/mouser_pn.csv`, taken from Mouser's own
 BOM check; parts added since have none yet, so Mouser matches them by MPN.
 Mouser spells W6100-L as W6100L. The four Amphenol T821110A1R100CEU box

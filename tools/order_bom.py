@@ -9,6 +9,8 @@ board-only footprints are skipped) and writes, for one set of boards:
   docs/orders/mouser-rev<REV>.xlsx   Mouser BOM tool upload, in the column
                                      layout of Mouser's BOM template
   docs/orders/mouser-rev<REV>.csv    the same rows as CSV (readable diffs)
+  docs/orders/mouser-rev<REV>-simple.xlsx   the same lines in five columns
+                                     only (no duplicate columns to map)
 
 MPNs pass through fab.MPN_FIXUPS first. Mouser spellings, Mouser part
 numbers and parts not bought from Mouser are set below and in
@@ -40,6 +42,10 @@ CODE = {"core": "CO", "can-card": "CC", "io-card": "IO", "serial-card": "SE",
 MOUSER_MPN = {"W6100-L": "W6100L"}
 # Not stocked by Mouser: bought from DigiKey.
 MOUSER_SKIP = {"T821110A1R100CEU"}
+
+# Columns of the five-column Mouser upload.
+MOUSER_SIMPLE_COLS = ["Mouser Part Number", "Manufacturer Part Number", "Manufacturer",
+                      "Quantity", "Description"]
 
 # Columns of Mouser's BOM template (MouserBomTemplate.xls); we fill the inputs.
 MOUSER_COLS = ["Mfr Part Number (Input)", "Manufacturer Part Number", "Mouser Part Number",
@@ -171,6 +177,10 @@ def main():
                     "Description": f"{desc} [{where}]", "Quantity 1": qty, "Order Quantity": qty})
         rows.append([row[c] for c in MOUSER_COLS])
     write_xlsx(out / f"mouser-rev{rev}.xlsx", rows)
+    ix = {c: i for i, c in enumerate(MOUSER_COLS)}
+    write_xlsx(out / f"mouser-rev{rev}-simple.xlsx", [MOUSER_SIMPLE_COLS] + [
+        [r[ix["Mouser Part Number"]], r[ix["Manufacturer Part Number"]], r[ix["Manufacturer Name"]],
+         r[ix["Quantity 1"]], r[ix["Description"]]] for r in rows[1:]])
     with (out / f"mouser-rev{rev}.csv").open("w", newline="") as f:
         csv.writer(f, lineterminator="\r\n").writerows(rows)
 
