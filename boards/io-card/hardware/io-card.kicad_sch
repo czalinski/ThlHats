@@ -16085,7 +16085,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
+		(property "Footprint" "Thl_Package:MSOP-10_3x3mm_P0.5mm_Pad0.30"
 			(at 129.54 350.52 0)
 			(hide yes)
 			(effects

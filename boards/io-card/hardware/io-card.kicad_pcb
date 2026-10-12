@@ -3924,7 +3924,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(footprint "Package_SO:MSOP-10_3x3mm_P0.5mm"
+	(footprint "Thl_Package:MSOP-10_3x3mm_P0.5mm_Pad0.30"
 		(layer "F.Cu")
 		(uuid "2846f079-8e8c-45e9-a190-e875bc3a33ac")
 		(at 168.5 128.8 90)
@@ -4231,7 +4231,7 @@
 		)
 		(pad "1" smd roundrect
 			(at -2.1 -1 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/V5_AO")
@@ -4239,7 +4239,7 @@
 		)
 		(pad "2" smd roundrect
 			(at -2.1 -0.5 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/AO_SCL")
@@ -4247,7 +4247,7 @@
 		)
 		(pad "3" smd roundrect
 			(at -2.1 0 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/AO_SDA")
@@ -4255,7 +4255,7 @@
 		)
 		(pad "4" smd roundrect
 			(at -2.1 0.5 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/GND_RACK")
@@ -4263,7 +4263,7 @@
 		)
 		(pad "5" smd roundrect
 			(at -2.1 1 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U92-RDY{slash}~{BSY}-Pad5)")
@@ -4271,7 +4271,7 @@
 		)
 		(pad "6" smd roundrect
 			(at 2.1 1 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/DAC1")
@@ -4279,7 +4279,7 @@
 		)
 		(pad "7" smd roundrect
 			(at 2.1 0.5 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/DAC2")
@@ -4287,7 +4287,7 @@
 		)
 		(pad "8" smd roundrect
 			(at 2.1 0 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/DAC3")
@@ -4295,7 +4295,7 @@
 		)
 		(pad "9" smd roundrect
 			(at 2.1 -0.5 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/DAC4")
@@ -4303,7 +4303,7 @@
 		)
 		(pad "10" smd roundrect
 			(at 2.1 -1 90)
-			(size 1.5 0.35)
+			(size 1.5 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net "/GND_RACK")

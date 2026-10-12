@@ -224,7 +224,7 @@ def analog_out(s):
     s.part("Analog_DAC:MCP4728", "U92", "MCP4728", 129.54, 350.52,
            {"1": "V5_AO", "2": "AO_SCL", "3": "AO_SDA", "4": "GND_RACK", "5": "~",
             "6": "DAC1", "7": "DAC2", "8": "DAC3", "9": "DAC4", "10": "GND_RACK"}, 0,
-           "Package_SO:MSOP-10_3x3mm_P0.5mm", "Microchip", "MCP4728-E/UN",
+           "Thl_Package:MSOP-10_3x3mm_P0.5mm_Pad0.30", "Microchip", "MCP4728-E/UN",
            ref_at=(132.08, 340.36), value_at=(132.08, 364.49), value_justify="left")
     s.C("C94", "100nF 50V X7R", 104.14, 375.92, "V5_AO", "GND_RACK", decouple=True)
     amp = "Amplifier_Operational:LM2902"
