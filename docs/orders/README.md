@@ -11,6 +11,12 @@ each of the six boards: 121 lines, 450 parts. Customer Reference gives
 board:qty. Multiply for more sets, and round cheap passives up to the next
 price break.
 
+Mouser: `mouser-revA.csv` (upload to the BOM tool), the same 121 lines with
+Mouser's spellings where they differ (W6100L). Customer Part Number is a
+short board:qty code (Mouser limits its length): CO core, CC can-card,
+IO io-card, SE serial-card, SS can-ssr, PH probe-helper; the Description
+gives the full breakdown.
+
 Not in the board BOMs (order separately):
 
 | Qty / set | Item | For |
