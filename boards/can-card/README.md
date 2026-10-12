@@ -12,6 +12,12 @@ Daughter card in the core's stack (docs/requirements.md 4.5).
   to GND_RACK, feeds +12 V through F10)
 - MCU: none (the core's PIC32MK drives the CAN lines)
 
+
+**Rev B:** each ISOW1044 is replaced by a TI ISO1042 transceiver plus an
+isolated 5 V supply (SN6505B, Würth 760390014, LP2985A-50), because the
+ISOW1044 and ISOW1044B were out of stock for rev A; rev A can-cards are not
+built. See docs/rev-b-changes.md.
+
 ## Layout
 
 - `hardware/` KiCad project

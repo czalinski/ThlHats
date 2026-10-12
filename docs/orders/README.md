@@ -54,3 +54,9 @@ Not in the board BOMs (order separately):
 Assembly: trim through-hole solder tails under the core and every card to
 about 1.5 mm. The serial-card's box headers are 8.86 mm tall, which leaves
 2.3 mm under the next board (boards/serial-card/README.md).
+
+`mouser-proposed-2026-10-12.xls`: the user's proposed Mouser cart (price
+breaks; LEDs, most pin headers and the RJ45 left out as already in stock;
+can-card and serial-card bought for rev B per docs/rev-b-changes.md).
+Reviewed 2026-10-12: substitutions fine; ICs, connectors and stacking
+sockets still missing from it were listed to the user.

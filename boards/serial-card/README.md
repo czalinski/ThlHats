@@ -18,8 +18,8 @@ TCP 5001-5004 (boards/core/firmware/PROTOCOL.md, `SER` command).
 | 4 | U5 + DE2 | RS-485 half duplex, TI ISOW1432 (U11), isolated | J31 |
 
 **Rev B:** the ISOW1432s are replaced by a split design per RS-485 port
-(TI ISO1430 transceiver + SN6505B / Würth 750315371 / 3.3 V LDO isolated
-supply) because the ISOW1432 was out of stock for rev A; see
+(TI ISO1430 transceiver + isolated 5 V supply: SN6505B, Würth 760390014,
+LP2985A-50) because the ISOW1432 was out of stock for rev A; see
 docs/rev-b-changes.md. The rev A decisions below still describe the
 boards built.
 

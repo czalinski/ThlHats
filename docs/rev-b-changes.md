@@ -68,78 +68,115 @@ SUD50P04-08-GE3, MCP1826S-3302E/DB, Phoenix 1844317.
 - serial-card J20/J21/J30/J31 Amphenol T821110A1R100CEU: not stocked by
   Mouser (bought from DigiKey for rev A). Consider a part Mouser carries;
   re-check the 8.86 mm height against the stack clearance.
-- **serial-card RS-485 isolation: split transceiver and isolated power**
-  (decided 2026-10-12, plan below: ISO1430DW + SN6505B / Würth 750315371 /
-  3.3 V LDO per port). ISOW1432DFMR (transceiver + DC-DC in one TI part) was out
-  of stock for rev A; one shortage stops the board.
-- **can-card, same problem:** ISOW1044DFMR and ISOW1044BDFMR were both out
-  of stock (2026-10-12). The user wants a similar change for CAN; to be
-  discussed (board space is the concern: four channels). Likely the same split: TI ISO1042 or ISO1044 isolated CAN FD
-  transceiver plus the power block below, except CAN needs a regulated 5 V
-  bus side (ISO1042 VCC2 is 4.5-5.5 V), so pick the transformer ratio for
-  a 5 V LDO (see the SN6505B datasheet table).
+- **serial-card RS-485 and can-card CAN isolation: split transceiver and
+  isolated power** (decided 2026-10-12, plan below). ISOW1432DFMR,
+  ISOW1044DFMR and ISOW1044BDFMR (transceiver + DC-DC in one TI part) were
+  all out of stock for the rev A order; one shortage stops a board. Rev A
+  can-card and serial-card boards will not be assembled; only parts that
+  rev B reuses are bought now (see "Rev A order changes" below).
 
-## Plan: serial-card RS-485 isolation (decided 2026-10-12)
+## Plan: isolated channels (decided 2026-10-12)
 
-Per port (ports 3 and 4 stay isolated from LOGIC and from each other), a
-signal isolator/transceiver and a separate isolated supply, each available
-from more than one vendor and easy to hand-solder. Requirements unchanged:
-half duplex, DE from the core, up to 1 Mbaud (`SER`), fail-safe receiver,
-SM712 TVS and 120R jumper, parts under ~11 mm (stack).
+Six isolated channels (can-card CAN1-4, serial-card RS-485 ports 3-4), each
+isolated from LOGIC and from the others. Every channel gets its own copy of
+one **isolated 5 V supply block** and a signal-only isolated transceiver.
+All parts are hand-solderable and have second sources. Requirements
+unchanged: CAN FD; RS-485 half duplex, DE from the core, up to 1 Mbaud
+(`SER`), fail-safe receiver; same TVS, termination jumpers, connectors and
+LEDs; parts under ~11 mm (stack).
 
-### Transceiver (isolated, no integrated power)
+### Isolated 5 V supply block (same on both cards, per channel)
 
-| Part | Vendor | Duplex | Rate | Isolation | Package | Bus-side supply |
-|---|---|---|---|---|---|---|
-| **ISO1430DW** (recommended) | TI | half | 12 Mbps | 5 kVrms (ISO1430B: basic) | SOIC-16 wide | 3.0-5.5 V |
-| ADM2486BRWZ (alternate) | ADI | half | 20 Mbps | 2.5 kVrms | SOIC-16 wide | 5 V |
+| Ref | Part | Notes |
+|---|---|---|
+| U | TI SN6505BDBVR (SOT-23-6) | push-pull transformer driver, 420 kHz, from the stack +5V; EN tied to VCC, CLK to GND |
+| C | 10 uF 1206 + 100 nF 0805 | at SN6505B VCC |
+| T | Würth 760390014 (1:1.3, 2500 Vrms, 6.73 x 10.05 x 4.19 mm) | TI's recommended part for 5 V -> 5 V, 100 mA with LDO (SN6505B datasheet table 9-3); straddles the isolation gap. Second source: Coilcraft UA8254-AE (1CT:1.3CT, 10 x 6.8 x 4.3 mm; check its pinout, it may need its own footprint) |
+| D x2 | onsemi MBR0520LT1G (SOD-123, 20 V 0.5 A Schottky) | full-wave rectifier on the center-tapped secondary; many equivalents |
+| C | 10 uF 1206 | rectifier output (about 5.9 V at 80 mA from a 5 V rail) |
+| C | 1 uF 1206 | at LDO input |
+| U | TI LP2985A-50DBVR (SOT-23-5, 5 V 150 mA, 16 V in) | regulates the bus-side 5 V; EN tied to IN |
+| C | 10 nF 0805 | LP2985 BYPASS (noise) |
+| C | 10 uF 1206 | LP2985 output (needs >= 2.2 uF) |
 
-Not usable: ISO1410 and ADM2483 (500 kbps, below `SER`'s 1 Mbaud); ISO1432
-and ISO1412 are full duplex. The two candidates are not pin-compatible:
-pick one at schematic time (check stock then); the other is the fallback
-for a later rev. ISO1430 runs its bus side from 3.0 V, which suits the
-supply below.
+Headroom: 5 V x 1.3 = 6.5 V, minus the diode and driver drops, about
+5.6-5.9 V into the LDO (dropout about 0.2 V at 80 mA). LDO dissipation
+about 0.1 W. Bus-side load per channel: transceiver plus driver into the
+terminated bus, under 100 mA.
 
-### Isolated supply
+### CAN channel (can-card, x4)
 
-**Recommended: TI SN6505B push-pull transformer driver + Würth 750315371
-+ LDO, one set per port.**
+| Part | Notes |
+|---|---|
+| **TI ISO1042DWVR** | isolated CAN FD transceiver (5 Mbps), 5 kVrms, 8-pin wide SOIC (DWV); VCC1 1.71-5.5 V from +3V3, VCC2 4.5-5.5 V from the 5 V block. ISO1042BDWVR (basic isolation) is the same part. Other vendor, not pin-compatible: NXP TJA1052i |
+| 100 nF 0805 on VCC1, 100 nF 0805 on VCC2 | plus the block's 10 uF output |
 
-- SN6505B (SOT-23-6, 5 V in from the stack +5V) drives a center-tapped
-  transformer; two Schottky diodes and a capacitor rectify; an LDO
-  regulates.
-- Würth 750315371: 1:1.1, 2.5 kVrms, SMD, about 9.3 x 8.3 mm, 4.1 mm tall.
-  TI pairs it with the SN6505B. From 5 V it gives about 5 V unregulated,
-  too little headroom for a 5 V LDO, so regulate to **3.3 V** (e.g.
-  TLV75533P, SOT-23-5) and run the ISO1430 bus side at 3.3 V.
-- Every part is a commodity with second sources (other push-pull drivers
-  and transformers from Würth, Coilcraft, Bourns), so no single shortage
-  stops the board.
-- To verify before layout: ISO1430 differential output at VCC2 = 3.3 V
-  into 54 ohm (the datasheet spec found was 2.1 V min at 5 V; RS-485 needs
-  1.5 V); bus-side load per port (transceiver + driver into terminations,
-  well under 100 mA); transformer pinout and footprint from the Würth
-  datasheet.
+Kept from rev A: NUP2105L TVS, 120R + TERM jumper, Phoenix MC 1,5/4
+connectors, RX LED + 1k, F10, J10/J11, JP5/JP6, TSW headers.
+Space (checked against the rev A layout): per 18 mm channel band, the
+transceiver (about 11.5 x 6 mm) and transformer (about 10 x 7 mm) both
+straddle the gap at x 40-44 mm; the SN6505B goes in the empty logic-side
+area at x 12-21; the rectifier, LDO and capacitors take the bus-side space
+the beads and ISOW capacitors used (x 49-66). Connectors, mounting and
+outline do not move.
 
-**Alternative: an isolated SMD DC-DC module per port**, e.g. Murata
-NXE1S0503MC (5 V to 3.3 V, 1 W, 3 kVDC, about 4.4 mm tall; NXE1S0505MC for
-5 V out). One part instead of five, but the output is unregulated (up to
-about 13 % load regulation, no-load voltage not specified in what was
-found), so check the light-load voltage against the transceiver's 5.5 V
-maximum, or add a minimum load. Single source per footprint.
+### RS-485 channel (serial-card ports 3-4, x2)
+
+| Part | Notes |
+|---|---|
+| **TI ISO1430DWR** | isolated RS-485 transceiver, half duplex, 12 Mbps, 5 kVrms, 16-pin wide SOIC; VCC1 from +3V3, VCC2 from the 5 V block (5 V gives the full RS-485 output, 2.1 V min). ISO1430BDWR is the basic-isolation version. Fallback for a later rev (not pin-compatible): ADI ADM2486BRWZ (20 Mbps, 2.5 kVrms) |
+| 100 nF 0805 on VCC1, 100 nF 0805 on VCC2 | plus the block's 10 uF output |
+
+~RE tied to DE (as now), 10k RX pull-ups kept. Not usable: ISO1410 and
+ADM2483 (500 kbps), ISO1412/ISO1432 (full duplex).
+Kept from rev A: SM712 TVS, 120R + TERM jumpers, box headers, LEDs and
+resistors, the whole RS-232 section.
+
+Alternative supply (not chosen): an isolated SMD DC-DC module per channel
+(Murata NXE1S0505MC, 1 W, 3 kVDC, about 4.4 mm tall). One part, but
+unregulated and single source per footprint.
 
 ### Layout notes for rev B
 
-- Same keep-out discipline as now: the transceiver's isolation gap and the
-  transformer's (or module's) primary/secondary split line up with the
-  LOGIC | GND_485_n pour gap; nothing crosses it except those parts.
-- SN6505B: input bypass close to VCC, short loops between the driver, the
-  transformer primary and the rectifier; see the SN6505B datasheet layout
-  section.
-- Heights: all parts above are under 5 mm.
+- The transceiver's isolation gap and the transformer's primary/secondary
+  split line up with the LOGIC | bus-side pour gap; nothing else crosses.
+- SN6505B: input bypass at VCC, short loops driver -> primary and
+  secondary -> diodes -> capacitor (SN6505B datasheet layout section).
+- All new parts are under 5 mm tall.
+- To verify at schematic time: stock (ISO1042DWVR, ISO1430DWR, SN6505BDBVR,
+  760390014, LP2985A-50DBVR, MBR0520LT1G), the 760390014 pinout and land
+  pattern from the Würth datasheet, and a footprint for the DWV package.
 
-Sources: TI ISO14xx datasheet (SLLSF22) and product pages (ISO1410,
-ISO1430); ADI ADM2486 datasheet; TI SN6505A/B datasheet (SLLSEP9) and EVM;
-Würth 750315371 listings (DigiKey, RS); Murata NXE1 datasheet. Stock was not
-checked (Mouser blocks scripted lookups): check SN6505B, ISO1430DW,
-750315371 and the LDO before committing the schematic.
+## Rev A order changes (can-card and serial-card not built as rev A)
+
+Buy now for rev B (6 isolated channels):
+
+| Part | Qty | For |
+|---|---|---|
+| TI ISO1042DWVR | 4 | can-card |
+| TI ISO1430DWR | 2 | serial-card |
+| TI SN6505BDBVR | 6 | both |
+| Würth 760390014 | 6 | both |
+| onsemi MBR0520LT1G | 12 | both |
+| TI LP2985A-50DBVR | 6 | both |
+
+Remove or reduce on the current order list (quantities are the whole
+line, all boards):
+
+| Part | Was | Now | Why |
+|---|---|---|---|
+| ISOW1044BDFMR | 4 | 0 | replaced by ISO1042 |
+| ISOW1432DFMR | 2 | 0 | replaced by ISO1430 |
+| BLM31PG391SN1L (beads) | 12 | 0 | not needed with the split supply |
+| C0805C103K5RACTU 10 nF | 12 | 6 | 2 ISOW caps per channel become 1 LDO bypass |
+| C1206C105K5RACTU 1 uF | 14 | 8 | 2 ISOW caps per channel become 1 LDO input |
+| C0805C104K5RACTU 100 nF | 56 | 62 | one more per channel (SN6505B VCC) |
+
+10 uF (CL31B106KAHZW6E) stays at 35: three per channel before and after.
+Everything else on the can-card and serial-card lines carries into rev B
+unchanged.
+
+Sources: TI SN6505A/B datasheet SLLSEP9I (table 9-3); Coilcraft Doc
+1666 (SN650x transformers); TI ISO1042 and ISO14xx (SLLSF22) datasheets and
+product pages; ADI ADM2486 datasheet; TI LP2985A product data; Murata NXE1
+datasheet. Stock was not checked (Mouser blocks scripted lookups).
