@@ -35,7 +35,7 @@ import schgen  # noqa: E402
 import stack_bus as sb  # noqa: E402
 
 FP = schgen.FP
-FP_IDC = "Connector_IDC:IDC-Header_2x05_P2.54mm_Horizontal"
+FP_IDC = "Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal"
 FP_JP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 POWER = {"+3V3", "+5V", "GND"}
 MPN = {

@@ -78,6 +78,5 @@ Open items:
   drawing.
 - There is no reverse-polarity protection on the external coil supply. If
   it is reversed, an output that is on lets its flyback diode short the
-  supply through F30, which trips. Outputs that are off should block it,
-  provided the AQW212 output is AC/DC type (back-to-back MOSFETs). Check
-  that on the datasheet.
+  supply through F30, which trips. Outputs that are off block it: the
+  AQW212 is the GU AC/DC type (back-to-back MOSFETs; checked 2026-10-11).

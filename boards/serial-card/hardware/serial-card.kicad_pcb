@@ -8843,7 +8843,7 @@
 			)
 		)
 	)
-	(footprint "Connector_IDC:IDC-Header_2x05_P2.54mm_Horizontal"
+	(footprint "Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "99b9ea6f-2720-4454-9fcc-cd194a4a74b8")
 		(at 125.5 185.9 -90)
@@ -9357,15 +9357,15 @@
 			(uuid "30975055-89be-4295-af2d-e46d50701409")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../lib/3dmodels/Connector_IDC.3dshapes/IDC-Header_2x05_P2.54mm_Horizontal.step"
+		(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Connector.3dshapes/Amphenol_T821110A1R100CEU.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 4.24 -5.11 4.46)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz 0 0 90)
 			)
 		)
 	)
@@ -11557,7 +11557,7 @@
 			)
 		)
 	)
-	(footprint "Connector_IDC:IDC-Header_2x05_P2.54mm_Horizontal"
+	(footprint "Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "bc0ea0a2-14a7-4516-be93-151194f473a0")
 		(at 185.9 170.5)
@@ -12071,15 +12071,15 @@
 			(uuid "df463c67-08fd-43e1-a5f8-57a095525778")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../lib/3dmodels/Connector_IDC.3dshapes/IDC-Header_2x05_P2.54mm_Horizontal.step"
+		(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Connector.3dshapes/Amphenol_T821110A1R100CEU.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 4.24 -5.11 4.46)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz 0 0 90)
 			)
 		)
 	)
@@ -13196,7 +13196,7 @@
 			)
 		)
 	)
-	(footprint "Connector_IDC:IDC-Header_2x05_P2.54mm_Horizontal"
+	(footprint "Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "ca320665-f0ee-47ce-9d5b-9ad3709bb12a")
 		(at 115 114.1 90)
@@ -13710,15 +13710,15 @@
 			(uuid "f248cc2c-d9ca-4ced-a7ef-53cd666f48ae")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../lib/3dmodels/Connector_IDC.3dshapes/IDC-Header_2x05_P2.54mm_Horizontal.step"
+		(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Connector.3dshapes/Amphenol_T821110A1R100CEU.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 4.24 -5.11 4.46)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz 0 0 90)
 			)
 		)
 	)
@@ -14441,7 +14441,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(footprint "Connector_IDC:IDC-Header_2x05_P2.54mm_Horizontal"
+	(footprint "Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "d3f392f3-30f1-4f6e-9c6f-c5f4ff1757bf")
 		(at 185.9 114.5)
@@ -14955,15 +14955,15 @@
 			(uuid "01568d6a-b713-451d-97f3-53611db475d6")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../lib/3dmodels/Connector_IDC.3dshapes/IDC-Header_2x05_P2.54mm_Horizontal.step"
+		(model "${KIPRJMOD}/../../../lib/3dmodels/Thl_Connector.3dshapes/Amphenol_T821110A1R100CEU.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 4.24 -5.11 4.46)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz 0 0 90)
 			)
 		)
 	)

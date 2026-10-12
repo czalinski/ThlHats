@@ -96,10 +96,18 @@ parity, with no warnings. Layout:
 R4 and C22 have their references on the Fab layer only (`silk_tidy` found no
 clear silkscreen spot).
 
+Box headers (checked 2026-10-11 against Amphenol's model, SamacSys
+download): J20/J21/J30/J31 use
+`Thl_Connector:Amphenol_T821110A1R100CEU_2x05_P2.54mm_Horizontal` (stock
+pads, which match Amphenol's land pattern, plus the vendor STEP, kept
+local). The body is 8.86 mm tall, so 2.3 mm is left under the next board
+up (ESQ-120-14, 11.18 mm). Through-hole tails of the board above land over
+the headers whatever the stack order (core J2; can-card J21-J24; io-card
+J40/J50), and they are about 3.1-3.4 mm
+long as supplied. **Trim through-hole tails on the underside of every
+stack board to about 1.5 mm.**
+
 Open items:
 
-- Confirm the T821110A1R100CEU height and its fit with the KiCad
-  `IDC-Header_2x05_P2.54mm_Horizontal` footprint against the Amphenol
-  drawing.
 - The DB9 adapter PCB (optional; a standard IDC10-to-DB9 ribbon cable also
   works).
