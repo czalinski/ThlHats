@@ -4,7 +4,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 3,MFR-25FBF52-1K2,Yageo,1.2k,probe-helper:3
 3,RC1206FR-07100KL,Yageo,100k,can-ssr:3
 1,MFP-25BRD52-100K,Yageo,100k 0.1%,probe-helper:1
-57,C0805C104K5RACTU,KEMET,100nF 50V X7R,core:20 can-card:8 io-card:7 serial-card:5 can-ssr:17
+56,C0805C104K5RACTU,KEMET,100nF 50V X7R,core:20 can-card:8 io-card:7 serial-card:5 can-ssr:16
 8,C1206C104K5RACTU,KEMET,100nF 50V X7R,io-card:4 serial-card:4
 1,RC1206FR-07100RL,Yageo,100R,can-ssr:1
 1,MFP-25BRD52-100R,Yageo,100R 0.1%,probe-helper:1
@@ -14,7 +14,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,RNF14FTD10M0,Stackpole,10M,probe-helper:1
 12,C0805C103K5RACTU,KEMET,10nF 50V X7R,can-card:8 serial-card:4
 4,RC1206FR-0710RL,Yageo,10R,can-ssr:4
-36,CL31B106KAHZW6E,Samsung Electro-Mechanics,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6
+35,CL31B106KAHZW6E,Samsung Electro-Mechanics,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:5
 7,RC1206FR-07120RL,Yageo,120R,can-card:4 serial-card:2 can-ssr:1
 1,RC1206FR-0712KL,Yageo,12k,core:1
 1,ABM3-12.000MHZ-B2-T,Abracon,12MHz,core:1
@@ -35,7 +35,6 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 2,RC1206FR-0720KL,Yageo,20k,can-ssr:2
 2,MFR-25FBF52-22R,Yageo,22R,probe-helper:2
 1,ABM3-25.000MHZ-D2Y-T,Abracon,25MHz,core:1
-1,RC1206FR-0727KL,Yageo,27k,can-ssr:1
 6,C0805C270J5GACTU,KEMET,27pF 50V C0G,core:4 can-ssr:2
 1,MF-MSMF200/16X-2,Bourns,2A,can-card:1
 5,2N7002LT1G,onsemi,2N7002,can-ssr:5
@@ -67,7 +66,6 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 12,BLM31PG391SN1L,Murata,BLM31PG391SN1L,can-card:8 serial-card:4
 1,1953732,Phoenix Contact,CAN IN/OUT,can-ssr:1
 4,1844236,Phoenix Contact,CAN2,can-card:4
-1,CC56-12SURKWA,Kingbright,CC56-12SURKWA,can-ssr:1
 2,TSW-103-07-G-S,Samtec,COIL SUPPLY,io-card:1 can-ssr:1
 1,ES1J,onsemi,ES1J,can-ssr:1
 1,ES3J,onsemi,ES3J,can-ssr:1
@@ -81,11 +79,10 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 4,ISOW1044DFMR,Texas Instruments,ISOW1044,can-card:4
 2,ISOW1432DFMR,Texas Instruments,ISOW1432,serial-card:2
 1,JD0-0004NL,Pulse Electronics,JD0-0004NL,core:1
-10,LTST-C150KGKT,Lite-On,LED green,core:3 serial-card:4 can-ssr:3
+8,LTST-C150KGKT,Lite-On,LED green,core:3 serial-card:4 can-ssr:1
 5,LTST-C150KRKT,Lite-On,LED red,io-card:4 can-ssr:1
 8,LTST-C150YKT,Lite-On,LED yellow,can-card:4 serial-card:4
 1,LM393BIDR,Texas Instruments,LM393B,can-ssr:1
-1,MAX7219CWG+,Analog Devices,MAX7219CWG+,can-ssr:1
 1,MC78L05ACHT1G,onsemi,MC78L05,io-card:1
 1,MCP1826S-3302E/DB,Microchip Technology,MCP1826S-3302E/DB,core:1
 1,MCP2562FD-E/P,Microchip Technology,MCP2562FD-E/P,can-ssr:1

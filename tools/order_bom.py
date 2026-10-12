@@ -12,7 +12,8 @@ board-only footprints are skipped) and writes, for one set of boards:
   docs/orders/mouser-rev<REV>-simple.xlsx   the same lines in five columns
                                      only (no duplicate columns to map)
 
-MPNs pass through fab.MPN_FIXUPS first. Mouser spellings, Mouser part
+MPNs pass through fab.MPN_FIXUPS first; parts left unfitted on a revision
+(NOT_FITTED below) are not ordered. Mouser spellings, Mouser part
 numbers and parts not bought from Mouser are set below and in
 tools/mouser_pn.csv (MPN -> Mouser part number, from Mouser's own BOM
 check, so the upload matches without guessing).
@@ -43,6 +44,13 @@ MOUSER_MPN = {"W6100-L": "W6100L"}
 # Not stocked by Mouser: bought from DigiKey.
 MOUSER_SKIP = {"T821110A1R100CEU"}
 
+# Parts not bought (left unfitted) for a revision: {rev: {board: refs}}.
+NOT_FITTED = {
+    # can-ssr display: MAX7219 is obsolete and expensive; display, V/A LEDs,
+    # RSET and decoupling go with it (docs/rev-b-changes.md).
+    "A": {"can-ssr": {"U40", "U41", "D40", "D41", "R50", "C43", "C44"}},
+}
+
 # Columns of the five-column Mouser upload.
 MOUSER_SIMPLE_COLS = ["Mouser Part Number", "Manufacturer Part Number", "Manufacturer",
                       "Quantity", "Description"]
@@ -56,13 +64,15 @@ MOUSER_COLS = ["Mfr Part Number (Input)", "Manufacturer Part Number", "Mouser Pa
                "Package Type", "Datasheet URL", "Product Image", "Design Risk"]
 
 
-def board_parts(board):
-    """{(manufacturer, mpn, value): qty} for one board's PCB."""
+def board_parts(board, skip=()):
+    """{(manufacturer, mpn, value): qty} for one board's PCB, less the refs in skip."""
     import pcbnew
     pcb = ROOT / "boards" / board / "hardware" / f"{board}.kicad_pcb"
     parts = {}
     for fp in pcbnew.LoadBoard(str(pcb)).GetFootprints():
         if fp.GetAttributes() & pcbnew.FP_BOARD_ONLY or fp.IsExcludedFromBOM() or fp.IsDNP():
+            continue
+        if fp.GetReference() in skip:
             continue
 
         def field(n):
@@ -77,11 +87,11 @@ def board_parts(board):
     return parts
 
 
-def collect(boards):
+def collect(boards, rev):
     """[(qty, mfr, mpn, description, [(board, qty), ...])], one line per MPN."""
     lines = {}
     for b in boards:
-        for (mfr, mpn, value), n in board_parts(b).items():
+        for (mfr, mpn, value), n in board_parts(b, NOT_FITTED.get(rev, {}).get(b, ())).items():
             line = lines.setdefault(mpn, {"mfr": mfr, "value": value, "boards": {}})
             line["boards"][b] = line["boards"].get(b, 0) + n
     out = []
@@ -151,7 +161,7 @@ def main():
     ap.add_argument("boards", nargs="*", help="boards/<name> (default: the six rev A boards)")
     args = ap.parse_args()
     boards = [Path(b).name for b in args.boards] or BOARDS
-    lines = collect(boards)
+    lines = collect(boards, args.rev)
     out = ROOT / "docs" / "orders"
     rev = args.rev
 

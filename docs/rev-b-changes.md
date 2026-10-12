@@ -52,9 +52,18 @@ SUD50P04-08-GE3, MCP1826S-3302E/DB, Phoenix 1844317.
 
 ## To do in rev B
 
-- **can-ssr U40 MAX7219CWG+ is obsolete** (the pin-compatible MAX7221 is too).
-  Rev A uses remaining stock. Choose a current display driver; this needs a
-  schematic and layout change.
+- **can-ssr display: replace the MAX7219CWG+** (obsolete and expensive; the
+  pin-compatible MAX7221 is obsolete too). Rev A boards are built without
+  U40, U41 (display), D40/D41 (V/A LEDs), R50 and C43/C44: no local readout,
+  everything else works (readings go over CAN; firmware only writes to the
+  driver). Options, decide before the rev B layout:
+  - I2C OLED (user's preference, 2026-10-12). The 2026-10-04 decision was
+    "no OLED: burn-in on long runs", so it needs burn-in handling in
+    firmware: blank after a timeout and wake on a button or a change, and/or
+    shift the text a few pixels periodically.
+  - Holtek HT16K33 (I2C, active) driving the existing 0.56 in 7-segment
+    display and V/A LEDs.
+  Either way: schematic, layout and firmware (display.c) change.
 - serial-card J20/J21/J30/J31 Amphenol T821110A1R100CEU: not stocked by
   Mouser (bought from DigiKey for rev A). Consider a part Mouser carries;
   re-check the 8.86 mm height against the stack clearance.
