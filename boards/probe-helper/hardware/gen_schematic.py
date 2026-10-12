@@ -40,7 +40,7 @@ POWER = {"+5V", "GND"}
 MPN = {
     "1.2k": ("Yageo", "MFR-25FBF52-1K2"), "47R": ("Yageo", "MFR-25FBF52-47R"),
     "100R 0.1%": ("Yageo", "MFP-25BRD52-100R"), "100k 0.1%": ("Yageo", "MFP-25BRD52-100K"),
-    "10M": ("Yageo", "MFR-25FBF52-10M"), "470R": ("Yageo", "MFR-25FBF52-470R"),
+    "10M": ("Stackpole", "RNF14FTD10M0"), "470R": ("Yageo", "MFR-25FBF52-470R"),
     "1k": ("Yageo", "MFR-25FBF52-1K"), "22R": ("Yageo", "MFR-25FBF52-22R"),
 }
 

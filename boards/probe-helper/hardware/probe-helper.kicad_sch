@@ -3915,7 +3915,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 190.5 99.06 0)
 			(hide yes)
 			(effects
@@ -3924,7 +3924,7 @@
 				)
 			)
 		)
-		(property "MPN" "MFR-25FBF52-10M"
+		(property "MPN" "RNF14FTD10M0"
 			(at 190.5 99.06 0)
 			(hide yes)
 			(effects

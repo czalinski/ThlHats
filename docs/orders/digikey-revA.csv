@@ -88,7 +88,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 4,RT1206BRD0715KL,Yageo,15k 0.1%,io-card:4
 1,MFP-25BRD52-100K,Yageo,100k 0.1%,probe-helper:1
 1,MFP-25BRD52-100R,Yageo,100R 0.1%,probe-helper:1
-1,MFR-25FBF52-10M,Yageo,10M,probe-helper:1
+1,RNF14FTD10M0,Stackpole,10M,probe-helper:1
 4,MFR-25FBF52-1K,Yageo,1k,probe-helper:4
 3,MFR-25FBF52-1K2,Yageo,1.2k,probe-helper:3
 2,MFR-25FBF52-22R,Yageo,22R,probe-helper:2
