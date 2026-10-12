@@ -49,6 +49,7 @@ tools/kilib.py sync                        # rewrite lib tables in all boards (r
 tools/kilib.py list
 tools/check_board.py boards/<name> | --all # house rules + ERC + DRC (with schematic parity)
 tools/fab.py boards/<name>                 # gerbers/drill zip, PCBWay BOM + centroid, PDF, STEP -> hardware/fab/rev<X>/
+tools/order_bom.py --rev X [boards/<name>...] # DigiKey CSV + Mouser xlsx order lists -> docs/orders/
 tools/testpoints.py boards/<name>          # 1 mm probe pads on every net, on existing copper -> test/testpoints.csv + maps
 tools/tptest.py plan|run boards/<name>     # probe pairs; golden-board R/C/L compare (docs/probe-test.md)
 tools/probe_ads1263.py stream|cal|selftest # probe meter: Pi + Waveshare AD HAT (docs/probe-helper-pi.md)

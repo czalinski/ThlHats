@@ -6,18 +6,26 @@ PCBWay: the six `hardware/fab/revA/<board>-revA-gerbers.zip` from
 `tools/fab.py` (core, can-card, io-card, serial-card, can-ssr,
 probe-helper). Not ordered: pic-module and can-controller (reference only).
 
+Order lists are generated from the boards' PCBs (MPN, Manufacturer and
+Value fields) by `tools/order_bom.py --rev A`; edit the parts in the
+schematics, update the PCB, and rerun rather than editing the lists.
+
 DigiKey: `digikey-revA.csv` (upload to the BOM Manager). One set = one of
 each of the six boards: 121 lines, 450 parts. Customer Reference gives
 board:qty. Multiply for more sets, and round cheap passives up to the next
 price break.
 
-Mouser: `mouser-revA.csv` (upload to the BOM tool), the same lines with
-Mouser's spellings where they differ (W6100L), less the four Amphenol
-T821110A1R100CEU box headers (serial-card J20/J21/J30/J31), which Mouser does
-not stock: buy those from DigiKey. Customer Part Number is a short board:qty
-code (Mouser limits its length): CO core, CC can-card, IO io-card,
-SE serial-card, SS can-ssr, PH probe-helper; the Description gives the full
-breakdown.
+Mouser: `mouser-revA.xlsx` (upload to the BOM tool; `mouser-revA.csv` has
+the same rows for review). Columns follow Mouser's BOM template
+(`MouserBomTemplate.xls`): Mfr Part Number, Mouser Part Number,
+Manufacturer Name, Description, Quantity 1 and Order Quantity are filled.
+Mouser part numbers come from `tools/mouser_pn.csv`, taken from Mouser's own
+BOM check; parts added since have none yet, so Mouser matches them by MPN.
+Mouser spells W6100-L as W6100L. The four Amphenol T821110A1R100CEU box
+headers (serial-card J20/J21/J30/J31) are left out: Mouser does not stock
+them, buy from DigiKey. The Description ends in a short board:qty code:
+CO core, CC can-card, IO io-card, SE serial-card, SS can-ssr,
+PH probe-helper.
 
 Both lists carry the 2026-10-12 substitutions for obsolete, unorderable and
 out-of-stock parts (docs/rev-b-changes.md), so they no longer match the

@@ -1,121 +1,121 @@
-Mfr. Part Number,Manufacturer,Quantity,Customer Part Number,Description
-ACS770LCB-100U-PFF-T,Allegro MicroSystems,1,SS1,ACS770LCB-100U-PFF-T (can-ssr:1)
-CC56-12SURKWA,Kingbright,1,SS1,CC56-12SURKWA (can-ssr:1)
-C0805C270J5GACTU,KEMET,6,CO4 SS2,27pF 50V C0G (core:4 can-ssr:2)
-C0805C103K5RACTU,KEMET,12,CC8 SE4,10nF 50V X7R (can-card:8 serial-card:4)
-C0805C104K5RACTU,KEMET,57,CO20 CC8 IO7 SE5 SS17,100nF 50V X7R (core:20 can-card:8 io-card:7 serial-card:5 can-ssr:17)
-C1206C102KGRACTU,KEMET,1,CO1,1nF 2kV X7R (core:1)
-C1210C683KBRACTU,KEMET,1,SS1,68nF 630V X7R (can-ssr:1)
-CL31B335KAHVPNE,Samsung Electro-Mechanics,1,CO1,3.3uF 25V X7R (core:1)
-C1206C102J5GACTU,KEMET,5,IO4 SS1,1nF 50V C0G (io-card:4 can-ssr:1)
-C1206C104K5RACTU,KEMET,8,IO4 SE4,100nF 50V X7R (io-card:4 serial-card:4)
-CL31B106KAHNNNE,Samsung Electro-Mechanics,36,CO7 CC12 IO3 SE8 SS6,10uF 25V X7R (core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6)
-CL31B475KBHNNNE,Samsung Electro-Mechanics,1,IO1,4.7uF 50V X7R (io-card:1)
-C1206C105K5RACTU,KEMET,14,CO2 CC8 SE4,1uF 50V X7R (core:2 can-card:8 serial-card:4)
-C1206C474K5RACTU,KEMET,2,SS2,470nF 50V X7R (can-ssr:2)
-R-78E5.0-1.0,RECOM,1,SS1,R-78E5.0-1.0 (can-ssr:1)
-TDN 5-2411WI,TRACO Power,1,CO1,TDN 5-2411WI (core:1)
-ABM3-12.000MHZ-B2-T,Abracon,1,CO1,12MHz (core:1)
-ABM3-25.000MHZ-D2Y-T,Abracon,1,CO1,25MHz (core:1)
-ECS-160-18-4X,ECS Inc.,1,SS1,16MHz (can-ssr:1)
-AQW212,Panasonic,2,IO2,AQW212 (io-card:2)
-MCP2562FD-E/P,Microchip Technology,1,SS1,MCP2562FD-E/P (can-ssr:1)
-TLP240A(F),Toshiba,1,SS1,TLP240A (can-ssr:1)
-1N4148,onsemi,4,PH4,1N4148 (probe-helper:4)
-1N4148W-7-F,Diodes Incorporated,5,IO4 SS1,1N4148W (io-card:4 can-ssr:1)
-B340A-13-F,Diodes Incorporated,1,SS1,B340A (can-ssr:1)
-BZT52C15-7-F,Diodes Incorporated,1,CO1,15V (core:1)
-ES1J,onsemi,1,SS1,ES1J (can-ssr:1)
-ES3J,onsemi,1,SS1,ES3J (can-ssr:1)
-SMAZ15-13-F,Diodes Incorporated,1,SS1,SMAZ15 (can-ssr:1)
-SMBJ15A,Littelfuse,2,CO1 SS1,SMBJ15A (core:1 can-ssr:1)
-0451004.MRL,Littelfuse,1,CO1,4A (core:1)
-1812L110/33MR,Littelfuse,1,IO1,1.1A 33V (io-card:1)
-MF-MSMF200/16X-2,Bourns,1,CC1,2A (can-card:1)
-61201021621,Wurth Elektronik,1,PH1,Pi pins 31-40 (probe-helper:1)
-LTST-C150KGKT,Lite-On,10,CO3 SE4 SS3,LED green (core:3 serial-card:4 can-ssr:3)
-LTST-C150KRKT,Lite-On,5,IO4 SS1,LED red (io-card:4 can-ssr:1)
-LTST-C150YKT,Lite-On,8,CC4 SE4,LED yellow (can-card:4 serial-card:4)
-W6100L,WIZnet,1,CO1,W6100-L (core:1)
-BLM31KN102SH1L,Murata,12,CC8 SE4,BLM31KN102SH1L (can-card:8 serial-card:4)
-HI1206P121R-10,Laird,3,CO3,HI1206P121R-10 (core:3)
-MCP4728-E/UN,Microchip,1,IO1,MCP4728 (io-card:1)
-SH-7010MC,Nidec Copal,1,SS1,ADDR (can-ssr:1)
-1757242,Phoenix Contact,1,CO1,12V IN (core:1)
-1844236,Phoenix Contact,4,CC4,CAN1 (can-card:4)
-1844249,Phoenix Contact,1,SS1,MEAN WELL (can-ssr:1)
-1844278,Phoenix Contact,1,IO1,ANALOG OUT (io-card:1)
-1844294,Phoenix Contact,1,IO1,RELAY (io-card:1)
-1844317,Phoenix Contact,1,IO1,IO (io-card:1)
-1953732,Phoenix Contact,1,SS1,CAN IN/OUT (can-ssr:1)
-ESQ-103-14-G-D,Samtec,3,CC1 IO1 SE1,RACK 12V (can-card:1 io-card:1 serial-card:1)
-ESQ-120-14-G-D,Samtec,3,CC1 IO1 SE1,STACK BUS (can-card:1 io-card:1 serial-card:1)
-68016-136HLF,Amphenol FCI,1,PH1,AD HAT terminal (probe-helper:1)
-TSW-102-07-G-S,Samtec,9,CC6 SE2 SS1,TERM (can-card:6 serial-card:2 can-ssr:1)
-TSW-103-07-G-D,Samtec,1,CO1,RACK 12V (core:1)
-TSW-103-07-G-S,Samtec,2,IO1 SS1,COIL SUPPLY (io-card:1 can-ssr:1)
-TSW-103-08-G-S-RA,Samtec,1,CO1,UART (core:1)
-TSW-106-07-G-S,Samtec,1,SS1,ICSP (can-ssr:1)
-TSW-106-08-G-S-RA,Samtec,1,CO1,ICSP (core:1)
-TSW-120-07-G-D,Samtec,1,CO1,STACK BUS (core:1)
-JD0-0004NL,Pulse Electronics,1,CO1,JD0-0004NL (core:1)
-RC1206FR-07100KL,Yageo,3,SS3,100k (can-ssr:3)
-RC1206FR-07100RL,Yageo,1,SS1,100R (can-ssr:1)
-RC1206FR-0710KL,Yageo,20,CO10 SE2 SS8,10k (core:10 serial-card:2 can-ssr:8)
-RC1206FR-0710ML,Yageo,5,IO4 SS1,10M (io-card:4 can-ssr:1)
-RC1206FR-0710RL,Yageo,4,SS4,10R (can-ssr:4)
-RC1206FR-07120RL,Yageo,7,CC4 SE2 SS1,120R (can-card:4 serial-card:2 can-ssr:1)
-RC1206FR-0712KL,Yageo,1,CO1,12k (core:1)
-RC1206FR-07130KL,Yageo,4,IO4,130k (io-card:4)
-RC1206FR-0716K2L,Yageo,1,SS1,16.2k (can-ssr:1)
-RC1206FR-071KL,Yageo,22,CO2 CC4 IO1 SE8 SS7,1k (core:2 can-card:4 io-card:1 serial-card:8 can-ssr:7)
-RC1206FR-071ML,Yageo,2,CO1 SS1,1M (core:1 can-ssr:1)
-RC1206FR-0720KL,Yageo,2,SS2,20k (can-ssr:2)
-RC1206FR-0727KL,Yageo,1,SS1,27k (can-ssr:1)
-RC1206FR-07300RL,Yageo,1,CO1,300R (core:1)
-RMCF1206FT330R,Stackpole,6,CO2 IO4,330R (core:2 io-card:4)
-RC1206FR-07332KL,Yageo,6,SS6,332k (can-ssr:6)
-RC1206FR-07470RL,Yageo,4,IO4,470R (io-card:4)
-RC1206FR-0747KL,Yageo,1,SS1,47k (can-ssr:1)
-RC1206FR-0747RL,Yageo,4,IO4,47R (io-card:4)
-RC1206FR-0749R9L,Yageo,4,CO4,49.9R (core:4)
-RC1206FR-074K7L,Yageo,13,CO3 IO6 SS4,4.7k (core:3 io-card:6 can-ssr:4)
-RC1206FR-07680RL,Yageo,1,SS1,680R (can-ssr:1)
-RC1206FR-078K06L,Yageo,2,SS2,8.06k (can-ssr:2)
-RC1206JR-070RL,Yageo,1,CO1,0R (core:1)
-RT1206BRD0710KL,Yageo,4,IO4,10k 0.1% (io-card:4)
-RT1206BRD0715KL,Yageo,4,IO4,15k 0.1% (io-card:4)
-MFP-25BRD52-100K,Yageo,1,PH1,100k 0.1% (probe-helper:1)
-MFP-25BRD52-100R,Yageo,1,PH1,100R 0.1% (probe-helper:1)
-RNF14FTD10M0,Stackpole,1,PH1,10M (probe-helper:1)
-MFR-25FBF52-1K,Yageo,4,PH4,1k (probe-helper:4)
-MFR-25FBF52-1K2,Yageo,3,PH3,1.2k (probe-helper:3)
-MFR-25FBF52-22R,Yageo,2,PH2,22R (probe-helper:2)
-MFR-25FBF52-470R,Yageo,2,PH2,470R (probe-helper:2)
-MFR-25FBF52-47R,Yageo,3,PH3,47R (probe-helper:3)
-ISO1540DR,Texas Instruments,1,IO1,ISO1540 (io-card:1)
-ISO1640DWR,Texas Instruments,1,SS1,ISO1640DWR (can-ssr:1)
-ISOW1044DFMR,Texas Instruments,4,CC4,ISOW1044 (can-card:4)
-ISOW1432DFMR,Texas Instruments,2,SE2,ISOW1432 (serial-card:2)
-LM393BIDR,Texas Instruments,1,SS1,LM393B (can-ssr:1)
-MAX7219CWG+,Analog Devices,1,SS1,MAX7219CWG+ (can-ssr:1)
-MCP3426A0-E/SN,Microchip Technology,1,SS1,MCP3426A0-E/SN (can-ssr:1)
-MCP3426A1-E/SN,Microchip Technology,1,SS1,MCP3426A1-E/SN (can-ssr:1)
-OPA4171AIDR,Texas Instruments,1,IO1,OPA4171 (io-card:1)
-ST3232BDR,STMicroelectronics,1,SE1,ST3232B (serial-card:1)
-UCC12050DVE,Texas Instruments,1,SS1,UCC12050DVE (can-ssr:1)
-2N7002LT1G,onsemi,5,SS5,2N7002 (can-ssr:5)
-BAT54-7-F,Diodes Incorporated,1,SS1,BAT54 (can-ssr:1)
-BAT54S-7-F,Diodes Incorporated,12,IO12,BAT54S (io-card:12)
-MC78L05ACHT1G,onsemi,1,IO1,MC78L05 (io-card:1)
-MCP1826S-3302E/DB,Microchip Technology,1,CO1,MCP1826S-3302E/DB (core:1)
-MCP4725A0T-E/CH,Microchip Technology,2,SS2,MCP4725A0T-E/CH (can-ssr:2)
-MMBT2907ALT1G,onsemi,1,SS1,MMBT2907A (can-ssr:1)
-NUP2105LT1G,onsemi,5,CC4 SS1,NUP2105L (can-card:4 can-ssr:1)
-SM712.TCT,Semtech,2,SE2,SM712 (serial-card:2)
-IPB107N20N3GATMA1,Infineon,4,SS4,IPB107N20N3G (can-ssr:4)
-SUD50P04-08-GE3,Vishay,1,CO1,SUD50P04-08 (core:1)
-PIC18F47Q84-I/PT,Microchip Technology,1,SS1,PIC18F47Q84-I/PT (can-ssr:1)
-PIC32MK1024MCM064-I/PT,Microchip Technology,1,CO1,PIC32MK1024MCM064-I/PT (core:1)
-1715721,Phoenix Contact,1,PH1,PROBE A B (probe-helper:1)
-VOM1271T,Vishay,2,SS2,VOM1271T (can-ssr:2)
+Mfr Part Number (Input),Manufacturer Part Number,Mouser Part Number,Manufacturer Name,Description,Quantity 1,Unit Price 1,Quantity 2,Unit Price 2,Quantity 3,Unit Price 3,Quantity 4,Unit Price 4,Quantity 5,Unit Price 5,Order Quantity,Order Unit Price,Min./Mult.,Availability,Lead Time in Days,Lifecycle,NCNR,RoHS,Pb Free,Package Type,Datasheet URL,Product Image,Design Risk
+RC1206JR-070RL,RC1206JR-070RL,603-RC1206JR-070RL,Yageo,0R [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1812L110/33MR,1812L110/33MR,576-1812L110/33MR,Littelfuse,1.1A 33V [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+MFR-25FBF52-1K2,MFR-25FBF52-1K2,603-MFR-25FBF52-1K2,Yageo,1.2k [PH3],3,,,,,,,,,,3,,,,,,,,,,,,
+RC1206FR-07100KL,RC1206FR-07100KL,603-RC1206FR-07100KL,Yageo,100k [SS3],3,,,,,,,,,,3,,,,,,,,,,,,
+MFP-25BRD52-100K,MFP-25BRD52-100K,603-MFP-25BRD52-100K,Yageo,100k 0.1% [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+C0805C104K5RACTU,C0805C104K5RACTU,,KEMET,100nF 50V X7R [CO20 CC8 IO7 SE5 SS17],57,,,,,,,,,,57,,,,,,,,,,,,
+C1206C104K5RACTU,C1206C104K5RACTU,,KEMET,100nF 50V X7R [IO4 SE4],8,,,,,,,,,,8,,,,,,,,,,,,
+RC1206FR-07100RL,RC1206FR-07100RL,603-RC1206FR-07100RL,Yageo,100R [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MFP-25BRD52-100R,MFP-25BRD52-100R,603-MFP-25BRD52-100R,Yageo,100R 0.1% [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-0710KL,RC1206FR-0710KL,603-RC1206FR-0710KL,Yageo,10k [CO10 SE2 SS8],20,,,,,,,,,,20,,,,,,,,,,,,
+RT1206BRD0710KL,RT1206BRD0710KL,603-RT1206BRD0710KL,Yageo,10k 0.1% [IO4],4,,,,,,,,,,4,,,,,,,,,,,,
+RC1206FR-0710ML,RC1206FR-0710ML,603-RC1206FR-0710ML,Yageo,10M [IO4 SS1],5,,,,,,,,,,5,,,,,,,,,,,,
+RNF14FTD10M0,RNF14FTD10M0,708-RNF14FTD10M0,Stackpole,10M [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+C0805C103K5RACTU,C0805C103K5RACTU,,KEMET,10nF 50V X7R [CC8 SE4],12,,,,,,,,,,12,,,,,,,,,,,,
+RC1206FR-0710RL,RC1206FR-0710RL,603-RC1206FR-0710RL,Yageo,10R [SS4],4,,,,,,,,,,4,,,,,,,,,,,,
+CL31B106KAHNNNE,CL31B106KAHNNNE,,Samsung Electro-Mechanics,10uF 25V X7R [CO7 CC12 IO3 SE8 SS6],36,,,,,,,,,,36,,,,,,,,,,,,
+RC1206FR-07120RL,RC1206FR-07120RL,603-RC1206FR-07120RL,Yageo,120R [CC4 SE2 SS1],7,,,,,,,,,,7,,,,,,,,,,,,
+RC1206FR-0712KL,RC1206FR-0712KL,603-RC1206FR-0712KL,Yageo,12k [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+ABM3-12.000MHZ-B2-T,ABM3-12.000MHZ-B2-T,815-ABM3-12-B2-T,Abracon,12MHz [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1757242,1757242,651-1757242,Phoenix Contact,12V IN [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-07130KL,RC1206FR-07130KL,603-RC1206FR-07130KL,Yageo,130k [IO4],4,,,,,,,,,,4,,,,,,,,,,,,
+RT1206BRD0715KL,RT1206BRD0715KL,603-RT1206BRD0715KL,Yageo,15k 0.1% [IO4],4,,,,,,,,,,4,,,,,,,,,,,,
+BZT52C15-7-F,BZT52C15-7-F,621-BZT52C15-F,Diodes Incorporated,15V [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-0716K2L,RC1206FR-0716K2L,603-RC1206FR-0716K2L,Yageo,16.2k [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+ECS-160-18-4X,ECS-160-18-4X,520-160-18-4XEN,ECS Inc.,16MHz [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MFR-25FBF52-1K,MFR-25FBF52-1K,603-MFR-25FBF52-1K,Yageo,1k [PH4],4,,,,,,,,,,4,,,,,,,,,,,,
+RC1206FR-071KL,RC1206FR-071KL,603-RC1206FR-071KL,Yageo,1k [CO2 CC4 IO1 SE8 SS7],22,,,,,,,,,,22,,,,,,,,,,,,
+RC1206FR-071ML,RC1206FR-071ML,603-RC1206FR-071ML,Yageo,1M [CO1 SS1],2,,,,,,,,,,2,,,,,,,,,,,,
+1N4148,1N4148,512-1N4148,onsemi,1N4148 [PH4],4,,,,,,,,,,4,,,,,,,,,,,,
+1N4148W-7-F,1N4148W-7-F,621-1N4148W-F,Diodes Incorporated,1N4148W [IO4 SS1],5,,,,,,,,,,5,,,,,,,,,,,,
+C1206C102KGRACTU,C1206C102KGRACTU,80-C1206C102KGR,KEMET,1nF 2kV X7R [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+C1206C102J5GACTU,C1206C102J5GACTU,,KEMET,1nF 50V C0G [IO4 SS1],5,,,,,,,,,,5,,,,,,,,,,,,
+C1206C105K5RACTU,C1206C105K5RACTU,,KEMET,1uF 50V X7R [CO2 CC8 SE4],14,,,,,,,,,,14,,,,,,,,,,,,
+RC1206FR-0720KL,RC1206FR-0720KL,603-RC1206FR-0720KL,Yageo,20k [SS2],2,,,,,,,,,,2,,,,,,,,,,,,
+MFR-25FBF52-22R,MFR-25FBF52-22R,603-MFR-25FBF52-22R,Yageo,22R [PH2],2,,,,,,,,,,2,,,,,,,,,,,,
+ABM3-25.000MHZ-D2Y-T,ABM3-25.000MHZ-D2Y-T,815-ABM3-25-D2Y-T,Abracon,25MHz [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-0727KL,RC1206FR-0727KL,603-RC1206FR-0727KL,Yageo,27k [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+C0805C270J5GACTU,C0805C270J5GACTU,,KEMET,27pF 50V C0G [CO4 SS2],6,,,,,,,,,,6,,,,,,,,,,,,
+MF-MSMF200/16X-2,MF-MSMF200/16X-2,652-MF-MSMF200/16X-2,Bourns,2A [CC1],1,,,,,,,,,,1,,,,,,,,,,,,
+2N7002LT1G,2N7002LT1G,863-2N7002LT1G,onsemi,2N7002 [SS5],5,,,,,,,,,,5,,,,,,,,,,,,
+CL31B335KAHVPNE,CL31B335KAHVPNE,187-CL31B335KAHVPNE,Samsung Electro-Mechanics,3.3uF 25V X7R [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-07300RL,RC1206FR-07300RL,603-RC1206FR-07300RL,Yageo,300R [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RMCF1206FT330R,RMCF1206FT330R,,Stackpole,330R [CO2 IO4],6,,,,,,,,,,6,,,,,,,,,,,,
+RC1206FR-07332KL,RC1206FR-07332KL,603-RC1206FR-07332KL,Yageo,332k [SS6],6,,,,,,,,,,6,,,,,,,,,,,,
+RC1206FR-074K7L,RC1206FR-074K7L,603-RC1206FR-074K7L,Yageo,4.7k [CO3 IO6 SS4],13,,,,,,,,,,13,,,,,,,,,,,,
+CL31B475KBHNNNE,CL31B475KBHNNNE,,Samsung Electro-Mechanics,4.7uF 50V X7R [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+C1206C474K5RACTU,C1206C474K5RACTU,,KEMET,470nF 50V X7R [SS2],2,,,,,,,,,,2,,,,,,,,,,,,
+MFR-25FBF52-470R,MFR-25FBF52-470R,603-MFR-25FBF52-470R,Yageo,470R [PH2],2,,,,,,,,,,2,,,,,,,,,,,,
+RC1206FR-07470RL,RC1206FR-07470RL,603-RC1206FR-07470RL,Yageo,470R [IO4],4,,,,,,,,,,4,,,,,,,,,,,,
+RC1206FR-0747KL,RC1206FR-0747KL,603-RC1206FR-0747KL,Yageo,47k [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MFR-25FBF52-47R,MFR-25FBF52-47R,603-MFR-25FBF52-47R,Yageo,47R [PH3],3,,,,,,,,,,3,,,,,,,,,,,,
+RC1206FR-0747RL,RC1206FR-0747RL,603-RC1206FR-0747RL,Yageo,47R [IO4],4,,,,,,,,,,4,,,,,,,,,,,,
+RC1206FR-0749R9L,RC1206FR-0749R9L,603-RC1206FR-0749R9L,Yageo,49.9R [CO4],4,,,,,,,,,,4,,,,,,,,,,,,
+0451004.MRL,0451004.MRL,576-0451004.MRL,Littelfuse,4A [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-07680RL,RC1206FR-07680RL,603-RC1206FR-07680RL,Yageo,680R [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+C1210C683KBRACTU,C1210C683KBRACTU,,KEMET,68nF 630V X7R [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+RC1206FR-078K06L,RC1206FR-078K06L,603-RC1206FR-078K06L,Yageo,8.06k [SS2],2,,,,,,,,,,2,,,,,,,,,,,,
+ACS770LCB-100U-PFF-T,ACS770LCB-100U-PFF-T,,Allegro MicroSystems,ACS770LCB-100U-PFF-T [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+68016-136HLF,68016-136HLF,,Amphenol FCI,AD HAT terminal [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+SH-7010MC,SH-7010MC,229-SH-7010MC,Nidec Copal,ADDR [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+1844278,1844278,651-1844278,Phoenix Contact,ANALOG OUT [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+AQW212,AQW212,769-AQW212,Panasonic,AQW212 [IO2],2,,,,,,,,,,2,,,,,,,,,,,,
+B340A-13-F,B340A-13-F,621-B340A-F,Diodes Incorporated,B340A [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+BAT54-7-F,BAT54-7-F,,Diodes Incorporated,BAT54 [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+BAT54S-7-F,BAT54S-7-F,,Diodes Incorporated,BAT54S [IO12],12,,,,,,,,,,12,,,,,,,,,,,,
+BLM31KN102SH1L,BLM31KN102SH1L,,Murata,BLM31KN102SH1L [CC8 SE4],12,,,,,,,,,,12,,,,,,,,,,,,
+1953732,1953732,651-1953732,Phoenix Contact,CAN IN/OUT [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+1844236,1844236,651-1844236,Phoenix Contact,CAN2 [CC4],4,,,,,,,,,,4,,,,,,,,,,,,
+CC56-12SURKWA,CC56-12SURKWA,,Kingbright,CC56-12SURKWA [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+TSW-103-07-G-S,TSW-103-07-G-S,200-TSW10307GS,Samtec,COIL SUPPLY [IO1 SS1],2,,,,,,,,,,2,,,,,,,,,,,,
+ES1J,ES1J,,onsemi,ES1J [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+ES3J,ES3J,,onsemi,ES3J [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+HI1206P121R-10,HI1206P121R-10,875-HI1206P121R-10,Laird,HI1206P121R-10 [CO3],3,,,,,,,,,,3,,,,,,,,,,,,
+TSW-106-07-G-S,TSW-106-07-G-S,200-TSW10607GS,Samtec,ICSP [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+TSW-106-08-G-S-RA,TSW-106-08-G-S-RA,200-TSW10608GSRA,Samtec,ICSP [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1844317,1844317,651-1844317,Phoenix Contact,IO [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+IPB107N20N3GATMA1,IPB107N20N3GATMA1,726-IPB107N20N3GATMA,Infineon,IPB107N20N3G [SS4],4,,,,,,,,,,4,,,,,,,,,,,,
+ISO1540DR,ISO1540DR,595-ISO1540DR,Texas Instruments,ISO1540 [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+ISO1640DWR,ISO1640DWR,595-ISO1640DWR,Texas Instruments,ISO1640DWR [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+ISOW1044DFMR,ISOW1044DFMR,595-ISOW1044DFMR,Texas Instruments,ISOW1044 [CC4],4,,,,,,,,,,4,,,,,,,,,,,,
+ISOW1432DFMR,ISOW1432DFMR,595-ISOW1432DFMR,Texas Instruments,ISOW1432 [SE2],2,,,,,,,,,,2,,,,,,,,,,,,
+JD0-0004NL,JD0-0004NL,673-JD0-0004NL,Pulse Electronics,JD0-0004NL [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+LTST-C150KGKT,LTST-C150KGKT,,Lite-On,LED green [CO3 SE4 SS3],10,,,,,,,,,,10,,,,,,,,,,,,
+LTST-C150KRKT,LTST-C150KRKT,859-LTST-C150KRKT,Lite-On,LED red [IO4 SS1],5,,,,,,,,,,5,,,,,,,,,,,,
+LTST-C150YKT,LTST-C150YKT,859-LTST-C150YKT,Lite-On,LED yellow [CC4 SE4],8,,,,,,,,,,8,,,,,,,,,,,,
+LM393BIDR,LM393BIDR,595-LM393BIDR,Texas Instruments,LM393B [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MAX7219CWG+,MAX7219CWG+,700-MAX7219CWG,Analog Devices,MAX7219CWG+ [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MC78L05ACHT1G,MC78L05ACHT1G,863-MC78L05ACHT1G,onsemi,MC78L05 [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+MCP1826S-3302E/DB,MCP1826S-3302E/DB,579-MCP1826S-3302EDB,Microchip Technology,MCP1826S-3302E/DB [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+MCP2562FD-E/P,MCP2562FD-E/P,579-MCP2562FD-E/P,Microchip Technology,MCP2562FD-E/P [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MCP3426A0-E/SN,MCP3426A0-E/SN,579-MCP3426A0E/SN,Microchip Technology,MCP3426A0-E/SN [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MCP3426A1-E/SN,MCP3426A1-E/SN,579-MCP3426A1-E/SN,Microchip Technology,MCP3426A1-E/SN [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MCP4725A0T-E/CH,MCP4725A0T-E/CH,579-MCP4725A0TECH,Microchip Technology,MCP4725A0T-E/CH [SS2],2,,,,,,,,,,2,,,,,,,,,,,,
+MCP4728-E/UN,MCP4728-E/UN,579-MCP4728-E/UN,Microchip,MCP4728 [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1844249,1844249,651-1844249,Phoenix Contact,MEAN WELL [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+MMBT2907ALT1G,MMBT2907ALT1G,863-MMBT2907ALT1G,onsemi,MMBT2907A [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+NUP2105LT1G,NUP2105LT1G,863-NUP2105LT1G,onsemi,NUP2105L [CC4 SS1],5,,,,,,,,,,5,,,,,,,,,,,,
+OPA4171AIDR,OPA4171AIDR,595-OPA4171AIDR,Texas Instruments,OPA4171 [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+61201021621,61201021621,710-61201021621,Wurth Elektronik,Pi pins 31-40 [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+PIC18F47Q84-I/PT,PIC18F47Q84-I/PT,579-PIC18F47Q84-I/PT,Microchip Technology,PIC18F47Q84-I/PT [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+PIC32MK1024MCM064-I/PT,PIC32MK1024MCM064-I/PT,579-2MK1024MCM064IPT,Microchip Technology,PIC32MK1024MCM064-I/PT [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1715721,1715721,651-1715721,Phoenix Contact,PROBE A B [PH1],1,,,,,,,,,,1,,,,,,,,,,,,
+R-78E5.0-1.0,R-78E5.0-1.0,919-R-78E5.0-1.0,RECOM,R-78E5.0-1.0 [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+ESQ-103-14-G-D,ESQ-103-14-G-D,200-ESQ10314GD,Samtec,RACK 12V [CC1 IO1 SE1],3,,,,,,,,,,3,,,,,,,,,,,,
+TSW-103-07-G-D,TSW-103-07-G-D,200-TSW10307GD,Samtec,RACK 12V [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+1844294,1844294,651-1844294,Phoenix Contact,RELAY [IO1],1,,,,,,,,,,1,,,,,,,,,,,,
+SM712.TCT,SM712.TCT,947-SM712.TCT,Semtech,SM712 [SE2],2,,,,,,,,,,2,,,,,,,,,,,,
+SMAZ15-13-F,SMAZ15-13-F,,Diodes Incorporated,SMAZ15 [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+SMBJ15A,SMBJ15A,947-SMBJ15A,Littelfuse,SMBJ15A [CO1 SS1],2,,,,,,,,,,2,,,,,,,,,,,,
+ST3232BDR,ST3232BDR,511-ST3232BDR,STMicroelectronics,ST3232B [SE1],1,,,,,,,,,,1,,,,,,,,,,,,
+ESQ-120-14-G-D,ESQ-120-14-G-D,200-ESQ12014GD,Samtec,STACK BUS [CC1 IO1 SE1],3,,,,,,,,,,3,,,,,,,,,,,,
+TSW-120-07-G-D,TSW-120-07-G-D,200-TSW12007GD,Samtec,STACK BUS [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+SUD50P04-08-GE3,SUD50P04-08-GE3,781-SUD50P04-08-GE3,Vishay,SUD50P04-08 [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+TDN 5-2411WI,TDN 5-2411WI,495-TDN5-2411WI,TRACO Power,TDN 5-2411WI [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+TSW-102-07-G-S,TSW-102-07-G-S,200-TSW10207GS,Samtec,TERM [CC6 SE2 SS1],9,,,,,,,,,,9,,,,,,,,,,,,
+TLP240A(F),TLP240A(F),,Toshiba,TLP240A [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+TSW-103-08-G-S-RA,TSW-103-08-G-S-RA,200-TSW10308GSRA,Samtec,UART [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
+UCC12050DVE,UCC12050DVE,595-UCC12050DVE,Texas Instruments,UCC12050DVE [SS1],1,,,,,,,,,,1,,,,,,,,,,,,
+VOM1271T,VOM1271T,78-VOM1271T,Vishay,VOM1271T [SS2],2,,,,,,,,,,2,,,,,,,,,,,,
+W6100L,W6100L,950-W6100L,WIZnet,W6100-L [CO1],1,,,,,,,,,,1,,,,,,,,,,,,
