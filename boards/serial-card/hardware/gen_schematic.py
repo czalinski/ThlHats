@@ -44,7 +44,7 @@ MPN = {
     "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, charge pump
     "10nF 50V X7R": ("KEMET", "C0805C103K5RACTU"),
     "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
-    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHZW6E"),
 }
 USED = {"U2TX", "U2RX", "U3TX", "U3RX", "U4TX", "U4RX", "U5TX", "U5RX", "DE1", "DE2"} | {"+3V3", "+5V", "GND"}
 # box header pin -> DB9 pin (IDC10-to-DB9 ribbon, the common "AT" order)
@@ -112,11 +112,11 @@ def rs485(s, i):
     s.C(f"C{24 + 10 * i}", "10nF 50V X7R", x0 + 76.2, y0 + 50.8, f"VISO{n}", f"GND2_{n}", decouple=True)
     s.C(f"C{25 + 10 * i}", "1uF 50V X7R", x0 + 93.98, y0 + 50.8, f"VISO{n}", f"GND2_{n}")
     s.C(f"C{26 + 10 * i}", "10uF 25V X7R", x0 + 111.76, y0 + 50.8, f"VISO{n}", f"GND2_{n}")
-    s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SH1L", x0 + 127.0, y0 + 2.54,
-           {"1": f"VISO{n}", "2": f"V485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
+    s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31PG391SN1L", x0 + 127.0, y0 + 2.54,
+           {"1": f"VISO{n}", "2": f"V485_{n}"}, 90, FP["FB"], "Murata", "BLM31PG391SN1L",
            ref_at=(x0 + 127.0, y0 - 1.27), value_at=(x0 + 127.0, y0 + 6.35))
-    s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SH1L", x0 + 127.0, y0 + 15.24,
-           {"1": f"GND2_{n}", "2": f"GND_485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
+    s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31PG391SN1L", x0 + 127.0, y0 + 15.24,
+           {"1": f"GND2_{n}", "2": f"GND_485_{n}"}, 90, FP["FB"], "Murata", "BLM31PG391SN1L",
            ref_at=(x0 + 127.0, y0 + 11.43), value_at=(x0 + 127.0, y0 + 19.05))
     s.C(f"C{27 + 10 * i}", "100nF 50V X7R", x0 + 129.54, y0 + 50.8, f"V485_{n}", f"GND_485_{n}", decouple=True)
     s.C(f"C{28 + 10 * i}", "10uF 25V X7R", x0 + 147.32, y0 + 50.8, f"V485_{n}", f"GND_485_{n}")

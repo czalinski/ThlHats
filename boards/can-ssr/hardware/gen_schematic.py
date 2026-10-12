@@ -37,7 +37,7 @@ MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"),
     "120R": ("Yageo", "RC1206FR-07120RL"), "47k": ("Yageo", "RC1206FR-0747KL"),
     "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
-    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHZW6E"),
     "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
     "10R": ("Yageo", "RC1206FR-0710RL"), "1M": ("Yageo", "RC1206FR-071ML"), "10M": ("Yageo", "RC1206FR-0710ML"),
     "68nF 630V X7R": ("KEMET", "C1210C683KBRACTU"),

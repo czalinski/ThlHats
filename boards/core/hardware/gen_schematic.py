@@ -35,7 +35,7 @@ MPN = {
     "330R": ("Stackpole", "RMCF1206FT330R"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
     "300R": ("Yageo", "RC1206FR-07300RL"), "0R": ("Yageo", "RC1206JR-070RL"), "1M": ("Yageo", "RC1206FR-071ML"),
     "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
-    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHZW6E"),
     "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
     "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
     "3.3uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B335KAHVPNE"),

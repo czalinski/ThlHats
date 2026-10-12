@@ -39,9 +39,9 @@ equivalents, review for rev B whether to keep the swap or go back):
 
 | Was | Now | Boards |
 |---|---|---|
-| Murata GRM31CR71E106KA12L 10 uF 25 V 1206 | Samsung CL31B106KAHNNNE | all but probe-helper |
+| Murata GRM31CR71E106KA12L 10 uF 25 V 1206 | Samsung CL31B106KAHZW6E (CL31B106KAHNNNE was on backorder too) | all but probe-helper |
 | Murata GRM31CR71H475KA12L 4.7 uF 50 V 1206 | Samsung CL31B475KBHNNNE | io-card |
-| Murata BLM31KN102SN1L | Murata BLM31KN102SH1L (AEC-Q200 grade, same bead) | can-card, serial-card |
+| Murata BLM31KN102SN1L | Murata BLM31PG391SN1L (390 Ω @ 100 MHz, 2 A; TI uses 330 Ω; 1 kΩ beads on backorder) | can-card, serial-card |
 | Yageo RC1206FR-07330RL | Stackpole RMCF1206FT330R | core, io-card |
 | Nexperia BAT54,215 | Diodes Inc BAT54-7-F | can-ssr |
 | Nexperia BAT54S,215 | Diodes Inc BAT54S-7-F | io-card |

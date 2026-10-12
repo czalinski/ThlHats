@@ -52,7 +52,7 @@ MPN = {
     "1M": ("Yageo", "RC1206FR-071ML"), "105k": ("Yageo", "RC1206FR-07105KL"), "100k": ("Yageo", "RC1206FR-07100KL"),
     "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),          # 0805, decoupling
     "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, filters
-    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHZW6E"),
     "4.7uF 25V X7R": ("Murata", "GRM31CR71E475KA88L"),
     "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
     "330R": ("Stackpole", "RMCF1206FT330R"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
@@ -400,11 +400,11 @@ def can_sheet():
         s.C(f"C{41 + 4 * i}", "10uF 25V X7R", x0 + 25.4, y0 + 30.48, "+5V", "GND")
         s.C(f"C{42 + 4 * i}", "10uF 25V X7R", x0 + 99.06, y0 + 30.48, f"VISO{n}", f"GND2_{n}")
         s.C(f"C{43 + 4 * i}", "100nF 50V X7R", x0 + 142.24, y0 + 30.48, f"VCAN{n}", f"GND_CAN{n}", decouple=True)
-        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 2.54,
-               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
+        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31PG391SN1L", x0 + 116.84, y0 + 2.54,
+               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31PG391SN1L",
                ref_at=(x0 + 116.84, y0 - 1.27), value_at=(x0 + 116.84, y0 + 6.35))
-        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 15.24,
-               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
+        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31PG391SN1L", x0 + 116.84, y0 + 15.24,
+               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31PG391SN1L",
                ref_at=(x0 + 116.84, y0 + 11.43), value_at=(x0 + 116.84, y0 + 19.05))
         s.flag(x0 + 129.54, y0 - 2.54); s.llabel(f"VCAN{n}", x0 + 129.54, y0 - 2.54, 0)
         s.flag(x0 + 129.54, y0 + 22.86); s.llabel(f"GND_CAN{n}", x0 + 129.54, y0 + 22.86, 0)

@@ -14,7 +14,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,RNF14FTD10M0,Stackpole,10M,probe-helper:1
 12,C0805C103K5RACTU,KEMET,10nF 50V X7R,can-card:8 serial-card:4
 4,RC1206FR-0710RL,Yageo,10R,can-ssr:4
-36,CL31B106KAHNNNE,Samsung Electro-Mechanics,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6
+36,CL31B106KAHZW6E,Samsung Electro-Mechanics,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6
 7,RC1206FR-07120RL,Yageo,120R,can-card:4 serial-card:2 can-ssr:1
 1,RC1206FR-0712KL,Yageo,12k,core:1
 1,ABM3-12.000MHZ-B2-T,Abracon,12MHz,core:1
@@ -64,7 +64,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,B340A-13-F,Diodes Incorporated,B340A,can-ssr:1
 1,BAT54-7-F,Diodes Incorporated,BAT54,can-ssr:1
 12,BAT54S-7-F,Diodes Incorporated,BAT54S,io-card:12
-12,BLM31KN102SH1L,Murata,BLM31KN102SH1L,can-card:8 serial-card:4
+12,BLM31PG391SN1L,Murata,BLM31PG391SN1L,can-card:8 serial-card:4
 1,1953732,Phoenix Contact,CAN IN/OUT,can-ssr:1
 4,1844236,Phoenix Contact,CAN2,can-card:4
 1,CC56-12SURKWA,Kingbright,CC56-12SURKWA,can-ssr:1
