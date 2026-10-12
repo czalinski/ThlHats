@@ -41,7 +41,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 12,BLM31KN102SN1L,Murata,BLM31KN102SN1L,can-card:8 serial-card:4
 3,HI1206P121R-10,Laird,HI1206P121R-10,core:3
 1,MCP4728-E/UN,Microchip,MCP4728,io-card:1
-1,SH-7010C,Nidec Copal,ADDR,can-ssr:1
+1,SH-7010MC,Nidec Copal,ADDR,can-ssr:1
 1,1757242,Phoenix Contact,12V IN,core:1
 4,1844236,Phoenix Contact,CAN1,can-card:4
 1,1844249,Phoenix Contact,MEAN WELL,can-ssr:1
