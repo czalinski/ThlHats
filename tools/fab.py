@@ -30,6 +30,12 @@ import check_board  # noqa: E402
 
 LAYERS = "F.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,Edge.Cuts"
 
+# Schematic MPN -> orderable part number, applied to the BOM so it imports
+# into DigiKey without edits. Add entries as they turn up.
+MPN_FIXUPS = {
+    "SH-7010C": "SH-7010MC",
+}
+
 
 def run(*args):
     r = subprocess.run(["kicad-cli", *args], capture_output=True, text=True)
@@ -55,7 +61,8 @@ def write_bom(pcb, path):
             return fp.GetFieldText(n) if fp.HasField(n) else ""
 
         kind = "SMD" if attrs & pcbnew.FP_SMD else "THT" if attrs & pcbnew.FP_THROUGH_HOLE else "Other"
-        key = (field("Manufacturer"), field("MPN"), fp.GetValue(),
+        mpn = field("MPN")
+        key = (field("Manufacturer"), MPN_FIXUPS.get(mpn, mpn), fp.GetValue(),
                fp.GetFPID().GetLibItemName().wx_str(), kind)
         groups.setdefault(key, []).append(fp.GetReference())
 

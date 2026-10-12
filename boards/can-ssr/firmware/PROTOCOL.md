@@ -1,4 +1,4 @@
-# can-ssr CAN protocol (draft, firmware 0.2)
+# can-ssr CAN protocol (draft, firmware 0.3)
 
 Bus: 500 kbit/s nominal. The node runs its controller in CAN FD mode but sends
 **classic frames of at most 8 bytes**, so it works on a classic CAN 2.0 bus and
@@ -40,8 +40,8 @@ A node that receives a node → host frame carrying its own node number latches
   trip: average current above `Ilimit` for 20 ms latches `SW_OC`. 0 = the
   build's maximum. The hardware trip (build resistor: 60 / 35 / 15 A) is
   independent of this.
-- `flags`: bit 0 `HOT` = no Mean Well remote, switch a live supply (HC/STD
-  only; refused on HV); bit 1 `NO_REG` = fixed supply, don't drive PV/PC.
+- `flags`: bit 0 `HOT` = no Mean Well remote, switch a live supply (HC
+  only; refused on STD and HV); bit 1 `NO_REG` = fixed supply, don't drive PV/PC.
 - `SET_ACK.result`: 0 accepted, 1 fault latched (send CLEAR), 2 voltage above
   the build limit, 3 current above the build limit, 4 hot switching refused.
 

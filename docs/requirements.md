@@ -267,7 +267,7 @@ networks to pay off).
 | Build | MOSFET (×4) | Rds(on) max | Max supply | Continuous current (≤ ~10 W total, still air) | Hot switching |
 |-------|-------------|-------------|------------|-----------------------------------------------|---------------|
 | **HC** (high current) | IPB021N10NM5LF2 (100 V, Linear FET 2) | 2.1 mΩ | 60 V (48 V Mean Well at 120 %) | **50 A** (~5 W cold, ~9 W hot) | Allowed, within limits below |
-| **STD** (standard) | IPB110N20N3LF (200 V, Linear FET) | 11 mΩ | 150 V | **25 A** (~7 W cold, ~12 W hot); decided 2026-10-04 over a 30 A non-Linear-FET option to keep hot switching | Allowed, within limits below |
+| **STD** (standard) | IPB107N20N3G (200 V, standard OptiMOS 3) | 10.7 mΩ | 150 V | **25 A** (~7 W cold, ~12 W hot); was IPB110N20N3LF (Linear FET), discontinued; replaced 2026-10-12 by Infineon's listed successor (same D²PAK, no layout change), which costs STD its hot switching | **Not allowed**: sequenced only |
 | **HV** (high voltage) | IPB407N30N (300 V, standard trench) | 40.7 mΩ | 200 V | **12 A** (~6 W cold, ~10 W hot) | **Not allowed**: sequenced only |
 
 Hot Rds(on) taken as 1.7 × the 25 °C maximum. Two in parallel per side and two
@@ -275,22 +275,23 @@ sides in series make the total path resistance about one device's Rds(on).
 
 **Switching strategy.** The VOM1271T turns the MOSFETs on slowly (about 15 µA of
 gate current), so a "hot" turn-on into a live supply holds them in their linear
-region. The IPB407N30N's SOA collapses in that region at 100 V and above
-(Spirito effect: its 10 ms SOA is well under 1 A there), and even the Linear
-FETs can only carry about 1 A for that long at 100–150 V. So:
+region. The IPB407N30N's and IPB107N20N3G's SOA collapses in that region at
+100 V and above (Spirito effect: 10 ms SOA under 1 A there, DC about 0.15 A at
+150 V for the IPB107N20N3G), and even the Linear FETs can only carry about 1 A
+for that long at 100–150 V. So:
 
 1. **Sequenced turn-on (default, all builds).** With the Mean Well supply's
    Remote ON/OFF wired to the board: supply off → close the switch (no voltage,
    no stress) → set PV/PC → supply on. The supply's own soft start and constant
    current limit handle the DUT inrush. Turn-off: open the switch, then supply
    off. Turn-off is fast (µs, through the discharge stage), well inside SOA.
-2. **Hot turn-on (fallback, HC and STD only)**, e.g. a fixed supply with no
+2. **Hot turn-on (fallback, HC only)**, e.g. a fixed supply with no
    remote input. A gate–drain capacitor (in series with a diode, so it does not
    slow turn-off) limits the output slew to about 0.5 V/ms: 1 mF of DUT
    capacitance then draws about 0.5 A, and 120 V takes about 240 ms. Limit: DUT
    capacitance ≤ 1 mF and DUT load during the ramp ≤ ~0.5 A (a DUT whose
    converter starts part-way up the ramp is the main risk). The slew network is
-   fitted on every build; on HV, firmware refuses to close the switch if the
+   fitted on every build; on STD and HV, firmware refuses to close the switch if the
    input voltage is above about 20 V.
 
 HASS timing: supply changes on a ~100 ms timescale are fine (user,

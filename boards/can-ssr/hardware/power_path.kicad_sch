@@ -2390,7 +2390,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 101.6 78.74 0)
 			(effects
 				(font
@@ -2435,7 +2435,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 96.52 76.2 0)
 			(hide yes)
 			(effects
@@ -2444,7 +2444,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 96.52 76.2 0)
 			(hide yes)
 			(effects
@@ -2529,7 +2529,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 121.92 78.74 0)
 			(effects
 				(font
@@ -2574,7 +2574,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 116.84 76.2 0)
 			(hide yes)
 			(effects
@@ -2583,7 +2583,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 116.84 76.2 0)
 			(hide yes)
 			(effects
@@ -2668,7 +2668,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 170.18 78.74 0)
 			(effects
 				(font
@@ -2713,7 +2713,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 165.1 76.2 0)
 			(hide yes)
 			(effects
@@ -2722,7 +2722,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 165.1 76.2 0)
 			(hide yes)
 			(effects
@@ -2796,7 +2796,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 190.5 78.74 0)
 			(effects
 				(font
@@ -2841,7 +2841,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 185.42 76.2 0)
 			(hide yes)
 			(effects
@@ -2850,7 +2850,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 185.42 76.2 0)
 			(hide yes)
 			(effects

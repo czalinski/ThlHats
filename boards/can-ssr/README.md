@@ -19,7 +19,7 @@ Requirements: [`docs/requirements.md`](../../docs/requirements.md), sections
 | Build | MOSFETs (4 x D2PAK) | Max supply | Continuous |
 |-------|---------------------|------------|------------|
 | HC  | IPB021N10NM5LF2 | 60 V  | 50 A |
-| STD | IPB110N20N3LF   | 150 V | 25 A |
+| STD | IPB107N20N3G   | 150 V | 25 A |
 | HV  | IPB407N30N      | 200 V | 12 A (sequenced turn-on only) |
 
 The only other difference is the **build resistor**, which sets the hardware

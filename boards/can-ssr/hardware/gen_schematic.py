@@ -346,11 +346,11 @@ def power_path():
 
     # --- MOSFETs: Q1/Q2 input side, Q3/Q4 output side, common source ----
     fet = "Transistor_FET:STB15N80K5"
-    build = {"Build": "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"}
+    build = {"Build": "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"}
     for ref, gnet, dnet, x in (("Q1", "G1", "/VIN", 96.52), ("Q2", "G2", "/VIN", 116.84),
                                ("Q3", "G3", "VOUT_SW", 165.1), ("Q4", "G4", "VOUT_SW", 185.42)):
-        s.part(fet, ref, "IPB110N20N3LF", x, 76.2, {"1": gnet, "2": dnet, "3": "SRC"}, 0,
-               "Package_TO_SOT_SMD:TO-263-2", "Infineon", "IPB110N20N3LFATMA1",
+        s.part(fet, ref, "IPB107N20N3G", x, 76.2, {"1": gnet, "2": dnet, "3": "SRC"}, 0,
+               "Package_TO_SOT_SMD:TO-263-2", "Infineon", "IPB107N20N3GATMA1",
                ref_at=(x + 5.08, 73.66), value_at=(x + 5.08, 78.74), value_justify="left", fields_extra=build)
     s.text("Q1 || Q2 (input side) and Q3 || Q4 (output side), sources tied: off = blocks both directions.\n"
            "Fitted MOSFET depends on the build (see Build field); the build resistor on the trip sheet\n"

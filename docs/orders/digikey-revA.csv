@@ -114,7 +114,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,MMBT2907ALT1G,onsemi,MMBT2907A,can-ssr:1
 5,NUP2105LT1G,onsemi,NUP2105L,can-card:4 can-ssr:1
 2,SM712.TCT,Semtech,SM712,serial-card:2
-4,IPB110N20N3LFATMA1,Infineon,IPB110N20N3LF,can-ssr:4
+4,IPB107N20N3GATMA1,Infineon,IPB107N20N3G,can-ssr:4
 1,SUD50P04-08-GE3,Vishay,SUD50P04-08,core:1
 1,PIC18F47Q84-I/PT,Microchip Technology,PIC18F47Q84-I/PT,can-ssr:1
 1,PIC32MK1024MCM064-I/PT,Microchip Technology,PIC32MK1024MCM064-I/PT,core:1

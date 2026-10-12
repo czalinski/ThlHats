@@ -17,7 +17,7 @@ uint8_t g_set_flags;
 static const build_limits_t limits[4] = {
     { 0, 0, 0 },                /* unknown: nothing allowed */
     { 6000, 5000, 1 },          /* HC: 60 V, 50 A, hot switching allowed */
-    { 15000, 2500, 1 },         /* STD: 150 V, 25 A */
+    { 15000, 2500, 0 },         /* STD: 150 V, 25 A, sequenced only (IPB107N20N3G SOA) */
     { 20000, 1200, 0 },         /* HV: 200 V, 12 A, sequenced only */
 };
 

@@ -627,7 +627,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 0 6.65 180)
 			(layer "F.Fab")
 			(uuid "e379e73b-204a-4c1c-8d71-7d78f0e305cd")
@@ -684,7 +684,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -696,7 +696,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -8011,7 +8011,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 0 6.65 0)
 			(layer "F.Fab")
 			(uuid "fa425662-20f5-4685-9e15-338e02bee65b")
@@ -8068,7 +8068,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8080,7 +8080,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -13479,7 +13479,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 0 6.65 180)
 			(layer "F.Fab")
 			(uuid "02720df0-c147-4c70-bf12-8c703f3bc489")
@@ -13536,7 +13536,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13548,7 +13548,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -14999,7 +14999,7 @@
 				)
 			)
 		)
-		(property "Value" "IPB110N20N3LF"
+		(property "Value" "IPB107N20N3G"
 			(at 0 6.65 0)
 			(layer "F.Fab")
 			(uuid "4e9df6e1-91ef-4690-bcdf-32b89b32fc72")
@@ -15056,7 +15056,7 @@
 				)
 			)
 		)
-		(property "MPN" "IPB110N20N3LFATMA1"
+		(property "MPN" "IPB107N20N3GATMA1"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15068,7 +15068,7 @@
 				)
 			)
 		)
-		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB110N20N3LF / HV: IPB407N30N (all Infineon D2PAK)"
+		(property "Build" "HC: IPB021N10NM5LF2 / STD: IPB107N20N3G / HV: IPB407N30N (all Infineon D2PAK)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)

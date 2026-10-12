@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #define FW_VERSION_MAJOR        0
-#define FW_VERSION_MINOR        2
+#define FW_VERSION_MINOR        3
 #define BOARD_TYPE_CAN_SSR      0x01    /* ThlHats board type code */
 
 #define FOSC_HZ                 64000000UL
