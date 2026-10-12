@@ -36,10 +36,10 @@ FP_JP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 POWER = {"+3V3", "+5V", "+12V", "GND"}
 MPN = {
     "1k": ("Yageo", "RC1206FR-071KL"), "120R": ("Yageo", "RC1206FR-07120RL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
-    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
-    "10nF 50V X7R": ("Murata", "GRM21BR71H103KA01L"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
+    "10nF 50V X7R": ("KEMET", "C0805C103K5RACTU"),
 }
 USED = {"C1TX", "C1RX", "C2TX", "C2RX", "C3TX", "C3RX", "C4TX", "C4RX"} | sb.SUPPLIES
 
@@ -53,13 +53,13 @@ def bus_nets():
 
 
 def build():
-    s = schgen.Sheet("can-card", "CAN card: 4 isolated CAN FD", "A", power=POWER, mpn=MPN)
+    s = schgen.Sheet("can-card", "CAN card: 4 isolated CAN FD", "B", power=POWER, mpn=MPN)
     s.text("CAN card (docs/requirements.md 4.5): four CAN FD channels, each isolated on its own (TI ISOW1044,\n"
            "integrated isolated DC-DC). Logic side: VIO +3V3, VCC1 +5V, GND from the stack bus J10.\n"
            "Bus side n: GND_CANn floats (no assumption about the DUT). Per TI: VISOOUT -> bead -> VISOIN,\n"
            "GND2 -> bead -> bus ground (CISPR 32 class B on 2 layers). Decoupling per TI SLLSFF7B 9.3: 10 nF at VDD\n"
            "and VISOOUT (< 1 mm, 0805 here, TI uses 0402), then 1 uF + 10 uF; 100 nF + 10 uF on VISOIN; 100 nF on VIO.\n"
-           "Beads: TI uses 0402 BLM15EX331SN1; this board 1206 BLM31KN102SN1L (hand assembly). Layout: no copper\n"
+           "Beads: TI uses 0402 BLM15EX331SN1; this board 1206 BLM31KN102SH1L (hand assembly). Layout: no copper\n"
            "within 4 mm of VISOOUT (12) / GND2 (11) except their own parts. Connector pinout as every ThlHats board:\n"
            "1 CANH, 2 CANL, 3 GND (bus), 4 +12 V cable supply (CAN1 POWERED only; CAN2-4 pin 4 not connected).",
            25.4, 22.86)
@@ -85,11 +85,11 @@ def build():
         s.C(f"C{62 + 5 * i}", "10nF 50V X7R", x0 + 86.36, y0 + 45.72, f"VISO{n}", f"GND2_{n}", decouple=True)
         s.C(f"C{63 + 5 * i}", "1uF 50V X7R", x0 + 99.06, y0 + 45.72, f"VISO{n}", f"GND2_{n}")
         s.C(f"C{64 + 5 * i}", "10uF 25V X7R", x0 + 142.24, y0 + 45.72, f"VCAN{n}", f"GND_CAN{n}")
-        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 2.54,
-               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 2.54,
+               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
                ref_at=(x0 + 116.84, y0 - 1.27), value_at=(x0 + 116.84, y0 + 6.35))
-        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 15.24,
-               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 15.24,
+               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
                ref_at=(x0 + 116.84, y0 + 11.43), value_at=(x0 + 116.84, y0 + 19.05))
         s.flag(x0 + 129.54, y0 - 2.54); s.llabel(f"VCAN{n}", x0 + 129.54, y0 - 2.54, 0)
         s.flag(x0 + 129.54, y0 + 22.86); s.llabel(f"GND_CAN{n}", x0 + 129.54, y0 + 22.86, 0)

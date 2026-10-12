@@ -7,7 +7,7 @@
 	(title_block
 		(title "CAN SSR: load-side sense and Mean Well control")
 		(date "2026-10-04")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Thl_Isolator:UCC12050DVE"
@@ -3695,7 +3695,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 30.48 106.68 0)
 			(hide yes)
 			(effects
@@ -3704,7 +3704,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 30.48 106.68 0)
 			(hide yes)
 			(effects
@@ -3931,7 +3931,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 43.18 106.68 0)
 			(hide yes)
 			(effects
@@ -3940,7 +3940,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 43.18 106.68 0)
 			(hide yes)
 			(effects
@@ -4167,7 +4167,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 83.82 106.68 0)
 			(hide yes)
 			(effects
@@ -4176,7 +4176,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 83.82 106.68 0)
 			(hide yes)
 			(effects
@@ -4284,7 +4284,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 96.52 106.68 0)
 			(hide yes)
 			(effects
@@ -4293,7 +4293,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 96.52 106.68 0)
 			(hide yes)
 			(effects
@@ -4988,7 +4988,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 30.48 190.5 0)
 			(hide yes)
 			(effects
@@ -4997,7 +4997,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 30.48 190.5 0)
 			(hide yes)
 			(effects
@@ -5224,7 +5224,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 96.52 190.5 0)
 			(hide yes)
 			(effects
@@ -5233,7 +5233,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 96.52 190.5 0)
 			(hide yes)
 			(effects
@@ -6144,7 +6144,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 205.74 48.26 0)
 			(hide yes)
 			(effects
@@ -6153,7 +6153,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 205.74 48.26 0)
 			(hide yes)
 			(effects
@@ -6477,7 +6477,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 205.74 81.28 0)
 			(hide yes)
 			(effects
@@ -6486,7 +6486,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 205.74 81.28 0)
 			(hide yes)
 			(effects
@@ -7064,7 +7064,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 205.74 139.7 0)
 			(hide yes)
 			(effects
@@ -7073,7 +7073,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H474KA01L"
+		(property "MPN" "C1206C474K5RACTU"
 			(at 205.74 139.7 0)
 			(hide yes)
 			(effects
@@ -7630,7 +7630,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 205.74 180.34 0)
 			(hide yes)
 			(effects
@@ -7639,7 +7639,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H474KA01L"
+		(property "MPN" "C1206C474K5RACTU"
 			(at 205.74 180.34 0)
 			(hide yes)
 			(effects
@@ -7927,7 +7927,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 254 48.26 0)
 			(hide yes)
 			(effects
@@ -7936,7 +7936,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 254 48.26 0)
 			(hide yes)
 			(effects
@@ -8540,7 +8540,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 254 91.44 0)
 			(hide yes)
 			(effects
@@ -8549,7 +8549,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 254 91.44 0)
 			(hide yes)
 			(effects
@@ -8960,7 +8960,7 @@
 				)
 			)
 		)
-		(property "Value" "TLP222A"
+		(property "Value" "TLP240A"
 			(at 271.78 182.88 0)
 			(effects
 				(font
@@ -9004,7 +9004,7 @@
 				)
 			)
 		)
-		(property "MPN" "TLP222A(F)"
+		(property "MPN" "TLP240A(F)"
 			(at 271.78 175.26 0)
 			(hide yes)
 			(effects

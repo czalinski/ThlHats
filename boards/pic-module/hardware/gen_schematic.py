@@ -28,10 +28,10 @@ FP = schgen.FP
 MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
     "100k": ("Yageo", "RC1206FR-07100KL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
-    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
-    "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
+    "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
 }
 MCU = "Thl_MCU:PIC32MK1024MCM064-IPT"
 POWER = {"+3V3", "+5V", "+12V", "GND"}
@@ -83,7 +83,7 @@ def build():
     s.C("C61", "10uF 25V X7R", 154.94, 68.58, "+12V", "GND_RACK")
     s.flag(167.64, 43.18); s.power("+12V", 167.64, 43.18)
     s.flag(167.64, 91.44, 180); s.llabel("GND_RACK", 167.64, 91.44, 180)
-    s.led_chain("D32", "R41", "green", "LTST-C150GKT", 180.34, 50.8, "+12V", rval="4.7k", ground="GND_RACK")
+    s.led_chain("D32", "R41", "green", "LTST-C150KGKT", 180.34, 50.8, "+12V", rval="4.7k", ground="GND_RACK")
     s.text("Reverse polarity: P-FET Q1 (D30 clamps Vgs). Transients: TVS D31. +12V and GND_RACK go to the\n"
            "host on J3.1-8 (2 A per contact, 4 contacts each). A host may feed +12V there instead of J20\n"
            "(unprotected). D32: 12 V present.", 22.86, 104.14, 1.0)
@@ -105,7 +105,7 @@ def build():
            "Microchip Technology", "MCP1826S-3302E/DB", ref_at=(314.96, 48.26), value_at=(314.96, 64.77))
     s.C("C1", "10uF 25V X7R", 297.18, 71.12, "+5V", "GND")
     s.C("C2", "10uF 25V X7R", 335.28, 71.12, "+3V3", "GND")
-    s.led_chain("D1", "R1", "green", "LTST-C150GKT", 360.68, 50.8, "+3V3")
+    s.led_chain("D1", "R1", "green", "LTST-C150KGKT", 360.68, 50.8, "+3V3")
     s.text("U2: 1 A. (5 - 3.3) V x 1 A = 1.7 W worst case: the host's 3.3 V load sets the tab copper needed.\n"
            "D1: 3.3 V present.", 292.1, 88.9, 1.0)
 
@@ -151,7 +151,7 @@ def build():
            "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", "Samtec", "TSW-103-07-G-S",
            ref_at=(266.7, 195.58), value_at=(266.7, 207.01))
     s.text("Debug UART (3.3 V): 1 TX from MCU (U1TX on RF1), 2 RX to MCU (U1RX on RC6), 3 GND.", 248.92, 213.36, 1.0)
-    s.led_chain("D2", "R6", "green", "LTST-C150GKT", 254.0, 228.6, "RD8_LED")
+    s.led_chain("D2", "R6", "green", "LTST-C150KGKT", 254.0, 228.6, "RD8_LED")
     s.text("D2 heartbeat (RD8).", 248.92, 251.46, 1.0)
 
     # --- host connectors -------------------------------------------------------------

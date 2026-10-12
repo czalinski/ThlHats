@@ -30,11 +30,11 @@ overcurrent trip threshold and is read by the PIC as the build ID.
 | Block | Baseline parts | Domain |
 |-------|----------------|--------|
 | CAN, power, MCU | CAN FD transceiver, 12 V to 5 V buck, PIC18F47Q84-I/PT, address switch, termination jumper | CAN/logic |
-| Display | MAX7219, 4-digit 7-segment LED, V/A indicators | CAN/logic |
+| Display | MAX7219 (obsolete: replace in rev B, docs/rev-b-changes.md), 4-digit 7-segment LED, V/A indicators | CAN/logic |
 | Overcurrent trip | Comparator + latch on the ACS770 output, threshold from the build resistor | CAN/logic |
-| Barrier | 2 x VOM1271T, ACS770ECB-100U, ISO1640 I2C isolator, isolated DC-DC, photorelay | crosses |
+| Barrier | 2 x VOM1271T, ACS770LCB-100U, ISO1640 I2C isolator, isolated DC-DC, photorelay | crosses |
 | Power path | 4 x MOSFET (two per side, common source), gate network with slew C, freewheel diode, busbars, 4 bolts | load |
-| Sense and programming | Vin/Vout dividers (~42 Hz RC), 2 x MCP3426 ADC (240 SPS each), 2 x MCP4725 DAC (Mean Well PV, PC), TLP222A remote on/off | load |
+| Sense and programming | Vin/Vout dividers (~42 Hz RC), 2 x MCP3426 ADC (240 SPS each), 2 x MCP4725 DAC (Mean Well PV, PC), TLP240A remote on/off | load |
 
 ## Layout rules
 

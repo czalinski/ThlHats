@@ -43,15 +43,15 @@ FP_MC = "Connector_Phoenix_MC:PhoenixContact_MC_1,5_{n}-G-3.5_1x{n:02d}_P3.50mm_
 POWER = {"+3V3", "+5V", "+12V", "GND"}
 MPN = {
     "470R": ("Yageo", "RC1206FR-07470RL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
-    "330R": ("Yageo", "RC1206FR-07330RL"), "10M": ("Yageo", "RC1206FR-0710ML"),
+    "330R": ("Stackpole", "RMCF1206FT330R"), "10M": ("Yageo", "RC1206FR-0710ML"),
     "130k": ("Yageo", "RC1206FR-07130KL"), "1k": ("Yageo", "RC1206FR-071KL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),          # 0805, decoupling
-    "100nF 50V X7R 1206": ("Murata", "GRM319R71H104KA01D"),     # 1206, AI filters
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
-    "4.7uF 50V X7R": ("Murata", "GRM31CR71H475KA12L"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),          # 0805, decoupling
+    "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, AI filters
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "4.7uF 50V X7R": ("Samsung Electro-Mechanics", "CL31B475KBHNNNE"),
     "47R": ("Yageo", "RC1206FR-0747RL"),
     "10k 0.1%": ("Yageo", "RT1206BRD0710KL"), "15k 0.1%": ("Yageo", "RT1206BRD0715KL"),
-    "1nF 50V C0G": ("Murata", "GRM3195C1H102JA01D"),
+    "1nF 50V C0G": ("KEMET", "C1206C102J5GACTU"),
 }
 USED = {f"RLY{n}" for n in range(1, 5)} | {f"GPIO{n}" for n in range(1, 5)} \
     | {"VMID", "AI1P", "AI1N", "AI2P", "AI2N", "SCL", "SDA"} | sb.SUPPLIES
@@ -124,7 +124,7 @@ def gpio(s):
         x = 33.02 + (ch - 1) * 33.02
         s.R(f"R{70 + ch}", "330R", x, 213.36, f"GPIO{ch}", f"IO{ch}")
         s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 12.7, 233.68,
-               {"1": "GND", "2": "+3V3", "3": f"GPIO{ch}"}, 90, FP["SOT23"], "Nexperia", "BAT54S,215",
+               {"1": "GND", "2": "+3V3", "3": f"GPIO{ch}"}, 90, FP["SOT23"], "Diodes Incorporated", "BAT54S-7-F",
                ref_at=(x + 17.78, 231.14), value_at=(x + 17.78, 236.22), value_justify="left")
         conn[str(2 * ch - 1)] = f"IO{ch}"
         conn[str(2 * ch)] = "GND"
@@ -150,7 +150,7 @@ def analog(s, conn):
         s.R(f"R{84 + i}", "130k", x + 5.08, 236.22, bus, "VMID_F")
         s.C(f"C{80 + i}", "100nF 50V X7R 1206", x + 20.32, 236.22, bus, "VMID_F")
         s.part("Diode:BAT54S", f"D{55 + i}", "BAT54S", x + 12.7, 254.0, {"1": "GND", "2": "+3V3", "3": bus},
-               90, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(x + 17.78, 251.46), value_at=(x + 17.78, 256.54),
+               90, FP["SOT23"], "Diodes Incorporated", "BAT54S-7-F", ref_at=(x + 17.78, 251.46), value_at=(x + 17.78, 256.54),
                value_justify="left")
     conn.update({"9": "AIN1P", "10": "AIN1N", "11": "AIN2P", "12": "AIN2N"})
     s.part("Connector:Screw_Terminal_01x12", "J40", "IO", 137.16, 251.46, conn, 0, FP_MC.format(n=12),
@@ -192,7 +192,7 @@ def ao_channel(s, n, pins, x, y):
         s.junction(jx, jy)
     # clamp under the output line: common pin up to it, +12V left, GND_RACK right
     s.part("Diode:BAT54S", f"D{89 + n}", "BAT54S", x + 35.56, y + 5.08, {"1": "GND_RACK", "2": "+12V", "3": ""},
-           180, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(x + 35.56, y + 8.89), value_at=(x + 35.56, y + 11.43))
+           180, FP["SOT23"], "Diodes Incorporated", "BAT54S-7-F", ref_at=(x + 35.56, y + 8.89), value_at=(x + 35.56, y + 11.43))
     s.junction(x + 35.56, y)
 
 
@@ -268,7 +268,7 @@ def stack(s):
 
 
 def build():
-    s = schgen.Sheet("io-card", "IO card: relays, GPIO, differential AI, analog out", "A", power=POWER, mpn=MPN)
+    s = schgen.Sheet("io-card", "IO card: relays, GPIO, differential AI, analog out", "B", power=POWER, mpn=MPN)
     relays(s)
     analog(s, gpio(s))
     analog_out(s)

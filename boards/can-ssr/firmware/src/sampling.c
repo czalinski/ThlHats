@@ -154,7 +154,7 @@ void capture_rearm(void)
     capt_frozen = 0;
 }
 
-/* ACS770ECB-100U: 0.5 V at 0 A, 40 mV/A, ratiometric to 5 V.
+/* ACS770LCB-100U: 0.5 V at 0 A, 40 mV/A, ratiometric to 5 V.
  * raw = 4096 * V / 5 -> 0 A = 409.6 counts, 32.768 counts/A = 0.32768 counts per 10 mA. */
 uint16_t current_raw_to_10ma(uint16_t raw)
 {

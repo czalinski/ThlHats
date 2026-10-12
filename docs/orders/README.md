@@ -11,11 +11,18 @@ each of the six boards: 121 lines, 450 parts. Customer Reference gives
 board:qty. Multiply for more sets, and round cheap passives up to the next
 price break.
 
-Mouser: `mouser-revA.csv` (upload to the BOM tool), the same 121 lines with
-Mouser's spellings where they differ (W6100L). Customer Part Number is a
-short board:qty code (Mouser limits its length): CO core, CC can-card,
-IO io-card, SE serial-card, SS can-ssr, PH probe-helper; the Description
-gives the full breakdown.
+Mouser: `mouser-revA.csv` (upload to the BOM tool), the same lines with
+Mouser's spellings where they differ (W6100L), less the four Amphenol
+T821110A1R100CEU box headers (serial-card J20/J21/J30/J31), which Mouser does
+not stock: buy those from DigiKey. Customer Part Number is a short board:qty
+code (Mouser limits its length): CO core, CC can-card, IO io-card,
+SE serial-card, SS can-ssr, PH probe-helper; the Description gives the full
+breakdown.
+
+Both lists carry the 2026-10-12 substitutions for obsolete, unorderable and
+out-of-stock parts (docs/rev-b-changes.md), so they no longer match the
+`revA` tag's schematics part for part; the footprints are unchanged.
+can-ssr U40 MAX7219CWG+ is obsolete but still in stock: buy a spare or two.
 
 Not in the board BOMs (order separately):
 

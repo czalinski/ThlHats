@@ -9,7 +9,7 @@
  *  19   RA0   ACS_ADC      ANA0, ACS770 output (0.5 V + 40 mV/A, R24/C22)
  *  20   RA1   BUILD_REF    ANA1, trip threshold VTH through 1k = build ID
  *  21   RA2   V12_MON      ANA2, +12V x 10k / 57k
- *  25   RE0   MW_REMOTE    TLP222A photorelay: high = Mean Well remote ON
+ *  25   RE0   MW_REMOTE    TLP240A photorelay: high = Mean Well remote ON
  *  26   RE1   LED_STATUS   D4 green
  *  27   RE2   LED_FAULT    D5 red
  *  30/31 RA7/RA6 OSC1/2    16 MHz crystal (x4 PLL = 64 MHz)

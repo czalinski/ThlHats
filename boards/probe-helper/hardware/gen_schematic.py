@@ -76,7 +76,7 @@ def D(s, ref, x, y, anode, cathode):
 
 
 def build():
-    s = schgen.Sheet("probe-helper", "Probe helper: ADS1263 HAT adapter", "A", power=POWER, mpn=MPN)
+    s = schgen.Sheet("probe-helper", "Probe helper: ADS1263 HAT adapter", "B", power=POWER, mpn=MPN)
     s.text("Probe helper (docs/probe-helper-pi.md, tools/probe_ads1263.py). Plugs into the Waveshare High-Precision\n"
            "AD HAT's 13-way 3.5 mm screw terminal (J1) and takes 8 Pi GPIOs over a 10-way ribbon from the HAT's\n"
            "pass-through header (J2). Each range is a GPIO divider: top GPIO high + bottom GPIO low puts its node\n"
@@ -84,7 +84,7 @@ def build():
            "N and both probe nodes; IDAC 1 mA out of IN3 (A) or IN1 (B) for the diode test.", 25.4, 22.86)
     # J1: HAT screw terminal
     s.part("Connector_Generic:Conn_01x13", "J1", "AD HAT terminal", 50.8, 76.2, J1_NETS, 0, FP_J1,
-           "Sullins Connector Solutions", "PRPC040SBAN-M71RC", ref_at=(50.8, 58.42), value_at=(50.8, 93.98))
+           "Amphenol FCI", "68016-136HLF", ref_at=(50.8, 58.42), value_at=(50.8, 93.98))
     for i, name in enumerate(J1_NAMES):
         s.text(name, 55.88, 61.34 + 2.54 * i, 1.0)
     s.text("J1: 13 single pins cut from a 2.54 mm right-angle\nstrip, soldered at 3.5 mm pitch on the bottom side.\n"

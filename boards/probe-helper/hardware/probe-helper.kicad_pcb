@@ -10,7 +10,7 @@
 	(title_block
 		(title "Probe helper: ADS1263 HAT adapter")
 		(date "2026-10-11")
-		(rev "A")
+		(rev "B")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -6064,7 +6064,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Sullins Connector Solutions"
+		(property "Manufacturer" "Amphenol FCI"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -6077,7 +6077,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "PRPC040SBAN-M71RC"
+		(property "MPN" "68016-136HLF"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -8475,7 +8475,7 @@
 			)
 		)
 	)
-	(gr_text "PROBE HELPER rev A"
+	(gr_text "PROBE HELPER rev B"
 		(at 127.2 144.6 0)
 		(layer "F.SilkS")
 		(uuid "b0f33d9f-4821-4a34-a6f3-59d6cff4d0f6")

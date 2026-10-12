@@ -1,18 +1,18 @@
 Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
-1,ACS770ECB-100U-PFF-T,Allegro MicroSystems,ACS770ECB-100U-PFF-T,can-ssr:1
-1,CC56-12SRWA,Kingbright,CC56-12SRWA,can-ssr:1
-6,GRM2165C1H270JA01D,Murata,27pF 50V C0G,core:4 can-ssr:2
-12,GRM21BR71H103KA01L,Murata,10nF 50V X7R,can-card:8 serial-card:4
-57,GRM21BR71H104KA01L,Murata,100nF 50V X7R,core:20 can-card:8 io-card:7 serial-card:5 can-ssr:17
+1,ACS770LCB-100U-PFF-T,Allegro MicroSystems,ACS770LCB-100U-PFF-T,can-ssr:1
+1,CC56-12SURKWA,Kingbright,CC56-12SURKWA,can-ssr:1
+6,C0805C270J5GACTU,KEMET,27pF 50V C0G,core:4 can-ssr:2
+12,C0805C103K5RACTU,KEMET,10nF 50V X7R,can-card:8 serial-card:4
+57,C0805C104K5RACTU,KEMET,100nF 50V X7R,core:20 can-card:8 io-card:7 serial-card:5 can-ssr:17
 1,C1206C102KGRACTU,KEMET,1nF 2kV X7R,core:1
-1,C3225X7R2J683K250AA,TDK,68nF 630V X7R,can-ssr:1
+1,C1210C683KBRACTU,KEMET,68nF 630V X7R,can-ssr:1
 1,CL31B335KAHVPNE,Samsung Electro-Mechanics,3.3uF 25V X7R,core:1
-5,GRM3195C1H102JA01D,Murata,1nF 50V C0G,io-card:4 can-ssr:1
-8,GRM319R71H104KA01D,Murata,100nF 50V X7R,io-card:4 serial-card:4
-36,GRM31CR71E106KA12L,Murata,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6
-1,GRM31CR71H475KA12L,Murata,4.7uF 50V X7R,io-card:1
-14,GRM31MR71H105KA88L,Murata,1uF 50V X7R,core:2 can-card:8 serial-card:4
-2,GRM31MR71H474KA01L,Murata,470nF 50V X7R,can-ssr:2
+5,C1206C102J5GACTU,KEMET,1nF 50V C0G,io-card:4 can-ssr:1
+8,C1206C104K5RACTU,KEMET,100nF 50V X7R,io-card:4 serial-card:4
+36,CL31B106KAHNNNE,Samsung Electro-Mechanics,10uF 25V X7R,core:7 can-card:12 io-card:3 serial-card:8 can-ssr:6
+1,CL31B475KBHNNNE,Samsung Electro-Mechanics,4.7uF 50V X7R,io-card:1
+14,C1206C105K5RACTU,KEMET,1uF 50V X7R,core:2 can-card:8 serial-card:4
+2,C1206C474K5RACTU,KEMET,470nF 50V X7R,can-ssr:2
 1,R-78E5.0-1.0,RECOM,R-78E5.0-1.0,can-ssr:1
 1,TDN 5-2411WI,TRACO Power,TDN 5-2411WI,core:1
 1,ABM3-12.000MHZ-B2-T,Abracon,12MHz,core:1
@@ -20,25 +20,25 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,ECS-160-18-4X,ECS Inc.,16MHz,can-ssr:1
 2,AQW212,Panasonic,AQW212,io-card:2
 1,MCP2562FD-E/P,Microchip Technology,MCP2562FD-E/P,can-ssr:1
-1,TLP222A(F),Toshiba,TLP222A,can-ssr:1
+1,TLP240A(F),Toshiba,TLP240A,can-ssr:1
 4,1N4148,onsemi,1N4148,probe-helper:4
 5,1N4148W-7-F,Diodes Incorporated,1N4148W,io-card:4 can-ssr:1
 1,B340A-13-F,Diodes Incorporated,B340A,can-ssr:1
 1,BZT52C15-7-F,Diodes Incorporated,15V,core:1
-1,ES1J-E3/61T,Vishay,ES1J,can-ssr:1
-1,ES3J-E3/57T,Vishay,ES3J,can-ssr:1
-1,SMAZ15-E3/61,Vishay,SMAZ15,can-ssr:1
+1,ES1J,onsemi,ES1J,can-ssr:1
+1,ES3J,onsemi,ES3J,can-ssr:1
+1,SMAZ15-13-F,Diodes Incorporated,SMAZ15,can-ssr:1
 2,SMBJ15A,Littelfuse,SMBJ15A,core:1 can-ssr:1
 1,0451004.MRL,Littelfuse,4A,core:1
 1,1812L110/33MR,Littelfuse,1.1A 33V,io-card:1
 1,MF-MSMF200/16X-2,Bourns,2A,can-card:1
 1,61201021621,Wurth Elektronik,Pi pins 31-40,probe-helper:1
 4,T821110A1R100CEU,Amphenol,RS-232 1,serial-card:4
-10,LTST-C150GKT,Lite-On,LED green,core:3 serial-card:4 can-ssr:3
+10,LTST-C150KGKT,Lite-On,LED green,core:3 serial-card:4 can-ssr:3
 5,LTST-C150KRKT,Lite-On,LED red,io-card:4 can-ssr:1
 8,LTST-C150YKT,Lite-On,LED yellow,can-card:4 serial-card:4
 1,W6100-L,WIZnet,W6100-L,core:1
-12,BLM31KN102SN1L,Murata,BLM31KN102SN1L,can-card:8 serial-card:4
+12,BLM31KN102SH1L,Murata,BLM31KN102SH1L,can-card:8 serial-card:4
 3,HI1206P121R-10,Laird,HI1206P121R-10,core:3
 1,MCP4728-E/UN,Microchip,MCP4728,io-card:1
 1,SH-7010MC,Nidec Copal,ADDR,can-ssr:1
@@ -51,7 +51,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,1953732,Phoenix Contact,CAN IN/OUT,can-ssr:1
 3,ESQ-103-14-G-D,Samtec,RACK 12V,can-card:1 io-card:1 serial-card:1
 3,ESQ-120-14-G-D,Samtec,STACK BUS,can-card:1 io-card:1 serial-card:1
-1,PRPC040SBAN-M71RC,Sullins Connector Solutions,AD HAT terminal,probe-helper:1
+1,68016-136HLF,Amphenol FCI,AD HAT terminal,probe-helper:1
 9,TSW-102-07-G-S,Samtec,TERM,can-card:6 serial-card:2 can-ssr:1
 1,TSW-103-07-G-D,Samtec,RACK 12V,core:1
 2,TSW-103-07-G-S,Samtec,COIL SUPPLY,io-card:1 can-ssr:1
@@ -74,7 +74,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 2,RC1206FR-0720KL,Yageo,20k,can-ssr:2
 1,RC1206FR-0727KL,Yageo,27k,can-ssr:1
 1,RC1206FR-07300RL,Yageo,300R,core:1
-6,RC1206FR-07330RL,Yageo,330R,core:2 io-card:4
+6,RMCF1206FT330R,Stackpole,330R,core:2 io-card:4
 6,RC1206FR-07332KL,Yageo,332k,can-ssr:6
 4,RC1206FR-07470RL,Yageo,470R,io-card:4
 1,RC1206FR-0747KL,Yageo,47k,can-ssr:1
@@ -106,8 +106,8 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,ST3232BDR,STMicroelectronics,ST3232B,serial-card:1
 1,UCC12050DVE,Texas Instruments,UCC12050DVE,can-ssr:1
 5,2N7002LT1G,onsemi,2N7002,can-ssr:5
-1,"BAT54,215",Nexperia,BAT54,can-ssr:1
-12,"BAT54S,215",Nexperia,BAT54S,io-card:12
+1,BAT54-7-F,Diodes Incorporated,BAT54,can-ssr:1
+12,BAT54S-7-F,Diodes Incorporated,BAT54S,io-card:12
 1,MC78L05ACHT1G,onsemi,MC78L05,io-card:1
 1,MCP1826S-3302E/DB,Microchip Technology,MCP1826S-3302E/DB,core:1
 2,MCP4725A0T-E/CH,Microchip Technology,MCP4725A0T-E/CH,can-ssr:2

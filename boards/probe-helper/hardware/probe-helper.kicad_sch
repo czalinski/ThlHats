@@ -7,7 +7,7 @@
 	(title_block
 		(title "Probe helper: ADS1263 HAT adapter")
 		(date "2026-10-11")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_01x13"
@@ -1844,7 +1844,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Sullins Connector Solutions"
+		(property "Manufacturer" "Amphenol FCI"
 			(at 50.8 76.2 0)
 			(hide yes)
 			(effects
@@ -1853,7 +1853,7 @@
 				)
 			)
 		)
-		(property "MPN" "PRPC040SBAN-M71RC"
+		(property "MPN" "68016-136HLF"
 			(at 50.8 76.2 0)
 			(hide yes)
 			(effects

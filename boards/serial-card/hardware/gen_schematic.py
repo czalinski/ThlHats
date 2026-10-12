@@ -40,11 +40,11 @@ FP_JP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 POWER = {"+3V3", "+5V", "GND"}
 MPN = {
     "1k": ("Yageo", "RC1206FR-071KL"), "10k": ("Yageo", "RC1206FR-0710KL"), "120R": ("Yageo", "RC1206FR-07120RL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),          # 0805, decoupling
-    "100nF 50V X7R 1206": ("Murata", "GRM319R71H104KA01D"),     # 1206, charge pump
-    "10nF 50V X7R": ("Murata", "GRM21BR71H103KA01L"),
-    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),          # 0805, decoupling
+    "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, charge pump
+    "10nF 50V X7R": ("KEMET", "C0805C103K5RACTU"),
+    "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
 }
 USED = {"U2TX", "U2RX", "U3TX", "U3RX", "U4TX", "U4RX", "U5TX", "U5RX", "DE1", "DE2"} | {"+3V3", "+5V", "GND"}
 # box header pin -> DB9 pin (IDC10-to-DB9 ribbon, the common "AT" order)
@@ -112,11 +112,11 @@ def rs485(s, i):
     s.C(f"C{24 + 10 * i}", "10nF 50V X7R", x0 + 76.2, y0 + 50.8, f"VISO{n}", f"GND2_{n}", decouple=True)
     s.C(f"C{25 + 10 * i}", "1uF 50V X7R", x0 + 93.98, y0 + 50.8, f"VISO{n}", f"GND2_{n}")
     s.C(f"C{26 + 10 * i}", "10uF 25V X7R", x0 + 111.76, y0 + 50.8, f"VISO{n}", f"GND2_{n}")
-    s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SN1L", x0 + 127.0, y0 + 2.54,
-           {"1": f"VISO{n}", "2": f"V485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+    s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SH1L", x0 + 127.0, y0 + 2.54,
+           {"1": f"VISO{n}", "2": f"V485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
            ref_at=(x0 + 127.0, y0 - 1.27), value_at=(x0 + 127.0, y0 + 6.35))
-    s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SN1L", x0 + 127.0, y0 + 15.24,
-           {"1": f"GND2_{n}", "2": f"GND_485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+    s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SH1L", x0 + 127.0, y0 + 15.24,
+           {"1": f"GND2_{n}", "2": f"GND_485_{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
            ref_at=(x0 + 127.0, y0 + 11.43), value_at=(x0 + 127.0, y0 + 19.05))
     s.C(f"C{27 + 10 * i}", "100nF 50V X7R", x0 + 129.54, y0 + 50.8, f"V485_{n}", f"GND_485_{n}", decouple=True)
     s.C(f"C{28 + 10 * i}", "10uF 25V X7R", x0 + 147.32, y0 + 50.8, f"V485_{n}", f"GND_485_{n}")
@@ -145,7 +145,7 @@ def leds(s):
     for k, net in enumerate(lines):
         x = 233.68 + (k % 4) * 15.24
         y = 33.02 + (k // 4) * 27.94
-        colour, mpn = ("green", "LTST-C150GKT") if net.endswith("TX") else ("yellow", "LTST-C150YKT")
+        colour, mpn = ("green", "LTST-C150KGKT") if net.endswith("TX") else ("yellow", "LTST-C150YKT")
         s.led_chain(f"D{1 + k}", f"R{1 + k}", colour, mpn, x, y, "+3V3", ground=net)
 
 
@@ -169,7 +169,7 @@ def stack(s):
 
 
 def build():
-    s = schgen.Sheet("serial-card", "Serial card: 2 x RS-232, 2 x isolated RS-485", "A", power=POWER, mpn=MPN)
+    s = schgen.Sheet("serial-card", "Serial card: 2 x RS-232, 2 x isolated RS-485", "B", power=POWER, mpn=MPN)
     rs232(s)
     rs485(s, 0)
     rs485(s, 1)

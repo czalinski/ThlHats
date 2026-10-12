@@ -7,7 +7,7 @@
 	(title_block
 		(title "Core: 12 V input and isolated logic supply")
 		(date "2026-10-06")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Connector:Screw_Terminal_01x02"
@@ -3448,7 +3448,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 142.24 68.58 0)
 			(hide yes)
 			(effects
@@ -3457,7 +3457,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 142.24 68.58 0)
 			(hide yes)
 			(effects
@@ -3630,7 +3630,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 154.94 68.58 0)
 			(hide yes)
 			(effects
@@ -3639,7 +3639,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 154.94 68.58 0)
 			(hide yes)
 			(effects
@@ -4209,7 +4209,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 180.34 60.96 0)
 			(hide yes)
 			(effects
@@ -4679,7 +4679,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 205.74 73.66 0)
 			(hide yes)
 			(effects
@@ -4688,7 +4688,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 205.74 73.66 0)
 			(hide yes)
 			(effects
@@ -4861,7 +4861,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 254 73.66 0)
 			(hide yes)
 			(effects
@@ -4870,7 +4870,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 254 73.66 0)
 			(hide yes)
 			(effects
@@ -5421,7 +5421,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 297.18 71.12 0)
 			(hide yes)
 			(effects
@@ -5430,7 +5430,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 297.18 71.12 0)
 			(hide yes)
 			(effects
@@ -5657,7 +5657,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 335.28 71.12 0)
 			(hide yes)
 			(effects
@@ -5666,7 +5666,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 335.28 71.12 0)
 			(hide yes)
 			(effects
@@ -6074,7 +6074,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 360.68 60.96 0)
 			(hide yes)
 			(effects

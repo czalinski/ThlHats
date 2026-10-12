@@ -7,7 +7,7 @@
 	(title_block
 		(title "Serial card: 2 x RS-232, 2 x isolated RS-485")
 		(date "2026-10-09")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Interface_UART:MAX232"
@@ -5055,7 +5055,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 45.72 60.96 0)
 			(hide yes)
 			(effects
@@ -5064,7 +5064,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 45.72 60.96 0)
 			(hide yes)
 			(effects
@@ -5161,7 +5161,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 66.04 60.96 0)
 			(hide yes)
 			(effects
@@ -5170,7 +5170,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 66.04 60.96 0)
 			(hide yes)
 			(effects
@@ -5267,7 +5267,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 45.72 83.82 0)
 			(hide yes)
 			(effects
@@ -5276,7 +5276,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 45.72 83.82 0)
 			(hide yes)
 			(effects
@@ -5438,7 +5438,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 66.04 83.82 0)
 			(hide yes)
 			(effects
@@ -5447,7 +5447,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 66.04 83.82 0)
 			(hide yes)
 			(effects
@@ -5609,7 +5609,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 124.46 35.56 0)
 			(hide yes)
 			(effects
@@ -5618,7 +5618,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 124.46 35.56 0)
 			(hide yes)
 			(effects
@@ -7160,7 +7160,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 50.8 190.5 0)
 			(hide yes)
 			(effects
@@ -7169,7 +7169,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 50.8 190.5 0)
 			(hide yes)
 			(effects
@@ -7396,7 +7396,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 68.58 190.5 0)
 			(hide yes)
 			(effects
@@ -7405,7 +7405,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H103KA01L"
+		(property "MPN" "C0805C103K5RACTU"
 			(at 68.58 190.5 0)
 			(hide yes)
 			(effects
@@ -7632,7 +7632,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 86.36 190.5 0)
 			(hide yes)
 			(effects
@@ -7641,7 +7641,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H105KA88L"
+		(property "MPN" "C1206C105K5RACTU"
 			(at 86.36 190.5 0)
 			(hide yes)
 			(effects
@@ -7868,7 +7868,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 104.14 190.5 0)
 			(hide yes)
 			(effects
@@ -7877,7 +7877,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 104.14 190.5 0)
 			(hide yes)
 			(effects
@@ -8104,7 +8104,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 127 190.5 0)
 			(hide yes)
 			(effects
@@ -8113,7 +8113,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H103KA01L"
+		(property "MPN" "C0805C103K5RACTU"
 			(at 127 190.5 0)
 			(hide yes)
 			(effects
@@ -8210,7 +8210,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 144.78 190.5 0)
 			(hide yes)
 			(effects
@@ -8219,7 +8219,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H105KA88L"
+		(property "MPN" "C1206C105K5RACTU"
 			(at 144.78 190.5 0)
 			(hide yes)
 			(effects
@@ -8316,7 +8316,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 162.56 190.5 0)
 			(hide yes)
 			(effects
@@ -8325,7 +8325,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 162.56 190.5 0)
 			(hide yes)
 			(effects
@@ -8386,7 +8386,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SN1L"
+		(property "Value" "BLM31KN102SH1L"
 			(at 177.8 146.05 0)
 			(effects
 				(font
@@ -8430,7 +8430,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SN1L"
+		(property "MPN" "BLM31KN102SH1L"
 			(at 177.8 142.24 0)
 			(hide yes)
 			(effects
@@ -8491,7 +8491,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SN1L"
+		(property "Value" "BLM31KN102SH1L"
 			(at 177.8 158.75 0)
 			(effects
 				(font
@@ -8535,7 +8535,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SN1L"
+		(property "MPN" "BLM31KN102SH1L"
 			(at 177.8 154.94 0)
 			(hide yes)
 			(effects
@@ -8632,7 +8632,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 180.34 190.5 0)
 			(hide yes)
 			(effects
@@ -8641,7 +8641,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 180.34 190.5 0)
 			(hide yes)
 			(effects
@@ -8738,7 +8738,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 198.12 190.5 0)
 			(hide yes)
 			(effects
@@ -8747,7 +8747,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 198.12 190.5 0)
 			(hide yes)
 			(effects
@@ -10341,7 +10341,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 50.8 266.7 0)
 			(hide yes)
 			(effects
@@ -10350,7 +10350,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 50.8 266.7 0)
 			(hide yes)
 			(effects
@@ -10577,7 +10577,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 68.58 266.7 0)
 			(hide yes)
 			(effects
@@ -10586,7 +10586,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H103KA01L"
+		(property "MPN" "C0805C103K5RACTU"
 			(at 68.58 266.7 0)
 			(hide yes)
 			(effects
@@ -10813,7 +10813,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 86.36 266.7 0)
 			(hide yes)
 			(effects
@@ -10822,7 +10822,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H105KA88L"
+		(property "MPN" "C1206C105K5RACTU"
 			(at 86.36 266.7 0)
 			(hide yes)
 			(effects
@@ -11049,7 +11049,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 104.14 266.7 0)
 			(hide yes)
 			(effects
@@ -11058,7 +11058,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 104.14 266.7 0)
 			(hide yes)
 			(effects
@@ -11285,7 +11285,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 127 266.7 0)
 			(hide yes)
 			(effects
@@ -11294,7 +11294,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H103KA01L"
+		(property "MPN" "C0805C103K5RACTU"
 			(at 127 266.7 0)
 			(hide yes)
 			(effects
@@ -11391,7 +11391,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 144.78 266.7 0)
 			(hide yes)
 			(effects
@@ -11400,7 +11400,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H105KA88L"
+		(property "MPN" "C1206C105K5RACTU"
 			(at 144.78 266.7 0)
 			(hide yes)
 			(effects
@@ -11497,7 +11497,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 162.56 266.7 0)
 			(hide yes)
 			(effects
@@ -11506,7 +11506,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 162.56 266.7 0)
 			(hide yes)
 			(effects
@@ -11567,7 +11567,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SN1L"
+		(property "Value" "BLM31KN102SH1L"
 			(at 177.8 222.25 0)
 			(effects
 				(font
@@ -11611,7 +11611,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SN1L"
+		(property "MPN" "BLM31KN102SH1L"
 			(at 177.8 218.44 0)
 			(hide yes)
 			(effects
@@ -11672,7 +11672,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SN1L"
+		(property "Value" "BLM31KN102SH1L"
 			(at 177.8 234.95 0)
 			(effects
 				(font
@@ -11716,7 +11716,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SN1L"
+		(property "MPN" "BLM31KN102SH1L"
 			(at 177.8 231.14 0)
 			(hide yes)
 			(effects
@@ -11813,7 +11813,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 180.34 266.7 0)
 			(hide yes)
 			(effects
@@ -11822,7 +11822,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 180.34 266.7 0)
 			(hide yes)
 			(effects
@@ -11919,7 +11919,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 198.12 266.7 0)
 			(hide yes)
 			(effects
@@ -11928,7 +11928,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 198.12 266.7 0)
 			(hide yes)
 			(effects
@@ -12874,7 +12874,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 233.68 43.18 0)
 			(hide yes)
 			(effects
@@ -13430,7 +13430,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 264.16 43.18 0)
 			(hide yes)
 			(effects
@@ -13986,7 +13986,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 233.68 71.12 0)
 			(hide yes)
 			(effects
@@ -14542,7 +14542,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 264.16 71.12 0)
 			(hide yes)
 			(effects
@@ -16344,7 +16344,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 342.9 190.5 0)
 			(hide yes)
 			(effects
@@ -16353,7 +16353,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 342.9 190.5 0)
 			(hide yes)
 			(effects
@@ -16580,7 +16580,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 363.22 190.5 0)
 			(hide yes)
 			(effects
@@ -16589,7 +16589,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 363.22 190.5 0)
 			(hide yes)
 			(effects

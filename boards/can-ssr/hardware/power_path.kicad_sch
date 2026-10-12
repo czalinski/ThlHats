@@ -7,7 +7,7 @@
 	(title_block
 		(title "CAN SSR: power path")
 		(date "2026-10-04")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Mechanical:MountingHole_Pad"
@@ -3501,7 +3501,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 241.3 101.6 0)
 			(hide yes)
 			(effects
@@ -3510,7 +3510,7 @@
 				)
 			)
 		)
-		(property "MPN" "SMAZ15-E3/61"
+		(property "MPN" "SMAZ15-13-F"
 			(at 241.3 101.6 0)
 			(hide yes)
 			(effects
@@ -3853,7 +3853,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TDK"
+		(property "Manufacturer" "KEMET"
 			(at 223.52 177.8 0)
 			(hide yes)
 			(effects
@@ -3862,7 +3862,7 @@
 				)
 			)
 		)
-		(property "MPN" "C3225X7R2J683K250AA"
+		(property "MPN" "C1210C683KBRACTU"
 			(at 223.52 177.8 0)
 			(hide yes)
 			(effects
@@ -3969,7 +3969,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "onsemi"
 			(at 241.3 190.5 0)
 			(hide yes)
 			(effects
@@ -3978,7 +3978,7 @@
 				)
 			)
 		)
-		(property "MPN" "ES1J-E3/61T"
+		(property "MPN" "ES1J"
 			(at 241.3 190.5 0)
 			(hide yes)
 			(effects
@@ -4450,7 +4450,7 @@
 				)
 			)
 		)
-		(property "Value" "ACS770ECB-100U-PFF-T"
+		(property "Value" "ACS770LCB-100U-PFF-T"
 			(at 309.88 180.34 0)
 			(effects
 				(font
@@ -4495,7 +4495,7 @@
 				)
 			)
 		)
-		(property "MPN" "ACS770ECB-100U-PFF-T"
+		(property "MPN" "ACS770LCB-100U-PFF-T"
 			(at 304.8 167.64 0)
 			(hide yes)
 			(effects
@@ -4783,7 +4783,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 330.2 160.02 0)
 			(hide yes)
 			(effects
@@ -4792,7 +4792,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 330.2 160.02 0)
 			(hide yes)
 			(effects
@@ -5030,7 +5030,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "onsemi"
 			(at 152.4 152.4 0)
 			(hide yes)
 			(effects
@@ -5039,7 +5039,7 @@
 				)
 			)
 		)
-		(property "MPN" "ES3J-E3/57T"
+		(property "MPN" "ES3J"
 			(at 152.4 152.4 0)
 			(hide yes)
 			(effects

@@ -7,7 +7,7 @@
 	(title_block
 		(title "Core: stack bus J10 and rack power J11")
 		(date "2026-10-06")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_02x20_Odd_Even"

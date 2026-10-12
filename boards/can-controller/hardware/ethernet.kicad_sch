@@ -4954,7 +4954,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 127 55.88 0)
 			(hide yes)
 			(effects
@@ -4963,7 +4963,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 127 55.88 0)
 			(hide yes)
 			(effects
@@ -5125,7 +5125,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 139.7 55.88 0)
 			(hide yes)
 			(effects
@@ -5134,7 +5134,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 139.7 55.88 0)
 			(hide yes)
 			(effects
@@ -5296,7 +5296,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 152.4 55.88 0)
 			(hide yes)
 			(effects
@@ -5305,7 +5305,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 152.4 55.88 0)
 			(hide yes)
 			(effects
@@ -5467,7 +5467,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 165.1 55.88 0)
 			(hide yes)
 			(effects
@@ -5476,7 +5476,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 165.1 55.88 0)
 			(hide yes)
 			(effects
@@ -5638,7 +5638,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 177.8 55.88 0)
 			(hide yes)
 			(effects
@@ -5647,7 +5647,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 177.8 55.88 0)
 			(hide yes)
 			(effects
@@ -5809,7 +5809,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 190.5 55.88 0)
 			(hide yes)
 			(effects
@@ -5818,7 +5818,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 190.5 55.88 0)
 			(hide yes)
 			(effects
@@ -6045,7 +6045,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 203.2 55.88 0)
 			(hide yes)
 			(effects
@@ -6054,7 +6054,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 203.2 55.88 0)
 			(hide yes)
 			(effects
@@ -6281,7 +6281,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 215.9 55.88 0)
 			(hide yes)
 			(effects
@@ -6290,7 +6290,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 215.9 55.88 0)
 			(hide yes)
 			(effects
@@ -6452,7 +6452,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 228.6 55.88 0)
 			(hide yes)
 			(effects
@@ -6461,7 +6461,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 228.6 55.88 0)
 			(hide yes)
 			(effects
@@ -7846,7 +7846,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 294.64 129.54 0)
 			(hide yes)
 			(effects
@@ -7855,7 +7855,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 294.64 129.54 0)
 			(hide yes)
 			(effects
@@ -8229,7 +8229,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 294.64 172.72 0)
 			(hide yes)
 			(effects
@@ -8238,7 +8238,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 294.64 172.72 0)
 			(hide yes)
 			(effects
@@ -8865,7 +8865,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 330.2 228.6 0)
 			(hide yes)
 			(effects
@@ -8874,7 +8874,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 330.2 228.6 0)
 			(hide yes)
 			(effects
@@ -9036,7 +9036,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 342.9 228.6 0)
 			(hide yes)
 			(effects
@@ -9045,7 +9045,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31MR71H105KA88L"
+		(property "MPN" "C1206C105K5RACTU"
 			(at 342.9 228.6 0)
 			(hide yes)
 			(effects
@@ -9218,7 +9218,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 370.84 129.54 0)
 			(hide yes)
 			(effects
@@ -9227,7 +9227,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 370.84 129.54 0)
 			(hide yes)
 			(effects
@@ -9389,7 +9389,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 370.84 152.4 0)
 			(hide yes)
 			(effects
@@ -9398,7 +9398,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 370.84 152.4 0)
 			(hide yes)
 			(effects

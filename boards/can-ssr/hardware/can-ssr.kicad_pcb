@@ -10,7 +10,7 @@
 	(title_block
 		(title "CAN SSR")
 		(date "2026-10-04")
-		(rev "A")
+		(rev "B")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -156,7 +156,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -168,7 +168,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -500,7 +500,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -512,7 +512,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -1663,7 +1663,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1675,7 +1675,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2093,7 +2093,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -2105,7 +2105,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -3231,7 +3231,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3243,7 +3243,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM2165C1H270JA01D"
+		(property "MPN" "C0805C270J5GACTU"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4438,7 +4438,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4450,7 +4450,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM2165C1H270JA01D"
+		(property "MPN" "C0805C270J5GACTU"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4610,7 +4610,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -4622,7 +4622,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -5773,7 +5773,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5785,7 +5785,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -7146,7 +7146,7 @@
 				)
 			)
 		)
-		(property "Value" "CC56-12SRWA"
+		(property "Value" "CC56-12SURKWA"
 			(at 3.2 32.8 90)
 			(layer "F.Fab")
 			(uuid "8d67edce-9a0b-4cbb-bd29-c21bf4a9a1eb")
@@ -7195,7 +7195,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC56-12SRWA"
+		(property "MPN" "CC56-12SURKWA"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8526,7 +8526,7 @@
 				)
 			)
 		)
-		(property "Value" "ACS770ECB-100U-PFF-T"
+		(property "Value" "ACS770LCB-100U-PFF-T"
 			(at 2.91 -9.7 270)
 			(layer "F.Fab")
 			(uuid "a13239a9-30ad-42a3-a8b8-9c1f21143025")
@@ -8575,7 +8575,7 @@
 				)
 			)
 		)
-		(property "MPN" "ACS770ECB-100U-PFF-T"
+		(property "MPN" "ACS770LCB-100U-PFF-T"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -10634,7 +10634,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -10646,7 +10646,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -10806,7 +10806,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10818,7 +10818,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11999,7 +11999,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12011,7 +12011,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12288,7 +12288,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -12300,7 +12300,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13315,7 +13315,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -13965,7 +13965,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14186,7 +14186,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15387,7 +15387,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -15399,7 +15399,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -15645,7 +15645,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15657,7 +15657,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16136,7 +16136,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16148,7 +16148,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16641,7 +16641,7 @@
 				)
 			)
 		)
-		(property "Value" "TLP222A"
+		(property "Value" "TLP240A"
 			(at 3.81 4.87 270)
 			(layer "F.Fab")
 			(uuid "c2dfb646-73fb-4047-94a8-f70ed3a80016")
@@ -16698,7 +16698,7 @@
 				)
 			)
 		)
-		(property "MPN" "TLP222A(F)"
+		(property "MPN" "TLP240A(F)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -19232,7 +19232,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -19244,7 +19244,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -19662,7 +19662,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -19674,7 +19674,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -21119,7 +21119,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "onsemi"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -21132,7 +21132,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "ES1J-E3/61T"
+		(property "MPN" "ES1J"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -21427,7 +21427,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -21440,7 +21440,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "BAT54,215"
+		(property "MPN" "BAT54-7-F"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -22006,7 +22006,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -22019,7 +22019,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -23266,7 +23266,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 90)
 			(layer "B.Fab")
 			(hide yes)
@@ -23279,7 +23279,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM31MR71H474KA01L"
+		(property "MPN" "C1206C474K5RACTU"
 			(at 0 0 90)
 			(layer "B.Fab")
 			(hide yes)
@@ -23446,7 +23446,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -23459,7 +23459,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -24719,7 +24719,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -24732,7 +24732,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -25763,7 +25763,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -25776,7 +25776,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -26474,7 +26474,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "onsemi"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -26487,7 +26487,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "ES3J-E3/57T"
+		(property "MPN" "ES3J"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -27542,7 +27542,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -27555,7 +27555,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -28073,7 +28073,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Vishay"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -28086,7 +28086,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "SMAZ15-E3/61"
+		(property "MPN" "SMAZ15-13-F"
 			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -28381,7 +28381,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -28394,7 +28394,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -31111,7 +31111,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "TDK"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -31124,7 +31124,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "C3225X7R2J683K250AA"
+		(property "MPN" "C1210C683KBRACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -31381,7 +31381,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -31394,7 +31394,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM31MR71H474KA01L"
+		(property "MPN" "C1206C474K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -32141,7 +32141,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -32154,7 +32154,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -32901,7 +32901,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -32914,7 +32914,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -33711,7 +33711,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -33724,7 +33724,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)

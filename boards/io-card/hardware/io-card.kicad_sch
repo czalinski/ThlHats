@@ -7,7 +7,7 @@
 	(title_block
 		(title "IO card: relays, GPIO, differential AI, analog out")
 		(date "2026-10-10")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Jumper:Jumper_3_Open"
@@ -7305,7 +7305,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 172.72 76.2 0)
 			(hide yes)
 			(effects
@@ -7314,7 +7314,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71H475KA12L"
+		(property "MPN" "CL31B475KBHNNNE"
 			(at 172.72 76.2 0)
 			(hide yes)
 			(effects
@@ -7411,7 +7411,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 96.52 76.2 0)
 			(hide yes)
 			(effects
@@ -7420,7 +7420,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 96.52 76.2 0)
 			(hide yes)
 			(effects
@@ -10296,7 +10296,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 33.02 213.36 0)
 			(hide yes)
 			(effects
@@ -10305,7 +10305,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 33.02 213.36 0)
 			(hide yes)
 			(effects
@@ -10402,7 +10402,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 45.72 233.68 0)
 			(hide yes)
 			(effects
@@ -10411,7 +10411,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 45.72 233.68 0)
 			(hide yes)
 			(effects
@@ -10651,7 +10651,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 66.04 213.36 0)
 			(hide yes)
 			(effects
@@ -10660,7 +10660,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 66.04 213.36 0)
 			(hide yes)
 			(effects
@@ -10757,7 +10757,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 78.74 233.68 0)
 			(hide yes)
 			(effects
@@ -10766,7 +10766,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 78.74 233.68 0)
 			(hide yes)
 			(effects
@@ -11006,7 +11006,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 99.06 213.36 0)
 			(hide yes)
 			(effects
@@ -11015,7 +11015,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 99.06 213.36 0)
 			(hide yes)
 			(effects
@@ -11112,7 +11112,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 111.76 233.68 0)
 			(hide yes)
 			(effects
@@ -11121,7 +11121,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 111.76 233.68 0)
 			(hide yes)
 			(effects
@@ -11361,7 +11361,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yageo"
+		(property "Manufacturer" "Stackpole"
 			(at 132.08 213.36 0)
 			(hide yes)
 			(effects
@@ -11370,7 +11370,7 @@
 				)
 			)
 		)
-		(property "MPN" "RC1206FR-07330RL"
+		(property "MPN" "RMCF1206FT330R"
 			(at 132.08 213.36 0)
 			(hide yes)
 			(effects
@@ -11467,7 +11467,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 144.78 233.68 0)
 			(hide yes)
 			(effects
@@ -11476,7 +11476,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 144.78 233.68 0)
 			(hide yes)
 			(effects
@@ -11832,7 +11832,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 335.28 231.14 0)
 			(hide yes)
 			(effects
@@ -11841,7 +11841,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 335.28 231.14 0)
 			(hide yes)
 			(effects
@@ -12214,7 +12214,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 185.42 236.22 0)
 			(hide yes)
 			(effects
@@ -12223,7 +12223,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 185.42 236.22 0)
 			(hide yes)
 			(effects
@@ -12320,7 +12320,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 177.8 254 0)
 			(hide yes)
 			(effects
@@ -12329,7 +12329,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 177.8 254 0)
 			(hide yes)
 			(effects
@@ -12780,7 +12780,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 220.98 236.22 0)
 			(hide yes)
 			(effects
@@ -12789,7 +12789,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 220.98 236.22 0)
 			(hide yes)
 			(effects
@@ -12886,7 +12886,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 213.36 254 0)
 			(hide yes)
 			(effects
@@ -12895,7 +12895,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 213.36 254 0)
 			(hide yes)
 			(effects
@@ -13346,7 +13346,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 256.54 236.22 0)
 			(hide yes)
 			(effects
@@ -13355,7 +13355,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 256.54 236.22 0)
 			(hide yes)
 			(effects
@@ -13452,7 +13452,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 248.92 254 0)
 			(hide yes)
 			(effects
@@ -13461,7 +13461,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 248.92 254 0)
 			(hide yes)
 			(effects
@@ -13912,7 +13912,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 292.1 236.22 0)
 			(hide yes)
 			(effects
@@ -13921,7 +13921,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM319R71H104KA01D"
+		(property "MPN" "C1206C104K5RACTU"
 			(at 292.1 236.22 0)
 			(hide yes)
 			(effects
@@ -14018,7 +14018,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 284.48 254 0)
 			(hide yes)
 			(effects
@@ -14027,7 +14027,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 284.48 254 0)
 			(hide yes)
 			(effects
@@ -15309,7 +15309,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 33.02 365.76 0)
 			(hide yes)
 			(effects
@@ -15318,7 +15318,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 33.02 365.76 0)
 			(hide yes)
 			(effects
@@ -15545,7 +15545,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 63.5 365.76 0)
 			(hide yes)
 			(effects
@@ -15554,7 +15554,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 63.5 365.76 0)
 			(hide yes)
 			(effects
@@ -15835,7 +15835,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 33.02 391.16 0)
 			(hide yes)
 			(effects
@@ -15844,7 +15844,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 33.02 391.16 0)
 			(hide yes)
 			(effects
@@ -16006,7 +16006,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 66.04 391.16 0)
 			(hide yes)
 			(effects
@@ -16015,7 +16015,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 66.04 391.16 0)
 			(hide yes)
 			(effects
@@ -16316,7 +16316,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 104.14 375.92 0)
 			(hide yes)
 			(effects
@@ -16325,7 +16325,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 104.14 375.92 0)
 			(hide yes)
 			(effects
@@ -16593,7 +16593,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 152.4 391.16 0)
 			(hide yes)
 			(effects
@@ -16602,7 +16602,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 152.4 391.16 0)
 			(hide yes)
 			(effects
@@ -17040,7 +17040,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 209.55 332.74 0)
 			(hide yes)
 			(effects
@@ -17049,7 +17049,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 209.55 332.74 0)
 			(hide yes)
 			(effects
@@ -17370,7 +17370,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 238.76 327.66 0)
 			(hide yes)
 			(effects
@@ -17379,7 +17379,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 238.76 327.66 0)
 			(hide yes)
 			(effects
@@ -17793,7 +17793,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 285.75 332.74 0)
 			(hide yes)
 			(effects
@@ -17802,7 +17802,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 285.75 332.74 0)
 			(hide yes)
 			(effects
@@ -18123,7 +18123,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 314.96 327.66 0)
 			(hide yes)
 			(effects
@@ -18132,7 +18132,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 314.96 327.66 0)
 			(hide yes)
 			(effects
@@ -18546,7 +18546,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 209.55 373.38 0)
 			(hide yes)
 			(effects
@@ -18555,7 +18555,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 209.55 373.38 0)
 			(hide yes)
 			(effects
@@ -18876,7 +18876,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 238.76 368.3 0)
 			(hide yes)
 			(effects
@@ -18885,7 +18885,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 238.76 368.3 0)
 			(hide yes)
 			(effects
@@ -19299,7 +19299,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 285.75 373.38 0)
 			(hide yes)
 			(effects
@@ -19308,7 +19308,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 285.75 373.38 0)
 			(hide yes)
 			(effects
@@ -19629,7 +19629,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 314.96 368.3 0)
 			(hide yes)
 			(effects
@@ -19638,7 +19638,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54S,215"
+		(property "MPN" "BAT54S-7-F"
 			(at 314.96 368.3 0)
 			(hide yes)
 			(effects
@@ -21896,7 +21896,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 342.9 190.5 0)
 			(hide yes)
 			(effects
@@ -21905,7 +21905,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 342.9 190.5 0)
 			(hide yes)
 			(effects
@@ -22132,7 +22132,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 363.22 190.5 0)
 			(hide yes)
 			(effects
@@ -22141,7 +22141,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 363.22 190.5 0)
 			(hide yes)
 			(effects

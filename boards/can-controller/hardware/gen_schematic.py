@@ -50,14 +50,14 @@ MPN = {
     "120R": ("Yageo", "RC1206FR-07120RL"), "5.1k": ("Yageo", "RC1206FR-075K1L"), "10M": ("Yageo", "RC1206FR-0710ML"),
     "130k": ("Yageo", "RC1206FR-07130KL"), "30k": ("Yageo", "RC1206FR-0730KL"), "470R": ("Yageo", "RC1206FR-07470RL"),
     "1M": ("Yageo", "RC1206FR-071ML"), "105k": ("Yageo", "RC1206FR-07105KL"), "100k": ("Yageo", "RC1206FR-07100KL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),          # 0805, decoupling
-    "100nF 50V X7R 1206": ("Murata", "GRM319R71H104KA01D"),     # 1206, filters
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),          # 0805, decoupling
+    "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, filters
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
     "4.7uF 25V X7R": ("Murata", "GRM31CR71E475KA88L"),
-    "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
-    "330R": ("Yageo", "RC1206FR-07330RL"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
+    "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
+    "330R": ("Stackpole", "RMCF1206FT330R"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
     "300R": ("Yageo", "RC1206FR-07300RL"), "0R": ("Yageo", "RC1206JR-070RL"),
-    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
+    "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
     "3.3uF 25V X7R": ("TBD", "TBD (3.3 uF 25 V X7R 1206)"),
     "8pF 50V C0G": ("TBD", "TBD (8 pF 50 V C0G 0805, to suit the 25 MHz crystal)"),
     "1nF 2kV X7R": ("KEMET", "C1206C102KGRACTU"),
@@ -247,7 +247,7 @@ def mcu_sheet():
     s.C("C2", "10uF 25V X7R", 83.82, 76.2, "+3V3", "GND")
     s.text("Load about 0.4 A worst case (W6100 up to 265 mA on a 10 Mbit link):\n"
            "(5 - 3.3) V x 0.4 A = 0.7 W in the SOT-223; give the tab copper.", 40.64, 91.44, 1.0)
-    s.led_chain("D1", "R1", "green", "LTST-C150GKT", 101.6, 60.96, "+3V3")
+    s.led_chain("D1", "R1", "green", "LTST-C150KGKT", 101.6, 60.96, "+3V3")
     s.text("D1: 3.3 V present.", 96.52, 83.82, 1.0)
 
     # --- MCU --------------------------------------------------------------------
@@ -295,7 +295,7 @@ def mcu_sheet():
            ref_at=(38.1, 213.36), value_at=(38.1, 224.79))
     s.text("Debug UART (3.3 V): 1 TX from MCU, 2 RX to MCU, 3 GND.", 25.4, 233.68, 1.0)
 
-    s.led_chain("D2", "R5", "green", "LTST-C150GKT", 360.68, 50.8, "LED_HB")
+    s.led_chain("D2", "R5", "green", "LTST-C150KGKT", 360.68, 50.8, "LED_HB")
     s.text("D2 heartbeat.", 355.6, 76.2, 1.0)
     return s
 
@@ -400,11 +400,11 @@ def can_sheet():
         s.C(f"C{41 + 4 * i}", "10uF 25V X7R", x0 + 25.4, y0 + 30.48, "+5V", "GND")
         s.C(f"C{42 + 4 * i}", "10uF 25V X7R", x0 + 99.06, y0 + 30.48, f"VISO{n}", f"GND2_{n}")
         s.C(f"C{43 + 4 * i}", "100nF 50V X7R", x0 + 142.24, y0 + 30.48, f"VCAN{n}", f"GND_CAN{n}", decouple=True)
-        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 2.54,
-               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+        s.part("Device:FerriteBead", f"FB{10 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 2.54,
+               {"1": f"VISO{n}", "2": f"VCAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
                ref_at=(x0 + 116.84, y0 - 1.27), value_at=(x0 + 116.84, y0 + 6.35))
-        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SN1L", x0 + 116.84, y0 + 15.24,
-               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SN1L",
+        s.part("Device:FerriteBead", f"FB{11 + 2 * i}", "BLM31KN102SH1L", x0 + 116.84, y0 + 15.24,
+               {"1": f"GND2_{n}", "2": f"GND_CAN{n}"}, 90, FP["FB"], "Murata", "BLM31KN102SH1L",
                ref_at=(x0 + 116.84, y0 + 11.43), value_at=(x0 + 116.84, y0 + 19.05))
         s.flag(x0 + 129.54, y0 - 2.54); s.llabel(f"VCAN{n}", x0 + 129.54, y0 - 2.54, 0)
         s.flag(x0 + 129.54, y0 + 22.86); s.llabel(f"GND_CAN{n}", x0 + 129.54, y0 + 22.86, 0)
@@ -463,7 +463,7 @@ def power_sheet():
     s.C("C61", "10uF 25V X7R", 162.56, 83.82, "+12V", "/GND_RACK")
     s.flag(172.72, 58.42); s.power("+12V", 172.72, 58.42)
     s.flag(172.72, 106.68, 180); s.glabel("GND_RACK", 172.72, 106.68, 180)
-    s.led_chain("D32", "R41", "green", "LTST-C150GKT", 187.96, 63.5, "+12V", rval="4.7k", ground="/GND_RACK")
+    s.led_chain("D32", "R41", "green", "LTST-C150KGKT", 187.96, 63.5, "+12V", rval="4.7k", ground="/GND_RACK")
     s.text("D32: 12 V present (rack side).", 182.88, 86.36, 1.0)
     # isolated logic supply
     s.part("Regulator_Switching:TDN_5-0910WISM", "U20", "TDN 5-2411WI", 238.76, 71.12,
@@ -526,7 +526,7 @@ def io_sheet():
         x = 63.5 + (ch - 1) * 45.72
         s.R(f"R{70 + ch}", "330R", x, 63.5, f"/GPIO{ch}", f"GPIO{ch}_EXT")
         s.part("Diode:BAT54S", f"D{50 + ch}", "BAT54S", x + 10.16, 86.36,
-               {"1": "GND", "2": "+3V3", "3": f"/GPIO{ch}"}, 0, FP["SOT23"], "Nexperia", "BAT54S,215",
+               {"1": "GND", "2": "+3V3", "3": f"/GPIO{ch}"}, 0, FP["SOT23"], "Diodes Incorporated", "BAT54S-7-F",
                ref_at=(x + 15.24, 83.82), value_at=(x + 15.24, 88.9))
         conn[str(ch)] = f"GPIO{ch}_EXT"
         conn[str(6 + ch)] = "GND"
@@ -537,7 +537,7 @@ def io_sheet():
         s.R(f"R{84 + i}", "130k", 101.6, y + 12.7, adc, "/VMID")
         s.C(f"C{80 + i}", "100nF 50V X7R 1206", 116.84, y + 12.7, adc, "/VMID")
         s.part("Diode:BAT54S", f"D{55 + i}", "BAT54S", 137.16, y + 12.7, {"1": "GND", "2": "+3V3", "3": adc},
-               0, FP["SOT23"], "Nexperia", "BAT54S,215", ref_at=(142.24, y + 8.89), value_at=(142.24, y + 16.51))
+               0, FP["SOT23"], "Diodes Incorporated", "BAT54S-7-F", ref_at=(142.24, y + 8.89), value_at=(142.24, y + 16.51))
     conn.update({"5": "AI1P_EXT", "6": "AI2P_EXT", "11": "AI1N_EXT", "12": "AI2N_EXT"})
     s.part("Connector_Generic:Conn_02x06_Top_Bottom", "J40", "IO", 304.8, 101.6, conn, 0, FP["SPTD"].format(n=6),
            "Phoenix Contact", "1841539", ref_at=(304.8, 88.9), value_at=(304.8, 116.84))

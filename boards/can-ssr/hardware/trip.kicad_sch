@@ -7,7 +7,7 @@
 	(title_block
 		(title "CAN SSR: overcurrent trip and gate drive")
 		(date "2026-10-04")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 		(symbol "Device:R"
@@ -1738,7 +1738,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 66.04 81.28 0)
 			(hide yes)
 			(effects
@@ -1747,7 +1747,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 66.04 81.28 0)
 			(hide yes)
 			(effects
@@ -2172,7 +2172,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 142.24 63.5 0)
 			(hide yes)
 			(effects
@@ -2181,7 +2181,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM3195C1H102JA01D"
+		(property "MPN" "C1206C102J5GACTU"
 			(at 142.24 63.5 0)
 			(hide yes)
 			(effects
@@ -2470,7 +2470,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 144.78 160.02 0)
 			(hide yes)
 			(effects
@@ -2479,7 +2479,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 144.78 160.02 0)
 			(hide yes)
 			(effects
@@ -3204,7 +3204,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "KEMET"
 			(at 226.06 99.06 0)
 			(hide yes)
 			(effects
@@ -3213,7 +3213,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM21BR71H104KA01L"
+		(property "MPN" "C0805C104K5RACTU"
 			(at 226.06 99.06 0)
 			(hide yes)
 			(effects
@@ -3621,7 +3621,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nexperia"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 205.74 76.2 0)
 			(hide yes)
 			(effects
@@ -3630,7 +3630,7 @@
 				)
 			)
 		)
-		(property "MPN" "BAT54,215"
+		(property "MPN" "BAT54-7-F"
 			(at 205.74 76.2 0)
 			(hide yes)
 			(effects

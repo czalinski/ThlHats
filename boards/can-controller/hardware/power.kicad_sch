@@ -3153,7 +3153,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
@@ -3162,7 +3162,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 149.86 83.82 0)
 			(hide yes)
 			(effects
@@ -3335,7 +3335,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
@@ -3344,7 +3344,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 162.56 83.82 0)
 			(hide yes)
 			(effects
@@ -3914,7 +3914,7 @@
 				)
 			)
 		)
-		(property "MPN" "LTST-C150GKT"
+		(property "MPN" "LTST-C150KGKT"
 			(at 187.96 73.66 0)
 			(hide yes)
 			(effects
@@ -4384,7 +4384,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 215.9 88.9 0)
 			(hide yes)
 			(effects
@@ -4393,7 +4393,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 215.9 88.9 0)
 			(hide yes)
 			(effects
@@ -4566,7 +4566,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Samsung Electro-Mechanics"
 			(at 264.16 88.9 0)
 			(hide yes)
 			(effects
@@ -4575,7 +4575,7 @@
 				)
 			)
 		)
-		(property "MPN" "GRM31CR71E106KA12L"
+		(property "MPN" "CL31B106KAHNNNE"
 			(at 264.16 88.9 0)
 			(hide yes)
 			(effects

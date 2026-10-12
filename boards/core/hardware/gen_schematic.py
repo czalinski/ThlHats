@@ -27,17 +27,17 @@ import stack_bus as sb  # noqa: E402
 
 PROJECT = "core"
 ROOT_UUID = re.search(r'\(uuid "([^"]+)"\)', (HW / "core.kicad_sch").read_text()).group(1)
-REV = "A"
+REV = "B"
 FP = schgen.FP
 POWER = {"+3V3", "+5V", "+12V", "GND"}
 MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
-    "330R": ("Yageo", "RC1206FR-07330RL"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
+    "330R": ("Stackpole", "RMCF1206FT330R"), "49.9R": ("Yageo", "RC1206FR-0749R9L"), "12k": ("Yageo", "RC1206FR-0712KL"),
     "300R": ("Yageo", "RC1206FR-07300RL"), "0R": ("Yageo", "RC1206JR-070RL"), "1M": ("Yageo", "RC1206FR-071ML"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
-    "1uF 50V X7R": ("Murata", "GRM31MR71H105KA88L"),
-    "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "1uF 50V X7R": ("KEMET", "C1206C105K5RACTU"),
+    "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
     "3.3uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B335KAHVPNE"),
     "1nF 2kV X7R": ("KEMET", "C1206C102KGRACTU"),
 }
@@ -80,7 +80,7 @@ def power_sheet():
     s.C("C61", "10uF 25V X7R", 154.94, 68.58, "+12V", "/GND_RACK")
     s.flag(167.64, 43.18); s.power("+12V", 167.64, 43.18)
     s.flag(167.64, 91.44, 180); s.glabel("GND_RACK", 167.64, 91.44, 180)
-    s.led_chain("D32", "R41", "green", "LTST-C150GKT", 180.34, 50.8, "+12V", rval="4.7k", ground="/GND_RACK")
+    s.led_chain("D32", "R41", "green", "LTST-C150KGKT", 180.34, 50.8, "+12V", rval="4.7k", ground="/GND_RACK")
     s.text("D32: 12 V present (rack side).", 175.26, 73.66, 1.0)
 
     s.part("Regulator_Switching:TDN_5-0910WISM", "U20", "TDN 5-2411WI", 228.6, 55.88,
@@ -98,7 +98,7 @@ def power_sheet():
            "Microchip Technology", "MCP1826S-3302E/DB", ref_at=(314.96, 48.26), value_at=(314.96, 64.77))
     s.C("C1", "10uF 25V X7R", 297.18, 71.12, "+5V", "GND")
     s.C("C2", "10uF 25V X7R", 335.28, 71.12, "+3V3", "GND")
-    s.led_chain("D1", "R1", "green", "LTST-C150GKT", 360.68, 50.8, "+3V3")
+    s.led_chain("D1", "R1", "green", "LTST-C150KGKT", 360.68, 50.8, "+3V3")
     s.text("U2: 1 A. (5 - 3.3) V x I: about 0.7 W at 0.4 A; give the tab copper. D1: 3.3 V present.",
            292.1, 88.9, 1.0)
     return s
@@ -164,7 +164,7 @@ def mcu_sheet():
            ref_at=(38.1, 251.46), value_at=(38.1, 262.89))
     s.text("Debug UART1 (3.3 V): 1 TX from MCU, 2 RX to MCU, 3 GND.", 25.4, 271.78, 1.0)
 
-    s.led_chain("D2", "R6", "green", "LTST-C150GKT", 284.48, 50.8, "LED_HB")
+    s.led_chain("D2", "R6", "green", "LTST-C150KGKT", 284.48, 50.8, "LED_HB")
     s.text("D2 heartbeat (RD8).", 279.4, 73.66, 1.0)
     s.R("R7", "4.7k", 309.88, 50.8, "+3V3", "/SCL")
     s.R("R8", "4.7k", 322.58, 50.8, "+3V3", "/SDA")

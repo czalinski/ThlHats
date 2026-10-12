@@ -49,7 +49,7 @@ Thl_Mechanical, references tidied (`tools/silk_tidy.py`; 12 small parts keep
 their reference on the Fab layer only, U1/U3/Y2 labelled on the body).
 
 Parts chosen 2026-10-09: Y2 ABM3-25.000MHZ-D2Y-T, C30/C31 27 pF C0G
-(GRM2165C1H270JA01D), C29 3.3 uF 25 V X7R 1206 (Samsung CL31B335KAHVPNE).
+(KEMET C0805C270J5GACTU), C29 3.3 uF 25 V X7R 1206 (Samsung CL31B335KAHVPNE).
 
 Open before ordering: mated stack height check against the cards.
 

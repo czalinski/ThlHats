@@ -7,7 +7,7 @@
 	(title_block
 		(title "Core: PIC32MK, 12 V power, Ethernet")
 		(date "2026-10-06")
-		(rev "A")
+		(rev "B")
 	)
 	(lib_symbols
 	)

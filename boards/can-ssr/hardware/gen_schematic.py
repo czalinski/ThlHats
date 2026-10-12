@@ -36,15 +36,15 @@ FP = {
 MPN = {
     "10k": ("Yageo", "RC1206FR-0710KL"), "1k": ("Yageo", "RC1206FR-071KL"),
     "120R": ("Yageo", "RC1206FR-07120RL"), "47k": ("Yageo", "RC1206FR-0747KL"),
-    "100nF 50V X7R": ("Murata", "GRM21BR71H104KA01L"),
-    "10uF 25V X7R": ("Murata", "GRM31CR71E106KA12L"),
-    "27pF 50V C0G": ("Murata", "GRM2165C1H270JA01D"),
+    "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "27pF 50V C0G": ("KEMET", "C0805C270J5GACTU"),
     "10R": ("Yageo", "RC1206FR-0710RL"), "1M": ("Yageo", "RC1206FR-071ML"), "10M": ("Yageo", "RC1206FR-0710ML"),
-    "68nF 630V X7R": ("TDK", "C3225X7R2J683K250AA"),
+    "68nF 630V X7R": ("KEMET", "C1210C683KBRACTU"),
     "100R": ("Yageo", "RC1206FR-07100RL"), "100k": ("Yageo", "RC1206FR-07100KL"),
     "16.2k": ("Yageo", "RC1206FR-0716K2L"), "4.7k": ("Yageo", "RC1206FR-074K7L"),
     "332k": ("Yageo", "RC1206FR-07332KL"), "8.06k": ("Yageo", "RC1206FR-078K06L"), "20k": ("Yageo", "RC1206FR-0720KL"),
-    "680R": ("Yageo", "RC1206FR-07680RL"), "27k": ("Yageo", "RC1206FR-0727KL"), "470nF 50V X7R": ("Murata", "GRM31MR71H474KA01L"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
+    "680R": ("Yageo", "RC1206FR-07680RL"), "27k": ("Yageo", "RC1206FR-0727KL"), "470nF 50V X7R": ("KEMET", "C1206C474K5RACTU"), "1nF 50V C0G": ("Murata", "GRM2165C1H102JA01D"),
 }
 
 
@@ -67,7 +67,7 @@ class Sheet(nb.Sch):
     """Sub-sheet: A3, symbol instance paths below the root sheet."""
 
     def __init__(self, file, name, page, title):
-        super().__init__(PROJECT, title, "A")
+        super().__init__(PROJECT, title, "B")
         self.file, self.name, self.page = file, name, page
         self.sheet_uuid = uid()
         self.own_uuid = uid()
@@ -167,7 +167,7 @@ class Sheet(nb.Sch):
 
 
 def root_sheet(sheets, title):
-    sch = nb.Sch(PROJECT, title, "A")
+    sch = nb.Sch(PROJECT, title, "B")
     sch.root = ROOT_UUID
     sch.text(title, 25.4, 30.48, 2.54)
     sch.text("Requirements: docs/requirements.md 4.2. One PCB, three builds (HC/STD/HV): only the four\n"
@@ -317,7 +317,7 @@ def can_logic():
     s.text("CAN node address, hex rotary. Common to GND, MCU weak pull-ups;\nfirmware inverts (closed = 0).", 175.26, 190.5, 1.0)
 
     # LEDs
-    for ref, rref, net, col, mpn, x in (("D4", "R6", "LED_STATUS", "LED green", "LTST-C150GKT", 241.3),
+    for ref, rref, net, col, mpn, x in (("D4", "R6", "LED_STATUS", "LED green", "LTST-C150KGKT", 241.3),
                                          ("D5", "R7", "LED_FAULT", "LED red", "LTST-C150KRKT", 261.62)):
         y = 170.18
         s.R(rref, "1k", x, y, net, "")
@@ -361,7 +361,7 @@ def power_path():
     # --- gate network ----------------------------------------------------
     s.R("R14", "10M", 223.52, 101.6, "GATE", "SRC")
     s.part("Device:D_Zener", "D10", "SMAZ15", 241.3, 101.6, {"1": "GATE", "2": "SRC"}, 90,
-           "Diode_SMD:D_SMA_Handsoldering", "Vishay", "SMAZ15-E3/61", ref_at=(245.11, 100.33),
+           "Diode_SMD:D_SMA_Handsoldering", "Diodes Incorporated", "SMAZ15-13-F", ref_at=(245.11, 100.33),
            value_at=(245.11, 102.87), value_justify="left")
     s.text("Gate clamp 15 V; 10M defines the off state.", 218.44, 116.84, 1.0)
 
@@ -376,7 +376,7 @@ def power_path():
     # slew limiter for hot turn-on
     s.C("C10", "68nF 630V X7R", 223.52, 177.8, "/VIN", "SLEW", fp="Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     s.part("Device:D", "D12", "ES1J", 241.3, 190.5, {"2": "GATE", "1": "SLEW"}, 0,
-           "Diode_SMD:D_SMA_Handsoldering", "Vishay", "ES1J-E3/61T", ref_at=(241.3, 186.69), value_at=(241.3, 194.31))
+           "Diode_SMD:D_SMA_Handsoldering", "onsemi", "ES1J", ref_at=(241.3, 186.69), value_at=(241.3, 194.31))
     s.R("R15", "1M", 259.08, 190.5, "SLEW", "GATE", rot=90)
     s.text("Hot turn-on slew limit: C10 from VIN to the gate (via D12) diverts the VOM1271 current,\n"
            "about 30 uA at IF 20 mA -> ~0.45 V/ms; 1 mF load draws ~0.45 A. D12 keeps C10 out of the\n"
@@ -394,15 +394,15 @@ def power_path():
            "for ~16 V gate drive. LED side = CAN/logic domain; output side = load domain.", 287.02, 121.92, 1.0)
 
     # --- current sensor and freewheel -------------------------------------
-    s.part("Sensor_Current:ACS756xCB-050B-PFF", "U12", "ACS770ECB-100U-PFF-T", 304.8, 167.64,
+    s.part("Sensor_Current:ACS756xCB-050B-PFF", "U12", "ACS770LCB-100U-PFF-T", 304.8, 167.64,
            {"1": "+5V", "2": "GND", "3": "/ACS_OUT", "4": "VOUT_SW", "5": "/VOUT"}, 0,
-           "Sensor_Current:Allegro_CB_PFF", "Allegro MicroSystems", "ACS770ECB-100U-PFF-T",
+           "Sensor_Current:Allegro_CB_PFF", "Allegro MicroSystems", "ACS770LCB-100U-PFF-T",
            ref_at=(309.88, 157.48), value_at=(309.88, 180.34), value_justify="left")
     s.C("C11", "100nF 50V X7R", 330.2, 160.02, "+5V", "GND", decouple=True)
     s.text("ACS770: primary (IP+/IP-) in the load path; VCC/GND/VIOUT are CAN/logic side\n"
            "(+5V, GND). ~40 mV/A, 0.5 V at 0 A (unidirectional, ratiometric).", 287.02, 190.5, 1.0)
     s.part("Device:D", "D13", "ES3J", 152.4, 152.4, {"1": "/VOUT", "2": "/GND_LOAD"}, 90,
-           "Diode_SMD:D_SMC_Handsoldering", "Vishay", "ES3J-E3/57T", ref_at=(156.21, 151.13), value_at=(156.21, 153.67),
+           "Diode_SMD:D_SMC_Handsoldering", "onsemi", "ES3J", ref_at=(156.21, 151.13), value_at=(156.21, 153.67),
            value_justify="left")
     s.text("Freewheel diode, output to return:\nclamps inductive kick from DUT wiring.", 142.24, 165.1, 1.0)
     return s
@@ -451,7 +451,7 @@ def trip():
     s.C("C23", "100nF 50V X7R", 226.06, 99.06, "+5V", "GND", decouple=True)
     s.R("R25", "10k", 205.74, 50.8, "+5V", "/TRIP_OK")
     s.part("Device:D_Schottky", "D20", "BAT54", 205.74, 76.2, {"1": "/TRIP_OK", "2": "VTH"}, 0,
-           "Package_TO_SOT_SMD:SOT-23", "Nexperia", "BAT54,215", ref_at=(205.74, 72.39), value_at=(205.74, 80.01))
+           "Package_TO_SOT_SMD:SOT-23", "Diodes Incorporated", "BAT54-7-F", ref_at=(205.74, 72.39), value_at=(205.74, 80.01))
     s.text("Latch: on overcurrent the open-collector output pulls TRIP_OK low and D20 drags VTH to ~0.3 V,\n"
            "below the 0.5 V zero-current output, so it stays tripped. Unit B unused (output open).", 167.64, 116.84, 1.0)
 
@@ -575,12 +575,12 @@ def load_side():
            "Firmware closes the loop on the measured Vin, so DAC accuracy does not matter.", 248.92, 142.24, 1.0)
 
     # --- Mean Well remote ON/OFF ------------------------------------------------
-    s.part("Relay_SolidState:TLP222A", "U35", "TLP222A", 271.78, 175.26,
+    s.part("Relay_SolidState:TLP222A", "U35", "TLP240A", 271.78, 175.26,
            {"1": "RLY_A", "2": "GND", "3": "MW_RC_B", "4": "MW_RC_A"}, 0, "Package_DIP:DIP-4_W7.62mm_LongPads",
-           "Toshiba", "TLP222A(F)", ref_at=(271.78, 167.64), value_at=(271.78, 182.88))
+           "Toshiba", "TLP240A(F)", ref_at=(271.78, 167.64), value_at=(271.78, 182.88))
     s.R("R48", "680R", 248.92, 172.72, "/MW_REMOTE", "RLY_A", rot=90)
     s.R("R49", "100k", 236.22, 185.42, "/MW_REMOTE", "GND")
-    s.text("Remote ON/OFF: TLP222A contact closes the Mean Well's Remote to its +12V-AUX (60 V, 500 mA).\n"
+    s.text("Remote ON/OFF: TLP240A contact closes the Mean Well's Remote to its +12V-AUX (60 V, 500 mA).\n"
            "LED ~5.7 mA from MW_REMOTE; R49 keeps it off at reset -> supply off.", 226.06, 198.12, 1.0)
 
     # --- control connector -------------------------------------------------------
@@ -612,13 +612,13 @@ def display():
     s.C("C44", "10uF 25V X7R", 83.82, 139.7, "+5V", "GND")
     s.text("RSET 27k -> ~15 mA peak segment current (scan limit 5 digits:\n~3 mA average per segment). Lower RSET for a brighter display.",
            48.26, 157.48, 1.0)
-    s.part("Display_Character:CC56-12SRWA", "U41", "CC56-12SRWA", 190.5, 96.52,
+    s.part("Display_Character:CC56-12SRWA", "U41", "CC56-12SURKWA", 190.5, 96.52,
            {"11": "SEG_A", "7": "SEG_B", "4": "SEG_C", "2": "SEG_D", "1": "SEG_E", "10": "SEG_F", "5": "SEG_G",
             "3": "SEG_DP", "12": "DIG0", "9": "DIG1", "8": "DIG2", "6": "DIG3"}, 0,
-           "Display_7Segment:CA56-12SRWA", "Kingbright", "CC56-12SRWA", ref_at=(190.5, 81.28), value_at=(190.5, 115.57))
+           "Display_7Segment:CA56-12SRWA", "Kingbright", "CC56-12SURKWA", ref_at=(190.5, 81.28), value_at=(190.5, 115.57))
     for ref, seg, label, x in (("D40", "SEG_A", "V", 254.0), ("D41", "SEG_B", "A", 271.78)):
         s.part("Device:LED", ref, "LED green", x, 96.52, {"2": seg, "1": "DIG4"}, 90, FP["LED"],
-               "Lite-On", "LTST-C150GKT", ref_at=(x + 2.54, 95.25), value_at=(x + 2.54, 97.79), value_justify="left",
+               "Lite-On", "LTST-C150KGKT", ref_at=(x + 2.54, 95.25), value_at=(x + 2.54, 97.79), value_justify="left",
                hide_value=True)
         s.text(label, x + 2.54, 100.33, 1.5)
     s.text("V/A indicators on digit 4: D40 = segment A (V), D41 = segment B (A).\nPlace next to the display; label V and A on the silkscreen.",
