@@ -856,7 +856,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2817,7 +2817,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -3587,7 +3587,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -4018,7 +4018,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -4645,7 +4645,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -4817,7 +4817,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5589,7 +5589,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 0 7.35 0)
 			(layer "F.Fab")
 			(uuid "2286296a-07af-4b4a-b446-0ceabe079208")
@@ -5646,7 +5646,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6497,7 +6497,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 0)
 			(layer "F.Fab")
 			(uuid "c97e0f62-df4b-4cc3-b50d-448db380e636")
@@ -6554,7 +6554,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7800,7 +7800,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -7972,7 +7972,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -8173,7 +8173,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 90)
 			(layer "F.Fab")
 			(uuid "f5992556-5662-40a0-a8c4-50718d5dbd88")
@@ -8230,7 +8230,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8823,7 +8823,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 90)
 			(layer "F.Fab")
 			(uuid "d03f13ae-3e62-43ac-912f-8b4ddc73c092")
@@ -8880,7 +8880,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9396,7 +9396,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10417,7 +10417,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11220,7 +11220,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 0)
 			(layer "F.Fab")
 			(uuid "ea8158a8-90d9-469e-a157-a20eb40afab1")
@@ -11277,7 +11277,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11767,7 +11767,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 0)
 			(layer "F.Fab")
 			(uuid "ec6e5109-e44b-4724-9e4b-6cfced97e991")
@@ -11824,7 +11824,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -13277,7 +13277,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 0 7.35 0)
 			(layer "F.Fab")
 			(uuid "864e915c-8e5c-4f73-88c8-aa311a97be4e")
@@ -13334,7 +13334,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15574,7 +15574,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 0)
 			(layer "F.Fab")
 			(uuid "657c2728-6130-4d44-8bbf-701cb8de202e")
@@ -15631,7 +15631,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15746,7 +15746,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 0 7.35 0)
 			(layer "F.Fab")
 			(uuid "dd62affa-42cb-485d-8715-857024fd489a")
@@ -15803,7 +15803,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16502,7 +16502,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -18306,7 +18306,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 90)
 			(layer "F.Fab")
 			(uuid "9e779453-e8c2-47ac-b820-3592fd7cf0ab")
@@ -18363,7 +18363,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20144,7 +20144,7 @@
 				)
 			)
 		)
-		(property "MPN" "CL31B106KAHNNNE"
+		(property "MPN" "CL31B106KAHZW6E"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -20689,7 +20689,7 @@
 				)
 			)
 		)
-		(property "Value" "BLM31KN102SH1L"
+		(property "Value" "BLM31PG391SN1L"
 			(at 0 1.9 90)
 			(layer "F.Fab")
 			(uuid "d0b36a15-412b-4bdc-bca6-a69f5fcc2041")
@@ -20746,7 +20746,7 @@
 				)
 			)
 		)
-		(property "MPN" "BLM31KN102SH1L"
+		(property "MPN" "BLM31PG391SN1L"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20861,7 +20861,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 0 7.35 0)
 			(layer "F.Fab")
 			(uuid "a4d58059-42b3-47ee-a550-63cbd2efd8fb")
@@ -20918,7 +20918,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)

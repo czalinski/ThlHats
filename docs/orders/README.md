@@ -33,7 +33,8 @@ PH probe-helper.
 Both lists carry the 2026-10-12 substitutions for obsolete, unorderable and
 out-of-stock parts (docs/rev-b-changes.md), so they no longer match the
 `revA` tag's schematics part for part; the footprints are unchanged.
-can-ssr U40 MAX7219CWG+ is obsolete but still in stock: buy a spare or two.
+Not bought for rev A (`NOT_FITTED` in tools/order_bom.py): the can-ssr
+display, U40 (MAX7219, obsolete and expensive), U41, D40/D41, R50, C43/C44.
 
 Not in the board BOMs (order separately):
 

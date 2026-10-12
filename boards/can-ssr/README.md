@@ -64,6 +64,10 @@ overcurrent trip threshold and is read by the PIC as the build ID.
 
 ## Assembly
 
+Rev A: leave the display unfitted (U40 MAX7219, U41, D40/D41, R50, C43/C44;
+the MAX7219 is obsolete and expensive, rev B replaces it,
+docs/rev-b-changes.md). The board works without it; readings go over CAN.
+
 Busbars: C110 copper flat bar, 3.2 mm (1/8") thick. VIN, VOUT_SW and VOUT are
 12.7 mm (1/2") wide; the source node is 6.35 mm (1/4"). Each solders onto a
 strip of mask-free top copper:

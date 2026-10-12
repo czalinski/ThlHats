@@ -47,7 +47,7 @@ MPN = {
     "130k": ("Yageo", "RC1206FR-07130KL"), "1k": ("Yageo", "RC1206FR-071KL"),
     "100nF 50V X7R": ("KEMET", "C0805C104K5RACTU"),          # 0805, decoupling
     "100nF 50V X7R 1206": ("KEMET", "C1206C104K5RACTU"),     # 1206, AI filters
-    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHNNNE"),
+    "10uF 25V X7R": ("Samsung Electro-Mechanics", "CL31B106KAHZW6E"),
     "4.7uF 50V X7R": ("Samsung Electro-Mechanics", "CL31B475KBHNNNE"),
     "47R": ("Yageo", "RC1206FR-0747RL"),
     "10k 0.1%": ("Yageo", "RT1206BRD0710KL"), "15k 0.1%": ("Yageo", "RT1206BRD0715KL"),
