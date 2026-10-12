@@ -4288,7 +4288,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 116.84 83.82 0)
 			(effects
 				(font
@@ -4332,7 +4332,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 111.76 63.5 0)
 			(hide yes)
 			(effects
@@ -7511,7 +7511,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 116.84 139.7 0)
 			(effects
 				(font
@@ -7555,7 +7555,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 111.76 119.38 0)
 			(hide yes)
 			(effects
@@ -10728,7 +10728,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 116.84 195.58 0)
 			(effects
 				(font
@@ -10772,7 +10772,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 111.76 175.26 0)
 			(hide yes)
 			(effects
@@ -13945,7 +13945,7 @@
 				)
 			)
 		)
-		(property "Value" "ISOW1044"
+		(property "Value" "ISOW1044B"
 			(at 116.84 251.46 0)
 			(effects
 				(font
@@ -13989,7 +13989,7 @@
 				)
 			)
 		)
-		(property "MPN" "ISOW1044DFMR"
+		(property "MPN" "ISOW1044BDFMR"
 			(at 111.76 231.14 0)
 			(hide yes)
 			(effects

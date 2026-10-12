@@ -393,8 +393,8 @@ def can_sheet():
                 "8": "~", "9": "+5V", "10": "GND", "11": f"GND2_{n}", "12": f"VISO{n}", "13": f"VISO{n}",
                 "14": "~", "15": f"GND_CAN{n}", "16": f"GND_CAN{n}", "17": f"GND_CAN{n}", "18": f"CANL{n}",
                 "19": f"CANH{n}", "20": f"VCAN{n}"}
-        s.part("Interface_CAN_LIN:ISOW1044", f"U{10 + i}", "ISOW1044", x0 + 60.96, y0 + 12.7, nets, 0,
-               "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm", "Texas Instruments", "ISOW1044DFMR",
+        s.part("Interface_CAN_LIN:ISOW1044", f"U{10 + i}", "ISOW1044B", x0 + 60.96, y0 + 12.7, nets, 0,
+               "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm", "Texas Instruments", "ISOW1044BDFMR",
                ref_at=(x0 + 66.04, y0 - 7.62), value_at=(x0 + 66.04, y0 + 33.02))
         s.C(f"C{40 + 4 * i}", "100nF 50V X7R", x0 + 12.7, y0 + 30.48, "+3V3", "GND", decouple=True)
         s.C(f"C{41 + 4 * i}", "10uF 25V X7R", x0 + 25.4, y0 + 30.48, "+5V", "GND")

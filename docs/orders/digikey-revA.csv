@@ -76,7 +76,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 4,IPB107N20N3GATMA1,Infineon,IPB107N20N3G,can-ssr:4
 1,ISO1540DR,Texas Instruments,ISO1540,io-card:1
 1,ISO1640DWR,Texas Instruments,ISO1640DWR,can-ssr:1
-4,ISOW1044DFMR,Texas Instruments,ISOW1044,can-card:4
+4,ISOW1044BDFMR,Texas Instruments,ISOW1044B,can-card:4
 2,ISOW1432DFMR,Texas Instruments,ISOW1432,serial-card:2
 1,JD0-0004NL,Pulse Electronics,JD0-0004NL,core:1
 8,LTST-C150KGKT,Lite-On,LED green,core:3 serial-card:4 can-ssr:1
