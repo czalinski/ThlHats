@@ -2443,7 +2443,7 @@
 				)
 			)
 		)
-		(property "Value" "SUD50P04-08"
+		(property "Value" "SQD50P04-09L"
 			(at 0 4.5 180)
 			(layer "F.Fab")
 			(uuid "ee94607a-7127-4fc2-93e2-6ba8a14bd69a")
@@ -2500,7 +2500,7 @@
 				)
 			)
 		)
-		(property "MPN" "SUD50P04-08-GE3"
+		(property "MPN" "SQD50P04-09L_GE3"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -8531,7 +8531,7 @@
 				)
 			)
 		)
-		(property "Value" "SMBJ15A"
+		(property "Value" "P6SMBJ15A"
 			(at 0 3 90)
 			(layer "F.Fab")
 			(uuid "86c9050f-1529-460d-9e68-8b9c9080ab2b")
@@ -8568,7 +8568,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Littelfuse"
+		(property "Manufacturer" "Diotec Semiconductor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8580,7 +8580,7 @@
 				)
 			)
 		)
-		(property "MPN" "SMBJ15A"
+		(property "MPN" "P6SMBJ15A"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)

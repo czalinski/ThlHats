@@ -223,8 +223,8 @@ def can_logic():
     # --- 12 V tap and 5 V supply ---------------------------------------
     s.text("Node power from the CAN cable. Reverse-polarity diode and TVS on the tap;\n"
            "the bus +12 V passes between the two levels of J1 unswitched.", 25.4, 106.68)
-    s.part("Device:D_Zener", "D2", "SMBJ15A", 38.1, 127.0, {"1": "V12_BUS", "2": "GND"}, 90,
-           "Diode_SMD:D_SMB_Handsoldering", "Littelfuse", "SMBJ15A", ref_at=(43.18, 125.73), value_at=(43.18, 128.27),
+    s.part("Device:D_Zener", "D2", "P6SMBJ15A", 38.1, 127.0, {"1": "V12_BUS", "2": "GND"}, 90,
+           "Diode_SMD:D_SMB_Handsoldering", "Diotec Semiconductor", "P6SMBJ15A", ref_at=(43.18, 125.73), value_at=(43.18, 128.27),
            value_justify="left")
     s.part("Device:D_Schottky", "D1", "B340A", 58.42, 116.84, {"2": "V12_BUS", "1": "+12V"}, 0,
            "Diode_SMD:D_SMA_Handsoldering", "Diodes Incorporated", "B340A-13-F",

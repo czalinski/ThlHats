@@ -45,11 +45,15 @@ equivalents, review for rev B whether to keep the swap or go back):
 | Yageo RC1206FR-07330RL | Stackpole RMCF1206FT330R | core, io-card |
 | Nexperia BAT54,215 | Diodes Inc BAT54-7-F | can-ssr |
 | Nexperia BAT54S,215 | Diodes Inc BAT54S-7-F | io-card |
+| Vishay SUD50P04-08-GE3 (core Q1, reverse-polarity P-FET) | Vishay SQD50P04-09L_GE3: same DPAK pinout, -40 V, +/-20 V gate, 9.4 mOhm at -10 V | core |
+| Littelfuse SMBJ15A (12 V input TVS) | Diotec P6SMBJ15A: 600 W unidirectional, SMB, 15 V stand-off | core, can-ssr |
 | TI ISOW1044DFMR (reinforced isolation) | TI ISOW1044BDFMR: same part and pinout, basic isolation; the CAN buses are low-voltage, isolated against ground loops, not for safety | can-card |
 
-Also out of stock then, not changed (no equivalent without a design
-change; expected back in stock): ISOW1432DFMR, IPB107N20N3GATMA1,
-SUD50P04-08-GE3, MCP1826S-3302E/DB, Phoenix 1844317.
+Also out of stock then, not changed in the design: IPB107N20N3GATMA1 and
+MCP1826S-3302E/DB (bought under their other ordering codes, IPB107N20N3 G
+and MCP1826ST-3302E/DB: same parts); Phoenix 1844317 (no equivalent without
+a design change; bought elsewhere); ISOW1432DFMR (replaced in the rev B
+plan below).
 
 ## To do in rev B
 

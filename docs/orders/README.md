@@ -60,3 +60,10 @@ breaks; LEDs, most pin headers and the RJ45 left out as already in stock;
 can-card and serial-card bought for rev B per docs/rev-b-changes.md).
 Reviewed 2026-10-12: substitutions fine; ICs, connectors and stacking
 sockets still missing from it were listed to the user.
+
+`mouser-cart-2026-10-12.xls`: the cart as ordered (107 lines, at least two
+sets of every part). Not in it: Phoenix 1844317 (out of stock at Mouser,
+bought elsewhere), the T821110A1R100CEU box headers (DigiKey), and the
+LEDs, Samtec TSW headers, JD0-0004NL and the probe-helper's 68016-136HLF
+and 61201021621, already in stock. The core and can-ssr 12 V TVS is the
+Diotec P6SMBJ15A (Littelfuse SMBJ15A was out of stock).

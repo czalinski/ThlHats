@@ -59,7 +59,7 @@ the "Superseded" sections are from the old scope and will be redone;
 | Relay x4 | 2 x Panasonic AQW212 (2 Form A) | DIP-8 THT | 60 V, 0.5 A/ch, 2.5 R max, 1.5 kVrms; drive the LED at about 5 mA |
 | Relay flyback x4 | 1N4148W / S1G class | SOD-123 / SMA | OUTn to 0 V |
 | Relay feed | PTC | 1812 | shared by the 4 outputs |
-| 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, SMBJ15A TVS | | |
+| 12 V input | MSTBVA 2,5/2-G-5,08, fuse, P-FET reverse polarity, P6SMBJ15A TVS | | |
 | GPIO x4 | series R 1206 + ESD clamp | | 3.3 V only |
 | AI dividers x4 (2 per channel) | 10M + 130k 1206, 0.1 uF, BAT54S clamp per leg | | 10M needs a voltage-rated 1206 (or two in series); matching sets common-mode rejection |
 | VMID | 3.3 V divider + PIC32MK OA5 follower | | also sampled by the ADC (AN25) |
@@ -210,7 +210,7 @@ Library status: **stock** = in KiCad's stock libraries (import with
 | CAN bus supply | resettable fuse, 1812, hold ~1.1 A | 1812 | stock fp | footprint on all four buses; **fitted on CAN1 only** (the can-ssr bus). CAN2-4 (DUT buses) are DNP, so pin 4 is dead unless a fuse is fitted (decided 2026-10-05) |
 | Relay isolators x2 | **ISO6740** (4 forward channels; ISO6741 is 3+1) | SOIC-16W | stock | 12 V side from the 5 V buck |
 | Relay driver | ULN2803A | SOIC-18W | stock | |
-| 12 V input | MSTBVA 2,5/2-G-5,08, NANO2 4 A fuse, SUD50P04-08 P-FET (reverse polarity), SMBJ15A TVS | | stock | |
+| 12 V input | MSTBVA 2,5/2-G-5,08, NANO2 4 A fuse, SQD50P04-09L P-FET (reverse polarity), P6SMBJ15A TVS | | stock | |
 | 12 V to 5 V | RECOM R-78E5.0-0.5 | SIP-3 | in lib/ | ISO1044/ISO6740 bus sides |
 | 12 V status | TLP293 | SO-4 | stock | LED on the logic side |
 | GPIO series R x8 | 4.7k 1206 (decided 2026-10-05, not a network) | 1206 | stock | GPIO is split over two connectors 30 mm apart; each resistor sits at its connector pin, next to its clamp |

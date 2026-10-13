@@ -449,15 +449,15 @@ def power_sheet():
     s.part("Device:Fuse", "F20", "4A", 63.5, 58.42, {"1": "V12_IN", "2": "V12_F"}, 90,
            "Fuse:Fuse_Littelfuse-NANO2-451_453", "Littelfuse", "0451004.MRL", ref_at=(63.5, 54.61),
            value_at=(63.5, 62.23))
-    s.part("Transistor_FET:SUD19P06-60", "Q1", "SUD50P04-08", 96.52, 60.96, {"2": "V12_F", "3": "+12V", "1": "Q1_G"},
-           270, "Package_TO_SOT_SMD:TO-252-2", "Vishay", "SUD50P04-08-GE3", ref_at=(96.52, 53.34),
+    s.part("Transistor_FET:SUD19P06-60", "Q1", "SQD50P04-09L", 96.52, 60.96, {"2": "V12_F", "3": "+12V", "1": "Q1_G"},
+           270, "Package_TO_SOT_SMD:TO-252-2", "Vishay", "SQD50P04-09L_GE3", ref_at=(96.52, 53.34),
            value_at=(96.52, 68.58))
     s.part("Device:D_Zener", "D30", "15V", 111.76, 83.82, {"1": "+12V", "2": "Q1_G"}, 90, FP["SOD123"],
            "Diodes Incorporated", "BZT52C15-7-F", ref_at=(116.84, 82.55), value_at=(116.84, 85.09),
            value_justify="left")
     s.R("R40", "10k", 96.52, 96.52, "Q1_G", "/GND_RACK")
-    s.part("Device:D_Zener", "D31", "SMBJ15A", 132.08, 83.82, {"1": "+12V", "2": "/GND_RACK"}, 90,
-           "Diode_SMD:D_SMB_Handsoldering", "Littelfuse", "SMBJ15A", ref_at=(137.16, 82.55),
+    s.part("Device:D_Zener", "D31", "P6SMBJ15A", 132.08, 83.82, {"1": "+12V", "2": "/GND_RACK"}, 90,
+           "Diode_SMD:D_SMB_Handsoldering", "Diotec Semiconductor", "P6SMBJ15A", ref_at=(137.16, 82.55),
            value_at=(137.16, 85.09), value_justify="left")
     s.C("C60", "10uF 25V X7R", 149.86, 83.82, "+12V", "/GND_RACK")
     s.C("C61", "10uF 25V X7R", 162.56, 83.82, "+12V", "/GND_RACK")

@@ -6243,7 +6243,7 @@
 				)
 			)
 		)
-		(property "Value" "SMBJ15A"
+		(property "Value" "P6SMBJ15A"
 			(at 43.18 128.27 0)
 			(effects
 				(font
@@ -6279,7 +6279,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Littelfuse"
+		(property "Manufacturer" "Diotec Semiconductor"
 			(at 38.1 127 0)
 			(hide yes)
 			(effects
@@ -6288,7 +6288,7 @@
 				)
 			)
 		)
-		(property "MPN" "SMBJ15A"
+		(property "MPN" "P6SMBJ15A"
 			(at 38.1 127 0)
 			(hide yes)
 			(effects

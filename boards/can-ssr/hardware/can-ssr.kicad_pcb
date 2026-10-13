@@ -16263,7 +16263,7 @@
 				)
 			)
 		)
-		(property "Value" "SMBJ15A"
+		(property "Value" "P6SMBJ15A"
 			(at 0 3 90)
 			(layer "F.Fab")
 			(uuid "5323254e-748f-4ea6-bc8c-d2ac675179f9")
@@ -16300,7 +16300,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Littelfuse"
+		(property "Manufacturer" "Diotec Semiconductor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16312,7 +16312,7 @@
 				)
 			)
 		)
-		(property "MPN" "SMBJ15A"
+		(property "MPN" "P6SMBJ15A"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)

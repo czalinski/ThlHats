@@ -94,6 +94,7 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 1,MMBT2907ALT1G,onsemi,MMBT2907A,can-ssr:1
 5,NUP2105LT1G,onsemi,NUP2105L,can-card:4 can-ssr:1
 1,OPA4171AIDR,Texas Instruments,OPA4171,io-card:1
+2,P6SMBJ15A,Diotec Semiconductor,P6SMBJ15A,core:1 can-ssr:1
 1,61201021621,Wurth Elektronik,Pi pins 31-40,probe-helper:1
 1,PIC18F47Q84-I/PT,Microchip Technology,PIC18F47Q84-I/PT,can-ssr:1
 1,PIC32MK1024MCM064-I/PT,Microchip Technology,PIC32MK1024MCM064-I/PT,core:1
@@ -105,11 +106,10 @@ Quantity,Manufacturer Part Number,Manufacturer,Description,Customer Reference
 4,T821110A1R100CEU,Amphenol,RS-232 2,serial-card:4
 2,SM712.TCT,Semtech,SM712,serial-card:2
 1,SMAZ15-13-F,Diodes Incorporated,SMAZ15,can-ssr:1
-2,SMBJ15A,Littelfuse,SMBJ15A,core:1 can-ssr:1
+1,SQD50P04-09L_GE3,Vishay,SQD50P04-09L,core:1
 1,ST3232BDR,STMicroelectronics,ST3232B,serial-card:1
 3,ESQ-120-14-G-D,Samtec,STACK BUS,can-card:1 io-card:1 serial-card:1
 1,TSW-120-07-G-D,Samtec,STACK BUS,core:1
-1,SUD50P04-08-GE3,Vishay,SUD50P04-08,core:1
 1,TDN 5-2411WI,TRACO Power,TDN 5-2411WI,core:1
 9,TSW-102-07-G-S,Samtec,TERM,can-card:6 serial-card:2 can-ssr:1
 1,TLP240A(F),Toshiba,TLP240A,can-ssr:1
