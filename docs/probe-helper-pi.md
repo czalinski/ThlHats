@@ -163,6 +163,28 @@ needs KiCad and runs on the PC; `run` needs only Python. To see
 `test/current.png` (the two points to touch), use a monitor, or open it over
 the network from the PC (e.g. `sshfs`, or `eog` with X forwarding).
 
+### Touch screen station
+
+`tools/probe_station.py` runs the same test full screen on the Pi's 800 × 480
+touch display (python3-pygame, python3-pil): tap the board type, TEST or
+GOLDEN, enter the serial number, then follow the map. A step passes once its
+readings stay in bounds (TEST: against the golden mean, as `tptest.py`
+judges; GOLDEN: stable within 2 %) for 4 s. Results and golden readings go to
+the same files as `tptest.py`. `--meter demo` simulates the meter and the
+operator (no hardware; writes no golden.json), `--kiosk` hides the cursor.
+
+Autostart at login (labwc desktop), `~/.config/autostart/probe-station.desktop`:
+
+```ini
+[Desktop Entry]
+Type=Application
+Name=Probe station
+Exec=sh -c "sleep 3; exec python3 /home/hwtest/ThlHats/tools/probe_station.py --kiosk > /tmp/probe_station.log 2>&1"
+```
+
+Add `--meter demo` until the probe-helper board is fitted: without it the
+readings are meaningless.
+
 ## Bring-up
 
 1. `selftest`: the ID register should report an ADS1263, and each source
